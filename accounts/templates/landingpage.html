@@ -1,0 +1,378 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Cache-Control" content="NO-CACHE" />
+    <title>Viking Universe</title>
+    <link href="{% static 'landingpage/images/logo/favicon.jpg' %}" rel="icon" />
+    <link href="{% static 'landingpage/images/logo/favicon.jpg' %}" rel="apple-touch-icon" />
+    <meta name="title" content="Viking Universe">
+    <meta name="description" content="Viking Universe is a global professional service company, providing a broad range of services and solutions in creative design, writing, marketing, and business operations. We are committed to delivering superior quality and results for our clients by having integrity in everything that we do and look at each decision or project we encounter not as what is most profitable in that moment, but as what will bring success in the long-run.">
+    <meta name="keywords" content="Viking Universe, viking universe, vikinguniverse.com">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="vikinguniverse.com">
+    <meta property="og:title" content="Viking Universe">
+    <meta property="og:description" content="Viking Universe is a global professional service company, providing a broad range of services and solutions in creative design, writing, marketing, and business operations. We are committed to delivering superior quality and results for our clients by having integrity in everything that we do and look at each decision or project we encounter not as what is most profitable in that moment, but as what will bring success in the long-run.">
+    <meta property="og:image" content="{% static 'landingpage/images/logo/meta-viking-universe.png' %}">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="vikinguniverse.com">
+    <meta property="twitter:title" content="Viking Universe">
+    <meta property="twitter:description" content="Viking Universe is a global professional service company, providing a broad range of services and solutions in creative design, writing, marketing, and business operations. We are committed to delivering superior quality and results for our clients by having integrity in everything that we do and look at each decision or project we encounter not as what is most profitable in that moment, but as what will bring success in the long-run.">
+    <meta property="twitter:image" content="{% static 'landingpage/images/logo/meta-viking-universe.png' %}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="{% static 'landingpage/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'landingpage/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landingpage/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'landingpage/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landingpage/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landingpage/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'landingpage/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landingpage/css/style.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <header id="header" class="fixed-top d-flex align-items-center">
+      	<div class="container d-flex align-items-center justify-content-between">
+        	<div class="logo">
+          		<h1></h1>
+          		<a href="{% url 'LandingPage' %}" target="_self">
+            		<img src="{% static 'landingpage/images/logo/viking-universe.png' %}" alt="" class="img-fluid">
+          		</a>
+        	</div>
+        	<nav id="navbar" class="navbar">
+          		<ul>
+            		<li>
+              			<a class="nav-link scrollto active" href="#hero">Home</a>
+            		</li>
+            		<li>
+              			<a class="nav-link scrollto" href="#about">About</a>
+            		</li>
+            		<li>
+              			<a class="nav-link scrollto" href="#services">Services</a>
+            		</li>
+            		<li>
+              			<a class="nav-link scrollto" href="#faqs">FAQs</a>
+            		</li>
+            		<li>
+              			<a class="nav-link scrollto " href="#contact">Contact Us</a>
+            		</li>
+                <li>
+                  <a class='nav-link scrollto' href="{% url 'accountLogin' %}">Login</a>
+                </li>
+          		</ul>
+          		<i class="bi bi-list mobile-nav-toggle"></i>
+        	</nav>
+      	</div>
+    </header>
+    <section id="hero" class="d-flex align-items-center">
+      	<div class="container">
+        	<div class="row">
+          		<div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            		<h1 data-aos="fade-up">Committed to <br />Superior Quality & Results </h1>
+            		<h2 data-aos="fade-up" data-aos-delay="400">Providing a broad range of services and solutions in creative design, writing, marketing, and business operations. </h2>
+            		<div data-aos="fade-up" data-aos-delay="800">
+              			<a href="#contact" class="btn-get-started scrollto">Connect with Us</a>
+            		</div>
+          		</div>
+          		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
+            		<img src="{% static 'landingpage/images/vu-atwork.png' %}" class="img-fluid animated" alt="">
+          		</div>
+        	</div>
+      	</div>
+    </section>
+    <main id="main">
+      	<section id="about" class="about">
+        	<div class="container">
+          		<div class="section-title" data-aos="fade-up">
+            		<h2>Why Viking Universe</h2>
+          		</div>
+          		<div class="row content">
+            		<div class="col-lg-12" data-aos="fade-up" data-aos-delay="150">
+              			<p>
+                			<b> We are committed to delivering superior quality and results for our clients by having integrity in everything that we do and look at each decision or project we encounter not as what is most profitable in that moment, but as what will bring success in the long-run. <a href="pages/about-us">Read more...</a>
+                  			<br />
+                  			<br />
+                			</b>
+              			</p>
+            		</div>
+          		</div>
+        	</div>
+      	</section>
+      	<section id="counts" class="counts">
+        	<div class="container">
+          		<div class="row">
+            		<div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-xl-start" data-aos="fade-right" data-aos-delay="150">
+              			<img src="{% static 'landingpage/images/company.png' %}" alt="" class="img-fluid">
+            		</div>
+            		<div class="col-xl-7 d-flex align-items-stretch pt-4 pt-xl-0" data-aos="fade-left" data-aos-delay="300">
+              			<div class="content d-flex flex-column justify-content-center">
+                			<div class="row">
+                  				<div class="col-md-6 d-md-flex align-items-md-stretch">
+                    				<div class="count-box">
+                      					<i class="bi bi-emoji-smile"></i>
+                      						<p>We value having congruent and excellent relationships because we believe that it’s important that in every clients we have, we create a <b>true connection</b>. </p>
+                    				</div>
+                  				</div>
+                  				<div class="col-md-6 d-md-flex align-items-md-stretch">
+                    				<div class="count-box">
+                      					<i class="bi bi-speedometer"></i>
+                      					<p>
+                        					<b>Viking Universe culture</b> represents our inner fire for helping our clients. We empower our team to exceed challenges and celebrate what makes us unique.
+                      					</p>
+                    				</div>
+                  				</div>
+                  				<div class="col-md-6 d-md-flex align-items-md-stretch">
+                    				<div class="count-box">
+                      					<i class="bi bi-journal-richtext"></i>
+                      					<p>We believe in the <b>impossible and going above and beyond</b> to create a seamless and exciting experience for our clients. </p>
+                    				</div>
+                  				</div>
+                  				<div class="col-md-6 d-md-flex align-items-md-stretch">
+                    				<div class="count-box">
+                      					<i class="bi bi-people"></i>
+                      					<p>What makes us stand out is our <b>collaboration-style</b> within departments that creates a total and complete win for everyone. We support each other with inspiration, motivation, and hope for the future. </p>
+                    				</div>
+                  				</div>
+                			</div>
+              			</div>
+            		</div>
+          		</div>
+        	</div>
+      	</section>
+      	<section id="services" class="team section-bg">
+        	<div class="container">
+          		<div class="section-title" data-aos="fade-up">
+            		<h2>Services</h2>
+          		</div>
+          		<div class="row">
+            		<div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+              			<div class="member" data-aos="fade-up" data-aos-delay="100">
+                			<div class="member-img">
+                  				<img src="{% static 'landingpage/images/services/service-1.jpg' %}" class="img-fluid" alt="">
+                  				<a href="services/digital-marketing-assistance">
+                    				<div class="social"> Digital Marketing Assistance </div>
+                  				</a>
+                			</div>
+                			<div class="member-info">
+                  				<h4>
+                    				<a href="services/digital-marketing-assistance">
+                      					<u>Digital Marketing Assistance</u>
+                    				</a>
+                  				</h4>
+                  				<span> Get all your design needs met with our creativity that empowers your business. Let's get to work creating your next one-of-a-kind perfect branding experience. Multiple design services await you. Explore and let's get started! </span>
+                			</div>
+              			</div>
+            		</div>
+            		<div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+              			<div class="member" data-aos="fade-up" data-aos-delay="200">
+                			<div class="member-img">
+                  				<img src="{% static 'landingpage/images/services/service-2.jpg' %}" class="img-fluid" alt="">
+                  				<a href="services/content-creative-writing">
+                    				<div class="social"> Content & Creative Writing </div>
+                  				</a>
+                			</div>
+                			<div class="member-info">
+	                  			<h4>
+	                    			<a href="services/content-creative-writing">
+	                      				<u>Content & Creative Writing</u>
+	                    			</a>
+	                  			</h4>
+	                  			<span> Raise the bar with quality copy from a world-class team of professional and creative writers with flexibility. We write exceptional content for your projects to help you elevate business processes, brand experiences, and achieve great success. Go deeper to learn more about our services and start your journey with us! </span>
+                			</div>
+              			</div>
+            		</div>
+            		<div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+              			<div class="member" data-aos="fade-up" data-aos-delay="300">
+                			<div class="member-img">
+                  				<img src="{% static 'landingpage/images/services/service-3.jpg' %}" class="img-fluid" alt="">
+                  				<a href="services/design">
+                    				<div class="social"> Design </div>
+                  				</a>
+                			</div>
+                			<div class="member-info">
+                  				<h4>
+                    				<a href="services/design">
+                      					<u>Design</u>
+                    				</a>
+                  				</h4>
+                  				<span>We are a perfectly disruptive synthesis of people, technology, and expertise, delivering high quality, flexible, and scalable digital marketing solutions for the world's startups, scale-ups, and blue-chips. Checkout and learn more about the marketing services we provide.</span>
+                			</div>
+              			</div>
+            		</div>
+            		<div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+              			<div class="member" data-aos="fade-up" data-aos-delay="400">
+                			<div class="member-img">
+                  				<img src="{% static 'landingpage/images/services/service-4.jpg' %}" class="img-fluid" alt="">
+                  				<a href="services/business-operational-assistance">
+                    				<div class="social"> Business & Operational Assistance </div>
+                  				</a>
+                			</div>
+                			<div class="member-info">
+                  				<h4>
+                    				<a href="services/business-operational-assistance">
+                      					<u>Business & Operational Assistance</u>
+                    				</a>
+                  				</h4>
+                  				<span> With wide-ranging business processes to make every part of the success seamless, delivering an amazing service has been easier with Viking Universe. Let us help you unlock innovation, maximize efficiency, and scaleup your business operations. Learn more about our services. </span>
+                			</div>
+              			</div>
+            		</div>
+          		</div>
+        	</div>
+      	</section>
+      <section id="faqs" class="faq">
+        <div class="container">
+          <div class="section-title" data-aos="fade-up">
+            <h2>Frequently Asked Questions</h2>
+          </div>
+          <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-5">
+              <i class="ri-question-line"></i>
+              <h4>What is a <b>service subscription plan</b>? </h4>
+            </div>
+            <div class="col-lg-7">
+              <p>Viking Universe service subscription plans are regulated by a <b>monthly hour limit of 160</b>. The subscription plans are <b>monthly agreements</b> at promoted rates that will start the day that you purchase a service subscription plan, and will be charged to you for the same day. By subscribing to our services means you will have all the advantages of the benefits as promoted, and you can utilize the monthly hour limit according to your needs. </p>
+            </div>
+          </div>
+          <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-lg-5">
+              <i class="ri-question-line"></i>
+              <h4>How does <b>monthly recurring payment</b> work? </h4>
+            </div>
+            <div class="col-lg-7">
+              <p>
+                <b>Once you purchase a service subscription plan with us, you will be charged monthly; on the same day that you purchased unless you cancel it.</b> For instance, your date of subscription is August 12, and then your next month's billing will be September 12 and so on.
+              </p>
+            </div>
+          </div>
+          <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-lg-5">
+              <i class="ri-question-line"></i>
+              <h4>What is <b>included in my service subscription plan</b>? </h4>
+            </div>
+            <div class="col-lg-7">
+              <p>Every service subscription plan comes with <b>flexible 160 hours of service</b> from us. Remaining or unused hours for the subscribed month will be credited to the following month if you wish to continue your subscription. </p>
+            </div>
+          </div>
+          <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+            <div class="col-lg-5">
+              <i class="ri-question-line"></i>
+              <h4>What are the <b>payment methods</b>? </h4>
+            </div>
+            <div class="col-lg-7">
+              <p>As of the moment, we only accept <b>credit cards</b> as a payment method for your convenience and safety. We will gladly notify you once we have updated the other methods of payment. </p>
+            </div>
+          </div>
+          <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
+            <div class="col-lg-5">
+              <i class="ri-question-line"></i>
+              <h4>Is there any <b>limit on a subscription per account</b>? </h4>
+            </div>
+            <div class="col-lg-7">
+              <p>There are <b>no limits to our services</b>. You can definitely have multiple subscriptions under one account. All you have to do is subscribe to the subscription plans of services that you wish to obtain. </p>
+            </div>
+          </div>
+          <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
+            <div class="col-lg-5">
+              <i class="ri-question-line"></i>
+              <h4>Is my <b>account transferable</b>? </h4>
+            </div>
+            <div class="col-lg-7">
+              <p>Your account is <b>non-transferable</b>. You cannot freely transfer the use of your subscription, however, you are allowed to purchase a specific service subscription plan for another person under your existing account. </p>
+            </div>
+          </div>
+          <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
+            <div class="col-lg-5">
+              <i class="ri-question-line"></i>
+              <h4>What will happen to my subscription if my <b>credit card is declined</b>? </h4>
+            </div>
+            <div class="col-lg-7">
+              <p>
+                <b>We will send a notification by email to inform you and we will give you 24 hours to resolve the issue</b>. If the issue is not yet resolved, we will pause or terminate your subscription and reactivate it once your payment has successfully appeared.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="contact" class="contact">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="contact-about">
+                <h3>Viking Universe</h3>
+                <p>Viking Universe is a global offshore outsourcing company, providing a broad range of services and solutions in creative design, writing, marketing, and business operations. <a href="pages/about-us">Read more...</a>
+                </p>
+                <div class="social-links">
+                  <a href="https://twitter.com/vikinguniverse" class="twitter" target="_blank">
+                    <i class="bi bi-twitter"></i>
+                  </a>
+                  <a href="https://www.facebook.com/Viking-Universe-LLC-104612335693513" class="facebook" target="_blank">
+                    <i class="bi bi-facebook"></i>
+                  </a>
+                  <a href="https://www.instagram.com/vikinguniverse" class="instagram" target="_blank">
+                    <i class="bi bi-instagram"></i>
+                  </a>
+                  <a href="https://www.pinterest.ph/vikinguniversellc" class="pinterest" target="_blank">
+                    <i class="bi bi-pinterest"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
+              <div class="info">
+                <div>
+                  <i class="ri-mail-send-line"></i> Send us an email at: <p>
+                  <h3>
+                    <a href="mailto:info@vikinguniverse.com">info@vikinguniverse.com</a>
+                    </b>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer id="footer">
+      <div class="container">
+        <div class="row d-flex align-items-center">
+          <div class="col-lg-6 text-lg-left text-center">
+            <div class="copyright"> &copy; 2022 All Rights Reserved, <strong>
+                <a href="vikinguniverse.com">Viking Universe</a>
+              </strong>
+            </div>
+            <div class="credits">
+              <!-- Licensing information: https://bootstrapmade.com/license/ -->
+              <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/vesperr-free-bootstrap-template/ -->
+              <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+              <a href="#hero" class="scrollto">Home</a>
+              <a href="#about" class="scrollto">About Us</a>
+              <a href="pages/privacy-policy">Privacy Policy</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+      <i class="bi bi-arrow-up-short"></i>
+    </a>
+    <script src="{% static 'landingpage/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+    <script src="{% static 'landingpage/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'landingpage/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'landingpage/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'landingpage/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'landingpage/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'landingpage/js/main.js' %}"></script>
+  </body>
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-237895091-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-237895091-1');
+</script><script type="text/javascript" id="zsiqchat">var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode: "d61e29041ad85977038197f2223e74cd0eb7cc3a4a18ae0f41b16925c7fe34446e251178aaf03043dfae5ba06c9d63d8", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.eu/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);</script><script type="text/javascript">(function(w,s){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.src="https://cdn-eu.pagesense.io/js/vikingassetmanagementllc/f2fae71b0bc048248b730e2005b4626b.js";var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(e,x);})(window,"script");</script> -->
+</html>
