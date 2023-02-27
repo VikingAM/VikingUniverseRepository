@@ -6,3 +6,9 @@ def landingpage(request):
 
 def pricingPage(request):
 	return render(request, 'pricing.html')
+
+def FAQs(request):
+	return render(request, 'FAQs.html')
+
+def LandingServicesPage(request):
+	return render(request, 'services.html')

@@ -23,5 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", vikinguniverseViews.landingpage, name="LandingPage"),
     path("pricing", vikinguniverseViews.pricingPage, name="PricingPage"),
+    path("FAQs", vikinguniverseViews.FAQs, name="FAQs"),
+    path('services', vikinguniverseViews.LandingServicesPage, name="LandingServicesPage"),
     path('accounts/', include('accounts.urls')),
 ]

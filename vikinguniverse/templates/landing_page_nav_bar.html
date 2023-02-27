@@ -10,10 +10,29 @@
         </div>
         <!-- Items-->
         <div class="hidden md:flex space-x-14 text-white font-Jost">
-            <a href="{% url 'LandingPage' %}" class="hover:text-yellow-300 text-highlightColor">Home</a>
-            <a href="{% url 'PricingPage' %}" class="hover:text-yellow-300">Pricing</a>
-            <a href="faqs.html" class="hover:text-yellow-300">FAQs</a>
-            <a href="services.html" class="hover:text-yellow-300">Services</a>
+            {% if request.path == '/' %}
+                <a href="{% url 'LandingPage' %}" class="hover:text-yellow-300 text-highlightColor">Home</a>
+            {% else %}
+                <a href="{% url 'LandingPage' %}" class="hover:text-yellow-300">Home</a>
+            {% endif %}
+            
+            {% if request.path == '/pricing' %}
+                <a href="{% url 'PricingPage' %}" class="hover:text-yellow-300 text-highlightColor">Pricing</a>
+            {% else %}
+                <a href="{% url 'PricingPage' %}" class="hover:text-yellow-300">Pricing</a>
+            {% endif %}
+            
+            {% if request.path == '/FAQs' %}
+                <a href="{% url 'FAQs' %}" class="hover:text-yellow-300 text-highlightColor">FAQs</a>
+            {% else %}
+                <a href="{% url 'FAQs' %}" class="hover:text-yellow-300">FAQs</a>
+            {% endif %}
+            {% if request.path == '/services' %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-yellow-300 text-highlightColor">Services</a>
+            {% else %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-yellow-300">Services</a>
+            {% endif %}
+            
         </div>
         <!-- Button -->
         <a href="{% url 'accountLogin' %}" class="font-Jost hidden lg:block p-1 px-5 mr-24 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500">
