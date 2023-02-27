@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
+    <title>Pricing | Viking Asset Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
+    <!-- Navbar -->
+    {% include 'landing_page_nav_bar.html' %}
+    <!-- Navbar -->
+    <div class="mx-6 text-center font-Poppins">
+        <p class="text-servicesColor font-SecularOne xl:mt-14 lg:mt-14 md:mt-14 sm:mt-14 text-4xl"><b>Our Services</b></p>
+    </div>
+    
+    <br><br><br>
+    <div class="grid grid-cols-4 mx-40 font-Poppins">
+
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><h1>Design and Arts</h1></center><br>
+            </center><p class="mb-10">Content Writing Needs to be done</p></center>
+            <a href="/html/services/design_arts.html" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+        </div>
+        
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center><img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><h1>Digital Marketing</h1><br></center>
+            <center><p class="mb-10">Content Writing Needs to be done</p></center>
+            <a href="../html/services/digital_marketing.html" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+        </div>
+
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center><img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><h1>Writing and Translation</h1><br></center>
+            <center><p class="mb-10">Content Writing Needs to be done</p></center>
+            <a href="../html/services/writing_translation.html" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+        </div>
+
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center><img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><h1>Development and IT</h1><br></center>
+            <center><p class="mb-10">Content Writing Needs to be done</p></center>
+            <a href="../html/services/development_IT.html" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <div class="grid grid-cols-2 mx-105 mb-20 font-Poppins justify-center">
+
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><h1>Business and Operational Assitance</h1></center><br>
+            </center><p class="mb-10">Content Writing Needs to be done</p></center>
+
+        <a href="../html/services/business_assistance.html" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+        </div>
+        
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center><img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><h1>Financial and Data Analysis</h1><br></center>
+            <center><p class="mb-10 ">Content Writing Needs to be done</p></center>
+            <a href="../html/services/financial_data.html" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+        </div>
+
+        
+
+    </div>
+{% include 'landing_page_footer.html' %}
+</body>
+</html>

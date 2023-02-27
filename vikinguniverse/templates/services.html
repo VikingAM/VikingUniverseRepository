@@ -1,48 +1,166 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
-    <title>Pricing | Viking Asset Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/index.css">
+    <title>Services | Viking Asset Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/css/splide.min.css">
+    <script src=”https://cdn.tailwindcss.com”></script>
 </head>
-<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
+<body class="bg-current" style="background-image: url(../assets/background_img/bg_img.png)">
+
+    
     <!-- Navbar -->
-    {% include 'landing_page_nav_bar.html' %}
-    <!-- Navbar -->
+    <nav class=" max-w-full relative container mx-auto p-1 pt-4 items-stretch">
+       
+
+        <!-- Flex Container -->
+
+        <div class="flex items-center justify-between">
+           
+            <!-- Logo -->
+                <div class="pt-2 ml-16">
+                    <a href="../html/index.html"><img src="../assets/vvAsset_white.png" alt="Viking Asset Management Logo" href="../html/index.html" class="object-scale-down h-14 w-60"></a>
+                </div>
+                <!-- Items-->
+                <div class="hidden md:flex space-x-16 text-white font-Jost ">
+                    <a href="../html/index.html" class="hover:text-registerCols duration-500">Home</a>
+                    <a href="pricing.html" class="hover:text-registerCols duration-500 ">Pricing</a>
+                    <a href="faqs.html" class="hover:text-registerCols duration-500 ">FAQs</a>
+                    <a href="services.html" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+                    <a href="login.html" class="hover:text-registerCols duration-500">Log In</a>
+                </div>
+
+                <!-- Button -->
+                <a href="register.html" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Sign Up</b></a>
+        </div>
+    </nav>
+   
     <div class="mx-6 text-center font-Poppins">
         <p class="text-servicesColor font-SecularOne xl:mt-14 lg:mt-14 md:mt-14 sm:mt-14 text-4xl"><b>Our Services</b></p>
     </div>
+    <br>
+    <div class="xl:hidden">
+        <!-- Mobile View Core Services Page -->
+
+
+<div class="container mx-auto sm:h-80 xl:h-105 xl:mb-0 sm:mb-10">
+    <section class="splide" id="first-slider">
+    <div class="splide__arrows">
+        <button class="bg-white splide__arrow splide__arrow--prev">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6 text-black">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+        </svg>
+        </button>
+        <button class="bg-pricingColor splide__arrow splide__arrow--next">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6  text-black">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+        </svg>
+        </button>
+    </div>
+
     
-    <br><br><br>
-    <div class="grid grid-cols-4 mx-40 font-Poppins">
+    <div class="splide__track sm:h-96">
+        <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
+
+
+        
+        <div class="w-full p-4 shadow splide__slide text-white">
+            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                <center><img src="../assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+                <h1>Design and Arts</h1><br>
+                <p class="mb-10">Content Writing Needs to be done</p>
+                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+        </div>
+
+        <div class="w-full p-4 shadow splide__slide text-white">
+            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                <center><img src="../assets/ICON/Group 21.png" class="object-cover h-15 w-16"></center><br>
+                <h1>Digital Marketing</h1><br>
+                <p class="mb-10">Content Writing Needs to be done</p>
+                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+        </div>
+
+        <div class="w-full p-4 shadow splide__slide text-white">
+            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                <center><img src="../assets/ICON/Group 22.png" class="object-cover h-15 w-16"></center><br>
+                <h1>Writing and Translation</h1><br>
+                <p class="mb-10">Content Writing Needs to be done</p>
+                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+        </div>
+
+        <div class="w-full p-4 shadow splide__slide text-white">
+            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                <center><img src="../assets/ICON/Component 19.png" class="object-cover h-15 w-16"></center><br>
+                <h1>Development and IT</h1><br>
+                <p class="mb-10">Content Writing Needs to be done</p>
+                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+        </div>
+
+        <div class="w-full p-4 shadow splide__slide text-white">
+            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                <center><img src="../assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+                <h1>Business and Operational Assitance</h1><br>
+                <p class="mb-10">Content Writing Needs to be done</p>
+                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+        </div>
+
+        <div class="w-full p-4 shadow splide__slide text-white">
+            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                <center><img src="../assets/ICON/Group 21.png" class="object-cover h-15 w-16"></center><br>
+                <h1>Financial and Data Analysis</h1><br>
+                <p class="mb-10">Content Writing Needs to be done</p>
+                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+        </div>
+
+        
+
+        
+
+        </div>
+    </div>
+    </section>
+</div>
+</div>
+
+<!-- Mobile View Core Services Page -->
+    </div>
+
+    <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-40 font-Poppins">
 
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><img src="../assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
             <center><h1>Design and Arts</h1></center><br>
             </center><p class="mb-10">Content Writing Needs to be done</p></center>
             <a href="/html/services/design_arts.html" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
         
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><img src="../assets/ICON/Group 21.png" class="object-cover h-15 w-16"></center><br>
             <center><h1>Digital Marketing</h1><br></center>
             <center><p class="mb-10">Content Writing Needs to be done</p></center>
             <a href="../html/services/digital_marketing.html" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
 
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><img src="../assets/ICON/Group 22.png" class="object-cover h-15 w-16"></center><br>
             <center><h1>Writing and Translation</h1><br></center>
             <center><p class="mb-10">Content Writing Needs to be done</p></center>
             <a href="../html/services/writing_translation.html" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
 
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><img src="../assets/ICON/Component 19.png" class="object-cover h-15 w-16"></center><br>
             <center><h1>Development and IT</h1><br></center>
             <center><p class="mb-10">Content Writing Needs to be done</p></center>
             <a href="../html/services/development_IT.html" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
@@ -52,10 +170,10 @@
 
     <br><br>
 
-    <div class="grid grid-cols-2 mx-105 mb-20 font-Poppins justify-center">
+    <div class="sm:hidden xl:grid xl:grid-cols-2 xl:mx-105 xl:mb-20 font-Poppins xl:justify-center">
 
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><img src="../assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
             <center><h1>Business and Operational Assitance</h1></center><br>
             </center><p class="mb-10">Content Writing Needs to be done</p></center>
 
@@ -63,7 +181,7 @@
         </div>
         
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16"></center><br>
+            <center><img src="../assets/ICON/Group 21.png" class="object-cover h-15 w-16"></center><br>
             <center><h1>Financial and Data Analysis</h1><br></center>
             <center><p class="mb-10 ">Content Writing Needs to be done</p></center>
             <a href="../html/services/financial_data.html" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
@@ -72,6 +190,16 @@
         
 
     </div>
-{% include 'landing_page_footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/js/splide.min.js"></script>
+    <script src="/js/index.js"></script>
+    <script>
+        var splide = new Splide('.splide', {
+          type: 'loop',
+          autoplay: false,
+        });
+        
+        new Splide("#first-slider").mount();
+    </script>
 </body>
 </html>
