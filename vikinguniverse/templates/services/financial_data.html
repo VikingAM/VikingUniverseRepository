@@ -1,118 +1,76 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>Financial and Data Analysis | Viking Asset Management</title>
-    
-    <script src=”https://cdn.tailwindcss.com”></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-current" style="background-image: url(/assets/background_img/bg_img.png)">
-
-    
+<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
     <!-- Navbar -->
-    <nav class=" max-w-full relative container mx-auto p-1 pt-4 items-stretch">
-       
-
-        <!-- Flex Container -->
-
-        <div class="flex items-center justify-between">
-           
-            <!-- Logo -->
-                <div class="pt-2 ml-16">
-                    <a href="/html/index.html"><img src="/assets/vvAsset_white.png" alt="Viking Asset Management Logo" href="../html/index.html" class="object-scale-down h-14 w-60"></a>
-                </div>
-                <!-- Items-->
-                <div class="hidden md:flex space-x-16 text-white font-Jost ">
-                    <a href="/html/index.html" class="hover:text-registerCols duration-500">Home</a>
-                    <a href="/html/pricing.html" class="hover:text-registerCols duration-500 ">Pricing</a>
-                    <a href="/html/faqs.html" class="hover:text-registerCols duration-500 ">FAQs</a>
-                    <a href="/html/services.html" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
-                    <a href="/html/login.html" class="hover:text-registerCols duration-500">Log In</a>
-                </div>
-
-                <!-- Button -->
-                <a href="/html/register.html" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Sign Up</b></a>
-        </div>
-    </nav>
-
+    {% include 'landing_page_nav_bar.html' %}
     <div class="text-white mt-14 ml-16 w-150 ">
-        <h1 class="text-2xl mb-6"><b>FINANCIAL AND DATA ANALYSIS</b></h1>
-
-        <p class="text-md mb-6 font-Poppins">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. 
-            Exercitation veniam consequat sunt nostrud amet.</p>
+        <h1 class="text-2xl mb-6"><b>DIGITAL MARKETING</b></h1>
+        <p class="text-md mb-6 font-Poppins">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
     </div>  
-
     <div>
         <p class="text-white font-Jost text-xl flex justify-center mt-14 mb-5"><strong>CHOOSE ONE OUT OF 20 SERVICE CATEGORY WE OFFER</strong></p>
     </div>
-
     <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-40 font-Poppins">
-
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="/assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
             <center><h1>Fashion Design</h1></center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
-        
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="/assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
             <center><h1>Fashion Design</h1></center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
-
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="/assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
             <center><h1>Fashion Design</h1></center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
-
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="/assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
             <center><h1>Fashion Design</h1></center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
-
-    </div>
-
-    <br><br>
-
+    </div><br><br>
     <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-40 xl:mb-20 font-Poppins">
-
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="/assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
             <center><h1>Fashion Design</h1></center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
-        
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="/assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
             <center><h1>Fashion Design</h1></center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
-
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="/assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
             <center><h1>Fashion Design</h1></center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
-
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="/assets/ICON/mdi_puzzle.png" class="object-cover h-15 w-16"></center><br>
+            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
             <center><h1>Fashion Design</h1></center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
     </div>
-
+    {% include 'landing_page_footer.html' %}
     </body>
 </html>

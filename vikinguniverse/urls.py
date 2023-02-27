@@ -24,6 +24,13 @@ urlpatterns = [
     path("", vikinguniverseViews.landingpage, name="LandingPage"),
     path("pricing", vikinguniverseViews.pricingPage, name="PricingPage"),
     path("FAQs", vikinguniverseViews.FAQs, name="FAQs"),
+    path("about", vikinguniverseViews.aboutPage, name="aboutPage"),
     path('services', vikinguniverseViews.LandingServicesPage, name="LandingServicesPage"),
+    path('services_design_art', vikinguniverseViews.ServicesDesignArt, name='ServicesDesignArt'),
+    path('services_digital_marketing', vikinguniverseViews.ServicesDigitalMarketing, name='ServicesDigitalMarketing'),
+    path('services_writing_translation', vikinguniverseViews.ServicesWritingTranslation, name='ServicesWritingTranslation'),
+    path('services_development_IT', vikinguniverseViews.ServicesDevelopmentIT, name='ServicesDevelopmentIT'),
+    path('services_business_assistance', vikinguniverseViews.ServicesBusinessAssistance, name='ServicesBusinessAssistance'),
+    path('services_financial_data_analytics', vikinguniverseViews.ServicesFinancialDataAnalytics, name='ServicesFinancialDataAnalytics'),
     path('accounts/', include('accounts.urls')),
 ]

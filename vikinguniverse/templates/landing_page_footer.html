@@ -12,10 +12,10 @@
             </div>
             <div class="text-white m-4 px-6 py-6 space-y-3 rounded-lg relative">
                 <ol><b><a href="{% url 'LandingPage' %}" class="hover:text-yellow-300">Home</a></b></ol>
-                <ol><a href="#" class="hover:text-yellow-300">Log in</a></ol>
-                <ol><a href="about.html" class="hover:text-yellow-300">About</a></ol>
-                <ol><a href="#" class="hover:text-yellow-300">Services</a></ol>
-                <ol><a href="#" class="hover:text-yellow-300">Pricing</a></ol>
+                <ol><a href="{% url 'accountLogin' %}" class="hover:text-yellow-300">Log in</a></ol>
+                <ol><a href="{% url 'aboutPage' %}" class="hover:text-yellow-300">About</a></ol>
+                <ol><a href="{% url 'LandingServicesPage' %}" class="hover:text-yellow-300">Services</a></ol>
+                <ol><a href="{% url 'PricingPage' %}" class="hover:text-yellow-300">Pricing</a></ol>
             </div>
             <div class="text-white m-4 px-6 py-6 rounded-lg">
                 <p><b>Help</b></p>

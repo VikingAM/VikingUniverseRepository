@@ -1,247 +1,168 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>Pricing | Viking Asset Management</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/css/splide.min.css">
-    <script src=”https://cdn.tailwindcss.com”></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-current" style="background-image: url(../assets/background_img/bg_img.png)">
-
-    
+<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
     <!-- Navbar -->
-    <nav class=" max-w-full relative container mx-auto p-1 pt-4 items-stretch">
-       
-
-        <!-- Flex Container -->
-
-        <div class="flex items-center justify-between">
-           
-            <!-- Logo -->
-                <div class="pt-2 ml-16">
-                    <a href="../html/index.html"><img src="../assets/vvAsset_white.png" alt="Viking Asset Management Logo" href="../html/index.html" class="object-scale-down h-14 w-60"></a>
-                </div>
-                <!-- Items-->
-                <div class="hidden md:flex space-x-16 text-white font-Jost ">
-                    <a href="../html/index.html" class="hover:text-registerCols duration-500">Home</a>
-                    <a href="pricing.html" class="hover:text-registerCols duration-500 text-highlightColor">Pricing</a>
-                    <a href="faqs.html" class="hover:text-registerCols duration-500">FAQs</a>
-                    <a href="services.html" class="hover:text-registerCols duration-500">Services</a>
-                    <a href="login.html" class="hover:text-registerCols duration-500">Log In</a>
-                </div>
-
-                <!-- Button -->
-                <a href="register.html" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Sign Up</b></a>
-        </div>
-    </nav>
-
+    {% include 'landing_page_nav_bar.html' %}
     <div class="mx-6 font-Poppins">
         <center><p class="text-readMoreSTBG text-5xl mt-14 font-SecularOne">OUR PLANS</p></center>
-       
     </div>
-
     <div class="xl:hidden">
         <!-- Mobile View Core Pricing Page -->
-
-
-<div class="container mx-auto sm:h-80 xl:h-105 xl:mb-0 sm:mb-28 ">
-    <section class="splide" id="first-slider">
-    <div class="splide__arrows">
-        <button class="bg-white splide__arrow splide__arrow--prev">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6 text-black">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-        </svg>
-        </button>
-        <button class="bg-pricingColor splide__arrow splide__arrow--next">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6  text-black">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-        </svg>
-        </button>
-    </div>
-
-    
-    <div class="splide__track sm:h-105">
-        <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
-
-
-            <div class="w-full p-4 shadow splide__slide text-white">
-                <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-12 px-6 py-6 rounded-lg ">
-                    <h1>Drottin</h1>
-                    <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                    <p class="text-sm">Plan description need to be written</p><br>
-                    
-                    <div class="text-center">
-                        <li>Plan description</li>
-                        <li>Plan description</li>
-                        <li>Plan description</li>
-                        <li>Plan description</li>
-                        <li>Plan description</li>
+        <div class="container mx-auto sm:h-80 xl:h-105 xl:mb-0 sm:mb-28 ">
+            <section class="splide" id="first-slider">
+                <div class="splide__arrows">
+                    <button class="bg-white splide__arrow splide__arrow--prev">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                        </svg>
+                    </button>
+                    <button class="bg-pricingColor splide__arrow splide__arrow--next">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6  text-black">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="splide__track sm:h-105">
+                    <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-12 px-6 py-6 rounded-lg ">
+                                <h1>Drottin</h1>
+                                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
+                                <p class="text-sm">Plan description need to be written</p><br>
+                                <div class="text-center">
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                </div><br>
+                                <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
+                            </div>
+                        </div>
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
+                                <h1>Hersis</h1>
+                                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
+                                <p class="text-sm">Plan description need to be written</p><br>
+                                <div class="text-center">
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                </div><br>
+                                <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
+                            </div>
+                        </div>
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
+                                <h1>Jarl</h1>
+                                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
+                                <p class="text-sm">Plan description need to be written</p><br>
+                                <div class="text-center">
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                </div><br>
+                                <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
+                            </div>
+                        </div>
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
+                                <h1>Knongur</h1>
+                                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
+                                <p class="text-sm">Plan description need to be written</p><br>
+                                <div class="text-center">
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                    <li>Plan description</li>
+                                </div><br>
+                                <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
+                            </div>
+                        </div>
                     </div>
-                    <br>
-    
-                    <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
                 </div>
-            </div>
-
-        <div class="w-full p-4 shadow splide__slide text-white">
-            <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
-                <h1>Hersis</h1>
-                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                <p class="text-sm">Plan description need to be written</p><br>
-                
-                <div class="text-center">
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                </div>
-                <br>
-
-                <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
-            </div>
-        </div>
-
-        <div class="w-full p-4 shadow splide__slide text-white">
-            <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
-                <h1>Jarl</h1>
-                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                <p class="text-sm">Plan description need to be written</p><br>
-                
-                <div class="text-center">
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                </div>
-                <br>
-
-                <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
-            </div>
-        </div>
-
-        <div class="w-full p-4 shadow splide__slide text-white">
-            <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
-                <h1>Knongur</h1>
-                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                <p class="text-sm">Plan description need to be written</p><br>
-                
-                <div class="text-center">
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                </div>
-                <br>
-
-                <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
-            </div>
-        </div>
-
-        
-
-        </div>
-    </div>
-    </section>
-</div>
-</div>
-
-<!-- Mobile View Core Services Page -->
-    </div>
-
-        <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-20 mt-5">
-
-            <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">
-              
-                <h1>Drottin</h1>
-                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                <p class="text-sm">Plan description need to be written</p><br>
-                
-                <div class="text-center">
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                </div>
-                <br>
-
-                <a href="#" class="p-2 px-6 pt-2 mx-8 text-black rounded-lg baseline bg-pricingColor hover:bg-registerCols duration-500">Get Started</a>
-            </div>
-            
-            <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">
-              
-                <h1>Hersis</h1>
-                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                <p class="text-sm">Plan description need to be written</p><br>
-                
-                <div class="text-center">
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                </div>
-                <br>
-
-                <a href="#" class="p-2 px-6 pt-2 mx-8 text-black rounded-lg baseline bg-pricingColor hover:bg-registerCols duration-500">Get Started</a>
-            </div>
-    
-            <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">
-              
-                <h1>Jarl</h1>
-                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                <p class="text-sm">Plan description need to be written</p><br>
-                
-                <div class="text-center">
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                </div>
-                <br>
-
-                <a href="#" class="p-2 px-6 pt-2 mx-8 text-black rounded-lg baseline bg-pricingColor hover:bg-registerCols duration-500">Get Started</a>
-            </div>
-    
-            <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">
-              
-                <h1>Konungr</h1>
-                <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                <p class="text-sm">Plan description need to be written</p><br>
-                
-                <div class="text-center">
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                    <li>Plan description</li>
-                </div>
-                <br>
-
-                <a href="#" class="p-2 px-6 pt-2 mx-8 text-black rounded-lg baseline bg-pricingColor hover:bg-registerCols duration-500">Get Started</a>
-            </div>
-    
+            </section>
         </div>
     </div>
 
-
+    <!-- Mobile View Core Services Page -->
+    <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-20 mt-5">
+        <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">      
+            <h1>Drottin</h1>
+            <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
+            <p class="text-sm">Plan description need to be written</p><br> 
+            <div class="text-center">
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+            </div><br>
+            <a href="#" class="p-2 px-6 pt-2 mx-8 text-black rounded-lg baseline bg-pricingColor hover:bg-registerCols duration-500">Get Started</a>
+        </div>
+        <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">
+            <h1>Hersis</h1>
+            <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
+            <p class="text-sm">Plan description need to be written</p><br>
+            <div class="text-center">
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+            </div><br>
+            <a href="#" class="p-2 px-6 pt-2 mx-8 text-black rounded-lg baseline bg-pricingColor hover:bg-registerCols duration-500">Get Started</a>
+        </div>
+        <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">
+            <h1>Jarl</h1>
+            <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
+            <p class="text-sm">Plan description need to be written</p><br>
+            <div class="text-center">
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+            </div><br>
+            <a href="#" class="p-2 px-6 pt-2 mx-8 text-black rounded-lg baseline bg-pricingColor hover:bg-registerCols duration-500">Get Started</a>
+        </div>
+        <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">      
+            <h1>Konungr</h1>
+            <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
+            <p class="text-sm">Plan description need to be written</p><br>
+            <div class="text-center">
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+                <li>Plan description</li>
+            </div><br>
+            <a href="#" class="p-2 px-6 pt-2 mx-8 text-black rounded-lg baseline bg-pricingColor hover:bg-registerCols duration-500">Get Started</a>
+        </div>
+    </div>
+    {% include 'landing_page_footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/js/splide.min.js"></script>
-    <script src="/js/index.js"></script>
+    <script src="{% static 'landingpage/js/index.js' %}"></script>
     <script>
         var splide = new Splide('.splide', {
           type: 'loop',
           autoplay: false,
         });
-        
         new Splide("#first-slider").mount();
     </script>
     </body>

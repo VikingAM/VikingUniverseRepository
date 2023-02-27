@@ -1,0 +1,71 @@
+{% load static %}
+<nav class=" max-w-full relative container mx-auto p-1 pt-4 items-stretch">
+    <!-- Flex Container -->
+    <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <div class="pt-2 xl:ml-16 sm:ml-6">
+            <a href="{% url 'LandingPage' %}">
+                <img src="{% static 'landingpage/images/vvAsset_white.png' %}" alt="Viking Asset Management Logo"  class="xl:object-scale-down xl:h-14 xl:w-60 sm:object-scale-down sm:h-14 sm:w-44">
+            </a>
+        </div>
+        <!-- Items-->
+        <div class="hidden md:flex space-x-16 text-white font-Jost">
+            {% if request.path == '/' %}
+                <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Home</a>
+            {% else %}
+                <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-50">Home</a>
+            {% endif %}
+            
+            {% if request.path == '/pricing' %}
+                <a href="{% url 'PricingPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Pricing</a>
+            {% else %}
+                <a href="{% url 'PricingPage' %}" class="hover:text-registerCols duration-50">Pricing</a>
+            {% endif %}
+            
+            {% if request.path == '/FAQs' %}
+                <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-500 text-highlightColor">FAQs</a>
+            {% else %}
+                <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-50">FAQs</a>
+            {% endif %}
+
+            {% if request.path == '/services' %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+            {% elif request.path == '/services_design_art' %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+            {% elif request.path == '/services_digital_marketing' %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+            {% elif request.path == '/services_writing_translation' %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+            {% elif request.path == '/services_development_IT' %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+            {% elif request.path == '/services_business_assistance' %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+            {% elif request.path == '/services_financial_data_analytics' %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+            {% else %}
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-50">Services</a>
+            {% endif %}
+            
+        </div>
+        <!-- Button -->
+        <a href="{% url 'accountCreate' %}" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Sign Up</b></a>
+
+        <button id="menu-btn" class="block hamburger md:hidden focus:outline-none sm:mr-5 sm:mt-3">
+            <span class="hamburger-top"></span>
+            <span class="hamburger-middle"></span>
+            <span class="hamburger-bottom"></span>
+        </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="md:hidden">
+        <div id="menu" class="absolute flex-col items-center self-end hidden
+        py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md">
+        
+            <a href="{% url 'LandingPage' %}">Home</a>
+            <a href="{% url 'PricingPage' %}">Pricing</a>
+            <a href="{% url 'FAQs' %}">FAQs</a>
+            <a href="{% url 'LandingServicesPage' %}">Services</a>
+            <a href="register.html">Register</a>
+        </div>
+    </div>
+</nav>

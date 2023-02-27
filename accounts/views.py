@@ -24,6 +24,6 @@ def accountLogout(request):
 
 def accountCreate(request):
 	if request.method == 'POST':
-		return render(request, 'account_creation.html')
+		return render(request, 'register.html')
 	else:
-		return render(request, 'account_creation.html')
+		return render(request, 'register.html')
