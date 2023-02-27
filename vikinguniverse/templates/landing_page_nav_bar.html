@@ -1,0 +1,23 @@
+{% load static %}
+<nav class=" max-w-full relative container mx-auto p-1 pt-4 items-stretch">
+    <!-- Flex Container -->
+    <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <div class="pt-2 ml-16">
+            <a href="{% url 'LandingPage' %}">
+            	<img src="{% static 'landingpage/images/viking_white_logo_cut.png' %}" alt="Viking Asset Management Logo" href="{% url 'LandingPage' %}">
+            </a>
+        </div>
+        <!-- Items-->
+        <div class="hidden md:flex space-x-14 text-white font-Jost">
+            <a href="{% url 'LandingPage' %}" class="hover:text-yellow-300 text-highlightColor">Home</a>
+            <a href="{% url 'PricingPage' %}" class="hover:text-yellow-300">Pricing</a>
+            <a href="faqs.html" class="hover:text-yellow-300">FAQs</a>
+            <a href="services.html" class="hover:text-yellow-300">Services</a>
+        </div>
+        <!-- Button -->
+        <a href="{% url 'accountLogin' %}" class="font-Jost hidden lg:block p-1 px-5 mr-24 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500">
+        	<b>Sign Up</b>
+        </a>
+    </div>
+</nav>

@@ -1,0 +1,54 @@
+{% load static %}
+<div class="flex mx-5 mt-28 space-x-16 font-Jost">
+            <div class="text-white  m-4 px-6 py-6 rounded-lg">
+                <p class="text-2xl">Viking Universe</p><br>
+                <p>Be updated to our new plans or promo</p><br>
+                <div class="flex">
+                    <form>
+                        <input type="text" class="border rounded-lg bg-placeHolderCol border-gray-600 py-2 px-2" placeholder="Your Email">
+                    </form>
+                    <a href="#" class="p-2 px-7 text-white rounded-md baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Subscribe</a>
+                </div>
+            </div>
+            <div class="text-white m-4 px-6 py-6 space-y-3 rounded-lg relative">
+                <ol><b><a href="{% url 'LandingPage' %}" class="hover:text-yellow-300">Home</a></b></ol>
+                <ol><a href="#" class="hover:text-yellow-300">Log in</a></ol>
+                <ol><a href="about.html" class="hover:text-yellow-300">About</a></ol>
+                <ol><a href="#" class="hover:text-yellow-300">Services</a></ol>
+                <ol><a href="#" class="hover:text-yellow-300">Pricing</a></ol>
+            </div>
+            <div class="text-white m-4 px-6 py-6 rounded-lg">
+                <p><b>Help</b></p>
+                <div class="space-y-3 mt-3">
+                    <p><a href="#" class="hover:text-yellow-300">What is included in my plan?</a></p>
+                    <p><a href="#" class="hover:text-yellow-300">What are the payment methods?</a></p>
+                    <p><a href="#" class="hover:text-yellow-300">Is there any limit on a subscription per account?</a></p>
+                    <p><a href="#" class="hover:text-yellow-300">Is my account transferable?</a></p>
+                </div>
+            </div>
+            <div class="text-white  m-4 px-6 py-6 rounded-lg">
+                <p><b>Contacts</b></p>
+                <div class="space-y-3 mt-3">
+                    <p class="hover:text-yellow-300"><a href="#">Any number</a></p>
+                    <p class="hover:text-yellow-300"><a href="#">Viking Universe LLC</p>
+                    <p class="hover:text-yellow-300"><u><a href="#">info@vikinguniverse.com</a></u></p>
+                </div>
+            </div>
+    	</div><br><br>
+    	<hr class="border border-hrLine cursor-pointer hover:border-white duration-500 mb-2 mx-16">
+    	<div class="text-footerColor mx-20 flex justify-between font-Jost">
+        	<p>© 2023 All Rights Reserved, 
+        		<u>
+        			<a href="#" class="hover:text-yellow-300">Viking Universe</a>
+        		</u>
+        	</p>
+	        <div class="flex space-x-5">
+	            <a href="#"><img src="{% static 'landingpage/images/icons/facebook-logo-white.png' %}" class="object-scale-down h-8 w-9" alt="Facebook Logo"></a>
+	            <a href="#"><img src="{% static 'landingpage/images/icons/twitter-logo-white.png' %}" class="object-scale-down h-8 w-9" alt="Twitter Logo"></a>
+	            <a href="#"><img src="{% static 'landingpage/images/icons/instagram-logo-white-circle.png' %}" class="object-scale-down h-8 w-9" alt="Instagram Logo"></a>
+	            <a href="#"><img src="{% static 'landingpage/images/icons/white-pinterest-logo-.png' %}" class="object-scale-down h-8 w-9" alt="Pinterest Logo"></a>
+	            <a href="#"><img src="{% static 'landingpage/images/icons/linkedin-logo.png' %}" class="object-scale-down h-8 w-9" alt="LinkedIn Logo"></a>
+	            <a href="#"><img src="{% static 'landingpage/images/icons/tiktok-logo.png' %}" class="object-scale-down h-8 w-9" alt="Tiktok Logo"></a>
+	        </div>
+    	</div><br><br>
+    </div>
