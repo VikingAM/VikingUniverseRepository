@@ -8,6 +8,9 @@ urlpatterns = [
     path('login', views.accountLogin, name='accountLogin'),
     path('logout', views.accountLogout, name="accountLogout"),
     path('create', views.accountCreate, name='accountCreate'),
+    path('verification/<verification_id>', views.accountVerificationPage, name="accountVerificationPage"),
+    path('verify', views.accountVerfiy, name="accountVerify"),
+    path('email_verfication_template', views.email_verfication_template, name="email_verfication_template"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

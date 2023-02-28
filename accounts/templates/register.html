@@ -11,51 +11,65 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">        
-    <div class="flex items-center justify-center xl:h-screen xl:mt-10 font-Poppins">
-        <div class="xl:w-105 sm:w-85 sm:mt-10 sm:mb-32 pl-12 pr-12 pb-4 bg-black bg-opacity-40 text-white rounded-xl">
+    <div  class="flex items-center justify-center xl:h-screen xl:mt-10 font-Poppins">
+        <div  style="width: 30%"; class="xl:w-105 sm:w-85 sm:mt-10 sm:mb-32 pl-12 pr-12 pb-4 bg-black bg-opacity-40 text-white rounded-xl">
             <div>
                 <center>
                     <img src="{% static 'landingpage/images/vvAsset_white.png' %}" class="object-scale-down h-24 w-44">
                 </center>
             </div>
-            <form action="register_verification.html">
+            <form method="post" id="registration_from">
+                {% csrf_token %}
                 <h1 class="text-center text-xl block font-Jost mb-6"><b>CREATE YOUR ACCOUNT</b></h1>
+                <h3 class="text-center l:text-l sm:text-l block font-Jost" id="error_msg">{{ error_msg }}</h3>
                 <div class="mt-2">  
-                    <label for="username" class="block text-base font-Jost">Company Name</label>
+                    <label for="company_name" class="block text-base font-Jost">Company Name</label>
                     <div class="flex">
-                        <input required type="text" id="company_name" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
+                        <input required type="text" id="company_name" name="company_name" value="{{ company_name }}" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
                     </div>
                 </div>
-                <div class="flex justify-between">
+                <div class="flex space-evenly">
                     <div class="mt-2">  
-                        <label for="username" class="block text-base font-Jost">First Name</label>
+                        <label for="firstname" class="block text-base font-Jost">First Name*</label>
                         <div class="flex">
-                            <input required type="text" id="first_name" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 xl:w-32 sm:w-28 text-2base px-2 bg-black bg-opacity-0">
+                            <input required type="text" id="first_name" name="first_name" value="{{ first_name }}" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 xl:w-30 sm:w-30 text-2base px-2 bg-black bg-opacity-0">
                         </div>
                     </div>
                     <div class="mt-2">  
-                        <label for="username" class="block text-base font-Jost xl:mr-20 sm:mr-10">Last Name</label>
+                        <label for="lastname" class="block text-base font-Jost xl:mr-20 sm:mr-10">Last Name*</label>
                         <div class="flex">
-                            <input required type="text" id="last_name" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 xl:w-40 sm:w-28 text-2base px-2 bg-black bg-opacity-0">
+                            <input required type="text" id="last_name" name="last_name" value="{{ last_name }}" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 xl:w-40 sm:w-30 text-2base px-2 bg-black bg-opacity-0">
                         </div>
                     </div>
                 </div>
                 <div class="mt-2">  
-                    <label for="email" class="block text-base font-Jost">Email</label>
+                    <label for="username" class="block text-base font-Jost">Username*</label>
                     <div class="flex">
-                        <input required type="email" id="email" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
+                        <input required type="text" id="username" name="username" value="{{ username }}" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
                     </div>
                 </div>
                 <div class="mt-2">  
-                    <label for="username" class="block text-base font-Jost">Phone Number</label>
+                    <label for="email" class="block text-base font-Jost">Email*</label>
                     <div class="flex">
-                        <input required type="number" id="phone_num" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
+                        <input required type="email" id="email" name="email" value="{{ email }}" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
+                    </div>
+                </div>
+                <div class="mt-2">  
+                    <label for="phonenumber" class="block text-base font-Jost">Phone Number</label>
+                    <div class="flex">
+                        <input required type="number" id="phone_num" name="phone_num" value="{{ phone_num }}" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
                     </div>
                 </div>
                 <div class="mt-2">
-                    <label for="password" class="block text-base font-Jost">Password</label>
+                    <label for="password" class="block text-base font-Jost">Password*</label>
                     <div class="flex">
-                        <input required type="password" id="password" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
+                        <input required type="password" id="password" name="password" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
+                    </div>
+                </div>
+                 <div class="mt-2">
+                    <label for="confirm_password" class="block text-base font-Jost">Confirm Password*</label>
+                    <div class="flex">
+                        <input required type="password" id="confirm_password" name="confirm_password" class="border-b-1 focus:outline-none focus:border-primarycolor transition-all duration-1000 w-96 text-2base px-2 bg-black bg-opacity-0">
                     </div>
                 </div>
                 <div class="mt-2 flex justify-between items-center">
@@ -69,16 +83,75 @@
                         </p>
                     </center>
                 </div>
-                <div class="mt-5">
-                    <button type="submit" class="p-1 w-full rounded-lg text-2base text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">Create Account</button>
-                </div>
+                
                 <br>
             </form>
-        </div>
-        <div class="flex justify-between space-x-7 text-center">
+            <div class="mt-5">
+                <button style="margin-bottom: 4%;" type="button" onclick='create_account_btn();' class="p-1 w-full rounded-lg text-2base text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">Create Account</button>
+            </div>
+            <div class="flex justify-between space-x-7 text-center">
             <a href="{% url 'accountLogin' %}" class="p-1 text-xtsml text-white rounded-lg baseline hover:bg-purpleWhite border-1 transition-all duration-500">Already have an account?</a>
             <a href="{% url 'LandingPage' %}" class="p-1 text-xtsml text-white rounded-lg baseline hover:bg-purpleWhite border-1 transition-all duration-500">Home Page</a>
         </div>
+        </div>
+        
     </div><br><br><br><br><br><br><br><br>
+    <script src="{% static 'vendor/jquery-3.6.3.min.js' %}"></script>
+    <script type="text/javascript">
+        function create_account_btn(){
+            $("#error_msg").empty();
+            var first_name = $("#first_name").val();
+            var last_name = $("#last_name").val();
+            var email = $("#email").val();
+            var password = $("#password").val();
+            var confirm_password = $("#confirm_password").val();
+
+            if(first_name.length == 0){
+                $("#error_msg").append("First name should not be empty!");
+                return false;
+            }
+
+            if(last_name.length == 0){
+                $("#error_msg").append("Last name should not be empty!");
+                return false;
+            }
+
+            if(email.length == 0){
+                $("#error_msg").append("Email should not be empty!");
+                return false;
+            }
+
+            if(!validateEmail(email)){
+                $("#error_msg").append("Please input a proper email!");
+                return false;
+            }
+
+            if(password.length == 0){
+                $("#error_msg").append("Password should not be empty!");
+                return false;
+            }
+
+            if(confirm_password.length == 0){
+                $("#error_msg").append("Confirm password should not be empty!");
+                return false;
+            }
+
+            if(password == confirm_password){
+                $("#registration_from").submit();
+            }else{
+                $("#error_msg").append("Passwords does not match!");
+                return false;
+            }
+
+            
+        }
+
+        function validateEmail($email) {
+            var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            return emailReg.test( $email );
+        }
+        
+
+    </script>
 </body>
 </html>

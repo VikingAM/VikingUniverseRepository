@@ -48,7 +48,13 @@
             
         </div>
         <!-- Button -->
-        <a href="{% url 'accountCreate' %}" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Sign Up</b></a>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'accountLogout' %}" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Logout</b></a>
+        {% else %}
+            <a href="{% url 'accountCreate' %}" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Sign Up</b></a>
+        {% endif %}
+
+        
 
         <button id="menu-btn" class="block hamburger md:hidden focus:outline-none sm:mr-5 sm:mt-3">
             <span class="hamburger-top"></span>

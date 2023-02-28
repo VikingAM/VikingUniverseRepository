@@ -42,6 +42,12 @@ class address_info(models.Model):
 	history = models.TextField(null=True, blank=True)
 	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
+class user_validation(models.Model):
+	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+	verification_code = models.CharField(max_length=250)
+	status = models.BooleanField(default=0)
+	update_date = models.DateTimeField(null=True, blank=True)
+
 class password_category(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
