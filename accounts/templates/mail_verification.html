@@ -23,7 +23,7 @@
         <p>
           Hi {{ UserFullname }}, <br/><br/>
           We just need to verify your email address before you can access Viking Universe Portal.<br/><br/>
-          Verify your email address  {{ verification_link }}
+          Verify your email address <a href="{{ site_url }}{% url 'accountVerify' verification_id=verification_link %}">Verification Link</a><br/><br/>
           Thanks! – The Viking Universe team
         </p>
       </td>

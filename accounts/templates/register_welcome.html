@@ -1,48 +1,31 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>Welcome Account | Viking Asset Management</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-    />
-    <script src=”https://cdn.tailwindcss.com”></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-    <body class="bg-current" style="background-image: url(../assets/background_img/bg_img.png)">
+    <body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )"> 
         <div class="flex items-center justify-center font-Poppins mb-20">
-                <center><img src="../assets/vvAsset_white.png" class="object-scale-down h-36 w-56"></center>
+            <center>
+                <img src="{% static 'landingpage/images/vvAsset_white.png' %}" class="object-scale-down h-24 w-44">
+            </center>
         </div>
-
-            <div class="flex items-center justify-center font-Poppins">
-                <div class="text-white">
-                   
-
-                    <h1 class="text-center text-5xl block mb-6"><b>WELCOME TO VIKING UNIVERSE</b></h1>
-
-                    <p class="text-center text-md block mb-6">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
-                        <br>Velit officia consequat duis enim velit mollit. 
-                        Exercitation veniam consequat sunt nostrud amet.</p>
-                
-                    <div class="pt-10 flex justify-center">
-                        <a href="#" class="p-1 w-80 rounded-lg text-2base text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500"><center>GO TO DASHBOARD</center></a>
-                    </div>
-
-                    
-                    <br>
-
-                    
-                
-                </div>
-                
-            </div>
-
-           
-
-            
-
+        <div class="flex items-center justify-center font-Poppins">
+            <div class="text-white">       
+                <h1 class="text-center text-5xl block mb-6"><b>WELCOME TO VIKING UNIVERSE</b></h1>
+                <p class="text-center text-md block mb-6">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. <br>Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                <div class="pt-10 flex justify-center">
+                    <a href="#" class="p-1 w-80 rounded-lg text-2base text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">
+                        <center>GO TO DASHBOARD</center>
+                    </a>
+                </div><br>
+            </div>    
+        </div>
     </body>
 </html>

@@ -33,4 +33,5 @@ urlpatterns = [
     path('services_business_assistance', vikinguniverseViews.ServicesBusinessAssistance, name='ServicesBusinessAssistance'),
     path('services_financial_data_analytics', vikinguniverseViews.ServicesFinancialDataAnalytics, name='ServicesFinancialDataAnalytics'),
     path('accounts/', include('accounts.urls')),
+    path('portal/', include('portal.urls')),
 ]

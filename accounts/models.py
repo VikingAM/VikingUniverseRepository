@@ -46,6 +46,7 @@ class user_validation(models.Model):
 	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	verification_code = models.CharField(max_length=250)
 	status = models.BooleanField(default=0)
+	create_date = models.DateTimeField(auto_now_add=True)
 	update_date = models.DateTimeField(null=True, blank=True)
 
 class password_category(models.Model):

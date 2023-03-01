@@ -9,7 +9,8 @@ urlpatterns = [
     path('logout', views.accountLogout, name="accountLogout"),
     path('create', views.accountCreate, name='accountCreate'),
     path('verification/<verification_id>', views.accountVerificationPage, name="accountVerificationPage"),
-    path('verify', views.accountVerfiy, name="accountVerify"),
+    path('verify/<verification_id>', views.accountVerfiy, name="accountVerify",),
+    path('resend_verification', views.resendVerification, name="resendVerification"),
     path('email_verfication_template', views.email_verfication_template, name="email_verfication_template"),
 ]
 if settings.DEBUG:
