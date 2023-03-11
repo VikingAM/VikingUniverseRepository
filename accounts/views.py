@@ -57,11 +57,7 @@ def accountCreate(request):
 					newUserDetails.phone = data['phone_num']
 					newUserDetails.company_name = data['company_name']
 					newUserDetails.save()
-				except:
-					data['error_msg'] = "An Error occur on creating a User."
-					return render(request, 'register.html', data)
 
-				try:
 					newUserAddressInfo = address_info()
 					newUserAddressInfo.userId = newUser
 					newUserAddressInfo.save()
@@ -71,9 +67,8 @@ def accountCreate(request):
 					validationCode.verification_code = uuid.uuid4().hex
 					validationCode.save()
 				except:
-					data['error_msg'] = "An Error occur on creating a profile."
+					data['error_msg'] = "An Error occur on creating a User."
 					return render(request, 'register.html', data)
-
 				
 				fullname = data['last_name']+", "+data['first_name']
 				verification_link = validationCode.verification_code
