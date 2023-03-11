@@ -1,0 +1,109 @@
+{% load static %}
+<form action="{% url 'portalSettingPage' %}" id="edit_profile" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-9">
+				<div class="row">
+					<div class="col-sm-12">
+						<span class="edit_profile_text">Edit Profile <li class="far fa-edit"></li></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+						<img src="{% static 'images/Profile Img.png' %}" class="rounded-circle" alt="Cinque Terre" style="width: 150px;margin-left: -25px;">
+					</div>
+					<div class="col-sm-5">
+						<h5 style="color: #0717A3;">Contact Information <li class='far fa-user-circle'></li></h5>
+						<div class="form-group">
+							<label for="exampleInputEmail1">First Name</label>
+						    <input type="text" class="form-control" id="first_name" name="first_name"  placeholder="First Name" value="{{ profile_details.first_name }}">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Last Name</label>
+							<input type="text" class="form-control" id="last_name" name="last_name"  placeholder="Last Name" value="{{ profile_details.last_name }}">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email</label>
+						    <input type="email" class="form-control" id="email" name="email"  placeholder="Email" value="{{ profile_details.email }}">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Phone Number</label>
+						    <input type="text" class="form-control" id="phone_num" name="phone_num"  placeholder="Phone Number" value="{{ profile_details.phone|default_if_none:'' }}">
+						</div>
+					</div>
+					<div class="col-sm-5">
+						<h5 style="color: #0717A3;">Company Information<i class="far fa-building"></i></h5>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Company Name</label>
+						    <input type="text" class="form-control" id="company_name" name="company_name"  placeholder="Company Name" value="{{ profile_details.company_name|default_if_none:'' }}">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Industry Type</label>
+							<select class="form-control" id="industry_type" name="industry_type">
+								<option value=0>-- Industry Type --</option>
+								{% for industry_type in industry_type_list %}
+									{% if profile_details.industry_type == industry_type.pk %}
+										<option value="{{ industry_type.pk }}" selected>{{ industry_type.name }}</option>
+									{% else%}
+										<option value="{{ industry_type.pk }}" >{{ industry_type.name }}</option>
+									{% endif %}
+								{% empty %}
+									<!-- something soon -->
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Website</label>
+						    <input type="text" class="form-control" id="website" name="website"  placeholder="Website" value="{{ profile_details.website|default_if_none:'' }}">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-5">
+						<h5 style="color: #0717A3;">Address Information<i class="far fa-building"></i></h5>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Street</label>
+							<input type="text" class="form-control" id="street" name="street"  placeholder="Street" value="{{ profile_address.street|default_if_none:'' }}">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">State</label>
+						    <input type="email" class="form-control" id="state" name="state"  placeholder="State" value="{{ profile_address.state|default_if_none:'' }}">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Country</label>
+						    <input type="text" class="form-control" id="country" name="country"  placeholder="Country" value="{{ profile_address.country|default_if_none:'' }}">
+						</div>
+					</div>
+					<div class="col-sm-5">
+						<br>
+						<div class="form-group" style="margin-top: 8px;">
+							<label for="exampleInputEmail1">City</label>
+						    <input type="email" class="form-control" id="city" name="city"  placeholder="City" value="{{ profile_address.city|default_if_none:'' }}">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Country</label>
+						    <input type="text" class="form-control" id="zip_code" name="zip_code"  placeholder="Zip Code" value="{{ profile_address.zip_code|default_if_none:'' }}">
+						</div>
+					</div>
+				</div>
+				<br/><br/>
+				<div class="row">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3"></div>
+					<div class="col-sm-2">
+						<button type="submit" class="profile_save_btn">Save</button>
+					</div>
+					<div class="col-sm-2">
+						<a href="{% url 'portalDashboard' %}">
+							<button type="button" class="profile_cancel_btn">Cancel</button>
+						</a>
+					</div>
+					<div class="col-sm-3">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>

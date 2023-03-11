@@ -5,6 +5,8 @@ from . import views
 
 urlpatterns = [
     path('', views.portalDashboard, name='portalDashboard'),
+    path('setting',views.portalSettingPage, name='portalSettingPage'),
+    path('ticketing', views.ticketingPage, name="ticketingPage"),
     
 ]
 if settings.DEBUG:

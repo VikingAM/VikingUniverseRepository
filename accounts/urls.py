@@ -12,6 +12,8 @@ urlpatterns = [
     path('verify/<verification_id>', views.accountVerfiy, name="accountVerify",),
     path('resend_verification', views.resendVerification, name="resendVerification"),
     path('email_verfication_template', views.email_verfication_template, name="email_verfication_template"),
+    path('sent_password_reset_otp', views.passwordResetOtp, name="passwordResetOtp"),
+    path('change_password', views.changePassword, name="changePassword"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

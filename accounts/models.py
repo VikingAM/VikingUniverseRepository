@@ -37,6 +37,7 @@ class address_info(models.Model):
 	code = models.CharField(max_length=250, null=True, blank=True)
 	country = models.CharField(max_length=250, null=True, blank=True)
 	address_type = models.CharField(max_length=250, null=True, blank=True)
+	zip_code = models.CharField(max_length=250, null=True, blank=True)
 	create_date = models.DateTimeField(auto_now_add=True)
 	update_date = models.DateTimeField(auto_now_add=True)
 	history = models.TextField(null=True, blank=True)
@@ -52,6 +53,12 @@ class user_validation(models.Model):
 class password_category(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
+
+class password_reset_code(models.Model):
+	code = models.CharField(max_length=250, null=True, blank=True)
+	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+	status = models.BooleanField(default=0)
+	create_date = models.DateTimeField(auto_now_add=True)
 
 class password_manager(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)

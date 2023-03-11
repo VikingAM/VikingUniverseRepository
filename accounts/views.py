@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.core.mail import BadHeaderError, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from accounts.models import details, address_info, user_validation
+from accounts.models import details, address_info, user_validation, password_reset_code
 import uuid, datetime
 
 # Create your views here.
@@ -114,6 +115,33 @@ def send_email(fullname, verification_link, client_email):
 def email_verfication_template(request):
 	return render(request, 'mail_verification.html')
 
+def passwordResetOtp(request):
+	data = {}
+	data['status'] = "OTP email failed"
+	if request.method == 'POST':
+		UserDetails = details.objects.get(userId=request.POST['userId'])
+		otp_random = random.randint(100000, 999999)
+		list_of_password_otp = password_reset_code.objects.filter(userId=request.POST['userId'], status=0)
+		if len(list_of_password_otp) > 0:
+			for password_otp in list_of_password_otp:
+				password_otp.status = 1
+				password_otp.save()
+		reset_password = password_reset_code()
+		reset_password.code = otp_random
+		reset_password.userId = request.POST['userId']
+		reset_password.save()
+		client_email = UserDetails.email
+
+		fullname = UserDetails.last_name+", "+UserDetails.first_name
+		subject = 'Viking Universer password reset OTP'
+		html_message = render_to_string('mail_password_reset_otp.html', {'UserFullname': fullname, 'OTP': otp_random, "site_url": settings.SITE_URL})
+		plain_message = strip_tags(html_message)
+		from_email = 'william.crumb@vikingassetmanagement.com'
+		msg = EmailMultiAlternatives(subject, plain_message, from_email, [client_email])
+		msg.attach_alternative(html_message, "text/html")
+		data['status'] = "OTP sent"
+	return JsonResponse(data, safe=False)
+
 def accountVerfiy(request, verification_id):
 	verification_details = user_validation.objects.get(verification_code=verification_id)
 	if verification_details.status == 0:
@@ -131,7 +159,6 @@ def accountVerfiy(request, verification_id):
 def accountVerificationPage(request, verification_id):
 	verification_details = user_validation.objects.get(verification_code=verification_id)
 	UserDetails = details.objects.get(userId=verification_details.userId)
-	print(UserDetails)
 	fullname = UserDetails.last_name+", "+UserDetails.first_name
 	return render(request, 'register_verification.html', {"fullname":fullname, "code":verification_id})
 
@@ -139,3 +166,16 @@ def resendVerification(request):
 	data = {}
 	data['success'] = 1
 	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def changePassword(request):
+	data = {}
+	try:
+		u = User.objects.get(pk=request.POST['userId'])
+		u.set_password('new password')
+		u.save()
+		data['success'] = 1
+	except:
+		data['error_msg'] = "unable to update password"
+	return JsonResponse(data, safe=False)
+

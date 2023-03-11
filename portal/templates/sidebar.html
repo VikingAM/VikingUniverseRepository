@@ -1,0 +1,16 @@
+{% load static%}
+<div class="sidebar">
+	<ul>
+		<li><a href="{% url 'portalDashboard' %}"><img class="company_logo" src="{% static 'images/logo.png'%}"></a></li><br/>
+		<li><a href="{% url 'portalDashboard' %}"><i class="fas fa-home"></i>Dashboard</a></li>
+		<li><a href="#"><i class="fas fa-users"></i>Task</a></li>
+		<li><a href="#"><i class="fas fa-users"></i>Submit a Task</a></li>
+		<li><a href="{% url 'ticketingPage' %}"><i class="fas fa-users"></i>Ticketing</a></li>
+		<!-- <li class="notification1"><a href="#"><i class="fas fa-calendar-week"></i>Calender</a><span class="number1">4</span></li>
+		<li class="notification2"><a href="#"><i class="far fa-envelope"></i>Documents</a><span class="number2">5</span></li> -->
+		<li><a href="#"><i class="fas fa-signal"></i>Credits</a></li>
+		<li>
+			<a href="{% url 'portalSettingPage' %}"><i class="fas fa-cog mnp"></i>Settings</a>
+		</li>
+	</ul>
+</div>
