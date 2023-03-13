@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.conf import settings
+from django.http import JsonResponse, HttpResponseRedirect
 from django.core.mail import BadHeaderError, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from accounts.models import details, address_info, user_validation, password_reset_code
-import uuid, datetime
+import uuid, datetime, random
 
 # Create your views here.
 def accountIndex(request):
@@ -21,7 +21,10 @@ def accountLogin(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return redirect('LandingPage')
+			print(request.GET.get('next'))
+			if request.GET.get('next') != None:
+				return redirect(request.GET.get('next'),  '/portal')
+			return redirect('portalDashboard')
 		else:
 			return render(request, 'login.html' , {"error_msg": "username and password does not match!", "username":username})
 	else:
@@ -114,27 +117,38 @@ def passwordResetOtp(request):
 	data = {}
 	data['status'] = "OTP email failed"
 	if request.method == 'POST':
-		UserDetails = details.objects.get(userId=request.POST['userId'])
-		otp_random = random.randint(100000, 999999)
-		list_of_password_otp = password_reset_code.objects.filter(userId=request.POST['userId'], status=0)
-		if len(list_of_password_otp) > 0:
-			for password_otp in list_of_password_otp:
-				password_otp.status = 1
-				password_otp.save()
-		reset_password = password_reset_code()
-		reset_password.code = otp_random
-		reset_password.userId = request.POST['userId']
-		reset_password.save()
-		client_email = UserDetails.email
+		Userinstance = User.objects.get(pk=request.POST['userId'])
+		user = authenticate(request, username=Userinstance.username, password=request.POST['current_password'])
+		if user is not None:
+			UserDetails = details.objects.get(userId=request.POST['userId'])
+			otp_random = random.randint(100000, 999999)
+			list_of_password_otp = password_reset_code.objects.filter(userId=request.POST['userId'], status=0)
+			if len(list_of_password_otp) > 0:
+				for password_otp in list_of_password_otp:
+					password_otp.status = 1
+					password_otp.save()
+			reset_password = password_reset_code()
+			reset_password.code = otp_random
+			reset_password.userId = Userinstance
+			reset_password.save()
+			client_email = UserDetails.email
 
-		fullname = UserDetails.last_name+", "+UserDetails.first_name
-		subject = 'Viking Universer password reset OTP'
-		html_message = render_to_string('mail_password_reset_otp.html', {'UserFullname': fullname, 'OTP': otp_random, "site_url": settings.SITE_URL})
-		plain_message = strip_tags(html_message)
-		from_email = 'william.crumb@vikingassetmanagement.com'
-		msg = EmailMultiAlternatives(subject, plain_message, from_email, [client_email])
-		msg.attach_alternative(html_message, "text/html")
-		data['status'] = "OTP sent"
+			fullname = UserDetails.last_name+", "+UserDetails.first_name
+			subject = 'Viking Universer password reset OTP'
+			html_message = render_to_string('mail_password_reset_otp.html', {'UserFullname': fullname, 'OTP': otp_random, "site_url": settings.SITE_URL})
+			plain_message = strip_tags(html_message)
+			from_email = 'william.crumb@vikingassetmanagement.com'
+			msg = EmailMultiAlternatives(subject, plain_message, from_email, [client_email])
+			msg.attach_alternative(html_message, "text/html")
+
+			try:
+				msg.send()
+				data['status'] = "OTP sent"
+			except BadHeaderError:
+				data['status'] = "error on sending email."
+		else:
+			data['status'] = "error on current password!"	
+		
 	return JsonResponse(data, safe=False)
 
 def accountVerfiy(request, verification_id):
@@ -165,12 +179,23 @@ def resendVerification(request):
 @login_required(login_url='accounts/login')
 def changePassword(request):
 	data = {}
-	try:
-		u = User.objects.get(pk=request.POST['userId'])
-		u.set_password('new password')
-		u.save()
-		data['success'] = 1
-	except:
-		data['error_msg'] = "unable to update password"
+	otp_details = password_reset_code.objects.get(code=request.POST['otp'])
+	if otp_details.userId.pk == int(request.POST['userId']):
+		if otp_details.status == 0:
+			try:
+				u = User.objects.get(pk=request.POST['userId'])
+				u.set_password(request.POST['new_password'])
+				u.save()
+				data['success'] = "Password Updated!"
+				otp_details.status = 1
+				otp_details.save()
+			except:
+				data['error_msg'] = "unable to update password"
+		else:
+			data["error_msg"] = "OTP is not anymore valid!"
+	else:
+		data["error_msg"] = "OTP does not match!"
+
+	
 	return JsonResponse(data, safe=False)
 

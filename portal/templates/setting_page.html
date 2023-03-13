@@ -73,6 +73,9 @@
 		.sidebar-2_nonactive{
 			color: #585858;
 		}
+		.slider-2{
+			margin-left: -8%;
+		}
 	</style>
 </head>
 <body style="background-color: #F5F6FA;">
@@ -105,7 +108,7 @@
 	</div>
 
 </div>
-
+<input type="hidden" name="site_url" id="site_url" value="{{ site_url }}">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -155,57 +158,113 @@
 	function password_change_save_btn(){
 		var sent_otp = $("#sent_otp").val();
 		var otp = $("#OTP").val();
-		otp_warning_label.empty();
-		if(sent_otp.length != 0){
-			// change soon to check if we already send an otp
-			if (otp.length = 6){
-				
+		var site_url = $("#site_url").val();
+		$(".otp_warning_label").empty();
+		$("#error_msg").empty();
+		$("#error_msg").hide();
+		$("#success_msg").empty();
+		$("#success_msg").hide();
+		if(sent_otp != 0){
+			if (otp.length == 6){
+				$.ajax({
+			        type: "POST",
+			        url: "{% url 'changePassword' %}",
+			        data: {
+			        		"csrfmiddlewaretoken": '{{ csrf_token }}',
+			        		"userId": '{{ request.user.id }}',
+			        		"new_password": $("#new_password").val(),
+			        		"otp": otp,
+			    		},
+			        async:true,
+			        success: function (data) {
+			        	if(data.success != ""){
+			        		$("#success_msg").append(data.success);
+			            	$("#success_msg").show();
+			            	window.location.replace(site_url+"{% url 'accountLogin' %}")
+			        	}else{
+			        		if(data.error_msg != ""){
+			        			$("#error_msg").append(data.error_msg)
+								$("#error_msg").show();
+			        		}
+			        	}
+			            
+			            
+			        },
+			        error: function (e) {
+			            $("#error_msg").append("Error! please try again later.");
+			        }
+			    })
 			}else{
-				otp_warning_label.append("Invalid otp!")
+				$("#error_msg").append("Invalid otp!")
+				$("#error_msg").show();
 				return false;
 			}
-			// for now check if the otp field is not empty!
-			// check if the otp len is == 6
-			// send ajax.
 		}else{
-			//send otp on email
-			// $.ajax({
-		    //     type: "POST",
-		    //     url: "{% url 'passwordResetOtp' %}",
-		    //     data: {
-		    //     		"csrfmiddlewaretoken": '{{ csrf_token }}',
-		    //     		"userId": '{{ request.user.id }}'
-		    // 		},
-		    //     async:true,
-		    //     success: function (data) {
-		    //         alert("success");
-		    //         $("#sent_otp").val(1);
-		    //     },
-		    //     error: function (e) {
-		    //         alert("Error! please try again later.");
-		    //     }
-		    // })
+			var new_password = $("#new_password").val();
+			var confirm_password = $("#confirm_password").val();
+			var password_valid = validatePassword(new_password)
+			if(password_valid && new_password != ""){
+				if(new_password == confirm_password){
+					$.ajax({
+				        type: "POST",
+				        url: "{% url 'passwordResetOtp' %}",
+				        data: {
+				        		"csrfmiddlewaretoken": '{{ csrf_token }}',
+				        		"userId": '{{ request.user.id }}',
+				        		"current_password": $("#current_password").val(),
+				        		"new_password": $("#new_password").val(),
+				    		},
+				        async:true,
+				        success: function (data) {
+				            $("#success_msg").append(data.status);
+				            $("#success_msg").show();
+				            $("#sent_otp").val(1);
+				        },
+				        error: function (e) {
+				            $("#error_msg").append("Error! please try again later.");
+				            $("#error_msg").show();
+				        }
+				    })
+				}else{
+					$("#error_msg").append("Your password does not match!");
+					$("#error_msg").show();
+	                return false;
+				}
+			}
 		}
 	}
 
-	function validatePassword() {
-	    var p = document.getElementById('newPassword').value,
-	        errors = [];
-	    if (p.length < 8) {
-	        errors.push("Your password must be at least 8 characters"); 
-	    }
-	    if (p.search(/[a-z]/i) < 0) {
-	        errors.push("Your password must contain at least one letter.");
-	    }
-	    if (p.search(/[0-9]/) < 0) {
-	        errors.push("Your password must contain at least one digit."); 
-	    }
-	    if (errors.length > 0) {
-	        alert(errors.join("\n"));
-	        return false;
-	    }
-	    return true;
-	}
+	function validatePassword(password) {
+            var spChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+            var capital_letter = /[A-Z]+/;
+            if (password.length < 8) {
+                $("#error_msg").append("Your password must be at least 8 characters");
+                $("#error_msg").show();
+                return false;
+            }
+            if (password.search(/[a-z]/i) < 0) {
+                $("#error_msg").append("Your password must contain at least one letter.");
+                $("#error_msg").show();
+                return false;
+            }
+            if (capital_letter.test(password) == false) {
+                $("#error_msg").append("Your password must contain at least one capital letter.");
+                $("#error_msg").show();
+                return false;
+            }
+            if (password.search(/[0-9]/) < 0) {
+                $("#error_msg").append("Your password must contain at least one digit."); 
+                $("#error_msg").show();
+                return false;
+            }
+
+            if (spChars.test(password) == false){
+                $("#error_msg").append("Your password must contain at least one special characters."); 
+                $("#error_msg").show();
+                return false;
+            }
+            return true;
+        }
 </script>
 </body>
 </html>
