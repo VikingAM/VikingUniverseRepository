@@ -7,7 +7,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core.mail import BadHeaderError, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from accounts.models import details, address_info, user_validation, password_reset_code
+from accounts.models import details, address_info, user_validation, password_reset_code, password_manager, password_category
 import uuid, datetime, random
 
 # Create your views here.
@@ -110,9 +110,6 @@ def send_email(fullname, verification_link, client_email):
 		print("error on sending email.")
 	return True
 
-def email_verfication_template(request):
-	return render(request, 'mail_verification.html')
-
 def passwordResetOtp(request):
 	data = {}
 	data['status'] = "OTP email failed"
@@ -195,7 +192,50 @@ def changePassword(request):
 			data["error_msg"] = "OTP is not anymore valid!"
 	else:
 		data["error_msg"] = "OTP does not match!"
-
-	
 	return JsonResponse(data, safe=False)
 
+@login_required(login_url='accounts/login')
+def profileNewPassword(request):
+	data = {}
+	Userinstance = User.objects.get(pk=request.POST['userId'])
+	passowrd_name = request.POST['password_name']
+	username = request.POST['username']
+	password = request.POST['password']
+	url = request.POST['url']
+	description = request.POST['description']
+	data['status'] = 0
+	# include encrypt and decrypt soon.
+	try:
+		new_passowrd = password_manager()
+		new_passowrd.userId = Userinstance
+		if request.POST['category'] != 0:
+			new_passowrd.categoryId = request.POST['category']
+		new_passowrd.name = passowrd_name
+		new_passowrd.username = username
+		new_passowrd.password = password
+		new_passowrd.url = url
+		new_passowrd.description = description
+		new_passowrd.save()
+		data['success_msg'] = "successfully added!"
+		data['status'] = 1
+	except:
+		data["error_msg"] = "Error on saving the new password!"
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def ProfileNewPasswordGetById(request):
+	data = {}
+	data['status'] = 0
+	try:
+		password_manager_details = password_manager.objects.get(pk=request.POST['password_management_id'])
+		data['name'] = password_manager_details.name
+		data['username'] = password_manager_details.username
+		data['password'] = password_manager_details.password
+		data['url'] = password_manager_details.url
+		data['description'] = password_manager_details.description
+		data['category'] = password_manager_details.categoryId
+		data['status'] = 1
+	except:
+		data['error_msg'] = "Error on fetching data!"
+		
+	return JsonResponse(data, safe=False)

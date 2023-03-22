@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.conf import settings
-from accounts.models import details, address_info, user_validation, industry_type
+from accounts.models import details, address_info, user_validation, industry_type, password_manager
 
 
 # Create your views here.
@@ -14,6 +14,7 @@ def portalDashboard(request):
 def portalSettingPage(request):
 	profile_details = details.objects.get(userId=request.user.id)
 	profile_address = address_info.objects.get(userId=request.user.id)
+	profile_passwords = password_manager.objects.filter(userId=request.user.id, status=1)
 	list_of_industry_type = industry_type.objects.all()
 	if request.method == 'POST':
 		profile_details.first_name = request.POST['first_name']
@@ -35,7 +36,7 @@ def portalSettingPage(request):
 		profile_address.city = request.POST['city']
 		profile_address.zip_code = request.POST['zip_code']
 		profile_address.save()
-	return render(request, 'setting_page.html', {"profile_details": profile_details, "industry_type_list":list_of_industry_type, "profile_address":profile_address, "site_url": settings.SITE_URL})
+	return render(request, 'setting_page.html', {"profile_details": profile_details, "profile_passwords":profile_passwords, "industry_type_list":list_of_industry_type, "profile_address":profile_address, "site_url": settings.SITE_URL})
 
 @login_required(login_url='/accounts/login')
 def ticketingPage(request):

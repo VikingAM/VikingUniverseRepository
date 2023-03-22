@@ -71,3 +71,4 @@ class password_manager(models.Model):
 	update_date = models.DateTimeField(auto_now_add=True)
 	history = models.TextField(null=True, blank=True)
 	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+	status = models.BooleanField(default=1)
