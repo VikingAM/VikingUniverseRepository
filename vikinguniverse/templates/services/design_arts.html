@@ -7,74 +7,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>Design & Arts | Viking Asset Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/css">
+        .splide__arrow{
+            opacity: 1;
+            width: 20px;
+            height: 20px;
+            background: aqua;
+        }
+        
+        .splide__pagination__page.is-active{
+            background-color: aqua;
+        }
+        body {
+            background-image: url("{% static 'landingpage/images/bg_img.png' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        @font-face {
+            font-family: 'Integral';
+            src:    url("{% static 'fonts/IntegralCF-DemiBold.woff2' %}") format('woff2'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.woff' %}") format('woff'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.eot' %}") format('eot'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.otf' %}") format('otf');
+
+        }
+    </style>
 </head>
-<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
+<body class="bg-cover">
     <!-- Navbar -->
     {% include 'landing_page_nav_bar.html' %}
-    <div class="text-white mt-14 ml-16 w-150 ">
-        <h1 class="text-2xl mb-6"><b>DESIGN AND ARTS</b></h1>
+        <div class="text-white mt-14 md:ml-16 md:w-150 xs:mx-10 md:justify-start md:items-start xs:flex xs:justify-center xs:items-center xs:flex-col">
+        <h1 class="text-xl mb-6 font-Integral"><b>DESIGN AND ARTS</b></h1>
         <p class="text-md mb-6 font-Poppins">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
     </div>  
     <div>
-        <p class="text-white font-Jost text-xl flex justify-center mt-14 mb-5"><strong>CHOOSE ONE OUT OF 20 SERVICE CATEGORY WE OFFER</strong></p>
+        <center>
+            <p class="text-white font-Jost text-xl mt-14 mb-5 "><strong>CHOOSE ONE OUT OF 20 SERVICE CATEGORY WE OFFER</strong></p>
+        </center>
     </div>
-    <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-40 font-Poppins">
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
-            <center><h1>Fashion Design</h1></center><br>
-            <p class="mb-10 text-center">Content Writing Needs to be done</p>
-            <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
-        </div>
-        
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
-            <center><h1>Branding</h1></center><br>
-            <p class="mb-10 text-center">Content Writing Needs to be done</p>
-            <a href="services_longform/design_arts_long/branding.html" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
-        </div>
-
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
-            <center><h1>Fashion Design</h1></center><br>
-            <p class="mb-10 text-center">Content Writing Needs to be done</p>
-            <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
-        </div>
-
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
-            <center><h1>Fashion Design</h1></center><br>
-            <p class="mb-10 text-center">Content Writing Needs to be done</p>
-            <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
+    <div class="xl:hidden lg:hidden slg:block sm:block xs:block">
+        <!-- Mobile View Core Services Page -->
+        <div class="container mx-auto sm:h-80 xl:h-105 xl:mb-0 sm:mb-10">
+            <section class="splide" id="first-slider">
+                <div class="splide__arrows">
+                    <button class="bg-white splide__arrow splide__arrow--prev">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                        </svg>
+                    </button>
+                    <button class="bg-pricingColor splide__arrow splide__arrow--next">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6  text-black">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="splide__track sm:h-96">
+                    <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
+                                <center>
+                                    <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
+                                </center><br>
+                                <h1>Fashion Design</h1><br>
+                                <p class="mb-10">Content Writing Needs to be done</p>
+                                <a href="#" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                            </div>
+                        </div>
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
+                                <center>
+                                    <img src="/assets/ICON/Group 21.png" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
+                                </center><br>
+                                <h1>Branding</h1><br>
+                                <p class="mb-10">Content Writing Needs to be done</p>
+                                <a href="/html/services/services_longform/design_arts_long/branding.html" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                            </div>
+                        </div>
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
+                                <center>
+                                    <img src="/assets/ICON/Group 22.png" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
+                                </center><br>
+                                <h1>Fashion Design</h1><br>
+                                <p class="mb-10">Content Writing Needs to be done</p>
+                                <a href="#" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                            </div>
+                        </div>
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
+                                <center>
+                                    <img src="/assets/ICON/Component 19.png" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
+                                </center><br>
+                                <h1>Fashion Design</h1><br>
+                                <p class="mb-10">Content Writing Needs to be done</p>
+                                <a href="#" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                            </div>
+                        </div>
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
+                                <center>
+                                    <img src="/assets/ICON/mdi_puzzle.png" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
+                                </center><br>
+                                <h1>Fashion Design</h1><br>
+                                <p class="mb-10">Content Writing Needs to be done</p>
+                                <a href="#" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                            </div>
+                        </div>
+                        <div class="w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
+                                <center>
+                                    <img src="/assets/ICON/Group 21.png" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
+                                </center><br>
+                                <h1>Fashion Design</h1><br>
+                                <p class="mb-10">Content Writing Needs to be done</p>
+                                <a href="#" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
-    <br><br>
-    <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-40 xl:mb-20 font-Poppins">
+<!-- Mobile View Core Services Page -->
+    <div class="sm:hidden lg:grid lg:grid-cols-4 slg:mx-22 xl:mx-40 font-Poppins">
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
-            <center><h1>Fashion Design</h1></center><br>
+            <center>
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+            </center><br>
+            <center>
+                <h1>Fashion Design</h1>
+            </center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
-            <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
+            <a href="#" class="p-2 mx-10 slg:p-2 slg:mx-5 xxl:mx-24 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black duration-500">See Services</a>
         </div>
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
-            <center><h1>Fashion Design</h1></center><br>
+            <center>
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+            </center><br>
+            <center>
+                <h1>Branding</h1>
+            </center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
-            <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
+            <a href="services_longform/design_arts_long/branding.html" class="p-2 mx-10 slg:p-2 slg:mx-5 xxl:mx-24 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black duration-500">See Services</a>
         </div>
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
-            <center><h1>Fashion Design</h1></center><br>
+            <center>
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+            </center><br>
+            <center>
+                <h1>Fashion Design</h1>
+            </center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
-            <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
+            <a href="#" class="p-2 mx-10 slg:p-2 slg:mx-5 xxl:mx-24 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black duration-500">See Services</a>
         </div>
         <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center><img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"></center><br>
-            <center><h1>Fashion Design</h1></center><br>
+            <center>
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+            </center><br>
+            <center>
+                <h1>Fashion Design</h1>
+            </center><br>
             <p class="mb-10 text-center">Content Writing Needs to be done</p>
-            <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
+            <a href="#" class="p-2 mx-10 slg:p-2 slg:mx-5 xxl:mx-24 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black duration-500">See Services</a>
+        </div>
+    </div><br><br>
+    <div class="sm:hidden lg:grid lg:grid-cols-4 slg:mx-22 xl:mx-40 xl:mb-20 font-Poppins">
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center>
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+            </center><br>
+            <center>
+                <h1>Fashion Design</h1>
+            </center><br>
+            <p class="mb-10 text-center">Content Writing Needs to be done</p>
+            <a href="#" class="p-2 mx-10 slg:p-2 slg:mx-5 xxl:mx-24 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black duration-500">See Services</a>
+        </div>
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center>
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+            </center><br>
+            <center>
+                <h1>Fashion Design</h1>
+            </center><br>
+            <p class="mb-10 text-center">Content Writing Needs to be done</p>
+            <a href="#" class="p-2 mx-10 slg:p-2 slg:mx-5 xxl:mx-24 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black duration-500">See Services</a>
+        </div>
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center>
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+            </center><br>
+            <center>
+                <h1>Fashion Design</h1>
+            </center><br>
+            <p class="mb-10 text-center">Content Writing Needs to be done</p>
+            <a href="#" class="p-2 mx-10 slg:p-2 slg:mx-5 xxl:mx-24 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black duration-500">See Services</a>
+        </div>
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+            <center>
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+            </center><br>
+            <center>
+                <h1>Fashion Design</h1>
+            </center><br>
+            <p class="mb-10 text-center">Content Writing Needs to be done</p>
+            <a href="#" class="p-2 mx-10 slg:p-2 slg:mx-5 xxl:mx-24 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black duration-500">See Services</a>
         </div>
     </div>
-    {% include 'landing_page_footer.html' %}
+    <script src="{% static 'landingpage/js/index.js' %}"></script>
     </body>
+
 </html>

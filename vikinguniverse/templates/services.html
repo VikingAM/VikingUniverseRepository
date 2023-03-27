@@ -8,15 +8,24 @@
     <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>Services | Viking Asset Management</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/css/splide.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Integral';
+            src:    url("{% static 'fonts/IntegralCF-DemiBold.woff2' %}") format('woff2'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.woff' %}") format('woff'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.eot' %}") format('eot'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.otf' %}") format('otf');
+
+        }
+    </style>
 </head>
-<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
+<body class="bg-cover" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
     <!-- Navbar -->
     {% include 'landing_page_nav_bar.html' %}
     <div class="mx-6 text-center font-Poppins">
-        <p class="text-servicesColor font-SecularOne xl:mt-14 lg:mt-14 md:mt-14 sm:mt-14 text-4xl"><b>Our Services</b></p>
+        <p class="text-servicesColor font-Integral xl:mt-14 lg:mt-14 md:mt-14 sm:mt-14 xs:mt-8 text-4xl xxl:text-5xl xs:text-2xl slg:text-3xl sm:text-2xl"><b>Our Services</b></p>
     </div><br>
-    <div class="xl:hidden">
+    <div class="xl:hidden lg:hidden slg:block sm:block xs:block">
         <!-- Mobile View Core Services Page -->
         <div class="container mx-auto sm:h-80 xl:h-105 xl:mb-0 sm:mb-10">
             <section class="splide" id="first-slider">
@@ -35,61 +44,63 @@
                 <div class="splide__track sm:h-96">
                     <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
                         <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
                                 <center>
-                                    <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+                                    <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
                                 </center><br>
                                 <h1>Design and Arts</h1><br>
                                 <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                <a href="{% url 'ServicesDesignArt' %}" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
                             </div>
                         </div>
                         <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
                                 <center>
-                                    <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16">
+                                    <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
                                 </center><br>
                                 <h1>Digital Marketing</h1><br>
                                 <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                <a href="{% url 'ServicesDigitalMarketing' %}" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
                             </div>
                         </div>
                         <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
                                 <center>
-                                    <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16">
+                                    <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
                                 </center><br>
                                 <h1>Writing and Translation</h1><br>
                                 <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                <a href="{% url 'ServicesWritingTranslation' %}" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
                             </div>
                         </div>
                         <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
                                 <center>
-                                    <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16">
+                                    <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
                                 </center><br>
                                 <h1>Development and IT</h1><br>
                                 <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                <a href="{% url 'ServicesDevelopmentIT' %}" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
                             </div>
                         </div>
                         <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
                                 <center>
-                                    <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
+                                    <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
                                 </center><br>
-                                <h1>Business and Operational Assitance</h1><br>
+                                <h1>Business and Operational Assistance</h1><br>
                                 <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                <a href="{% url 'ServicesBusinessAssistance' %}" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
                             </div>
                         </div>
                         <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center><img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16"></center><br>
+                            <div class="text-white w-60 xl:w-60 lg:w-60 slg:w-60 md:w-60 sm:w-60 xs:w-40 bg-coreServiceBG lg:ml-96 slg:ml-72 md:ml-48 sm:ml-10 smd:ml-32 xs:ml-14 m-4 py-6 rounded-lg xl:relative text-center xs:text-sm sm:text-base">
+                                <center>
+                                    <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="lg:object-cover lg:h-15 lg:w-16 md:object-cover md:h-15 md:w-16 xs:object-cover xs:h-13 xs:w-13">
+                                </center><br>
                                 <h1>Financial and Data Analysis</h1><br>
                                 <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                <a href="{% url 'ServicesFinancialDataAnalytics' %}" class="p-3 mx-10 mt-6 sm:p-3 md:p-3 slg:p-3 xs:p-2 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -97,22 +108,21 @@
             </section>
         </div>
     </div>
-
-    <!-- Mobile View Core Services Page -->
-    <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-40 font-Poppins">
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+<!-- Mobile View Core Services Page -->
+    <div class="sm:hidden xs:hidden slg:hidden lg:grid lg:grid-cols-4 lg:mx-20 xl:grid xl:grid-cols-4 xl:mx-40 font-Poppins">
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 xxl:py-20 xxl:mx-10 rounded-lg relative">
             <center>
                 <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
             </center><br>
             <center>
-                <h1>Design and Arts</h1>
-            </center><br>
-            <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
+                <h1>Design and Arts</h1><br>
             </center>
-            <a href="{% url 'ServicesDesignArt' %}" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+            <center>
+                <p class="mb-10 lg:mt-5 xl:mt-0">Content Writing Needs to be done</p>
+            </center>
+            <a href="{% url 'ServicesDesignArt' %}" class="p-3 nxl:mx-10 xl:mx-8 lg:mx-5 xxl:mt-14 slg:mt-6 xxl:mx-20 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 xxl:py-20 xxl:mx-10 rounded-lg relative">
             <center>
                 <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16">
             </center><br>
@@ -120,11 +130,11 @@
                 <h1>Digital Marketing</h1><br>
             </center>
             <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
+                <p class="mb-10 lg:mt-5 xl:mt-0">Content Writing Needs to be done</p>
             </center>
-            <a href="{% url 'ServicesDigitalMarketing' %}" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+            <a href="{% url 'ServicesDigitalMarketing' %}" class="p-3 nxl:mx-10 xl:mx-8 lg:mx-5 xxl:mt-14 slg:mt-6 xxl:mx-20 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 xxl:py-20 xxl:mx-10 rounded-lg relative">
             <center>
                 <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16">
             </center><br>
@@ -134,9 +144,9 @@
             <center>
                 <p class="mb-10">Content Writing Needs to be done</p>
             </center>
-            <a href="{% url 'ServicesWritingTranslation' %}" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+            <a href="{% url 'ServicesWritingTranslation' %}" class="p-3 nxl:mx-10 xl:mx-8 lg:mx-5 xxl:mt-14 xxl:mx-20 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 xxl:py-20 xxl:mx-10 rounded-lg relative">
             <center>
                 <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16">
             </center><br>
@@ -146,23 +156,23 @@
             <center>
                 <p class="mb-10">Content Writing Needs to be done</p>
             </center>
-            <a href="{% url 'ServicesDevelopmentIT' %}" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+            <a href="{% url 'ServicesDevelopmentIT' %}" class="p-3 nxl:mx-10 xl:mx-8 lg:mx-5 xxl:mt-14 xxl:mx-20 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
     </div><br><br>
-    <div class="sm:hidden xl:grid xl:grid-cols-2 xl:mx-105 xl:mb-20 font-Poppins xl:justify-center">
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+    <div class="sm:hidden xs:hidden slg:hidden xxl:mx-150 nxl:mx-110 lg:grid lg:grid-cols-2 lg:mx-64 xl:grid xl:grid-cols-2 xl:mx-105  xl:mb-20 font-Poppins xl:justify-center lg:justify-center">
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 xxl:py-20 xxl:mx-10 rounded-lg relative">
             <center>
                 <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
             </center><br>
             <center>
-                <h1>Business and Operational Assitance</h1>
-            </center><br>
+                <h1>Business and Operational Assistance</h1><br>
+            </center>
             <center>
                 <p class="mb-10">Content Writing Needs to be done</p>
             </center>
-            <a href="{% url 'ServicesBusinessAssistance' %}" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+            <a href="{% url 'ServicesBusinessAssistance' %}" class="p-3 xxl:mt-14 xxl:mx-20 nxl:mx-10 xl:mx-8 lg:mx-7 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 xxl:py-20 xxl:mx-10 rounded-lg relative">
             <center>
                 <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16">
             </center><br>
@@ -170,12 +180,11 @@
                 <h1>Financial and Data Analysis</h1><br>
             </center>
             <center>
-                <p class="mb-10 ">Content Writing Needs to be done</p>
+                <p class="mb-10">Content Writing Needs to be done done</p>
             </center>
-            <a href="{% url 'ServicesFinancialDataAnalytics' %}" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+            <a href="{% url 'ServicesFinancialDataAnalytics' %}" class="p-3 xxl:mt-20 xxl:mx-20 nxl:mx-10 xl:mx-8 lg:mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
         </div>
     </div>
-    {% include 'landing_page_footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/js/splide.min.js"></script>
     <script src="{% static 'landingpage/js/index.js' %}"></script>
     <script>

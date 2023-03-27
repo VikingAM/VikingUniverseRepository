@@ -7,9 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>Writing & Translation | Viking Asset Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/css">
+         @font-face {
+            font-family: 'Integral';
+            src:    url("{% static 'fonts/IntegralCF-DemiBold.woff2' %}") format('woff2'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.woff' %}") format('woff'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.eot' %}") format('eot'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.otf' %}") format('otf');
+
+        }
+    </style>
 </head>
-<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
+<body class="bg-cover" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
     <!-- Navbar -->
     {% include 'landing_page_nav_bar.html' %}
     <div class="text-white mt-14 ml-16 w-150 ">
@@ -71,6 +80,5 @@
             <a href="#" class="p-2 mx-10 absolute text-white rounded-lg baseline bg-pricingColor hover:bg-black">See Services</a>
         </div>
     </div>
-    {% include 'landing_page_footer.html' %}
     </body>
 </html>

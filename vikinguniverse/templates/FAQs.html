@@ -7,67 +7,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>FAQs | Viking Asset Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Integral';
+            src:    url("{% static 'fonts/IntegralCF-DemiBold.woff2' %}") format('woff2'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.woff' %}") format('woff'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.eot' %}") format('eot'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.otf' %}") format('otf');
+
+        }
+    </style>
 </head>
-<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
+<body class="bg-cover" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
     <!-- Navbar -->
     {% include 'landing_page_nav_bar.html' %}
     <div class="mx-6 text-center font-Poppins">
-        <p class="text-servicesColor font-SecularOne xl:mt-14 lg:mt-14 md:mt-14 sm:mt-14 mb-14 text-4xl"><b>FAQS</b></p>
+        <p class="text-servicesColor font-Integral xl:mt-14 lg:mt-14 md:mt-14 sm:mt-14 xs:mt-14 mb-14 xs:text-3xl sm:text-4xl xl:text-4xl"><b>FAQS</b></p>
     </div>
-    <div class="flex space-x-36 items-center justify-center font-Poppins">
-        <div class="text-white w-96 h-60">
-            <h1><b>What is a service subscription plan?</b></h1><br>
-            <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+    <div class="xl:mx-0 ">
+        <div class="flex xl:space-x-36 sm:space-x-0 xs:space-x-0 items-center justify-center font-Poppins xl:flex-row sm:flex-col xs:flex-col md:flex-col slg:flex-row lg:flex-row">
+            <div class="text-white w-96 h-60">
+                <div class="md:mx-0 sm:mx-10 xs:mx-16 xl:mx-0">
+                    <h1>
+                        <b>What is a service subscription plan?</b>
+                    </h1><br>
+                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                </div>
+            </div>
+            <div class="text-white w-96 h-60">
+                <div class="md:mx-0 sm:mx-10 xs:mx-16 xl:mx-0">
+                    <h1>
+                        <b>What are the payment methods?</b>
+                    </h1><br>
+                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                </div>
+            </div>
         </div>
-        <div class="text-white w-96 h-60">
-            <h1><b>What are the payment methods?</b></h1><br>
-            <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+        <div class="flex xl:space-x-36 sm:space-x-0 xs:space-x-0 items-center justify-center font-Poppins xl:flex-row sm:flex-col xs:flex-col md:flex-col slg:flex-row lg:flex-row">
+            <div class="text-white w-96 h-60 ">
+                <div class="md:mx-0 sm:mx-10 xs:mx-16 xl:mx-0">
+                    <h1>
+                        <b>What is included in my service subscription plan?</b>
+                    </h1><br>
+                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                </div>
+            </div>
+            <div class="text-white w-96 h-60">
+                <div class="md:mx-0 sm:mx-10 xs:mx-16 xl:mx-0">
+                    <h1>
+                        <b>How does monthly recurring payment work?</b>
+                    </h1><br>
+                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="flex space-x-36 items-center justify-center font-Poppins">
-        <div class="text-white w-96 h-60">
-            <h1><b>What is included in my service subscription plan?</b></h1><br>
-            <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-        </div>
-        <div class="text-white w-96 h-60">
-            <h1><b>How does monthly recurring payment work?</b></h1><br>
-            <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-        </div>
-    </div>
+
     <div class="mx-6 text-center font-Poppins">
         <p class="text-white text-2xl"><b>CONTACT US</b></p>
         <P class="text-white">Have more questions? Use the form below to get in touch</P>
     </div>
     <div class="mt-12">
-        <form>
-            <div class="text-white flex justify-center mr-32 space-x-52 pb-2 font-Poppins">
-                <p>Name</p>
-                <p>Company</p>
+        <form action="#">
+            <div class="sm:hidden xs:hidden xl:block md:block slg:block">
+                <div class="text-white flex justify-center mr-32 space-x-52 pb-2 font-Poppins">
+                    <p>Name</p>
+                    <p>Company</p>
+                </div>
+                <div class="flex items-center justify-center space-x-10 font-Poppins">
+                    <input required type="text" class="border bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
+                    <input required type="text" class="border bg-inputColor rounded-lg baseline  border-gray-600 py-1 px-2">
+                </div>
+                <div class="text-white flex justify-center mr-40 space-x-52 pb-2 mt-8 font-Poppins">
+                    <p>&nbsp;&nbsp;Email</p>
+                    <p>&nbsp;Subject</p>
+                </div>
+                <div class="flex items-center justify-center space-x-10 font-Poppins">
+                    <input required type="text" class="border font-Poppins bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
+                    <input required type="text" class="border font-Poppins bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
+                </div>
+                <div class="text-white flex justify-center mr-105 pb-2 mt-8 font-Poppins">
+                    <p>Message</p>
+                </div>
+                <div class="flex items-center justify-center space-x-10">
+                    <textarea required class="border bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2" rows="5" cols="60"></textarea>
+                </div>
+                <div class="flex justify-center ml-96">
+                    <a href="" class="p-2 px-14 mt-5 mr-16 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Submit</a>
+                </div>
             </div>
-            <div class="flex items-center justify-center space-x-10 font-Poppins">
-                <input required type="text" class="border bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
-                <input required type="text" class="border bg-inputColor rounded-lg baseline  border-gray-600 py-1 px-2">
-            </div>
-            <div class="text-white flex justify-center mr-40 space-x-52 pb-2 mt-8 font-Poppins">
-                <p>&nbsp;&nbsp;Email</p>
-                <p>&nbsp;Subject</p>
-            </div>
-            <div class="flex items-center justify-center space-x-10 font-Poppins">
-                <input required type="text" class="border font-Poppins bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
-                <input required type="text" class="border font-Poppins bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
-            </div>
-            <div class="text-white flex justify-center mr-105 pb-2 mt-8 font-Poppins">
-                <p>Message</p>
-            </div>
-            <div class="flex items-center justify-center space-x-10">
-                <textarea required class="border bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2" rows="5" cols="60"></textarea>
-            </div>
-            <div class="flex justify-center ml-96">
-                <a href="" class="p-2 px-14 mt-5 mr-16 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Submit</a>
+            <div class="sm:block xs:block md:hidden xl:hidden slg:hidden xs:mx-10 sm:ml-20 smd:ml-36 ">
+                <div class="text-white flex flex-col w-52 justify-center font-Poppins">
+                    <p>Name</p>
+                    <input type="text" class="border text-black mt-2 bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2" required>
+                </div>
+                <div class="text-white mt-4 flex flex-col w-52 justify-center font-Poppins">
+                    <p>Company</p>
+                    <input required type="text" class="border text-black mt-2 bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
+                </div>
+                <div class="text-white mt-4 flex flex-col w-52 justify-center font-Poppins">
+                    <p>Email</p>
+                    <input required type="text" class="border text-black mt-2 bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
+                </div>
+                <div class="text-white mt-4 flex flex-col w-52 justify-center font-Poppins">
+                    <p>Subject</p>
+                    <input required type="text" class="border text-black mt-2 bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2">
+                </div>
+                <div class="text-white mt-4 flex flex-col w-52 justify-center font-Poppins">
+                    <p>Message</p>
+                    <textarea required class="border text-black mt-2 bg-inputColor rounded-lg baseline border-gray-600 py-1 px-2" rows="5" cols="60"></textarea>
+                </div>                
+                <div class="flex ml-5">
+                    <a href="#" class="p-2 px-14 mt-5 mr-16 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Submit</a>
+                </div>
             </div>
         </form>
-    </div><br><br><br><br><br>
-    {% include 'landing_page_footer.html' %}
+    </div>
+    <br><br><br><br><br>
+    <script src="{% static 'landingpage/js/index.js' %}"></script>
     </body>
 </html>
