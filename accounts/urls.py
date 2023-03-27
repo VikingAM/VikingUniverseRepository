@@ -21,6 +21,7 @@ urlpatterns = [
     # for password management
     path('profile_new_password', views.profileNewPassword, name='profileNewPassword'),
     path('profile_new_password_getById', views.ProfileNewPasswordGetById, name='ProfileNewPasswordGetById'),
+    path('profile_update_password', views.ProfileUpdatePassword, name='ProfileUpdatePassword'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

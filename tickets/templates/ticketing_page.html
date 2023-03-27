@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 	<link rel="stylesheet" href="{% static 'portal/css/style.css' %}">
 	<link rel='stylesheet' id='icos-fonts-css' href='https://fonts.googleapis.com/css?family=Nunito%3A300%2C300i%2C400%2C400i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CPoppins%3A100%2C100i%2C200%2C200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CRoboto%3A300%2C400%2C600&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 	<style type="text/css">
 		.submit_issue_ticket_header_text{
 			font-family: 'Poppins';
@@ -80,7 +81,61 @@
 			border: 1px solid #D8D8D8;
 			border-radius: 8px;
 		}
-		
+		.right{
+			float: right;
+			text-align: right;
+		}
+		.left{
+			float:left;
+			text-align: left;
+		}
+
+		.ticket_list_header{
+			font-family: 'Poppins';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 20px;
+			line-height: 30px;
+			color: #0717A3;
+		}
+
+		.ticket_list_created_time{
+			font-family: 'Poppins';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 15px;
+			line-height: 22px;
+			color: #1B1971;
+		}
+		.ticket_description{
+			font-family: 'Poppins';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 15px;
+			line-height: 22px;
+			color: #000000;
+		}
+		.ticket_list_id{
+			background: #FFFFFF;
+			border: 1px solid #D9D9D9;
+			border-radius: 8px;
+			font-family: 'Lato';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 10px;
+			line-height: 12px;
+			color: #272727;
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+		#ticket_list_wrapper{
+			width: 100%;
+		}
+
+		#ticket_list{
+			border-collapse: separate;
+  			border-spacing: 0 15px;
+		}
 	</style>
 </head>
 <body style="background:#F5F6FA;">
@@ -111,7 +166,12 @@
 						<span class="submit_ticket_label_input">Ticket Type</span>
 					</div>
 					<div class="col-sm-12">
-						<input type="text" name="ticket_type" id="ticket_type" value="" class="form-control ticket_form_input">
+						<select class="form-control ticket_form_input" name="ticket_type" id="ticket_type">
+							<option value="0">-- Select Ticket Type --</option>
+							{% for type in issue_types %}
+								<option value="{{ type.pk }}">{{ type.name }}</option>
+							{% endfor %}
+						</select>
 					</div>
 				</div>
 				<br/>
@@ -120,23 +180,23 @@
 						<span class="submit_ticket_label_input">Ticket Title</span>
 					</div>
 					<div class="col-sm-12">
-						<input type="text" name="ticket_type" id="ticket_type" value="" class="form-control ticket_form_input">
+						<input type="text" name="ticket_title" id="ticket_title" value="" class="form-control ticket_form_input">
 					</div>
 				</div>
 				<br/>
 				<div class="row">
 					<div class="col-sm-12">
-						<span class="submit_ticket_label_input">Ticket Title</span>
+						<span class="submit_ticket_label_input">Description</span>
 					</div>
 					<div class="col-sm-12">
-						<textarea  class="ticket_form_input_textarea form-control" rows="7"></textarea>
+						<textarea  class="ticket_form_input_textarea form-control" rows="7" name="ticket_description" id="ticket_description"></textarea>
 					</div>
 				</div>
 				<br/><br/>
 				<div class="row">
 					<div class="col-sm-3"></div>
 					<div class="col-sm-6">
-						<button class="submit_ticket_btn form-control">
+						<button class="submit_ticket_btn form-control" onclick="SubmitNewTicket();">
 							Submit Ticket
 						</button>
 					</div>
@@ -151,7 +211,7 @@
 						</div>
 						<div class="col-sm-5">
 							<div class="input-group mb-3" style="margin-top:5%;">
-			  					<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			  					<input type="text" class="form-control" placeholder="Search Ticket" aria-label="Recipient's username" aria-describedby="basic-addon2">
 			  					<div class="input-group-append">
 			    					<button class="filter_btn btn btn-outline-secondary" type="button">Filter
 			    						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
@@ -162,7 +222,50 @@
 							</div>
 						</div>
 					</div>
-					
+					<div class="list_of_ticket_wrapper">
+						<div class="row">
+							<table class="table" id="ticket_list" style="width: 95%; margin: auto;">
+								<thead>
+									<tr>
+										<th>Tickets</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for ticket in issue_tickets %}
+									<tr>
+										<td style="border: 1px solid #BDBDBD; border-radius: 10px; margin-top: 5px;">
+											<div class="row">
+												<div class="col-sm-12"><span class="left ticket_list_header">Cannot pay my plan</span> <span class="right ticket_list_created_time">{{ ticket.create_date | timesince }} ago</span> </div>
+											</div>	
+											<div class="row">
+												<div class="col-sm-12 ticket_description">
+													Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12">
+													<span class="left ticket_list_id">
+														#{{ ticket.id }}
+													</span>
+												</div>
+											</div>
+										</td>
+									</tr>
+									{% empty %}
+									<tr>
+										<td style="border: 1px solid #BDBDBD; border-radius: 10px;">
+											<div class="row">
+												<div class="col-sm-12" style="width:100%;">
+													<span class="left ticket_list_header">To Ticket Posted</span>
+												</div>
+											</div>	
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 			
@@ -192,5 +295,37 @@
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#ticket_list").DataTable();
+		$("#ticket_list_length").hide();
+		$("#ticket_list_filter").hide();
+	})
+
+	function SubmitNewTicket(){
+		var ticket_type = $("#ticket_type").val();
+		var ticket_title = $("#ticket_title").val();
+		var ticket_description = $("#ticket_description").val();
+		$.ajax({
+	        type: "POST",
+	        url: "{% url 'Addticket' %}",
+	        data: {
+	        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+	        	"type":ticket_type,
+	        	"title": ticket_title,
+	        	"description": ticket_description,
+	        },
+	        async:true,
+	        success: function (data) {
+
+	        },
+	        error: function (e) {
+	            // $("#new_password_error").append("Error! please try again later.");
+	        }
+	    })
+
+	}
+</script>
 </body>
 </html>

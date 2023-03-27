@@ -101,14 +101,14 @@
 		</div>	
 	</div>
 	<div id="profile_edit_wrapper" >
-		{% include 'profile_edit.html' %}
+		{% include 'sub_menu/profile_edit.html' %}
 	</div>
 	<div id="password_change_wrapper" style="display:none;">
-		{% include 'reset_password_form.html' %}
+		{% include 'sub_menu/reset_password_form.html' %}
 	</div>
 
 	<div id="password_management_wrapper" style="display:none;">
-		{% include 'password_management.html' %}
+		{% include 'sub_menu/password_management.html' %}
 	</div>
 
 </div>
@@ -271,21 +271,93 @@
         }
 
         function editPasswordManagement(that){
-	// var password_management_id = $(that).attr("attr_id");
-
+	// clear form
+	$("#edit_password_management_id").val(0);
+	$("#edit_password_name").val("");
+	$("#edit_password_username").val("");
+	$("#edit_password_management").val("");
+	$("#edit_password_url").val("");
+	$("#edit_password_description").val("");
+	$("#edit_password_category").val(0);
+	var password_management_id = $(that).attr("attr_id");
+	$("#edit_password_info_msg").empty();
+	$("#edit_password_info_msg").append("Fetching data . . .");
+	$("#edit_password_info_msg").show();
 	$.ajax({
         type: "POST",
-        url: "{% url 'profileNewPassword' %}",
+        url: "{% url 'ProfileNewPasswordGetById' %}",
         data: {
         	"csrfmiddlewaretoken": '{{ csrf_token }}',
-        	"password_management_id":1,
+        	"password_management_id":password_management_id,
         },
         async:true,
         success: function (data) {
-        	console.log(data)
+        	$("#edit_password_info_msg").hide();
+        	$("#edit_password_name").val(data.name);
+        	$("#edit_password_username").val(data.username)
+        	$("#edit_password_management").val(data.password)
+        	$("#edit_password_url").val(data.url)
+        	$("#edit_password_description").val(data.description)
+        	$("#edit_password_management_id").val(password_management_id)
+        	$("#edit_password_category").val(data.category)
+        	$("#edit_password_info_msg").hide();
         },
         error: function (e) {
-            // $("#new_password_error").append("Error! please try again later.");
+        	$("#edit_password_info_msg").hide();
+            $("#edit_password_error").empty();
+    		$("#edit_password_error").append("Error on Fetching!");
+    		$("#edit_password_error").show();
+        }
+    })
+}
+
+function UpdatePasswordManagement(){
+	$("#edit_password_info_msg").empty();
+	$("#edit_password_info_msg").append("Updating . . .");
+	$("#edit_password_info_msg").show();
+	$("#edit_password_error").hide();
+	$("#edit_password_success_msg").hide();
+	var password_management_id = $("#edit_password_management_id").val();
+	var password_name = $("#edit_password_name").val();
+	var password_username = $("#edit_password_username").val();
+	var password_management_password = $("#edit_password_management").val();
+	var password_url = $("#edit_password_url").val();
+	var password_description = $("#edit_password_description").val();
+	var password_category = $("#edit_password_category").val();
+	$.ajax({
+        type: "POST",
+        url: "{% url 'ProfileUpdatePassword' %}",
+        data: {
+        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+        	"password_management_id":password_management_id,
+        	"name": password_name,
+        	"username": password_username,
+        	"password":password_management_password,
+        	"url":password_url,
+        	"description":password_description,
+        	"category": password_category,
+        },
+        async:true,
+        success: function (data) {
+        	$("#edit_password_info_msg").hide();
+        	if(data.status_code == 1){
+        		$("#edit_password_success_msg").empty();
+        		$("#edit_password_success_msg").append(data.status_msg);
+        		$("#edit_password_success_msg").show();
+        		$("#edit_password_success_msg").hide(2000);
+        	}else{
+        		$("#edit_password_error").empty();
+        		$("#edit_password_error").append(data.status_msg);
+        		$("#edit_password_error").show();
+        		$("#edit_password_error").hide(2000);
+        	}
+        },
+        error: function (e) {
+        	$("#edit_password_info_msg").hide();
+            $("#edit_password_error").empty();
+    		$("#edit_password_error").append("Error on updating!");
+    		$("#edit_password_error").show();
+    		$("#edit_password_error").hide(2000);
         }
     })
 }

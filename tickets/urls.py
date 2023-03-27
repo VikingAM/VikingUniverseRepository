@@ -4,10 +4,8 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('', views.portalDashboard, name='portalDashboard'),
-    path('setting',views.portalSettingPage, name='portalSettingPage'),
-    
-    
+    path('portal_tickets', views.ticketingPage, name="ticketingPage"),
+    path('add_ticket', views.Addticket, name='Addticket'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

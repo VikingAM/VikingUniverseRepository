@@ -1,31 +1,23 @@
 {% load static %}
+
 <nav class=" max-w-full relative container mx-auto p-1 pt-4 items-stretch">
     <!-- Flex Container -->
     <div class="flex items-center justify-between">
         <!-- Logo -->
-        <div class="pt-2 xl:ml-16 sm:ml-6">
-            <a href="{% url 'LandingPage' %}">
-                <img src="{% static 'landingpage/images/vvAsset_white.png' %}" alt="Viking Asset Management Logo"  class="xl:object-scale-down xl:h-14 xl:w-60 sm:object-scale-down sm:h-14 sm:w-44">
-            </a>
+        <div class="pt-2 xl:ml-16 sm:ml-6 xs:ml-0">
+            <a href="{% url 'LandingPage' %}"><img src="{% static 'images/vikinglogo.png' %}" alt="Viking Asset Management Logo" class="xl:object-scale-down xl:h-14 xl:w-60 sm:object-scale-down sm:h-14 sm:w-44 xs:object-scale-down xs:h-8 xs:w-52"></a>
         </div>
         <!-- Items-->
-        <div class="hidden md:flex space-x-16 text-white font-Jost">
-            {% if request.path == '/' %}
+        <div class="hidden lg:flex space-x-16 text-white font-Jost mt-5">
+             {% if request.path == '/' %}
                 <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Home</a>
             {% else %}
-                <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-50">Home</a>
+                <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-500">Home</a>
             {% endif %}
-            
-            {% if request.path == '/pricing' %}
-                <a href="{% url 'PricingPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Pricing</a>
-            {% else %}
-                <a href="{% url 'PricingPage' %}" class="hover:text-registerCols duration-50">Pricing</a>
-            {% endif %}
-            
             {% if request.path == '/FAQs' %}
                 <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-500 text-highlightColor">FAQs</a>
             {% else %}
-                <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-50">FAQs</a>
+                <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-500">FAQs</a>
             {% endif %}
 
             {% if request.path == '/services' %}
@@ -45,33 +37,33 @@
             {% else %}
                 <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-50">Services</a>
             {% endif %}
-            
+            <a href="#" class="hover:text-registerCols duration-500">About</a>
         </div>
         <!-- Button -->
         {% if request.user.is_authenticated %}
-            <a href="{% url 'accountLogout' %}" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Logout</b></a>
+            <a href="{% url 'accountLogout' %}" class="font-Jost hidden lg:block mt-5 p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500">
+                <b>Logout</b>
+            </a>
         {% else %}
-            <a href="{% url 'accountCreate' %}" class="font-Jost hidden lg:block p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500"><b>Sign Up</b></a>
-        {% endif %}
-
-        
-
-        <button id="menu-btn" class="block hamburger md:hidden focus:outline-none sm:mr-5 sm:mt-3">
+            <a href="{% url 'accountCreate' %}" class="font-Jost hidden lg:block mt-5 p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500">
+                <b>Sign Up</b>
+            </a>
+        {% endif %}       
+        <!-- Hamburger -->
+        <button id="menu-btn" class="xs:block sm:block md:block lg:hidden hamburger focus:outline-none sm:mr-5 sm:mt-8 xs:mr-4 xs:mt-6">
             <span class="hamburger-top"></span>
             <span class="hamburger-middle"></span>
             <span class="hamburger-bottom"></span>
         </button>
-    </div>
-    <!-- Mobile Menu -->
-    <div class="md:hidden">
-        <div id="menu" class="absolute flex-col items-center self-end hidden
-        py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md">
-        
-            <a href="{% url 'LandingPage' %}">Home</a>
-            <a href="{% url 'PricingPage' %}">Pricing</a>
-            <a href="{% url 'FAQs' %}">FAQs</a>
-            <a href="{% url 'LandingServicesPage' %}">Services</a>
-            <a href="register.html">Register</a>
-        </div>
-    </div>
+    </div>           
 </nav>
+<div class="z-20">
+    <div id="menu" class="absolute flex-col items-center self-end hidden z-10
+    py-8 mt-10 space-y-6 font-bold  bg-gradient-to-t from-darkContent to-lightContent text-white rounded-xl sm:w-auto sm:self-center left-6 right-6 drop-shadow-xl">
+    <a href="{% url 'LandingPage' %}">Home</a>
+    <a href="{% url 'FAQs' %}">FAQs</a>
+    <a href="{% url 'LandingServicesPage' %}">Services</a>
+    <a href="{% url 'accountCreate' %}">Register</a>
+    <a href="about.html">About</a>
+    </div>
+</div>

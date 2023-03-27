@@ -11,6 +11,9 @@ class issue(models.Model):
 	description = models.TextField(null=True, blank=True)
 	issue_type = models.ForeignKey(issue_type, on_delete=models.SET_NULL, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
+	create_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+	update_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+	history = models.TextField(null=True, blank=True)
 	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
 class issue_file(models.Model):

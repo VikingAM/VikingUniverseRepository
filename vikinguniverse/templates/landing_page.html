@@ -6,226 +6,171 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'landingpage/css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/css/splide.min.css">
     <title>Home Page | Viking Asset Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .splide__arrow{
+            opacity: 1;
+            width: 20px;
+            height: 20px;
+            background: aqua;
+        }
+        
+        .splide__pagination__page.is-active{
+            background-color: aqua;
+        }
+        
+        body {
+            background-image: url({% static 'landingpage/images/bg_img.png' %} );
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+        }
+
+        @font-face {
+            font-family: 'Integral';
+            src:    url("{% static 'fonts/IntegralCF-DemiBold.woff2' %}") format('woff2'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.woff' %}") format('woff'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.eot' %}") format('eot'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.otf' %}") format('otf');
+
+        }
+    </style>
 </head>
-<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
+<body>
+    <!-- LG to XXL video bg -->
+    <div class="video-wrapper sm:hidden md:hidden smd:hidden slg:hidden xs:hidden xxl:block vs:hidden xl:block lg:block z-0">
+        <video autoplay loop muted plays-inline class="absolute  xxl:-mr-20 nxl:-mb-0 xl:-mb-110" id="hero" style=" margin-top: -6%; margin-bottom: -10.5%;"> <!--   -->
+            <source src="{% static 'landingpage/images/bg_img.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+    <!-- Tablet View video bg -->
+    <div class=" xl:hidden xxl:hidden lg:hidden md:hidden smd:hidden sm:block xs:block z-0">
+        <video autoplay loop muted plays-inline class="absolute  sm:-mt-25 sm:-mb-10 xs:-mt-25 xs:-mb-10" id="hero" >
+            <source src="{% static 'landingpage/images/bg_img.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+    <!-- Mobile and smaller view video bg -->
+    <div class=" xl:hidden xxl:hidden xs:hidden lg:hidden sm:hidden vs:hidden smd:block md:block slg:block z-0">
+        <video autoplay loop muted plays-inline class="absolute slg:max-w-5xl smd:-mt-0 smd:-mb-0 sm:-mt-25 sm:-mb-10 xs:-mt-25 xs:-mb-10" id="hero" >
+            <source src="{% static 'landingpage/images/bg_img.mp4' %}" type="video/mp4">
+        </video>
+    </div>
     <!-- To Up Button -->
-    <a href="#" id="toTop" hidden class="fas fa-arrow-up bg-white rounded-3xl fixed w-10 h-10 bottom-14 right-10 text-center p-3 hover:text-white hover:bg-black duration-500">
-    </a>
+    <a href="#" class="to-top fas fa-arrow-up bg-white rounded-3xl fixed z-20 w-10 h-10 bottom-14 right-10 text-center p-3 hover:text-white hover:bg-black duration-500">
     <!-- Navbar -->
     {% include 'landing_page_nav_bar.html' %}
     <!-- Hero Section -->
     <!-- Flex Container-->
     <br><br><br><br>
-    <div class="lg:text-center xl:text-center sm:mx-5">
-        <p class="font-SecularOne  sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl bg-clip-text text-transparent text-white">WELCOME TO OUR</p>
-        <h1 class="font-SecularOne sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl font-bold uppercase bg-clip-text  text-endUnderLine ">Universe</h1>
+    <div class="lg:text-center xl:text-center sm:mx-5 xs:mx-5 relative z-0">
+        <p class="font-Integral  sm:text-4xl md:text-5xl lg:text-6xl xl:text-5xl xxl:text-6xl bg-clip-text text-white">WELCOME TO OUR</p>
+        <h1 class="font-Integral sm:text-4xl md:text-5xl lg:text-6xl xl:text-5xl font-bold uppercase bg-clip-text  text-endUnderLine ">Universe</h1>
         <br>
-        <p class="text-white font-Jost">
-            Providing a broad range of services and solutions in creative design, writing, marketing, and business operations.
-        </p>
+        <p class="text-white font-Jost">Providing a broad range of services and solutions in creative design, writing, marketing, and business operations.</p>
         <br><br>
-        <a href="#" class="p-3 px-6 pt-2 mr-1 font-Jost text-white rounded-full  bg-purpleWhite hover:bg-white hover:text-black duration-500">Get Started</a>
+        <a href="#" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1 font-Jost text-white rounded-full  bg-purpleWhite hover:bg-white hover:text-black duration-500">Get Started</a>
         {% if request.user.is_authenticated %}
-            <a href="{% url 'portalDashboard' %}" class="p-3 px-12 pt-2 mr-5 font-Jost text-white rounded-full border hover:bg-purpleWhite transition-all duration-500">Portal</a>
+            <a href="{% url 'portalDashboard' %}" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1  font-Jost text-white rounded-full border hover:bg-purpleWhite transition-all duration-500">Portal</a>
         {% else %}
-            <a href="{% url 'accountLogin' %}" class="p-3 px-12 pt-2 mr-5 font-Jost text-white rounded-full border hover:bg-purpleWhite transition-all duration-500">Log In</a>
-        {% endif %}
-        
-        <h1 class="text-white text-sm font-Poppins xl:mt-28 lg:mt-28 md:mt-36 sm:mt-24 sm:text-xl sm:text-center">
-            <b>Why us?</b>
-        </h1>
-        <p class="text-white text-sm font-Poppins sm:mx-4 md:mx-4 lg:mx-14 sm:mt-24 sm:text-center xl:mt-2 xl:text-base">
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
-        </p>
-    </div><br><br><br><br>
+             <a href="{% url 'accountLogin' %}" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1  font-Jost text-white rounded-full border hover:bg-purpleWhite transition-all duration-500">Log In</a>
+        {% endif %}            
+        <h1 class="text-white text-sm font-Poppins xxl:mt-96 xl:mt-36 slg:mt-56 lg:mt-52 nxl:mt-48 mxl:mt-85 md:mt-64 sm:mt-40 xs:mt-40 sm:text-xl sm:text-center xs:text-center xl:text-base"><b>Why us?</b></h1>
+        <p class="text-white text-sm font-Poppins sm:mx-4 md:mx-4 lg:mx-14 sm:mt-10 sm:text-center xs:mt-5 xs:text-center xl:mt-2 sm:text-base xs:text-base xl:text-sm">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>       
+    </div>
 
     <!-- Benefits Page -->
-    <div class="mx-6 text-center font-Poppins">
-        <p class="text-white xl:text-4xl sm:text-2xl"><b>Your benefits</b></p>
-        <div class="relative">
-            <hr class="xl:w-105 sm:w-60 absolute h-0.5 border-0 xl:left-96 sm:left-9 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
-        </div><br>
-        <p class="text-white text-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-        <p class="text-white text-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-    </div><br><br>
-    <!-- Web View Benefits Page -->
-    <div class="sm:hidden xl:flex xl:items-center xl:justify-center xl:mx-16 font-Poppins">
-        <div class="text-white bg-gradient-to-t from-darkContent to-lightContent px-7 py-8 w-96 h-60 rounded-lg">
-            <h1><b><center>Content</center></b></h1><br><br>
-            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-        </div>
-        <div class="text-white bg-gradient-to-t from-darkContent to-lightContent px-7 py-8 w-96 h-60 ml-16 mr-16 rounded-lg">
-            <h1><b><center>Content</center></b></h1><br><br>
-            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-        </div>
-        <div class="text-white bg-gradient-to-t from-darkContent to-lightContent px-7 py-8 w-96 h-60 rounded-lg">
-            <h1><b><center>Content</center></b></h1><br><br>
-            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-        </div>
-    </div>
-    <!-- Mobile View Benefits Page -->
-    <div class="xl:hidden container mx-auto sm:h-80 xl:h-105 xl:mb-0 ">
-        <section class="splide" id="second-slider">
-            <div class="splide__arrows">
-                <button class="bg-white splide__arrow splide__arrow--prev">
-                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                    </svg>
-                </button>
-                <button class="bg-pricingColor splide__arrow splide__arrow--next">
-                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6  text-black">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                    </svg>
-                </button>
-            </div>
-            <div class="splide__track sm:h-80">
-                <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
-                    <div class="w-full p-4 shadow splide__slide text-white">
-                        <div class="text-white bg-gradient-to-t from-darkContent to-lightContent ml-10 px-7 py-8 w-72 h-60 rounded-lg">
-                            <h1><b><center>Content 1</center></b></h1><br><br>
-                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                        </div>
-                    </div>
-                    <div class="w-full p-4 shadow splide__slide text-white">
-                        <div class="text-white bg-gradient-to-t from-darkContent to-lightContent ml-8 px-7 py-8 w-72 h-60 rounded-lg">
-                            <h1><b><center>Content 2</center></b></h1><br><br>
-                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                        </div> 
-                    </div>
-                    <div class="w-full p-4 shadow splide__slide text-white">
-                        <div class="text-white bg-gradient-to-t from-darkContent to-lightContent ml-8 px-7 py-8 w-72 h-60 rounded-lg">
-                            <h1><b><center>Content 3</center></b></h1><br><br>
-                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                        </div>   
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <!-- Mobile View Benefits Page -->
-    <br><br><br><br><br><br><br><br><br><br>
-    
-    <video autoplay muted loop id="myVideo">
-        <source src="{% static 'landingpage/images/bg_img.mp4' %}" type="video/mp4">
-    </video>
-    <!-- How does it work -->
-    <div class="mx-6 text-center font-Poppins">
-        <p class="text-white xl:text-4xl sm:text-2xl"><b>How does it work?</b></p>
-        <div class="relative">
-            <hr class="xl:w-105 sm:w-60 absolute h-0.5 border-0 xl:left-96 sm:left-14 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
-        </div><br><br><br><br><br><br>
-        <center>
-            <!-- <video src="{% static 'landingpage/images/bg_img.mp4' %}" muted loop autoplay class="xl:w-3/5 sm:w-4/5"></video> -->
-        </center><br><br><br>
-    </div>
+    <div class="benefits relative">
+        <div class="pt-32 xxl:mt-20 xl:pt-52 slg:mt-0 mx-6 text-center font-Poppins">
+            <p class="text-white xl:text-4xl sm:text-2xl xs:text-2xl">
+                <b>Your benefits</b>
+            </p>
+            <div class="relative">
+                <hr class="xl:w-105 lg:w-80 lg:left-64 sm:w-56 xs:w-52 absolute h-0.5 border-0 xxl:left-180 xl:left-96 sm:left-9 smd:left-32 md:left-52 xs:left-2 slg:left-72 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
+            </div><br>
+            <p class="text-white text-base sm:mx-5 xs:mx-0 xl:mx-64">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+        </div><br><br><br><br>
+        <!-- Web View Benefits Page -->
 
-    <!-- Core Services -->
-    <div class="mx-6 text-center font-Poppins">
-        <p class="text-white xl:text-4xl sm:text-2xl"><b>Our Core Services</b></p>
-    </div>
-    <div class="relative">
-        <hr class="xl:w-115 sm:w-72 absolute h-0.5 border-0 xl:left-96 sm:left-10 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
-    </div><br>
-    <div class="xl:hidden">
-        <!-- Mobile View Core Services Page -->
-        <div class="container mx-auto sm:h-80 xl:h-105 xl:mb-0 ">
-            <section class="splide" id="third-slider">
+        <div class="sm:hidden xs:hidden xl:flex xl:items-center xl:justify-center xl:mx-16 font-Poppins  xl:pb-36">
+            <div class="text-white bg-gradient-to-t from-darkContent to-lightContent px-7 py-8 w-96 h-60 rounded-lg">
+                <h1>
+                    <b>
+                        <center>Content</center>
+                    </b>
+                </h1><br><br>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+            </div>
+            <div class="text-white bg-gradient-to-t from-darkContent to-lightContent px-7 py-8 w-96 h-60 ml-16 mr-16 rounded-lg">
+                <h1>
+                    <b>
+                        <center>Content</center>
+                    </b>
+                </h1><br><br>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+            </div>
+            <div class="text-white bg-gradient-to-t from-darkContent to-lightContent px-7 py-8 w-96 h-60 rounded-lg">
+                <h1>
+                    <b>
+                        <center>Content</center>
+                    </b>
+                </h1><br><br>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+            </div>
+        </div>
+        <!-- Mobile View Benefits Page -->
+        <div class="xl:hidden container mx-auto sm:h-80 xl:h-105 xl:mb-0 ">
+            <section class="splide" id="second-slider">
                 <div class="splide__arrows">
                     <button class="bg-white splide__arrow splide__arrow--prev">
                         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                         </svg>
                     </button>
-                    <button class="bg-pricingColor splide__arrow splide__arrow--next">
-                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6  text-black">
+                    <button class="bg-white splide__arrow splide__arrow--next">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                         </svg>
                     </button>
                 </div>
-                <div class="splide__track sm:h-96">
+                <div class="splide__track sm:h-80 xs:h-72">
                     <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
-                        <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center>
-                                    <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
-                                </center><br>
-                                <h1>Design and Arts</h1><br>
-                                <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                        <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white bg-gradient-to-t from-darkContent to-lightContent xs:px-2 xs:py-5 xs:w-44 xs:h-52 sm:px-5 sm:py-8 sm:w-68 sm:h-60 xl:px-5 xl:py-8 xl:w-68 xl:h-60 rounded-lg">
+                                <h1>
+                                    <b>
+                                        <center>Content 1</center>
+                                    </b>
+                                </h1><br><br>
+                                <p>
+                                    <center>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</center>
+                                </p>
                             </div>
                         </div>
-                        <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center>
-                                    <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16">
-                                </center><br>
-                                <h1>Design and Arts</h1><br>
-                                <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                        <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white bg-gradient-to-t from-darkContent to-lightContent xs:px-2 xs:py-5 xs:w-44 xs:h-52 sm:px-5 sm:py-8 sm:w-68 sm:h-60 xl:px-5 xl:py-8 xl:w-68 xl:h-60 rounded-lg">
+                                <h1>
+                                    <b>
+                                        <center>Content 2</center>
+                                    </b>
+                                </h1><br><br>
+                                <p>
+                                    <center>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</center>
+                                </p>
                             </div>
                         </div>
-                        <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center>
-                                    <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16">
-                                </center><br>
-                                <h1>Design and Arts</h1><br>
-                                <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
-                            </div>
-                        </div>
-                        <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center>
-                                    <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16">
-                                </center><br>
-                                <h1>Design and Arts</h1><br>
-                                <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
-                            </div>
-                        </div>
-                        <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center>
-                                    <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
-                                </center><br>
-                                <h1>Design and Arts</h1><br>
-                                <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
-                            </div>
-                        </div>
-                        <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center>
-                                    <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16">
-                                </center><br>
-                                <h1>Design and Arts</h1><br>
-                                <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
-                            </div>
-                        </div>
-                        <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center>
-                                    <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16">
-                                </center><br>
-                                <h1>Design and Arts</h1><br>
-                                <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
-                            </div>
-                        </div>
-                        <div class="w-full p-4 shadow splide__slide text-white">
-                            <div class="text-white w-60  bg-coreServiceBG sm:ml-14 m-4 py-6 rounded-lg xl:relative text-center">
-                                <center>
-                                    <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16">
-                                </center><br>
-                                <h1>Design and Arts</h1><br>
-                                <p class="mb-10">Content Writing Needs to be done</p>
-                                <a href="#" class="p-3 mx-10 mt-6 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                        <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                            <div class="text-white bg-gradient-to-t from-darkContent to-lightContent xs:px-2 xs:py-5 xs:w-44 xs:h-52 sm:px-5 sm:py-8 sm:w-68 sm:h-60 xl:px-5 xl:py-8 xl:w-68 xl:h-60 rounded-lg">
+                                <h1>
+                                    <b>
+                                        <center>Content 3</center>
+                                    </b>
+                                </h1><br><br>
+                                <p>
+                                    <center>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</center>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -234,123 +179,32 @@
         </div>
     </div>
 
-    <!-- Mobile View Core Services Page -->
-    <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-40 font-Poppins">
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center>
-                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
-            </center><br>
-            <center>
-                <h1>Design and Arts</h1>
-            </center><br>
-            <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
-            </center>
-            <a href="#" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
-        </div>
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center>
-                <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16">
-            </center><br>
-            <center>
-                <h1>Digital Marketing</h1><br>
-            </center>
-            <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
-            </center>
-            <a href="#" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
-        </div>
 
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center>
-                <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16">
-            </center><br>
-            <center>
-                <h1>Writing and Translation</h1><br>
-            </center>
-            <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
-            </center>
-            <a href="#" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
+    <!-- How does it work -->
+    <div class="mx-6 text-center font-Poppins xs:mb-25 sm:mb-32 xl:mb-40 sm:mt-32 xs:mt-32 relative">
+        <p class="text-white xl:text-4xl sm:text-2xl xs:text-2xl"><b>How does it work?</b></p>
+        <div class=" xs:mb-10 mb-20">
+            <hr class="xl:w-110 lg:w-80 lg:left-72 slg:w-20 sm:w-64 xs:w-56 absolute h-0.5 border-0 xxl:left-170 xl:left-96 smd:left-24 md:left-56 sm:left-9 xs:left-2 slg:left-32 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
         </div>
-
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center>
-                <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16">
-            </center><br>
-            <center>
-                <h1>Development and IT</h1><br>
-            </center>
-            <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
-            </center>
-            <a href="#" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
-        </div>
-    </div><br><br>
-
-    <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-40 xl:mb-20 font-Poppins">
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center>
-                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16">
-            </center><br>
-            <center>
-                <h1>Design and Arts</h1>
-            </center><br>
-            <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
-            </center>
-            <a href="#" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
-        </div>
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center>
-                <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16">
-            </center><br>
-            <center>
-                <h1>Digital Marketing</h1><br>
-            </center>
-            <center>
-                <p class="mb-10 ">Content Writing Needs to be done</p>
-            </center>
-            <a href="#" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
-        </div>
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center>
-                <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16">
-            </center><br>
-            <center>
-                <h1>Writing and Translation</h1><br>
-            </center>
-            <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
-            </center>
-            <a href="#" class="p-3 mx-10 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
-        </div>
-        <div class="text-white bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
-            <center>
-                <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16">
-            </center><br>
-            <center>
-                <h1>Development and IT</h1><br>
-            </center>
-            <center>
-                <p class="mb-10">Content Writing Needs to be done</p>
-            </center>
-            <a href="#" class="p-3 mx-10 mt-6 absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Read More</a>
-        </div>
-    </div><br><br>
-
-    <!-- OUR PRICING -->
-    <div class="mx-6 font-Poppins sm:mt-20">
         <center>
-            <p class="text-white xl:text-4xl sm:text-2xl">Our Pricing</p>
+            <video src="{% static 'landingpage/images/bg_img.mp4' %}" muted loop autoplay class="xl:w-3/5 sm:w-4/5 "></video>
         </center>
-        <div class="relative">
-            <hr class="xl:w-96 sm:w-56 absolute h-0.5 border-0 xl:left-96 sm:left-8 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
+    </div>
+
+    <!-- Core Services -->
+    <div class="">
+        <div class="mx-6 text-center font-Poppins">
+            <p class="text-white xl:text-4xl sm:text-2xl xs:text-2xl"><b>Our Core Services</b></p>
         </div>
-        <div class="xl:hidden">
-            <!-- Mobile View Core Pricing Page -->
-            <div class="container mx-auto sm:h-80 xl:h-105 xl:mb-0 sm:mb-28 ">
-                <section class="splide" id="fourth-slider">
+        <div class="relative">
+
+            <hr class="xl:w-115 lg:w-80 lg:left-80 sm:w-68 xs:w-56 absolute h-0.5 border-0 xxl:left-170 xl:left-96 smd:left-28 md:left-56 sm:left-12 xs:left-7 slg:left-72 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
+        </div>
+        <br>
+        <div class="xl:hidden sm:block xs:block">
+            <!-- Mobile View Core Services Page -->
+            <div class="container mx-auto sm:h-80 xl:h-105 xl:mb-0 ">
+                <section class="splide" id="third-slider">
                     <div class="splide__arrows">
                         <button class="bg-white splide__arrow splide__arrow--prev">
                             <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
@@ -363,69 +217,102 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="splide__track sm:h-105">
+                    <div class="splide__track sm:h-96">
                         <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
                             <div class="w-full p-4 shadow splide__slide text-white">
-                                <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-12 px-6 py-6 rounded-lg ">
-                                    <h1>Drottin</h1>
-                                    <p>
-                                        <b class="text-pricingColor text-2xl">$1000</b>
-                                        <span class="text-pricingMonth"> /month</span>
-                                    </p>
-                                    <p class="text-sm">Plan description need to be written</p><br>
-                                    <div class="text-center">
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                    </div><br>
-                                    <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
+                                <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                                    <div class="text-white bg-coreServiceBG xs:px-2 xs:py-5 xs:w-44 xs:h-72 px-5 xl:py-8 xl:w-60 xl:h-89 sm:py-8 sm:w-60 sm:h-72 rounded-lg">
+                                        <center>
+                                            <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16 xs:object-fill xs:h-9 xs:w-10"><br>
+                                            <h1>Design and Arts</h1><br>
+                                            <p class="mb-10">Content Writing Needs to be done</p>
+                                            <a href="#" class="sm:p-3 sm:mx-10 sm:mt-6 xs:p-2 xs:mx-6 xs:mt-0 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                             <div class="w-full p-4 shadow splide__slide text-white">
-                                <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
-                                    <h1>Hersis</h1>
-                                    <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                                    <p class="text-sm">Plan description need to be written</p><br>
-                                    <div class="text-center">
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                    </div><br>
-                                    <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
+                                <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                                    <div class="text-white bg-coreServiceBG xs:px-2 xs:py-5 xs:w-44 xs:h-72 px-5 xl:py-8 xl:w-60 xl:h-89 sm:py-8 sm:w-60 sm:h-72 rounded-lg">
+                                        <center>
+                                            <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16 xs:object-fill xs:h-9 xs:w-10"><br>
+                                            <h1>Design and Arts</h1><br>
+                                            <p class="mb-10">Content Writing Needs to be done</p>
+                                            <a href="#" class="sm:p-3 sm:mx-10 sm:mt-6 xs:p-2 xs:mx-6 xs:mt-0 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                             <div class="w-full p-4 shadow splide__slide text-white">
-                                <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
-                                    <h1>Jarl</h1>
-                                    <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                                    <p class="text-sm">Plan description need to be written</p><br>
-                                    <div class="text-center">
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                    </div><br>
-                                    <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
+                                <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                                    <div class="text-white bg-coreServiceBG xs:px-2 xs:py-5 xs:w-44 xs:h-72 px-5 xl:py-8 xl:w-60 xl:h-89 sm:py-8 sm:w-60 sm:h-72 rounded-lg">
+                                        <center>
+                                            <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16 xs:object-fill xs:h-9 xs:w-10"><br>
+                                            <h1>Design and Arts</h1><br>
+                                            <p class="mb-10">Content Writing Needs to be done</p>
+                                            <a href="#" class="sm:p-3 sm:mx-10 sm:mt-6 xs:p-2 xs:mx-6 xs:mt-0 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                             <div class="w-full p-4 shadow splide__slide text-white">
-                                <div class="w-60 text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG ml-10 px-6 py-6 rounded-lg ">
-                                    <h1>Knongur</h1>
-                                    <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-                                    <p class="text-sm">Plan description need to be written</p><br>
-                                    <div class="text-center">
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                        <li>Plan description</li>
-                                    </div><br>
-                                    <a href="#" class="p-2 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
+                                <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                                    <div class="text-white bg-coreServiceBG xs:px-2 xs:py-5 xs:w-44 xs:h-72 px-5 xl:py-8 xl:w-60 xl:h-89 sm:py-8 sm:w-60 sm:h-72 rounded-lg">
+                                        <center>
+                                            <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16 xs:object-fill xs:h-9 xs:w-10"><br>
+                                            <h1>Design and Arts</h1><br>
+                                            <p class="mb-10">Content Writing Needs to be done</p>
+                                            <a href="#" class="sm:p-3 sm:mx-10 sm:mt-6 xs:p-2 xs:mx-6 xs:mt-0 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full p-4 shadow splide__slide text-white">
+                                <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                                    <div class="text-white bg-coreServiceBG xs:px-2 xs:py-5 xs:w-44 xs:h-72 px-5 xl:py-8 xl:w-60 xl:h-89 sm:py-8 sm:w-60 sm:h-72 rounded-lg">
+                                        <center>
+                                            <img src="{% static 'landingpage/images/icons/Group 66.png' %}" class="object-cover h-15 w-16 xs:object-fill xs:h-9 xs:w-10"><br>
+                                            <h1>Design and Arts</h1><br>
+                                            <p class="mb-10">Content Writing Needs to be done</p>
+                                            <a href="#" class="sm:p-3 sm:mx-10 sm:mt-6 xs:p-2 xs:mx-6 xs:mt-0 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full p-4 shadow splide__slide text-white">
+                                <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                                    <div class="text-white bg-coreServiceBG xs:px-2 xs:py-5 xs:w-44 xs:h-72 px-5 xl:py-8 xl:w-60 xl:h-89 sm:py-8 sm:w-60 sm:h-72 rounded-lg">
+                                        <center>
+                                            <img src="{% static 'landingpage/images/icons/Component 21.png' %}" class="object-cover h-15 w-16 xs:object-fill xs:h-9 xs:w-10"><br>
+                                            <h1>Design and Arts</h1><br>
+                                            <p class="mb-10">Content Writing Needs to be done</p>
+                                            <a href="#" class="sm:p-3 sm:mx-10 sm:mt-6 xs:p-2 xs:mx-6 xs:mt-0 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full p-4 shadow splide__slide text-white">
+                                <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                                    <div class="text-white bg-coreServiceBG xs:px-2 xs:py-5 xs:w-44 xs:h-72 px-5 xl:py-8 xl:w-60 xl:h-89 sm:py-8 sm:w-60 sm:h-72 rounded-lg">
+                                        <center>
+                                            <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16 xs:object-fill xs:h-9 xs:w-10"><br>
+                                            <h1>Design and Arts</h1><br>
+                                            <p class="mb-10">Content Writing Needs to be done</p>
+                                            <a href="#" class="sm:p-3 sm:mx-10 sm:mt-6 xs:p-2 xs:mx-6 xs:mt-0 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full p-4 shadow splide__slide text-white">
+                                <div class="grid place-items-center w-full p-4 shadow splide__slide text-white">
+                                    <div class="text-white bg-coreServiceBG xs:px-2 xs:py-5 xs:w-44 xs:h-72 px-5 xl:py-8 xl:w-60 xl:h-89 sm:py-8 sm:w-60 sm:h-72 rounded-lg">
+                                        <center>
+                                            <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16 xs:object-fill xs:h-9 xs:w-10"><br>
+                                            <h1>Design and Arts</h1><br>
+                                            <p class="mb-10">Content Writing Needs to be done</p>
+                                            <a href="#" class="sm:p-3 sm:mx-10 sm:mt-6 xs:p-2 xs:mx-6 xs:mt-0 xl:absolute text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -433,71 +320,93 @@
                 </section>
             </div>
         </div>
+        <!-- Mobile View Core Services Page -->
+        <div class="sm:hidden xs:hidden xl:grid xl:grid-cols-4 xl:mx-40 font-Poppins">
+            <div class="text-white grid place-items-center bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"><br>
+                <h1>Design and Arts</h1><br>
+                <center>
+                    <h2 class="mb-10">Content Writing Needs to be done</h2>
+                </center>
+                <a href="#" class="p-3 mt-72 nxl:mt-68 mxl:mt-68 xxl:mt-60 absolute  xl:text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+            <div class="text-white grid place-items-center bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+                <img src="{% static 'landingpage/images/icons/Group 21.png' %}" class="object-cover h-15 w-16"><br>
+                <h1>Digital Marketing</h1><br>
+                <center>
+                    <h2 class="mb-10">Content Writing Needs to be done</h2>
+                </center>
+                <a href="#" class="p-3 mt-72 nxl:mt-68 mxl:mt-68 xxl:mt-60 absolute  xl:text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+            <div class="text-white grid place-items-center bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+                <img src="{% static 'landingpage/images/icons/Group 22.png' %}" class="object-cover h-15 w-16"><br>
+                <center>
+                    <h1>Writing and Translation</h1><br>
+                </center>
+                <center>
+                    <h2 class="mb-10">Content Writing Needs to be done</h2>
+                </center>
+                <a href="#" class="p-3 mt-72 nxl:mt-68 mxl:mt-68 xxl:mt-60 absolute  xl:text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+            <div class="text-white grid place-items-center bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+                <img src="{% static 'landingpage/images/icons/Component 19.png' %}" class="object-cover h-15 w-16"><br>
+                <center>
+                    <h1>Development and IT</h1><br>
+                </center>
+                <center>
+                    <h2 class="mb-10">Content Writing Needs to be done</h2>
+                </center>
+                <a href="#" class="p-3 mt-72 nxl:mt-68 mxl:mt-68 xxl:mt-60 absolute  xl:text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+        </div>
+        <br><br>
+        <div class="sm:hidden xs:hidden xl:grid xl:grid-cols-4 xl:mx-40 font-Poppins">
+            <div class="text-white grid place-items-center bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+                <img src="{% static 'landingpage/images/icons/Group 66.png' %}" class="object-cover h-15 w-16"><br>
+                <h1>Design and Arts</h1><br>
+                <center>
+                    <h2 class="mb-10">Content Writing Needs to be done</h2>
+                </center>
+                <a href="#" class="p-3 mt-72 nxl:mt-68 mxl:mt-68 xxl:mt-60 absolute  xl:text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+            <div class="text-white grid place-items-center bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+                <img src="{% static 'landingpage/images/icons/Component 21.png' %}" class="object-cover h-15 w-16"><br>
+                <h1>Digital Marketing</h1><br>
+                <center>
+                    <h2 class="mb-10">Content Writing Needs to be done</h2>
+                </center>
+                <a href="#" class="p-3 mt-72 nxl:mt-68 mxl:mt-68 xxl:mt-60 absolute  xl:text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+            <div class="text-white grid place-items-center bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"><br>
+                <center>
+                    <h1>Writing and Translation</h1><br>
+                </center>
+                <center>
+                    <h2 class="mb-10">Content Writing Needs to be done</h2>
+                </center>
+                <a href="#" class="p-3 mt-72 nxl:mt-68 mxl:mt-68 xxl:mt-60 absolute  xl:text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+            <div class="text-white grid place-items-center bg-coreServiceBG m-4 px-6 py-6 rounded-lg relative">
+                <img src="{% static 'landingpage/images/icons/mdi_puzzle.png' %}" class="object-cover h-15 w-16"><br>
+                <center>
+                    <h1>Development and IT</h1><br>
+                </center>
+                <center>
+                    <h2 class="mb-10">Content Writing Needs to be done</h2>
+                </center>
+                <a href="#" class="p-3 mt-72 nxl:mt-68 mxl:mt-68 xxl:mt-60 absolute  xl:text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-black">Read More</a>
+            </div>
+        </div>
     </div>
 
-    <!-- Mobile View Core Services Page -->
-    <div class="sm:hidden xl:grid xl:grid-cols-4 xl:mx-20 mt-5">
-        <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">      
-            <h1>Drottin</h1>
-            <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-            <p class="text-sm">Plan description need to be written</p><br>    
-            <div class="text-center">
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-            </div><br>
-            <a href="#" class="p-2 px-6 pt-2 mx-8 text-white  rounded-lg bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
-        </div>
-        <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">
-            <h1>Hersis</h1>
-            <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-            <p class="text-sm">Plan description need to be written</p><br>    
-            <div class="text-center">
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-            </div><br>
-            <a href="#" class="p-2 px-6 pt-2 mx-8 text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
-        </div>
-        <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">      
-            <h1>Jarl</h1>
-            <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-            <p class="text-sm">Plan description need to be written</p><br>
-            <div class="text-center">
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-            </div><br>
-            <a href="#" class="p-2 px-6 pt-2 mx-8 text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
-        </div>
-        <div class="text-white bg-gradient-to-r from-pricingSTBG to-pricingEDBG m-4 px-6 py-6 rounded-lg ">
-            <h1>Konungr</h1>
-            <p><b class="text-pricingColor text-2xl">$1000</b><span class="text-pricingMonth"> /month</span></p>
-            <p class="text-sm">Plan description need to be written</p><br>
-            <div class="text-center">
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-                <li>Plan description</li>
-            </div><br>
-            <a href="#" class="p-2 px-6 pt-2 mx-8 text-white rounded-lg baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Get Started</a>
-        </div>
-    </div><br><br><br>
     <!-- LATEST FROM US -->
-
-    <div class="mx-6 font-Poppins">
-        <p class="text-white text-center xl:text-4xl sm:text-2xl">Latest from Us<p>
+     <div class="mx-6 font-Poppins sm:mt-32 xl:mt-56">
+        <p class="text-white text-center xl:text-4xl xs:text-2xl sm:text-2xl">Latest from Us</p>
         <div class="relative sm:mb-0">
-            <hr class="xl:w-107 sm:w-60 absolute h-0.5 border-0 xl:left-96 sm:left-10 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
+            <hr class="xl:w-107 lg:w-80 lg:left-64 sm:w-60 xs:w-52 absolute h-0.5 border-0 xxl:left-180 xl:left-96 smd:left-24 md:left-56 sm:left-10 xs:left-4 slg:left-72 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
         </div>
-        <div class="container mx-auto sm:h-80 xl:h-105 sm:mb-38 xl:mb-0">
+        <div class="container mx-auto sm:h-80 xl:h-105 sm:mb-38 xs:mb-28 xl:mb-0">
             <section class="splide" id="first-slider">
                 <div class="splide__arrows">
                     <button class="bg-white splide__arrow splide__arrow--prev">
@@ -511,21 +420,25 @@
                         </svg>
                     </button>
                 </div>
-
-                <div class="splide__track sm:h-120">
+                <div class="splide__track sm:h-120 xs:h-110">
                     <div class="splide__list gap-x-0 sm:gap-x-2 xl:gap-x-0">
                         <div class="w-full p-4 shadow splide__slide text-white">
                             <div class="">
                                 <div class="xl:flex xl:justify-start ">
-                                    <div class="xl:ml-10 xl:w-full rounded-lg">
-                                        <img src="../assets/slider_img.png" class="xl:object-contain xl:h-105 xl:w-130 sm:object-contain sm:h-72 sm:w-80 ">
+                                    <div class="xl:ml-10 xl:w-full sm:mt-0 xs:mt-0 rounded-lg">
+                                        <div class="lg:flex lg:items-center lg:justify-center">
+                                            <img src="{% static 'images/slider_img.png' %}" class="xl:object-contain xl:h-105 xl:w-130 sm:object-contain sm:h-64 sm:w-72 xs:object-contain xs:h-40 xs:w-56 d">
+                                        </div>
                                     </div>
                                     <div class="xl:mr-44 xl:ml-10">
-                                        <p class="xl:mt-16 sm:text-lg">
+                                        <p class="xl:mt-16 xs:mt-2 sm:text-lg">
                                             <b>Our in house Dashboard </b>
                                         </p>
-                                        <p class="sm:text-sm xl:text-lg">
-                                            <br>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+                                        <p class="sm:text-base xs:text-sm xl:text-lg">
+                                            <br>
+                                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
+                                            Velit officia consequat duis enim velit mollit. 
+                                            Exercitation veniam consequat sunt nostrud amet.
                                         </p>
                                     </div>
                                 </div>
@@ -534,15 +447,20 @@
                         <div class="w-full p-4 shadow splide__slide text-white">
                             <div class="">
                                 <div class="xl:flex xl:justify-start ">
-                                    <div class="xl:ml-10 xl:w-full rounded-lg">
-                                        <img src="../assets/slider_img.png" class="xl:object-contain xl:h-105 xl:w-130 sm:object-contain sm:h-72 sm:w-80 ">
+                                    <div class="xl:ml-10 xl:w-full sm:mt-0 xs:mt-0 rounded-lg">
+                                        <div class="lg:flex lg:items-center lg:justify-center">
+                                            <img src="{% static 'images/slider_img.png' %}" class="xl:object-contain xl:h-105 xl:w-130 sm:object-contain sm:h-64 sm:w-72 xs:object-contain xs:h-40 xs:w-56 d">
+                                        </div>                            
                                     </div>
                                     <div class="xl:mr-44 xl:ml-10">
-                                        <p class="xl:mt-16 sm:text-lg">
+                                        <p class="xl:mt-16 xs:mt-2 sm:text-lg">
                                             <b>Our in house Dashboard </b>
                                         </p>
-                                        <p class="sm:text-sm xl:text-lg">
-                                            <br>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+                                        <p class="sm:text-base xs:text-sm xl:text-lg">
+                                            <br>
+                                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
+                                            Velit officia consequat duis enim velit mollit. 
+                                            Exercitation veniam consequat sunt nostrud amet.
                                         </p>
                                     </div>
                                 </div>
@@ -551,15 +469,20 @@
                         <div class="w-full p-4 shadow splide__slide text-white">
                             <div class="">
                                 <div class="xl:flex xl:justify-start ">
-                                    <div class="xl:ml-10 xl:w-full rounded-lg">
-                                        <img src="../assets/slider_img.png" class="xl:object-contain xl:h-105 xl:w-130 sm:object-contain sm:h-72 sm:w-80 ">
+                                    <div class="xl:ml-10 xl:w-full sm:mt-0 xs:mt-0 rounded-lg">
+                                        <div class="lg:flex lg:items-center lg:justify-center">
+                                            <img src="{% static 'images/slider_img.png' %}" class="xl:object-contain xl:h-105 xl:w-130 sm:object-contain sm:h-64 sm:w-72 xs:object-contain xs:h-40 xs:w-56 d">
+                                        </div>                            
                                     </div>
                                     <div class="xl:mr-44 xl:ml-10">
-                                        <p class="xl:mt-16 sm:text-lg">
+                                        <p class="xl:mt-16 xs:mt-2 sm:text-lg">
                                             <b>Our in house Dashboard </b>
                                         </p>
-                                        <p class="sm:text-sm xl:text-lg">
-                                            <br>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+                                        <p class="sm:text-base xs:text-sm xl:text-lg">
+                                            <br>
+                                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
+                                            Velit officia consequat duis enim velit mollit. 
+                                            Exercitation veniam consequat sunt nostrud amet.
                                         </p>
                                     </div>
                                 </div>
@@ -568,15 +491,20 @@
                         <div class="w-full p-4 shadow splide__slide text-white">
                             <div class="">
                                 <div class="xl:flex xl:justify-start ">
-                                    <div class="xl:ml-10 xl:w-full rounded-lg">
-                                        <img src="../assets/slider_img.png" class="xl:object-contain xl:h-105 xl:w-130 sm:object-contain sm:h-72 sm:w-80 ">
+                                    <div class="xl:ml-10 xl:w-full sm:mt-0 xs:mt-0 rounded-lg">
+                                        <div class="lg:flex lg:items-center lg:justify-center">
+                                            <img src="{% static 'images/slider_img.png' %}" class="xl:object-contain xl:h-105 xl:w-130 sm:object-contain sm:h-64 sm:w-72 xs:object-contain xs:h-40 xs:w-56 d">
+                                        </div>                            
                                     </div>
                                     <div class="xl:mr-44 xl:ml-10">
-                                        <p class="xl:mt-16 sm:text-lg">
+                                        <p class="xl:mt-16 xs:mt-2 sm:text-lg">
                                             <b>Our in house Dashboard </b>
                                         </p>
-                                        <p class="sm:text-sm xl:text-lg">
-                                            <br>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+                                        <p class="sm:text-base xs:text-sm xl:text-lg">
+                                            <br>
+                                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
+                                            Velit officia consequat duis enim velit mollit. 
+                                            Exercitation veniam consequat sunt nostrud amet.
                                         </p>
                                     </div>
                                 </div>
@@ -585,38 +513,124 @@
                     </div>
                 </div>
             </section>
-        </div>   
-    </div><br>
-    <div class="xl:mx-6 xl:mb-20  sm:mt-36 font-Poppins">
-        <p class="text-FAQsCol text-center xl:text-2xl sm:text-xl">FAQs</p>
-        <p class="text-white text-center xl:text-4xl sm:text-3xl">Frequently Asked Questions</p>
-        <div class="relative">
-            <hr class="xl:w-135 sm:w-80 absolute h-0.5 border-0 xl:left-96 sm:left-6 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
-        </div><br>
-        <div class="text-center sm:mx-8">
-            <div class="xl:flex xl:justify-between xl:mx-20">
-                <div class="text-white pt-8 xl:mx-10">
-                    <h1><b>What is a service subscription plan?</b></h1><br>
-                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+        </div>
+    </div>
+
+
+    <div class="xl:mx-6 xl:mt-64 sm:mt-72 xs:mt-20 font-Poppins">
+        <p class="text-FAQsCol text-center xl:text-2xl sm:text-xl xs:text-xl">FAQs</p>
+        <p class="text-white text-center xl:text-4xl sm:text-3xl xs:text-2xl">Frequently Asked Questions</p>
+            <div class="relative">
+                <hr class="xl:w-135 lg:w-80 lg:left-96 sm:w-72 xs:w-52 absolute h-0.5 border-0 xxl:left-180 xl:left-96 smd:left-24 md:left-56 slg:left-72 sm:left-6 xs:left-4 bg-gradient-to-r from-transparent rounded-xl to-endUnderLine transform  -translate-y-1/2">
+            </div><br>
+            <div class="text-center sm:mx-8 xs:mx-4 xxl:mx-52">
+                <div class="xl:flex xl:justify-between xl:mx-20 md:mx-32 lg:flex lg:justify-between lg:mx-20 ">
+                    <div class="text-white pt-8 xl:mx-10 lg:mx-8">
+                        <h1>
+                            <b>What is a service subscription plan?</b>
+                        </h1><br>
+                        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                    </div>
+                    <div class="text-white pt-8 xl:mx-20 lg:mx-8">
+                        <h1>
+                            <b>What are the payment methods?</b>
+                        </h1><br>
+                        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                    </div>
                 </div>
-                <div class="text-white pt-8 xl:mx-20">
-                    <h1><b>What are the payment methods?</b></h1><br>
-                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                <div class="xl:flex xl:justify-between xl:mx-20 md:mx-32 lg:flex lg:justify-between lg:mx-20">
+                    <div class="text-white pt-8 xl:mx-20 lg:mx-8">
+                        <h1>
+                            <b>What is included in my service subscription plan?</b>
+                        </h1><br>
+                        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                    </div>
+                    <div class="text-white pt-8 xl:mx-20 lg:mx-8">
+                        <h1>
+                            <b>How does monthly recurring payment work?</b>
+                        </h1><br>
+                        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet amet amet amet amet amet amet amet amet </p>
+                    </div>
                 </div>
             </div>
-            <div class="xl:flex xl:justify-between xl:mx-20">
-                <div class="text-white pt-8 xl:mx-20">
-                    <h1><b>What is included in my service subscription plan?</b></h1><br>
-                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+            <div class="xl:flex lg:flex xxl:flex xxl:mt-72 xl:mx-5 sm:mt-52 xl:mt-20 xxl:space-x-56 xl:space-x-16 font-Jost">
+                <div class="text-white xl:m-4 sm:m-4 px-6 py-6 rounded-lg">
+                    <p class="text-2xl text-center">Viking Universe</p>
+                    <p class="text-center">Be updated to our new plans or promo</p><br>
+                    <div class="flex items-center xl:ml-0 slg:ml-80 lg:ml-0 sm:ml-5 xs:ml-8 smd:ml-24 md:ml-56">
+                        <form>
+                            <input type="text" class="border rounded-lg bg-placeHolderCol border-gray-600 py-2 sm:w-40 xs:w-28" placeholder="Your Email" required>
+                        </form>
+                        <a href="" class="p-2 px-2 text-white rounded-md baseline bg-gradient-to-r from-readMoreSTBG to-readMoreEDBG hover:bg-blue-600">Subscribe</a> 
+                    </div>
                 </div>
-                <div class="text-white pt-8 xl:mx-20">
-                    <h1><b>How does monthly recurring payment work? amet amet</b></h1><br>
-                    <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet amet amet amet amet</p>
+                <div class="text-white xl:m-4 lg:mx-10 lg:mt-4 xl:px-6 py-6 space-y-3 rounded-lg relative sm:mb-32 sm:text-center xs:mb-32 xs:text-center">
+                    <ol>
+                        <b>
+                            <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-500">Home</a>
+                        </b>
+                    </ol>
+                    <ol>
+                        <a href="{% url 'accountLogin' %}" class="hover:text-registerCols duration-500">Log in</a>
+                    </ol>
+                    <ol>
+                        <a href="{% url 'aboutPage' %}" class="hover:text-registerCols duration-500">About</a>
+                    </ol>
+                    <ol>
+                        <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500">Services</a>
+                    </ol>
+                    <ol>
+                        <a href="{% url 'PricingPage' %}" class="hover:text-registerCols duration-500">Pricing</a>
+                    </ol>
+                </div>
+                <div class="text-white m-4 px-6 py-6 rounded-lg xl:block lg:block sm:hidden xs:hidden">
+                    <p><b>Help</b></p>
+                    <div class="space-y-3 mt-3">
+                        <p><a href="#" class="hover:text-registerCols duration-500">What is included in my plan?</a></p>
+                        <p><a href="#" class="hover:text-registerCols duration-500">What are the payment methods?</a></p>
+                        <p><a href="#" class="hover:text-registerCols duration-500">Is there any limit on a subscription per account?</a></p>
+                        <p><a href="#" class="hover:text-registerCols duration-500">Is my account transferable?</a></p>
+                    </div>
+                </div>
+                <div class="text-white  m-4 px-6 py-6 rounded-lg xl:block lg:block sm:hidden xs:hidden">
+                    <p><b>Contacts</b></p>
+                    <div class="space-y-3 mt-3">
+                        <p class="hover:text-registerCols duration-500"><a href="#">Any number</a></p>
+                        <p class="hover:text-registerCols duration-500"><a href="#">Viking Universe LLC</a></p>
+                        <p class="hover:text-registerCols duration-500"><u><a href="#">info@vikinguniverse.com</a></u></p>
+                    </div>
+                </div>
+            </div><br><br>
+            <hr class="border border-hrLine cursor-pointer hover:border-white duration-500 mb-2 mx-16 sm:mx-8 xs:mx-6">
+    
+            <div class="smd:text-center">
+                <div class="text-footerColor xl:mx-20 sm:mx-10 xs:mx-10 xl:flex lg:flex justify-between font-Jost">
+                    <p class="lg:mt-5">© 2023 All Rights Reserved, <u><a href="#" class="hover:text-registerCols duration-500">Viking Universe</a></u></p><br>
+                    
+                    <div class="flex space-x-7 sm:mb-10 xs:mb-10 lg:mb-10 xl:mt-2 xs:mt-5 md:ml-40  slg:ml-56 smd:ml-16">
+                        <a href="#">
+                            <img src="{% static 'landingpage/images/icons/facebook-logo-white.png' %}" class="xl:object-scale-down xl:h-8 xl:w-9 lg:object-scale-down lg:h-8 lg:w-9 md:object-scale-down md:h-8 md:w-9 sm:object-scale-down sm:h-5 sm:w-8 xs:object-scale-down xs:h-5 xs:w-8" alt="Facebook Logo">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'landingpage/images/icons/twitter-logo-white.png' %}" class="xl:object-scale-down xl:h-8 xl:w-9 lg:object-scale-down lg:h-8 lg:w-9 md:object-scale-down md:h-8 md:w-9 sm:object-scale-down sm:h-5 sm:w-8 xs:object-scale-down xs:h-5 xs:w-8" alt="Twitter Logo">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'landingpage/images/icons/instagram-logo-white-circle.png' %}" class="xl:object-scale-down xl:h-8 xl:w-9 lg:object-scale-down lg:h-8 lg:w-9 md:object-scale-down md:h-8 md:w-9 sm:object-scale-down sm:h-5 sm:w-8 xs:object-scale-down xs:h-5 xs:w-8" alt="Instagram Logo">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'landingpage/images/icons/white-pinterest-logo-.png' %}" class="xl:object-scale-down xl:h-8 xl:w-9 lg:object-scale-down lg:h-8 lg:w-9 md:object-scale-down md:h-8 md:w-9 sm:object-scale-down sm:h-5 sm:w-8 xs:object-scale-down xs:h-5 xs:w-8" alt="Pinterest Logo">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'landingpage/images/icons/linkedin-logo.png' %}" class="xl:object-scale-down xl:h-8 xl:w-9 lg:object-scale-down lg:h-8 lg:w-9 sm:object-scale-down md:object-scale-down md:h-8 md:w-9 sm:h-5 sm:w-8 xs:object-scale-down xs:h-5 xs:w-8" alt="LinkedIn Logo">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'landingpage/images/icons/tiktok-logo.png' %}" class="xl:object-scale-down xl:h-8 xl:w-9 lg:object-scale-down lg:h-8 lg:w-9 sm:object-scale-down md:object-scale-down md:h-8 md:w-9 sm:h-5 sm:w-8 xs:object-scale-down xs:h-5 xs:w-8" alt="Tiktok Logo">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% include 'landing_page_footer.html' %}
+    <!-- {% include 'landing_page_footer.html' %} -->
     <br><br>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/js/splide.min.js"></script>
     <script src="{% static 'landingpage/js/index.js' %}"></script>

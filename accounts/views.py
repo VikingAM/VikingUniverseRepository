@@ -220,6 +220,7 @@ def profileNewPassword(request):
 		data['status'] = 1
 	except:
 		data["error_msg"] = "Error on saving the new password!"
+
 	return JsonResponse(data, safe=False)
 
 @login_required(login_url='accounts/login')
@@ -228,14 +229,50 @@ def ProfileNewPasswordGetById(request):
 	data['status'] = 0
 	try:
 		password_manager_details = password_manager.objects.get(pk=request.POST['password_management_id'])
-		data['name'] = password_manager_details.name
-		data['username'] = password_manager_details.username
-		data['password'] = password_manager_details.password
-		data['url'] = password_manager_details.url
-		data['description'] = password_manager_details.description
-		data['category'] = password_manager_details.categoryId
-		data['status'] = 1
 	except:
 		data['error_msg'] = "Error on fetching data!"
-		
+		return JsonResponse(data, safe=False)
+
+	data['name'] = password_manager_details.name
+	data['username'] = password_manager_details.username
+	data['password'] = password_manager_details.password
+	data['url'] = password_manager_details.url
+	data['description'] = password_manager_details.description
+	if password_manager_details.category != None:
+		data['category'] = password_manager_details.category.id
+	else:
+		data['category'] = 0
+	data['status'] = 1
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def ProfileUpdatePassword(request):
+	data = {}
+	data['status_code'] = 0
+	try:
+		password_manager_details = password_manager.objects.get(pk=request.POST['password_management_id'])
+	except:
+		data['status_msg'] = "Error on data does not match!"
+		return JsonResponse(data, safe=False)
+
+	try:
+		password_category_instance = password_category.objects.get(pk=request.POST['category'])
+	except:
+		password_category_instance = None
+
+	password_manager_details.name = request.POST['name']
+	password_manager_details.username = request.POST['username']
+	password_manager_details.password = request.POST['password']
+	password_manager_details.url = request.POST['url']
+	password_manager_details.description = request.POST['description']
+	password_manager_details.category = password_category_instance
+
+	try:
+		password_manager_details.save()
+		data['status_code'] = 1
+		data['status_msg'] = "Update successfully!"
+	except:
+		data['status_msg'] = "Error on updating data!"
+		return JsonResponse(data, safe=False)
+
 	return JsonResponse(data, safe=False)
