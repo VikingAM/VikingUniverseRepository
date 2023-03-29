@@ -5,47 +5,47 @@
     <div class="flex items-center justify-between">
         <!-- Logo -->
         <div class="pt-2 xl:ml-16 sm:ml-6 xs:ml-0">
-            <a href="{% url 'LandingPage' %}"><img src="{% static 'images/vikinglogo.png' %}" alt="Viking Asset Management Logo" class="xl:object-scale-down xl:h-14 xl:w-60 sm:object-scale-down sm:h-14 sm:w-44 xs:object-scale-down xs:h-8 xs:w-52"></a>
+            <a href="{% url 'LandingPage' %}"><img src="{% static 'images/vikinglogo.png' %}" alt="Viking Asset Management Logo" id="navbar_logo" class="xl:object-scale-down xl:h-14 xl:w-60 sm:object-scale-down sm:h-14 sm:w-44 xs:object-scale-down xs:h-8 xs:w-52"></a>
         </div>
         <!-- Items-->
         <div class="hidden lg:flex space-x-16 text-white font-Jost mt-5">
              {% if request.path == '/' %}
-                <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Home</a>
+                <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">Home</a>
             {% else %}
-                <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-500">Home</a>
+                <a href="{% url 'LandingPage' %}" class="hover:text-registerCols duration-500 landingpage-nav">Home</a>
             {% endif %}
             {% if request.path == '/FAQs' %}
-                <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-500 text-highlightColor">FAQs</a>
+                <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">FAQs</a>
             {% else %}
-                <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-500">FAQs</a>
+                <a href="{% url 'FAQs' %}" class="hover:text-registerCols duration-500 landingpage-nav">FAQs</a>
             {% endif %}
 
             {% if request.path == '/services' %}
-                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">Services</a>
             {% elif request.path == '/services_design_art' %}
-                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">Services</a>
             {% elif request.path == '/services_digital_marketing' %}
-                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">Services</a>
             {% elif request.path == '/services_writing_translation' %}
-                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">Services</a>
             {% elif request.path == '/services_development_IT' %}
-                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">Services</a>
             {% elif request.path == '/services_business_assistance' %}
-                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">Services</a>
             {% elif request.path == '/services_financial_data_analytics' %}
-                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor">Services</a>
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-500 text-highlightColor landingpage-nav">Services</a>
             {% else %}
-                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-50">Services</a>
+                <a href="{% url 'LandingServicesPage' %}" class="hover:text-registerCols duration-50 landingpage-nav">Services</a>
             {% endif %}
-            <a href="#" class="hover:text-registerCols duration-500">About</a>
+            <a href="#" class="hover:text-registerCols duration-500 landingpage-nav">About</a>
         </div>
         <!-- Button -->
         {% if request.user.is_authenticated %}
-            <a href="{% url 'accountLogout' %}" class="font-Jost hidden lg:block mt-5 p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500">
+            <a href="{% url 'accountLogout' %}" class="font-Jost hidden lg:block mt-5 p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500 loginlogout">
                 <b>Logout</b>
             </a>
         {% else %}
-            <a href="{% url 'accountCreate' %}" class="font-Jost hidden lg:block mt-5 p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500">
+            <a href="{% url 'accountCreate' %}" class="font-Jost hidden lg:block mt-5 p-1 px-5 mr-28 md:space-x-10 text-black rounded-full baseline bg-white hover:bg-purpleWhite transition-all duration-500 loginlogout">
                 <b>Sign Up</b>
             </a>
         {% endif %}       

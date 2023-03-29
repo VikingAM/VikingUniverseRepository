@@ -38,11 +38,60 @@
 
         }
     </style>
+
+    <style type="text/css">
+        @media screen and (min-width: 1981px) {
+            #heroxxl{
+                width: 100%;
+            }
+            .font-Integral{
+                font-size: 220px;
+                margin-top: 50px;
+            }
+            .banner-subtext{
+                font-size: 70px;
+                font-weight: 300;
+                margin-top: 30px;
+                margin-bottom: 60px;
+            }
+            .banner-buttons{
+                font-size: 50px;
+                padding: 30px 100px 30px 100px;
+            }
+
+            .landingpage-nav{
+                font-size: 50px;
+                padding: 10px 80px 10px 80px;
+            }
+
+            #navbar_logo{
+                width: 600px;
+                height: 160px;
+                object-fit: fill;
+                margin: 20px 0px 20px 0px;
+            }
+
+            .loginlogout{
+                font-size: 50px;
+                padding: 20px 70px;
+            }
+            .banner-subheader{
+                font-size: 50px;
+                margin-top: 410px;
+            }
+            .banner-subdescription{
+                font-size: 40px;
+                width: 65%;
+                text-align: center;
+                margin: auto;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- LG to XXL video bg -->
     <div class="video-wrapper sm:hidden md:hidden smd:hidden slg:hidden xs:hidden xxl:block vs:hidden xl:block lg:block z-0">
-        <video autoplay loop muted plays-inline class="absolute  xxl:-mr-20 nxl:-mb-0 xl:-mb-110" id="hero" style=" margin-top: -6%; margin-bottom: -10.5%;"> <!--   -->
+        <video autoplay loop muted plays-inline class="absolute  xxl:-mr-20 nxl:-mb-0 xl:-mb-110" id="heroxxl" style=" margin-top: -6%; margin-bottom: -10.5%;"> <!--   -->
             <source src="{% static 'landingpage/images/bg_img.mp4' %}" type="video/mp4">
         </video>
     </div>
@@ -69,16 +118,16 @@
         <p class="font-Integral  sm:text-4xl md:text-5xl lg:text-6xl xl:text-5xl xxl:text-6xl bg-clip-text text-white">WELCOME TO OUR</p>
         <h1 class="font-Integral sm:text-4xl md:text-5xl lg:text-6xl xl:text-5xl font-bold uppercase bg-clip-text  text-endUnderLine ">Universe</h1>
         <br>
-        <p class="text-white font-Jost">Providing a broad range of services and solutions in creative design, writing, marketing, and business operations.</p>
+        <p class="text-white font-Jost banner-subtext">Providing a broad range of services and solutions in creative design, <br/> writing, marketing, and business operations.</p>
         <br><br>
-        <a href="#" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1 font-Jost text-white rounded-full  bg-purpleWhite hover:bg-white hover:text-black duration-500">Get Started</a>
+        <a href="#" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1 font-Jost text-white rounded-full  bg-purpleWhite hover:bg-white hover:text-black duration-500 banner-buttons">Get Started</a>
         {% if request.user.is_authenticated %}
-            <a href="{% url 'portalDashboard' %}" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1  font-Jost text-white rounded-full border hover:bg-purpleWhite transition-all duration-500">Portal</a>
+            <a href="{% url 'portalDashboard' %}" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1  font-Jost text-white rounded-full border hover:bg-purpleWhite transition-all duration-500 banner-buttons">Portal</a>
         {% else %}
-             <a href="{% url 'accountLogin' %}" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1  font-Jost text-white rounded-full border hover:bg-purpleWhite transition-all duration-500">Log In</a>
+             <a href="{% url 'accountLogin' %}" class="xl:p-3 xl:px-6 xl:pt-2 xl:mr-1 sm:p-3 sm:px-6 sm:pt-2 sm:mr-1 xs:p-1 xs:px-4 xs:pt-1 xs:mr-1  font-Jost text-white rounded-full border hover:bg-purpleWhite transition-all duration-500 banner-buttons">Log In</a>
         {% endif %}            
-        <h1 class="text-white text-sm font-Poppins xxl:mt-96 xl:mt-36 slg:mt-56 lg:mt-52 nxl:mt-48 mxl:mt-85 md:mt-64 sm:mt-40 xs:mt-40 sm:text-xl sm:text-center xs:text-center xl:text-base"><b>Why us?</b></h1>
-        <p class="text-white text-sm font-Poppins sm:mx-4 md:mx-4 lg:mx-14 sm:mt-10 sm:text-center xs:mt-5 xs:text-center xl:mt-2 sm:text-base xs:text-base xl:text-sm">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>       
+        <h1 class="text-white text-sm font-Poppins xxl:mt-96 xl:mt-36 slg:mt-56 lg:mt-52 nxl:mt-48 mxl:mt-85 md:mt-64 sm:mt-40 xs:mt-40 sm:text-xl sm:text-center xs:text-center xl:text-base banner-subheader"><b>Why us?</b></h1>
+        <p class="text-white text-sm font-Poppins sm:mx-4 md:mx-4 lg:mx-14 sm:mt-10 sm:text-center xs:mt-5 xs:text-center xl:mt-2 sm:text-base xs:text-base xl:text-sm banner-subdescription">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>       
     </div>
 
     <!-- Benefits Page -->
