@@ -3019,7 +3019,7 @@ video {
   }
 }
 
-@media (min-width: 1920px){
+@media (min-width: 1920px) and (max-width:2559px){
   .xxl\:left-170{
     left: 640px;
   }
