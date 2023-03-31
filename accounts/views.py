@@ -166,7 +166,7 @@ def accountVerificationPage(request, verification_id):
 	verification_details = user_validation.objects.get(verification_code=verification_id)
 	UserDetails = details.objects.get(userId=verification_details.userId)
 	fullname = UserDetails.last_name+", "+UserDetails.first_name
-	return render(request, 'register_verification.html', {"fullname":fullname, "code":verification_id})
+	return render(request, 'register_verification.html', {"fullname":fullname, "code":verification_id, "verification_id":verification_details.pk})
 
 def resendVerification(request):
 	data = {}

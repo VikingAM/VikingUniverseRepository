@@ -7,27 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>About Us | Viking Asset Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Integral';
+            src:    url("{% static 'fonts/IntegralCF-DemiBold.woff2' %}") format('woff2'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.woff' %}") format('woff'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.eot' %}") format('eot'),
+                    url("{% static 'fonts/IntegralCF-DemiBold.otf' %}") format('otf');
+
+        }
+        body {
+            background-image: url({% static 'landingpage/images/vikingbg.png' %} );
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+        }
+    </style>
 </head>
-<body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">
+<body class="bg-cover" >
     <!-- Navbar -->
     {% include 'landing_page_nav_bar.html' %}
-    <div>
-        <div class="text-white mt-14 ml-16 w-150 ">
-            <h1 class="text-2xl mb-6"><b>ABOUT VIKING UNIVERSE</b></h1>
-
-            <p class="text-md mb-6 font-Poppins">Viking Universe is a global offshore outsourcing company, providing a broad range of services and solutions in creative design, writing, marketing, and business operations. <br><br>
+    <div class="lg:flex md:flex-row xl:mx-52  xs:mx-10 xs:mt-14 txl:flex txl:justify-center txl:items-center kxl:space-x-120">
+        <div class="text-white xl:mt-0 lg:mt-20 lg:ml-16 xl:w-150 ">
+            <h1 class="md:mt-20 md:text-2xl sm:text-lg slg:text-lg mb-6 font-Integral xs:text-base kxl:text-6xl txl:text-3xl "><b>ABOUT VIKING UNIVERSE</b></h1>
+            <p class="md:text-xl sm:text-base xs:text-sm slg:text-base mb-6 font-Poppins kxl:text-4xl txl:text-xl kxl:w-190 kxl:mt-12">Viking Universe is a global offshore outsourcing company, providing a broad range of services and solutions in creative design, writing, marketing, and business operations. <br><br>
                 The importance and potential value of finding services online grows as more and more of the industries start moving to the digital world. We've learned much of what we know about great experiences by working with the best. Like us, the clients we work with care deeply about the human experiences they provide for customers.
             </p>
-        </div>  
-        <div class="text-white w-150 ml-170">
-            <h1 class="text-2xl mb-6"><b>ABOUT VIKING UNIVERSE</b></h1>
-
-            <p class="text-md mb-6 font-Poppins">We believe that everyone can win and so we help clients by working at the intersection of business and technology to help them improve their performance, 
+        </div>
+        <div class="text-white lg:mt-105 lg:ml-12 xl:w-150 xl:mt-52 kxl:mt-96 txl:mt-96">
+            <h1 class="md:mt-20 md:text-2xl sm:text-lg slg:text-lg mb-6 font-Integral xs:text-base  kxl:text-6xl txl:text-3xl"><b>ABOUT VIKING UNIVERSE</b></h1>
+            <p class=" md:text-xl sm:text-base xs:text-sm mb-32 slg:text-base font-Poppins kxl:text-4xl txl:text-xl kxl:w-190 kxl:mt-12">We believe that everyone can win and so we help clients by working at the intersection of business and technology to help them improve their performance, 
                 make a big impact on their success, and provide a cost-effective, efficient, dependable, and professional 
                 corporate solution to our valued clients with outstanding quality results.
             </p>
         </div>
     </div>
+    <script src="{% static 'landingpage/js/index.js' %}"></script>
     </body>
 </html>

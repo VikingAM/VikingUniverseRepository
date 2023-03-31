@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'landingpage/css/index.css' %}">
     <title>Verify Account | Viking Asset Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
     <body class="bg-current" style="background-image: url({% static 'landingpage/images/bg_img.png' %} )">  
         <div class="flex items-center justify-center h-screen font-Poppins">
@@ -22,7 +21,7 @@
                 <h1 class="text-center text-xl block font-Jost mb-6">Hi <i>{{ fullname }}</i></h1>
                 <p class="text-center text-md block font-Jost mb-6">You're almost there! Please check you email for the verifiation..</p>
                 <div class="pt-2 flex justify-center">
-                    <a href="register_welcome.html" class="p-1 w-full rounded-lg text-2base text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">
+                    <a href="#" class="p-1 w-full rounded-lg text-2base text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">
                         <center>Resend</center>
                     </a>
                 </div><br>
@@ -32,4 +31,8 @@
             </div>    
         </div>
     </body>
+    <script src="{% static 'vendor/jquery-3.6.3.min.js' %}"></script>
+    <script type="text/javascript">
+        
+    </script>
 </html>
