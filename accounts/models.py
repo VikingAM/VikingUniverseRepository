@@ -72,3 +72,21 @@ class password_manager(models.Model):
 	history = models.TextField(null=True, blank=True)
 	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	status = models.BooleanField(default=1)
+
+class credit_score(models.Model):
+	amount = models.IntegerField(null=True, blank=True)
+	credit = models.IntegerField(null=True, blank=True, default=0)
+	paid = models.BooleanField(default=0)
+	create_date = models.DateTimeField(auto_now_add=True)
+	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+	status = models.BooleanField(default=1)
+
+class invoice(models.Model):
+	create_date = models.DateTimeField(auto_now_add=True)
+	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+	payment_method = models.CharField(max_length=250, null=True, blank=True)
+	product_name = models.CharField(max_length=250, null=True, blank=True)
+	product_description = models.CharField(max_length=250, null=True, blank=True)
+	amount = models.IntegerField(null=True, blank=True)
+	quantity = models.IntegerField(null=True, blank=True)
+	status = models.BooleanField(default=1)

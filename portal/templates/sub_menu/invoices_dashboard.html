@@ -1,0 +1,207 @@
+<style type="text/css">
+.invoiceHeader{
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 40px;
+	line-height: 60px;
+	color: #6417A1;
+}
+.invoiceHeaderSubText p{
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 18px;
+	color: #646465;
+}
+.invoiceTable td{
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 22px;
+	color: #0D0B72;
+}
+
+.invoiceModalHeader{
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 25px;
+	line-height: 40px;
+	color: #6417A1;
+}
+
+.invoicelabel{
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 15px;
+	line-height: 20px;
+	color: #3E1774;
+}
+
+.hrInvoiceDetails{
+	margin-top: 0.5px;
+	margin-bottom: 0.5px;
+}
+.invoice_termConditions{
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	text-decoration-line: underline;
+	color: #9B9B9B;
+}
+</style>
+
+<div class="row">
+	<div class="col-sm-3"></div>
+	<div class="col-sm-9">
+		<br/><br/>
+		<div class="row">
+			<div class="col-sm-12 invoiceHeader">Invoices</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10 invoiceHeaderSubText">
+				<p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<table class="table invoiceTable">
+					<tr>
+				    	<th scope="col" width="25%"  >Invoice ID</th>
+				    	<th scope="col" width="25%" class="center">Purchase Date</th>
+				    	<th scope="col" width="25%" class="center">Item Purchased</th>
+				    	<th scope="col" width="25%" class="center">Invoice Amount</th>
+				    </tr>
+				    <tbody>
+				    	{% for invoice_detail in list_of_invoice %}
+				    		<tr>
+					    		<td><a href="javascript:void(0);" invoice_id="{{ invoice_detail.pk }}" onclick="InvoiceDetails(this)">#{{ invoice_detail.pk }}</a></td>
+					    		<td>{{ invoice_detail.create_date|date:'M d, Y' }}</td>
+					    		<td>{{ invoice_detail.product_description }}</td>
+					    		<td>${{ invoice_detail.amount }}</td>
+					    	</tr>
+				    	{% empty %}
+				    		<tr>
+					    		<td rowspan="4">No Invoices</td>
+					    	</tr>
+				    	{% endfor %}
+				    </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="InvoiceDetails" tabindex="-1" aria-labelledby="InvoiceDetailsLabel" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-body">
+        		<div class="row">
+        			<div class="col-sm-12 invoiceModalHeader">
+        				INVOICE No. 12995
+        			</div>
+        		</div>
+        		<br/><br/>
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Date
+        			</div>
+        			<div class="col-sm-7 purchase_date">
+        				
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Payment Method
+        			</div>
+        			<div class="col-sm-7 payment_method">
+        				
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Customer Number
+        			</div>
+        			<div class="col-sm-7 customer_id">
+        				
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Address
+        			</div>
+        			<div class="col-sm-7 customer_address">
+        				
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Product
+        			</div>
+        			<div class="col-sm-7 invoice_product">
+        				
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Quantity
+        			</div>
+        			<div class="col-sm-7 invoice_quantity">
+        				
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Breakdown
+        			</div>
+        			<div class="col-sm-7 invoice_description">
+        				
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Total Tax
+        			</div>
+        			<div class="col-sm-7 invoice_tax">
+        				0
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<div class="row">
+        			<div class="col-sm-5 invoicelabel">
+        				Total
+        			</div>
+        			<div class="col-sm-7 invoice_total">
+        				
+        			</div>
+        		</div>
+        		<hr class="hrInvoiceDetails">
+        		<br/><br/>
+        		<div class="row">
+        			<div class="col-sm-12 invoice_termConditions">
+        				Terms and Conditions
+        			</div>
+        		</div>
+        		<div class="row">
+        			<div class="col-sm-12 invoice_termConditions">
+        				Print Invoice
+        			</div>
+        		</div>
+      		</div>
+    	</div>
+  	</div>
+</div>

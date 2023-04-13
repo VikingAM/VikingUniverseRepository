@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.conf import settings
-from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category
+from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
 
 
 # Create your views here.
@@ -17,7 +17,7 @@ def portalSettingPage(request):
 	profile_passwords = password_manager.objects.filter(userId=request.user.id, status=1)
 	list_of_industry_type = industry_type.objects.all()
 	list_of_password_category = password_category.objects.all();
-	print(list_of_password_category)
+	list_of_invoice = invoice.objects.filter(userId=request.user.id, status=1).order_by('-create_date')
 	if request.method == 'POST':
 		profile_details.first_name = request.POST['first_name']
 		profile_details.last_name = request.POST['last_name']
@@ -38,7 +38,7 @@ def portalSettingPage(request):
 		profile_address.city = request.POST['city']
 		profile_address.zip_code = request.POST['zip_code']
 		profile_address.save()
-	return render(request, 'setting_page.html', {"profile_details": profile_details, "profile_passwords":profile_passwords, "industry_type_list":list_of_industry_type, "profile_address":profile_address, "password_category":list_of_password_category, "site_url": settings.SITE_URL})
+	return render(request, 'setting_page.html', {"profile_details": profile_details, "list_of_invoice":list_of_invoice, "profile_passwords":profile_passwords, "industry_type_list":list_of_industry_type, "profile_address":profile_address, "password_category":list_of_password_category, "site_url": settings.SITE_URL})
 
 
 

@@ -22,6 +22,13 @@ urlpatterns = [
     path('profile_new_password', views.profileNewPassword, name='profileNewPassword'),
     path('profile_new_password_getById', views.ProfileNewPasswordGetById, name='ProfileNewPasswordGetById'),
     path('profile_update_password', views.ProfileUpdatePassword, name='ProfileUpdatePassword'),
-]
+
+    #credit score
+    path('credit_score', views.creditScoreDashboard, name="creditScoreDashboard"),
+    path('credit_score_add', views.creditScoreAdd, name="creditScoreAdd"),
+
+    path('invoice_details_getById', views.invoiceDetailsGetById, name="invoiceDetailsGetById"),
+
+] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

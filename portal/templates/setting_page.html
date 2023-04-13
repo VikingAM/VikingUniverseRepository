@@ -92,7 +92,7 @@
 					<ul style="margin-top: 40%;">
 					<li><a href="#profile_setting" id="profile_setting" onclick="chooseSidebar2(this);" wrapper="profile_edit_wrapper" class="sidebar-2_active"><i class="far fa-edit"></i>Profile</a></li>
 					<li><a href="#profile_password" id="profile_password" onclick="chooseSidebar2(this);" wrapper="password_change_wrapper" class="sidebar-2_nonactive"><i class="fas fa-users"></i>Password</a></li>
-					<li><a href="#" id="profile_invoice" onclick="chooseSidebar2(this);" wrapper="" class="sidebar-2_nonactive"><i class="fas fa-users" ></i>Invoices</a></li>
+					<li><a href="#profile_invoice" id="profile_invoice" onclick="chooseSidebar2(this);" wrapper="invoices_dashboard_wrapper" class="sidebar-2_nonactive"><i class="fas fa-users" ></i>Invoices</a></li>
 					<li><a href="#profile_manager" id="profile_manager" onclick="chooseSidebar2(this);" wrapper="password_management_wrapper" class="sidebar-2_nonactive" ><i class="fas fa-users"></i>Password Manager</a></li>
 					<li><a href="#" id="profile_faqs" onclick="chooseSidebar2(this);" wrapper="" class="sidebar-2_nonactive"><i class="fas fa-users"></i>FAQS</a></li>
 					</ul>
@@ -109,6 +109,10 @@
 
 	<div id="password_management_wrapper" style="display:none;">
 		{% include 'sub_menu/password_management.html' %}
+	</div>
+
+	<div id="invoices_dashboard_wrapper" style="display:none;">
+		{% include 'sub_menu/invoices_dashboard.html' %}
 	</div>
 
 </div>
@@ -270,158 +274,200 @@
             return true;
         }
 
-        function editPasswordManagement(that){
-	// clear form
-	$("#edit_password_management_id").val(0);
-	$("#edit_password_name").val("");
-	$("#edit_password_username").val("");
-	$("#edit_password_management").val("");
-	$("#edit_password_url").val("");
-	$("#edit_password_description").val("");
-	$("#edit_password_category").val(0);
-	var password_management_id = $(that).attr("attr_id");
-	$("#edit_password_info_msg").empty();
-	$("#edit_password_info_msg").append("Fetching data . . .");
-	$("#edit_password_info_msg").show();
-	$.ajax({
-        type: "POST",
-        url: "{% url 'ProfileNewPasswordGetById' %}",
-        data: {
-        	"csrfmiddlewaretoken": '{{ csrf_token }}',
-        	"password_management_id":password_management_id,
-        },
-        async:true,
-        success: function (data) {
-        	$("#edit_password_info_msg").hide();
-        	$("#edit_password_name").val(data.name);
-        	$("#edit_password_username").val(data.username)
-        	$("#edit_password_management").val(data.password)
-        	$("#edit_password_url").val(data.url)
-        	$("#edit_password_description").val(data.description)
-        	$("#edit_password_management_id").val(password_management_id)
-        	$("#edit_password_category").val(data.category)
-        	$("#edit_password_info_msg").hide();
-        },
-        error: function (e) {
-        	$("#edit_password_info_msg").hide();
-            $("#edit_password_error").empty();
-    		$("#edit_password_error").append("Error on Fetching!");
-    		$("#edit_password_error").show();
-        }
-    })
-}
-
-function UpdatePasswordManagement(){
-	$("#edit_password_info_msg").empty();
-	$("#edit_password_info_msg").append("Updating . . .");
-	$("#edit_password_info_msg").show();
-	$("#edit_password_error").hide();
-	$("#edit_password_success_msg").hide();
-	var password_management_id = $("#edit_password_management_id").val();
-	var password_name = $("#edit_password_name").val();
-	var password_username = $("#edit_password_username").val();
-	var password_management_password = $("#edit_password_management").val();
-	var password_url = $("#edit_password_url").val();
-	var password_description = $("#edit_password_description").val();
-	var password_category = $("#edit_password_category").val();
-	$.ajax({
-        type: "POST",
-        url: "{% url 'ProfileUpdatePassword' %}",
-        data: {
-        	"csrfmiddlewaretoken": '{{ csrf_token }}',
-        	"password_management_id":password_management_id,
-        	"name": password_name,
-        	"username": password_username,
-        	"password":password_management_password,
-        	"url":password_url,
-        	"description":password_description,
-        	"category": password_category,
-        },
-        async:true,
-        success: function (data) {
-        	$("#edit_password_info_msg").hide();
-        	if(data.status_code == 1){
-        		$("#edit_password_success_msg").empty();
-        		$("#edit_password_success_msg").append(data.status_msg);
-        		$("#edit_password_success_msg").show();
-        		$("#edit_password_success_msg").hide(2000);
-        	}else{
-        		$("#edit_password_error").empty();
-        		$("#edit_password_error").append(data.status_msg);
-        		$("#edit_password_error").show();
-        		$("#edit_password_error").hide(2000);
-        	}
-        },
-        error: function (e) {
-        	$("#edit_password_info_msg").hide();
-            $("#edit_password_error").empty();
-    		$("#edit_password_error").append("Error on updating!");
-    		$("#edit_password_error").show();
-    		$("#edit_password_error").hide(2000);
-        }
-    })
-}
-
-function saveNewPassword(){
-	var name = $("#password_name").val();
-	var category = $("#password_category").val();
-	var username =  $("#password_username").val();
-	var password = $("#new_password_management").val();
-	var url = $("#password_url").val();
-	var description = $("#new_password_description").val();
-
-	$("#new_password_error").empty();
-	$("#new_password_error").hide();
-	if(inputCheckIfNotEmpty("password_name", "Password Name", "new_password_error") != true){ return false; }
-	if(inputCheckIfNotEmpty("password_username", "Username / Email", "new_password_error") != true){ return false;}
-	if(inputCheckIfNotEmpty("new_password_management", "Password", "new_password_error") != true){ return false;}
-	if(inputCheckIfNotEmpty("password_url", "Url", "new_password_error") != true){return false;}
-	$("#new_password_info_msg").show();
-	$("#new_password_info_msg").append("Process request. . .");
-	dataVal = {
-		"csrfmiddlewaretoken": '{{ csrf_token }}',
-        "userId": '{{ request.user.id }}',
-        "category": category,
-        "password_name":name ,
-        "username": username,
-        "password": password,
-        "url": url,
-        "description": description,
+    function editPasswordManagement(that){
+		// clear form
+		$("#edit_password_management_id").val(0);
+		$("#edit_password_name").val("");
+		$("#edit_password_username").val("");
+		$("#edit_password_management").val("");
+		$("#edit_password_url").val("");
+		$("#edit_password_description").val("");
+		$("#edit_password_category").val(0);
+		var password_management_id = $(that).attr("attr_id");
+		$("#edit_password_info_msg").empty();
+		$("#edit_password_info_msg").append("Fetching data . . .");
+		$("#edit_password_info_msg").show();
+		$.ajax({
+	        type: "POST",
+	        url: "{% url 'ProfileNewPasswordGetById' %}",
+	        data: {
+	        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+	        	"password_management_id":password_management_id,
+	        },
+	        async:true,
+	        success: function (data) {
+	        	$("#edit_password_info_msg").hide();
+	        	$("#edit_password_name").val(data.name);
+	        	$("#edit_password_username").val(data.username)
+	        	$("#edit_password_management").val(data.password)
+	        	$("#edit_password_url").val(data.url)
+	        	$("#edit_password_description").val(data.description)
+	        	$("#edit_password_management_id").val(password_management_id)
+	        	$("#edit_password_category").val(data.category)
+	        	$("#edit_password_info_msg").hide();
+	        },
+	        error: function (e) {
+	        	$("#edit_password_info_msg").hide();
+	            $("#edit_password_error").empty();
+	    		$("#edit_password_error").append("Error on Fetching!");
+	    		$("#edit_password_error").show();
+	        }
+	    })
 	}
-	$.ajax({
-        type: "POST",
-        url: "{% url 'profileNewPassword' %}",
-        data: dataVal,
-        async:true,
-        success: function (data) {
-        	$("#new_password_info_msg").hide();
-            if(data.status == 1){
-            	$("#new_password_success_msg").show();
-            	$("#new_password_success_msg").append(data.success_msg);
-            	location.reload(true);
-            }else{
-            	$("#new_password_error").append(data.error_msg);
-            	$("#new_password_error").show();
-            }
-        },
-        error: function (e) {
-            $("#new_password_error").append("Error! please try again later.");
-        }
-    })
 
-}
-
-function inputCheckIfNotEmpty(field_id, field_name, error_holder_field_name){
-	var value = $("#"+field_id).val();
-	if(value.length == 0){
-		$("#"+field_id).focus();
-		$("#"+error_holder_field_name).append(field_name+" Should not be empty!")
-		$("#"+error_holder_field_name).show();
-		return false;
-	}else{
-		return true;
+	function UpdatePasswordManagement(){
+		$("#edit_password_info_msg").empty();
+		$("#edit_password_info_msg").append("Updating . . .");
+		$("#edit_password_info_msg").show();
+		$("#edit_password_error").hide();
+		$("#edit_password_success_msg").hide();
+		var password_management_id = $("#edit_password_management_id").val();
+		var password_name = $("#edit_password_name").val();
+		var password_username = $("#edit_password_username").val();
+		var password_management_password = $("#edit_password_management").val();
+		var password_url = $("#edit_password_url").val();
+		var password_description = $("#edit_password_description").val();
+		var password_category = $("#edit_password_category").val();
+		$.ajax({
+	        type: "POST",
+	        url: "{% url 'ProfileUpdatePassword' %}",
+	        data: {
+	        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+	        	"password_management_id":password_management_id,
+	        	"name": password_name,
+	        	"username": password_username,
+	        	"password":password_management_password,
+	        	"url":password_url,
+	        	"description":password_description,
+	        	"category": password_category,
+	        },
+	        async:true,
+	        success: function (data) {
+	        	$("#edit_password_info_msg").hide();
+	        	if(data.status_code == 1){
+	        		$("#edit_password_success_msg").empty();
+	        		$("#edit_password_success_msg").append(data.status_msg);
+	        		$("#edit_password_success_msg").show();
+	        		$("#edit_password_success_msg").hide(2000);
+	        	}else{
+	        		$("#edit_password_error").empty();
+	        		$("#edit_password_error").append(data.status_msg);
+	        		$("#edit_password_error").show();
+	        		$("#edit_password_error").hide(2000);
+	        	}
+	        },
+	        error: function (e) {
+	        	$("#edit_password_info_msg").hide();
+	            $("#edit_password_error").empty();
+	    		$("#edit_password_error").append("Error on updating!");
+	    		$("#edit_password_error").show();
+	    		$("#edit_password_error").hide(2000);
+	        }
+	    })
 	}
-}
+
+	function saveNewPassword(){
+		var name = $("#password_name").val();
+		var category = $("#password_category").val();
+		var username =  $("#password_username").val();
+		var password = $("#new_password_management").val();
+		var url = $("#password_url").val();
+		var description = $("#new_password_description").val();
+
+		$("#new_password_error").empty();
+		$("#new_password_error").hide();
+		if(inputCheckIfNotEmpty("password_name", "Password Name", "new_password_error") != true){ return false; }
+		if(inputCheckIfNotEmpty("password_username", "Username / Email", "new_password_error") != true){ return false;}
+		if(inputCheckIfNotEmpty("new_password_management", "Password", "new_password_error") != true){ return false;}
+		if(inputCheckIfNotEmpty("password_url", "Url", "new_password_error") != true){return false;}
+		$("#new_password_info_msg").show();
+		$("#new_password_info_msg").append("Process request. . .");
+		dataVal = {
+			"csrfmiddlewaretoken": '{{ csrf_token }}',
+	        "userId": '{{ request.user.id }}',
+	        "category": category,
+	        "password_name":name ,
+	        "username": username,
+	        "password": password,
+	        "url": url,
+	        "description": description,
+		}
+		$.ajax({
+	        type: "POST",
+	        url: "{% url 'profileNewPassword' %}",
+	        data: dataVal,
+	        async:true,
+	        success: function (data) {
+	        	$("#new_password_info_msg").hide();
+	            if(data.status == 1){
+	            	$("#new_password_success_msg").show();
+	            	$("#new_password_success_msg").append(data.success_msg);
+	            	location.reload(true);
+	            }else{
+	            	$("#new_password_error").append(data.error_msg);
+	            	$("#new_password_error").show();
+	            }
+	        },
+	        error: function (e) {
+	            $("#new_password_error").append("Error! please try again later.");
+	        }
+	    })
+
+	}
+
+	function inputCheckIfNotEmpty(field_id, field_name, error_holder_field_name){
+		var value = $("#"+field_id).val();
+		if(value.length == 0){
+			$("#"+field_id).focus();
+			$("#"+error_holder_field_name).append(field_name+" Should not be empty!")
+			$("#"+error_holder_field_name).show();
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	function InvoiceDetails(that){
+		var invoiceId = $(that).attr("invoice_id");
+		$.ajax({
+	        type: "POST",
+	        url: "{% url 'invoiceDetailsGetById' %}",
+	        data: {
+	        		"csrfmiddlewaretoken": '{{ csrf_token }}',
+	        		"invoiceId": invoiceId,
+	    		},
+	        async:true,
+	        success: function (data) {
+	            console.log(data)
+
+	            $(".purchase_date").empty();
+	            $(".payment_method").empty();
+	            $(".customer_id").empty();
+	            $(".customer_address").empty();
+	            $(".invoice_product").empty();
+	            $(".invoice_quantity").empty();
+	            $(".invoice_description").empty();
+	            $(".invoice_tax").empty();
+	            $(".invoice_total").empty();
+
+	            $(".purchase_date").append(data.purchase_date);
+	            $(".payment_method").append(data.payment_method);
+	            $(".customer_id").append(data.customer_number);
+	            $(".customer_address").append(data.customer_address);
+	            $(".invoice_product").append(data.product_name);
+	            $(".invoice_quantity").append(data.product_qty);
+	            $(".invoice_description").append(data.product_desc);
+	            $(".invoice_tax").append("$"+data.product_tax);
+	            $(".invoice_total").append("$"+data.product_total);
+
+	            $("#InvoiceDetails").modal("show");
+
+	        },
+	        error: function (e) {
+	            console.log(e)
+	        }
+	    })
+	}
 </script>
 </body>
 </html>

@@ -7,7 +7,8 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core.mail import BadHeaderError, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from accounts.models import details, address_info, user_validation, password_reset_code, password_manager, password_category
+
+from accounts.models import details, address_info, user_validation, password_reset_code, password_manager, password_category, credit_score, invoice
 import uuid, datetime, random
 
 # Create your views here.
@@ -274,5 +275,93 @@ def ProfileUpdatePassword(request):
 	except:
 		data['status_msg'] = "Error on updating data!"
 		return JsonResponse(data, safe=False)
+
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def creditScoreDashboard(request):
+	userId = request.user.id
+	Available_credit = 0
+	total_credits_used = 0
+
+	credit_list = credit_score.objects.filter(userId=userId).order_by('-create_date')
+	Available_credit = sum(credit_list.values_list('credit', flat=True))
+
+	history_list = []
+	for credit_detail in credit_list:
+		detail = {}
+		detail['credit'] = credit_detail.credit
+		detail['create_date'] = credit_detail.create_date
+		detail['title'] = str(credit_detail.credit)+" Credit Added!"
+		detail['desc'] = "Credit Added to account!"
+		detail['type'] = "0"
+		history_list.append(detail)
+
+	return render(request, "credit_score_dashboard.html", {"AVC": Available_credit, "TCU": total_credits_used, "history_list":history_list })
+
+@login_required(login_url='accounts/login')
+def creditScoreAdd(request):
+	data = {}
+	data['status_code'] = 0
+
+	if request.method == 'POST':
+		custom_amount = request.POST['custom_amount']
+		credit = request.POST['credits']
+		userId = request.POST['userId']
+		try:
+			userInstance = User.objects.get(pk=userId)
+		except:
+			data['status_code'] = 0
+			data['status_msg'] = "UserId Error!"
+			return JsonResponse(data, safe=False)
+
+		new_credit_score = credit_score()
+		new_credit_score.amount = custom_amount
+		new_credit_score.credit = credit
+		new_credit_score.userId = userInstance
+		new_credit_score.paid = 1 #set to 1 for now
+
+		new_invoice = invoice()
+		new_invoice.userId = userInstance
+		new_invoice.payment_method = "Card"
+		new_invoice.product_name = "Custom Credit"
+		new_invoice.product_description = "Custom "+custom_amount+" Credit"
+		new_invoice.amount = custom_amount
+		new_invoice.quantity = 1
+		try:
+			new_credit_score.save()
+			new_invoice.save()
+			data['status_code'] = 1
+			data['status_msg'] = "Success!"
+		except:
+			data['status_code'] = 0
+			data['status_msg'] = "Error on saving credit Score!"
+		return JsonResponse(data, safe=False)
+	else:
+		return JsonResponse(data, safe=False)
+	
+	
+
+
+@login_required(login_url='accounts/login')
+def invoiceDetailsGetById(request):
+	data = {}
+	data['status_code'] = 0
+	if request.method == 'POST':
+		invoiceId = request.POST['invoiceId']
+		invoiceDetails = invoice.objects.get(pk=invoiceId)
+		address_details = address_info.objects.get(userId=invoiceDetails.userId.pk)
+		complete_address = str(address_details.street)+" "+str(address_details.city)+" "+str(address_details.state)+" "+str(address_details.country)
+		data['purchase_date'] = invoiceDetails.create_date.strftime("%B %d, %Y")
+		data['payment_method'] = invoiceDetails.payment_method
+		data['customer_number'] = invoiceDetails.userId.pk
+		data['customer_address'] = complete_address
+		data['product_name'] = invoiceDetails.product_name
+		data['product_qty'] = invoiceDetails.quantity
+		data['product_desc'] = invoiceDetails.product_description
+		data['product_tax'] = 0
+		data['product_total'] = invoiceDetails.amount
+		data['status_code'] = 1
+
 
 	return JsonResponse(data, safe=False)
