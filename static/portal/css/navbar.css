@@ -97,8 +97,9 @@
 
 .navbar-icons{
     font-size: 24px;
+    margin-left: 30%;
 }
 
 .container-fluid{
-    pointer-events: none;
+/*    pointer-events: none;*/
 }
