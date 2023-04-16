@@ -1,0 +1,72 @@
+.search_bar_wrapper{
+	background-color: white;
+    padding: 1%;
+    border-radius: 5px;
+}
+
+#portal_search_bar{
+	border: 0px;
+}
+
+.card_icon{
+	padding: 3% 4%;
+    background-color: #A7A0FE;
+    border-radius: 100%;
+    margin: auto;
+}
+
+.card_icon i {
+	opacity: 0.5;
+	font-size:30px;
+}
+
+.card_text{
+	text-align: left;
+    padding-left: 3px;
+    padding-top: 8px;
+    line-height: 15px;
+}
+
+.task_details{
+	font-family: 'Lato', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 24px;
+}
+
+.task_sub_details{
+	font-family: 'Lato', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 15px;
+	line-height: 18px;
+	color: #A3A0A0;
+	text-align:right;
+}
+
+.task_title{
+	font-family: 'Lato', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 22px;
+}
+
+.task_card_description{
+	font-family: 'Lato', sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 14px;
+	color: #B1B1B1;
+}
+
+.task_create_date{
+	font-family: 'Lato', sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 14px;
+	color: #B1B1B1;
+}

@@ -8,7 +8,8 @@ from accounts.models import details, address_info, user_validation, industry_typ
 # Create your views here.
 @login_required(login_url='/accounts/login')
 def portalDashboard(request):
-	return render(request, 'portal_dashboard.html')
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'portal_dashboard.html', {"profile_details":profile_details})
 
 @login_required(login_url='/accounts/login')
 def portalSettingPage(request):

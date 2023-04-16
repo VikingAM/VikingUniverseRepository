@@ -18,7 +18,7 @@
         <!-- /END Separator -->
         <!-- Menu with submenu -->
         <br/><br/><br/>
-        <a href="#" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a href="{% url 'portalDashboard' %}" class="list-group-item list-group-item-action ">
             <div class="d-flex w-100 justify-content-start align-items-center">
             	<!-- <i class="fa-sharp fa-regular fa-house"></i> -->
                 <span class="fa-solid fa-house fa-fw mr-3 navbar-icons"></span>
@@ -26,7 +26,7 @@
             </div>
         </a>
         <br/>
-        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a href="#submenu2" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fa-solid fa-file fa-fw mr-3 navbar-icons"></span>
                 <span class="menu-collapsed d-none">Task</span>
@@ -40,7 +40,7 @@
             </div>
         </a>
         <br/>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="{% url 'ticketingPage' %}" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fa-solid fa-ticket fa-fw mr-3 navbar-icons"></span>
                 <span class="menu-collapsed d-none">Ticketing</span>

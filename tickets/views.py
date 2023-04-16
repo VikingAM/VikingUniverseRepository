@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.http import JsonResponse
 from tickets.models import issue, issue_type
+from accounts.models import details
 
 # Create your views here.
 @login_required(login_url='/accounts/login')
@@ -35,5 +36,5 @@ def Addticket(request):
 def ticketingPage(request):
 	issue_types = issue_type.objects.all()
 	list_of_issue_ticket = issue.objects.all();
-
-	return render(request, 'ticketing_page.html', {"issue_types":issue_types, "issue_tickets": list_of_issue_ticket})
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'ticketing_page.html', {"issue_types":issue_types, "issue_tickets": list_of_issue_ticket, "profile_details": profile_details})
