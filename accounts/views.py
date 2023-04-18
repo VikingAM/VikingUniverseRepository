@@ -280,6 +280,7 @@ def ProfileUpdatePassword(request):
 
 @login_required(login_url='accounts/login')
 def creditScoreDashboard(request):
+	profile_details = details.objects.get(userId=request.user.id)
 	userId = request.user.id
 	Available_credit = 0
 	total_credits_used = 0
@@ -297,7 +298,7 @@ def creditScoreDashboard(request):
 		detail['type'] = "0"
 		history_list.append(detail)
 
-	return render(request, "credit_score_dashboard.html", {"AVC": Available_credit, "TCU": total_credits_used, "history_list":history_list })
+	return render(request, "credit_score_dashboard.html", {"AVC": Available_credit, "TCU": total_credits_used, "history_list":history_list, "profile_details":profile_details })
 
 @login_required(login_url='accounts/login')
 def creditScoreAdd(request):

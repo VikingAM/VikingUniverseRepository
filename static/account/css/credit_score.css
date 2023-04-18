@@ -1,0 +1,193 @@
+.yourcreditScore{
+	font-family:'Poppins', sans-serif;;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 50px;
+	line-height: 75px;
+	color: #6417A1;
+}
+
+.add_more_credit_btn{
+	background: linear-gradient(90.97deg, rgba(26, 47, 238, 0.85) 0%, rgba(196, 26, 238, 0.85) 99.67%);
+	border-radius: 13px;
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 22px;
+	color: #FFFFFF;
+	padding: 7% 15%;
+	border: 0px;
+	width: 100%;
+}
+.center{
+	text-align: center;
+}
+.creditbox{
+	box-sizing: border-box;
+	background: #FFFFFF;
+	border: 1px solid #C7C7C7;
+	border-radius: 13px;
+	padding-bottom: 4%;
+	margin-right: 1%;
+    max-width: 49%;
+}
+
+.creditboxHistory{
+	box-sizing: border-box;
+	background: #FFFFFF;
+	border: 1px solid #C7C7C7;
+	border-radius: 13px;
+	padding-bottom: 4%;
+}
+
+.creditboxLabel{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 45px;
+	color: #0717A3;
+	padding: 2% 0% 0% 5%;
+}
+
+.creditboxHistoryLabel{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 45px;
+	color: #0717A3;
+	padding: 1% 0% 0% 2%;
+}
+
+.CreditAmounts{
+	font-family: 'Poppins' , sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 50px;
+	line-height: 75px;
+	color: #000000;
+
+}
+.CreditAmountsSubText{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 22px;
+	color: #6C6D78;
+}
+
+.task_label{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	color: #000000;
+}
+.task_label p{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 22px;
+	color: #6C6D78;
+}
+.credit_history_dates{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 22px;
+	color: #6C6D78;
+}
+.credit_history_use{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	color: #000000;
+}
+.buy_credit_header{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 25px;
+	line-height: 45px;
+	color: #6417A1;
+}
+
+.buy_credit_sub_header{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 38px;
+	color: #000000;
+}
+.buy_credit_text{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 30px;
+	color: #585858;
+}
+.buy_credit_default_amount{
+	box-sizing: border-box;
+	background: #FFFFFF;
+	border: 1px solid #805AB8;
+	border-radius: 13px;
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 38px;
+	color: #000000;
+	cursor: pointer;
+}
+.buy_credit_payment_btn{
+	background: linear-gradient(90.97deg, rgba(26, 47, 238, 0.85) 0%, rgba(196, 26, 238, 0.85) 99.67%);
+	border-radius: 13px;
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 22px;
+	color: #FFFFFF;
+	padding: 5%;
+}
+
+.form-group label{
+	font-family: 'Poppins'sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 13px;
+	line-height: 22px;
+	color: #000000;
+}
+.form-group input{
+	font-size: 13px;
+}
+
+.text_right{
+	text-align: right;
+}
+.confirm_credit_text{
+	font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    color: #000000;
+}
+
+.search_bar_wrapper{
+	background-color: #F5F6FA;
+	padding: 1%;
+	border-radius: 5px;
+	border: 0px;
+}
