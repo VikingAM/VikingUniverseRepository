@@ -1,0 +1,53 @@
+.task_dashboard_header_Text{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 60px;
+	line-height: 90px;
+	color: #6417A1;
+}
+
+.task_dashboard_filter{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 30px;
+	color: #45138D;
+}
+
+.filter_status{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 30px;
+	color: #0717A3;
+}
+
+.task_title{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 45px;
+	color: #000000;
+}
+
+.task_create_date{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 22px;
+	color: #B1B1B1;
+}
+
+.task_card_description{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 30px;
+	color: #585858;
+}

@@ -6,6 +6,8 @@ from . import views
 urlpatterns = [
     path('portal_tickets', views.ticketingPage, name="ticketingPage"),
     path('add_ticket', views.Addticket, name='Addticket'),
+
+    path('task_dashboard', views.taskDashboard, name="taskDashboard"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

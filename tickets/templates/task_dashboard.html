@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Task Dashboard</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'portal/css/navbar.css' %}">
+	<link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+	<link rel="stylesheet" href="{% static 'task/css/task_dashboard.css' %}">
+
+</head>
+<body style="background:#F5F6FA;">
+<div class="row" id="body-row">
+	{% include 'sidebar_v1.html' %}
+	<div class="col p-4 main-container">
+		<div class="row search_bar_wrapper">
+			<div class="col-sm-10">
+				<!-- <input class="form-control" type="text" id="portal_search_bar" name="portal_search_bar" placeholder="Search . . . "> -->
+			</div>
+			<div class="col-sm-2" style="text-align:right; margin: auto;">
+				<i class="fas fa-fw fa-bell"></i> <span class="indicator"></span>
+				<span>
+					<img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle" width="25px">
+					{{ profile_details.first_name }} {{ profile_details.last_name }}
+					<span class="dropdown">
+						<span class="fa-solid fa-angle-down" type="button" id="Account-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="Account-menu">
+							<button class="dropdown-item" type="button">Account</button>
+						    <button class="dropdown-item" type="button">Settings</button>
+						    <button class="dropdown-item" type="button">Logout</button>
+						</div>
+					</span>
+				</span>
+			</div>
+		</div><br/>
+		<div class="row">
+			<div class="col-sm-12">
+				<span class="task_dashboard_header_Text">Your Task</span>
+			</div>
+			<div class="col-sm-12">
+				<span class="task_dashboard_filter">Filter By 
+					<span class="filter_status">Open Task</span>
+					<span class="dropdown">
+						<span class="fa-solid fa-arrow-down-wide-short" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+							<button class="dropdown-item" type="button" attr_val="Open Task" onclick="SelectFilter(this);">Open</button>
+						    <button class="dropdown-item" type="button" attr_val="In Progress" onclick="SelectFilter(this);">In Progress</button>
+						    <button class="dropdown-item" type="button" attr_val="For Approval" onclick="SelectFilter(this);">For Approval</button>
+						    <button class="dropdown-item" type="button" attr_val="Completed" onclick="SelectFilter(this);">Completed</button>
+						</div>
+					</span>
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card" style="width:98%; border-radius: 15px;">
+				  	<div class="card-body">
+					    <span class="card-title task_title">Task name will appear here</span> 
+					    <span class="badge badge-pill" style="background: #87DEC9; color: #387C6C;">Category</span>
+					    <span class="badge badge-pill" style="background: #D3D7FE; color: #4454DE;">Category</span>
+					    <span class="badge badge-pill" style="background: #FEEAD3; color: #EF9D3E;">Category</span>
+					    <div class="row">
+					    	<div class="col-sm-2">
+					    		<span class="task_create_date">
+							    	<i class="fa-regular fa-calendar-days"></i>04-February-2023
+							    </span>
+							    
+					    	</div>
+					    	<div class="col-sm-2" style="margin:auto;">
+					    		<div class="progress">
+										<div class="progress-bar" role="progressbar" style="width: 30%; text-align: center; background: #BEA4EC;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
+								</div>
+					    	</div>
+					    	<div class="col-sm-8"></div>
+					    </div>
+					    <p class="card-text task_card_description">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+				  	</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<script src="{% static 'portal/js/portalnavbar.js' %}"></script>
+<script>
+	function SelectFilter(that){
+		var filter_value = $(that).attr("attr_val");
+		$(".filter_status").empty();
+		$(".filter_status").append(filter_value);
+	}
+</script>
+</body>
+</html>

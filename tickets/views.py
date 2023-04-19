@@ -38,3 +38,8 @@ def ticketingPage(request):
 	list_of_issue_ticket = issue.objects.all();
 	profile_details = details.objects.get(userId=request.user.id)
 	return render(request, 'ticketing_page.html', {"issue_types":issue_types, "issue_tickets": list_of_issue_ticket, "profile_details": profile_details})
+
+def taskDashboard(request):
+	profile_details = details.objects.get(userId=request.user.id)
+
+	return render(request, 'task_dashboard.html', {"profile_details":profile_details})
