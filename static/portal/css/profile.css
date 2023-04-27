@@ -1,0 +1,104 @@
+.edit_profile_text{
+	font-family: 'Poppins', sans-serif;;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 35px;
+	line-height: 60px;
+	color: #6417A1;
+}
+
+.profile_save_btn{
+	position: absolute;
+	background: linear-gradient(90.97deg, rgba(26, 47, 238, 0.85) 0%, rgba(196, 26, 238, 0.85) 99.67%);
+	border-radius: 13px;
+	width: 80%;
+}
+
+.profile_cancel_btn{
+	position: absolute;
+	border-radius: 13px;
+	width: 80%;
+}
+
+.edit_profile_text{
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 35px;
+	line-height: 60px;
+	color: #6417A1;
+}
+
+.current_password {
+	border: 1px solid #9A9797;
+	border-radius: 13px;
+	
+}
+.password_setting_label{
+	font-family: 'Poppins';
+	font-weight: 700;
+}
+
+.password_save_btn{
+	position: absolute;
+	background: linear-gradient(90.97deg, rgba(26, 47, 238, 0.85) 0%, rgba(196, 26, 238, 0.85) 99.67%);
+	border-radius: 13px;
+	width: 80%;
+}
+
+.invoiceHeader{
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 40px;
+	line-height: 60px;
+	color: #6417A1;
+}
+.invoiceHeaderSubText p{
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 18px;
+	color: #646465;
+}
+.invoiceTable td{
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 22px;
+	color: #0D0B72;
+}
+
+.invoiceModalHeader{
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 25px;
+	line-height: 40px;
+	color: #6417A1;
+}
+
+.invoicelabel{
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 15px;
+	line-height: 20px;
+	color: #3E1774;
+}
+
+.hrInvoiceDetails{
+	margin-top: 0.5px;
+	margin-bottom: 0.5px;
+}
+.invoice_termConditions{
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	text-decoration-line: underline;
+	color: #9B9B9B;
+}

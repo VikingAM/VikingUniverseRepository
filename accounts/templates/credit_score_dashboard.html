@@ -33,17 +33,23 @@
 			<div class="container-fluid">
 				<div class="row search_bar_wrapper">
 					<div class="col-sm-10"></div>
-	    			
-	    			<div class="col-sm-2" style="text-align:right; margin: auto;">
-	    				<i class="fas fa-fw fa-bell"></i> <span class="indicator"></span>
-	    				<span>
-	    					<img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle" width="25px">
-	    					{{ profile_details.first_name }} {{ profile_details.last_name }} 
-	    					<i class="fa-solid fa-angle-down" style="cursor:pointer;"></i>
-	    				</span>
-	    				
-	    			</div>
-	    		</div><br/>
+		    			<div class="col-sm-2" style="text-align:right; margin: auto;">
+		    				<i class="fas fa-fw fa-bell"></i> <span class="indicator"></span>
+		    				<span>
+		    					<img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle" width="25px">
+		    					{{ profile_details.first_name }} {{ profile_details.last_name }} 
+		    					<span class="dropdown">
+								<span class="fa-solid fa-angle-down" type="button" id="Account-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="Account-menu">
+									<button class="dropdown-item" type="button">Account</button>
+								    <button class="dropdown-item" type="button">Settings</button>
+								    <button class="dropdown-item" type="button">Logout</button>
+								</div>
+							</span>
+		    				</span>
+		    				
+		    			</div>
+	    			</div><br/>
 				<div class="row">
 					<div class="col-sm-10">
 						<h2 class="yourcreditScore">YOUR CREDIT</h2>
@@ -137,14 +143,14 @@
 							  		{% empty %}
 							  			<tr>
 								  			<td class="task_label">
-								  				#####!<br/>
-								  				<p>#####</p>
+								  				No Credit Added<br/>
+								  				
 								  			</td>
 								  			<td class="credit_history_dates center">
-								  				00/00/0000
+								  				
 								  			</td>
 								  			<td class="credit_history_dates center">
-								  				00/00/0000
+								  				
 								  			</td>
 								  			<td class="credit_history_use center">
 								  				0

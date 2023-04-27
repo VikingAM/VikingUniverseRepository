@@ -6,6 +6,8 @@ from . import views
 urlpatterns = [
     path('', views.portalDashboard, name='portalDashboard'),
     path('setting',views.portalSettingPage, name='portalSettingPage'),
+    path('setting_password', views.SettingPasswordPage, name="SettingPasswordPage"),
+    path('setting_invoice', views.SettingInvoicePage, name="SettingInvoicePage"),
     
     
 ]

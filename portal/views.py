@@ -39,7 +39,7 @@ def portalSettingPage(request):
 		profile_address.city = request.POST['city']
 		profile_address.zip_code = request.POST['zip_code']
 		profile_address.save()
-	return render(request, 'setting_page.html', {"profile_details": profile_details, "list_of_invoice":list_of_invoice, "profile_passwords":profile_passwords, "industry_type_list":list_of_industry_type, "profile_address":profile_address, "password_category":list_of_password_category, "site_url": settings.SITE_URL})
+	return render(request, 'setting_profile_page.html', {"profile_details": profile_details, "list_of_invoice":list_of_invoice, "profile_passwords":profile_passwords, "industry_type_list":list_of_industry_type, "profile_address":profile_address, "password_category":list_of_password_category, "site_url": settings.SITE_URL})
 
 
 
@@ -48,3 +48,14 @@ def edit_profile(request):
 	if request.method == 'POST':
 		print("post")
 	return 0
+
+@login_required(login_url='/accounts/login')
+def SettingPasswordPage(request):
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'setting_password_page.html', {"profile_details": profile_details})
+
+@login_required(login_url='/accounts/login')
+def SettingInvoicePage(request):
+	profile_details = details.objects.get(userId=request.user.id)
+	list_of_invoice = invoice.objects.filter(userId=request.user.id, status=1).order_by('-create_date')
+	return render(request, 'setting_invoice_page.html', {"profile_details": profile_details, "list_of_invoice":list_of_invoice})

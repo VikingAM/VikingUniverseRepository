@@ -1,0 +1,48 @@
+{% load static %}
+<div id="sub-sidebar-container" class="sidebar-expanded-sub d-none d-md-block" >
+	<!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+	<!-- Bootstrap List Group -->
+    <ul class="sub-list-group">
+        <!-- Separator with title -->
+        <br/>
+        <a href="#" data-toggle="collapse" aria-expanded="false" class="list-group-item flex-column " style="height: 120px; text-align: center;">
+        	
+                <span class="menu-expanded" id="sub-menu-label">Settings</span>
+            
+        </a>
+        <!-- /END Separator -->
+        <!-- Menu with submenu -->
+        <br/><br/>
+        <a href="{% url 'portalSettingPage' %}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start">
+            	
+            	<span class="fa-solid fa-pen-to-square sub-navbar-icons"></span>
+                <span class="menu-expanded setting-sub-menu">Edit Profile</span>
+            </div>
+        </a>
+       	<a href="{% url 'SettingPasswordPage' %}" class="list-group-item list-group-item-action ">
+            <div class="d-flex w-100 justify-content-start ">
+            	<span class="fa-solid fa-lock sub-navbar-icons"></span>
+                <span class="menu-expanded setting-sub-menu">Password</span>
+            </div>
+        </a>
+        <a href="{% url 'SettingInvoicePage' %}" class="list-group-item list-group-item-action ">
+            <div class="d-flex w-100 justify-content-start ">
+            	<i class="fa-solid fa-file-invoice-dollar sub-navbar-icons"></i>
+                <span class="menu-expanded setting-sub-menu">Invoice</span>
+            </div>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action ">
+            <div class="d-flex w-100 justify-content-start ">
+            	<span class="fa-solid fa-key sub-navbar-icons"></span>
+                <span class="menu-expanded setting-sub-menu">Password Manager</span>
+            </div>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action ">
+            <div class="d-flex w-100 justify-content-start ">
+            	<span class="fa-solid fa-person-circle-question sub-navbar-icons"></span>
+                <span class="menu-expanded setting-sub-menu">FAQS</span>
+            </div>
+        </a> 
+    </ul><!-- List Group END-->
+</div>
