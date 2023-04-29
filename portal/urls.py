@@ -8,6 +8,7 @@ urlpatterns = [
     path('setting',views.portalSettingPage, name='portalSettingPage'),
     path('setting_password', views.SettingPasswordPage, name="SettingPasswordPage"),
     path('setting_invoice', views.SettingInvoicePage, name="SettingInvoicePage"),
+    path('setting_password_management', views.SettingPasswordManagementPage, name="SettingPasswordManagementPage"),
     
     
 ]

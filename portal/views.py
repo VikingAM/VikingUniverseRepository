@@ -59,3 +59,10 @@ def SettingInvoicePage(request):
 	profile_details = details.objects.get(userId=request.user.id)
 	list_of_invoice = invoice.objects.filter(userId=request.user.id, status=1).order_by('-create_date')
 	return render(request, 'setting_invoice_page.html', {"profile_details": profile_details, "list_of_invoice":list_of_invoice})
+
+@login_required(login_url='/accounts/login')
+def SettingPasswordManagementPage(request):
+	profile_details = details.objects.get(userId=request.user.id)
+	list_of_password_category = password_category.objects.all();
+	profile_passwords = password_manager.objects.filter(userId=request.user.id, status=1)
+	return render(request, 'setting_password_management_page.html', {"profile_details": profile_details, "password_category":list_of_password_category, "profile_passwords":profile_passwords})
