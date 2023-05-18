@@ -1,0 +1,32 @@
+#ChooseService{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 40px;
+	line-height: 60px;
+	color: #6417A1;
+	text-align: center;
+}
+
+.SearchaService{
+	background: linear-gradient(90.97deg, rgba(26, 47, 238, 0.85) 0%, rgba(196, 26, 238, 0.85) 99.67%);
+	border-radius: 10px;
+	border-color: #F5F6FA;
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 15px;
+	line-height: 18px;
+	color: #FFFFFF;
+	padding: 1% 1.8%;
+}
+
+.CategoryDropDown{
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 45px;
+	/* Header */
+	color: #6417A1;
+}

@@ -47,9 +47,25 @@ class issue_comment_file(models.Model):
 	create_date = models.DateTimeField(auto_now_add=True)
 	history = models.TextField(null=True, blank=True)
 
+class task_cetegory_theme(models.Model):
+	name = models.CharField(max_length=250, null=True, blank=True)
+	short_description = models.TextField(null=True)
+	is_delete = models.BooleanField(default=0)
+	
+	def __str__(self):
+		return self.name
+		
 class task_category(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	short_description = models.TextField(null=True)
+	parent = models.CharField(max_length=250, null=True, blank=True)
+	theme = models.ForeignKey(task_cetegory_theme, on_delete=models.SET_NULL, null=True, blank=True)
+	is_delete = models.BooleanField(default=0)
+
+class task_services(models.Model):
+	name = models.CharField(max_length=250, null=True, blank=True)
+	short_description = models.TextField(null=True)
+	category = models.ForeignKey(task_category, on_delete=models.SET_NULL, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
 
 class task(models.Model):
