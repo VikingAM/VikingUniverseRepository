@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.http import JsonResponse
 from django.core import serializers
-from tickets.models import issue, issue_type, task_cetegory_theme, task_category
+from tickets.models import issue, issue_type, task_cetegory_theme, task_category, task
 from accounts.models import details
 
 # Create your views here.
@@ -67,4 +67,76 @@ def getCategoryServices(request):
 		list_of_category_array[category.pk] = current_list
 		data['status_code'] = 1
 	data['list_of_category'] = list_of_category_array
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def getCategoryDetailsById(request):
+	data = {}
+	data['status_code'] = 0
+
+	try:
+		list_of_category = task_category.objects.filter(is_delete=0, status=1)
+		list_of_category_array = {}
+		for category in list_of_category:
+			current_list = {}
+			current_list['id'] = category.pk
+			current_list['name'] = category.name
+			current_list['parent'] = category.parent
+			current_list['description'] = category.short_description
+			list_of_category_array[category.pk] = current_list
+		data['list_of_category'] = list_of_category_array
+	except:
+		data['error_msg'] = "Error on getting categories"
+		return JsonResponse(data, safe=False)
+
+	try:
+		service_details = task_category.objects.get(pk=request.POST['category_id'])
+		data['category_name'] = service_details.name
+		data['category_id'] = service_details.pk
+	except:
+		data['error_msg'] = "Service Does not exists"
+		return JsonResponse(data, safe=False)
+
+	try:
+		category_theme = task_cetegory_theme.objects.get(pk=service_details.theme.id)
+		data['category_theme'] = category_theme.name
+		data['category_theme_id'] = category_theme.pk
+	except:
+		data['error_msg'] = "Category Theme Does not exists" 
+		return JsonResponse(data, safe=False)
+
+	try:
+		service_parent = task_category.objects.get(pk=service_details.parent)
+		data['category_parent_name'] = service_parent.name
+		data['category_parent_id'] = service_parent.pk
+		data['status_code'] = 1
+	except:
+		data['error_msg'] = "Category Does not exists" 
+		return JsonResponse(data, safe=False)
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def createTask(request):
+	data = {}
+	data['status_code'] = 0
+	new_task = task();
+	new_task.title = request.POST['task_name']
+	new_task.description = request.POST['task_description']
+
+	try:
+		categoryInstance = task_category.objects.get(pk=request.POST['category_id'])
+	except:
+		data['error_msg'] = "Category Does not exists!"
+		return JsonResponse(data, safe=False)
+
+	new_task.category = categoryInstance
+	new_task.owner = request.user
+
+	try:
+		new_task.save()
+		data['status_code'] = 1
+	except:
+		data['error_msg'] = "error on saving a task!"
+		return JsonResponse(data, safe=False)
+
 	return JsonResponse(data, safe=False)

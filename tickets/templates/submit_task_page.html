@@ -45,6 +45,10 @@
 			color: #0717A3;
 			margin-left: 1%;
 		}
+		.step-background{
+			background: linear-gradient(180deg, #434CF0 0%, #C53CF0 97.92%);
+			border-radius: 20px 0px 0px 20px;
+		}
 	</style>
 </head>
 <body style="background:#F5F6FA;">
@@ -104,70 +108,99 @@
 		</div>
 		<br/>
 		<div class="category_wrapper">
-			<div class="row">
-				<div class="col-sm-12 parent_category">
-					Branding
-				</div>
-			</div>
-			<div class="row">
-				<div class='col-sm-1 text-right text-pure-center' style="color: #BCBABA; font-size: 40px; cursor: pointer;">
-					<i class="fa-solid fa-chevron-left"></i>
-				</div>
-				<div class="col-sm-10">
-					<div class="row">
-						<div class="col-sm-3 sample1" >
-							<div class="card">
-						    	<div class="card-body">
-						        	<h5 class="card-title">2D Logo Design</h5>
-						        	<img src="{% static 'images/Services.png' %}" class="card-img-top" alt="...">
-						        	<p class="card-text"><small class="text-muted">2D Logo Design Service Description</small></p>
-						      	</div>
-						    </div>
-						</div>
-						<div class="col-sm-3">
-							<div class="card">
-						    	<div class="card-body">
-						    		<h5 class="card-title">2D Packaging Design</h5>
-						        	<img src="{% static 'images/Services.png' %}" class="card-img-top" alt="...">
-						        	<p class="card-text"><small class="text-muted">2D Packaging Design Service Description</small></p>
-						      	</div>
-						    </div>
-						</div>
-						<div class="col-sm-3">
-							<div class="card">
-						    	<div class="card-body">
-						        	<h5 class="card-title">Business Card & Stationery Design</h5>
-						        	<img src="{% static 'images/Services.png' %}" class="card-img-top" alt="...">
-						        	<p class="card-text"><small class="text-muted">Business Card & Stationery Design Service Description</small></p>
-						      	</div>
-						    </div>
-						</div>
-						<div class="col-sm-3 sample4">
-							<div class="card">
-      							<div class="card-body">
-        							<h5 class="card-title">Envelope Design</h5>
-        							<img src="{% static 'images/Services.png' %}" class="card-img-top" alt="...">
-        							<p class="card-text"><small class="text-muted">Envelope Design Service Description</small></p>
-      							</div>
-    						</div>
-						</div>
-						<div class="col-sm-3 sample5" style="display:none;">
-							<div class="card">
-      							<div class="card-body">
-        							<h5 class="card-title">Envelope Design</h5>
-        							<img src="{% static 'images/Services.png' %}" class="card-img-top" alt="...">
-        							<p class="card-text"><small class="text-muted">Envelope Design Service Description</small></p>
-      							</div>
-    						</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class='col-sm-1 text-left text-pure-center' style="color: #BCBABA; font-size: 40px; cursor:pointer;" onclick="SampleNext();">
-					<i class="fa-solid fa-chevron-right"></i>
-				</div>
-			</div>
+			
 		</div>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="SubmitATaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-xl">
+    		<div class="modal-content">
+      			<div class="modal-body">
+      				<div class="row">
+      					<div class="col-sm-3 step-background"></div>
+      					<div class="col-sm-9">
+      						<div class="row">
+      							<div class="col-sm-11">
+      								<h3 id="SubmitTaskTitle"></h3>
+      							</div>
+      							<div class="col-sm-1">
+      								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          								<span aria-hidden="true">&times;</span>
+        							</button>
+      							</div>
+      						</div>
+      						<div class="row">
+		        				<div class="col-sm-12">
+		        					<h5>Task Details</h5>
+		        				</div>
+		        			</div>
+		        			<div class="row">
+		        				<div class="col-sm-4">
+		        					Select Service
+		        				</div>
+		        				<div class="col-sm-8">
+		        					<select class="form-control" id="category_services">
+		        						<option>Selected services</option>
+		        					</select>
+		        				</div>
+		        			</div>
+		        			<hr>
+		        			<div class="row">
+		        				<div class="col-sm-4">
+		        					Task Name: 
+		        				</div>
+		        				<div class="col-sm-8">
+		        					<input class="form-control" type="text" name="task_name" id="task_name" placeholder="Task Name">
+		        				</div>
+		        			</div>
+		        			<br/>
+		        			<div class="row">
+		        				<div class="col-sm-4">
+		        					Description
+		        				</div>
+		        				<div class="col-sm-8">
+		        					<textarea class="form-control" id="task_description" name="task_description"></textarea>
+		        				</div>
+		        			</div>
+		        			<hr>
+		        			<div class="row">
+		        				<div class="col-sm-4">
+		        					Attachments:
+		        				</div>
+		        				<div class="col-sm-8">
+		        					<input type="file" name="submit_task_attachment" id="submit_task_attachment">
+		        				</div>
+		        			</div>
+		        			<br/>
+		        			<div class="row">
+		        				<div class="col-sm-12">
+		        					Add-on Task Deals
+		        				</div>
+		        			</div>
+		        			<br/>
+		        			<div class="row">
+		        				<div class="col-sm-12" style="text-align: right;">
+		        				 	<button class="btn-primary" onclick="SaveTaskandContinue();">Save and Continue</button>
+		        				</div>
+		        			</div>
+      					</div>
+      				</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+
+
+	<div class="modal fade" id="LoadingMoodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-body">
+      				<h4>fetching data. . . </h4>
+      			</div>
+    		</div>
+  		</div>
 	</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -176,6 +209,9 @@
 <script src="{% static 'portal/js/portalnavbar.js' %}"></script>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
+	$(document).ready(function(){
+		getCategoryDetailsByTheme(2);
+	})
 	function UpdateActiveCategory(that){
 		var category_chosen = $(that).attr("category_text");
 		var category_theme_id = $(that).attr("category_id");
@@ -184,12 +220,44 @@
 		getCategoryDetailsByTheme(category_theme_id);
 	}
 
-	function SampleNext(){
-		$(".sample1").hide("slide", {direction: "left"}, 1000);
-		$(".sample5").show("slide", {direction: "left"}, 1000);
+	function SaveTaskandContinue(){
+		var taskName = $("#task_name").val();
+		var taskDescription = $("#task_description").val();
+		var categoryId = $("#category_services").val();
+
+		if(taskName.length == 0 ){
+			alert("Please fill up the task name!");
+			return false;
+		}
+		if(taskDescription.length == 0){
+			alert("Please make at least short a short description of the task!");
+			return false;
+		}
+
+		jQuery.noConflict();
+		jQuery.ajax({
+	        type: "POST",
+	        url: "{% url 'createTask' %}",
+	        async:true,
+	        data: {
+	        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+	        	"task_name":taskName,
+	        	"task_description":taskDescription,
+	        	"category_id": categoryId,
+	        },
+	        success: function (data) {
+	        	alert("Task Created!")
+				window.$("#SubmitATaskModal").modal("hide");
+	        	console.log(data);
+	        },
+	        error: function (e) {
+	        	console.log(e);
+	        }
+	    })
 	}
 	function getCategoryDetailsByTheme(CategoryThemeId){
-		$.ajax({
+		jQuery.noConflict();
+		jQuery.ajax({
 	        type: "POST",
 	        url: "{% url 'getCategoryServices' %}",
 	        async:true,
@@ -197,7 +265,6 @@
 	        	"csrfmiddlewaretoken": '{{ csrf_token }}',
 	        	"CategoryThemeId":CategoryThemeId,
 	        },
-	        async:true,
 	        success: function (data) {
 	        	if(data.status_code == 1){
 	        		reload_services(data.list_of_category);	
@@ -208,14 +275,57 @@
 	        }
 	    })
 	}
+
+	function showCreateTaskForm(that){
+		jQuery.noConflict();
+		window.$("#LoadingMoodal").modal("show");
+		var category_id = $(that).attr("category_id");
+		jQuery.ajax({
+			type: "POST",
+			url: "{% url 'getCategoryDetailsById' %}",
+			async:true,
+			data: {
+	        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+	        	"category_id":category_id,
+	        },
+	        success: function (data) {
+	        	if(data.status_code == 1){
+	        		showModalCategory(data);
+	        	}	
+	        },
+	        error: function (e) {
+	        	console.log(e);
+	        }
+		})
+	}
+
+	function showModalCategory(dataValue){
+		
+		window.$("#LoadingMoodal").modal("hide");
+		window.$("#SubmitATaskModal").modal('show');
+		jQuery("#SubmitTaskTitle").empty();
+		jQuery("#SubmitTaskTitle").append(dataValue.category_theme+" / "+dataValue.category_parent_name+" / "+dataValue.category_name);
+		jQuery("#category_services").empty();
+		jQuery("#task_name").empty();
+		jQuery("#task_description").empty();
+		jQuery.each(dataValue.list_of_category, function(index,value){
+			if(value.id == dataValue.category_id){
+				jQuery("#category_services").append("<option value='"+value.id+"' selected>"+value.name+"</option>");
+			}else{
+				jQuery("#category_services").append("<option value='"+value.id+"'>"+value.name+"</option>");	
+			}
+			
+		});
+	   
+	}
 	
 	function reload_services(listOfCategory){
-		$(".category_wrapper").empty();
-		$.each(listOfCategory, function(index, value){
+		jQuery(".category_wrapper").empty();
+		jQuery.each(listOfCategory, function(index, value){
 			if(value.parent == 0){
-				$(".category_wrapper").append("<br/><div class='row'> <div class='col-sm-12 parent_category'>"+value.name+"</div></div>");
+				jQuery(".category_wrapper").append("<br/><div class='row'> <div class='col-sm-12 parent_category'>"+value.name+"</div></div>");
 				var childCounter = 0;
-				$.each(listOfCategory, function(index2, value2){
+				jQuery.each(listOfCategory, function(index2, value2){
 					if(value2.parent == value.id){
 						childCounter++;
 					}
@@ -223,12 +333,12 @@
 				if(childCounter > 4){
 					var listofcategoryCard = "";
 					var loopCounter = 0;
-					$.each(listOfCategory, function(index2,value2){
+					jQuery.each(listOfCategory, function(index2,value2){
 						if(value2.parent == value.id){
 							if(loopCounter > 3){
-								listofcategoryCard += "<div class='col-sm-3' style='display:none;'><div class='card'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";
+								listofcategoryCard += "<div class='col-sm-3' style='display:none;'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";
 							}else{
-								listofcategoryCard += "<div class='col-sm-3'><div class='card'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
+								listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
 							}
 							loopCounter++;
 						}
@@ -245,42 +355,42 @@
 					output += "<div class='col-sm-1 text-left text-pure-center' style='color: #BCBABA; font-size: 40px; cursor:pointer;'>"
 					output += 	"<i class='fa-solid fa-chevron-right'></i>"
 					output += "</div></div>";
-					$(".category_wrapper").append(output);
+					jQuery(".category_wrapper").append(output);
 					
 					
 				}else{
 					if(childCounter == 1){
 						var listofcategoryCard = "";
-						$.each(listOfCategory, function(index2,value2){
+						jQuery.each(listOfCategory, function(index2,value2){
 							if(value2.parent == value.id){
-								listofcategoryCard += "<div class='col-sm-3'><div class='card'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
+								listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
 							}
 						})
-						$(".category_wrapper").append("<div class='row'><div class='col-sm-4'></div> "+listofcategoryCard+" <div class='col-sm-5'></div></div>");
+						jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-4'></div> "+listofcategoryCard+" <div class='col-sm-5'></div></div>");
 					}else if(childCounter == 2){
 						var listofcategoryCard = "";
-						$.each(listOfCategory, function(index2,value2){
+						jQuery.each(listOfCategory, function(index2,value2){
 							if(value2.parent == value.id){
-								listofcategoryCard += "<div class='col-sm-3'><div class='card'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
+								listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
 							}
 						})
-						$(".category_wrapper").append("<div class='row'><div class='col-sm-3'></div>"+listofcategoryCard+"<div class='col-sm-3'></div></div>");
+						jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-3'></div>"+listofcategoryCard+"<div class='col-sm-3'></div></div>");
 					}else if(childCounter == 3){
 						var listofcategoryCard = "";
-						$.each(listOfCategory, function(index2,value2){
+						jQuery.each(listOfCategory, function(index2,value2){
 							if(value2.parent == value.id){
-								listofcategoryCard += "<div class='col-sm-3'><div class='card'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
+								listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
 							}
 						})
-						$(".category_wrapper").append("<div class='row'><div class='col-sm-1'></div> "+listofcategoryCard+"<div class='col-sm-2'></div>");
+						jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-1'></div> "+listofcategoryCard+"<div class='col-sm-2'></div>");
 					}else{
 						var listofcategoryCard = "";
-						$.each(listOfCategory, function(index2,value2){
+						jQuery.each(listOfCategory, function(index2,value2){
 							if(value2.parent == value.id){
-								listofcategoryCard += "<div class='col-sm-3'><div class='card'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
+								listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";	
 							}
 						})
-						$(".category_wrapper").append("<div class='row'> "+listofcategoryCard+"</div>");
+						jQuery(".category_wrapper").append("<div class='row'> "+listofcategoryCard+"</div>");
 					}
 				}
 			}

@@ -60,6 +60,7 @@ class task_category(models.Model):
 	short_description = models.TextField(null=True)
 	parent = models.CharField(max_length=250, null=True, blank=True)
 	theme = models.ForeignKey(task_cetegory_theme, on_delete=models.SET_NULL, null=True, blank=True)
+	status = models.BooleanField(default=1)
 	is_delete = models.BooleanField(default=0)
 
 class task_services(models.Model):
@@ -73,10 +74,12 @@ class task(models.Model):
 	description = models.TextField(null=True, blank=True)
 	category = models.ForeignKey(task_category, on_delete=models.SET_NULL, null=True, blank=True)
 	due_date = models.DateTimeField(null=True, blank=True)
-	urgency = models.CharField(max_length=250, null=True, blank=True)
+	urgency = models.CharField(max_length=250, null=True, blank=True, default="Low")
 	create_date = models.DateTimeField(auto_now_add=True)
+	end_date = models.DateTimeField(null=True, blank=True)
 	update_date = models.DateTimeField(auto_now_add=True)
-	status = models.CharField(max_length=250, null=True, blank=True)
+	status = models.CharField(max_length=250, null=True, blank=True, default="Pending")
+	owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
 
 class task_file(models.Model):
