@@ -306,8 +306,8 @@
 		jQuery("#SubmitTaskTitle").empty();
 		jQuery("#SubmitTaskTitle").append(dataValue.category_theme+" / "+dataValue.category_parent_name+" / "+dataValue.category_name);
 		jQuery("#category_services").empty();
-		jQuery("#task_name").empty();
-		jQuery("#task_description").empty();
+		jQuery("#task_name").val("");
+		jQuery("#task_description").val("");
 		jQuery.each(dataValue.list_of_category, function(index,value){
 			if(value.id == dataValue.category_id){
 				jQuery("#category_services").append("<option value='"+value.id+"' selected>"+value.name+"</option>");

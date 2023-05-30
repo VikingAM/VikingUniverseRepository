@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.http import JsonResponse
 from django.core import serializers
+from datetime import datetime
 from tickets.models import issue, issue_type, task_cetegory_theme, task_category, task
 from accounts.models import details
 
@@ -43,7 +44,8 @@ def ticketingPage(request):
 @login_required(login_url='/accounts/login')
 def taskDashboard(request):
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'task_dashboard.html', {"profile_details":profile_details})
+	open_tickets = task.objects.filter(status="Open", owner=request.user, is_delete=0)
+	return render(request, 'task_dashboard.html', {"profile_details":profile_details, "open_tickets":open_tickets})
 
 @login_required(login_url='/accounts/login')
 def taskSubmit(request):
@@ -138,5 +140,32 @@ def createTask(request):
 	except:
 		data['error_msg'] = "error on saving a task!"
 		return JsonResponse(data, safe=False)
+
+	return JsonResponse(data, safe=False)
+
+
+# will add another param if admin user
+@login_required(login_url='/accounts/login')
+def getTciketByFilter(request):
+	data = {}
+	data['status_code'] = 0
+	try:
+		tasks = task.objects.filter(status=request.POST['filter'], owner=request.user.id, is_delete=0)
+	except:
+		data['error_msg'] = "error on grabing the tickets";
+		return JsonResponse(data, safe=False);
+
+	list_of_task = {}
+	for easch_task in tasks:
+		current_list = {}
+		current_list['id'] = easch_task.pk
+		current_list['name'] = easch_task.title
+		current_list['description'] = easch_task.description
+		current_list['create_date'] = easch_task.create_date.strftime("%B %d, %Y")
+		current_list['caetgory_name'] = easch_task.category.name
+		current_list['task_percentage'] = easch_task.task_percentage
+		list_of_task[easch_task.pk] = current_list
+	data['list_of_task'] = list_of_task
+	data['status_code'] = 1
 
 	return JsonResponse(data, safe=False)

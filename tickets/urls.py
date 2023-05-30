@@ -12,6 +12,7 @@ urlpatterns = [
     path('task_dashboard', views.taskDashboard, name="taskDashboard"),
     path('task_submit', views.taskSubmit, name="taskSubmit"),
     path('create_task', views.createTask, name="createTask"),
+    path('get_ticket_filter', views.getTciketByFilter, name="getTciketByFilter"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
