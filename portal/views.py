@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
+import random, os
 
 
 # Create your views here.
@@ -31,6 +33,16 @@ def portalSettingPage(request):
 		else:
 			profile_details.industry_type = None
 		profile_details.website = request.POST['website']
+		request_file = request.FILES['profile_picture'] if 'profile_picture' in request.FILES else None
+		if request_file:
+			split_tup = os.path.splitext(request_file.name)
+			file_extension = split_tup[1]
+			random_number = random.randint(0,1000)
+			fs = FileSystemStorage()
+			file_name = "profile_picture_"+str(request.user.id)+"_"+str(random_number)+""+str(file_extension)
+			ProfPic = fs.save(file_name, request_file)
+			profile_details.profile_picture = ProfPic
+
 		profile_details.save()
 
 		profile_address.street = request.POST['street']

@@ -59,7 +59,7 @@
 		</div>
 		<div class="row" id="ticket_wrapper">
 			{% for ticket in open_tickets %}
-				<div class="col-sm-12" ticket_id="{{ ticket.pk }}" style="cursor:pointer;" onclick="viewTicketDetails(this);">
+				<div class="col-sm-12"  task_id="{{ ticket.pk }}" task_status="{{ ticket.status }}" style="cursor:pointer;" onclick="viewTaskDetails(this);">
 					<div class="card" style="width:98%; border-radius: 15px;">
 					  	<div class="card-body">
 						    <span class="card-title task_title">{{ ticket.title}}</span> 
@@ -75,7 +75,7 @@
 						    	</div>
 						    	<div class="col-sm-2" style="margin:auto;">
 						    		<div class="progress">
-											<div class="progress-bar" role="progressbar" style="width: 0%; text-align: center; background: #BEA4EC;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+										<div class="progress-bar" role="progressbar" style="width: 0%; text-align: center; background: #BEA4EC;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
 									</div>
 						    	</div>
 						    	<div class="col-sm-8"></div>
@@ -102,9 +102,10 @@
 
 	function SelectFilter(that){
 		var filter_value = $(that).attr("attr_val");
+		console.log(filter_value)
 		if(filter_value == "For Approval"){
 			grabAllTicketByFilter("Pending");
-		}else if(filter_value == "Open"){
+		}else if(filter_value == "Open Task"){
 			grabAllTicketByFilter("Open");
 		}else if(filter_value == "Completed"){
 			grabAllTicketByFilter("Complete");
@@ -140,7 +141,7 @@
 		var list_of_task = dataValue.list_of_task;
 		if(Object.keys(list_of_task).length > 0){
 			$.each(list_of_task, function(index, value){
-				output += "<div class='col-sm-12' ticket_id='"+value.id+"' style='cursor:pointer;' onclick='viewTicketDetails(this);'>";
+				output += "<div class='col-sm-12' task_id='"+value.id+"' style='cursor:pointer;' onclick='viewTaskDetails(this);'>";
 				output += "<div class='card' style='width:98%; border-radius: 15px;'>";
 				output += "<div class='card-body'>";
 
@@ -178,8 +179,10 @@
 		
 	}
 
-	function viewTicketDetails(that){
-
+	function viewTaskDetails(that){
+		var task_attr_id = $(that).attr("task_id");
+		var url = "/tickets/task_details/"+task_attr_id;
+		window.location.replace(url);
 	}
 </script>
 </body>

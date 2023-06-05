@@ -5,7 +5,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.core import serializers
 from datetime import datetime
-from tickets.models import issue, issue_type, task_cetegory_theme, task_category, task
+from tickets.models import issue, issue_type, task_cetegory_theme, task_category, task, task_comment
 from accounts.models import details
 
 # Create your views here.
@@ -167,5 +167,87 @@ def getTciketByFilter(request):
 		list_of_task[easch_task.pk] = current_list
 	data['list_of_task'] = list_of_task
 	data['status_code'] = 1
+
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def taskDetails(request, task_id):
+	profile_details = details.objects.get(userId=request.user.id)
+	task_details = task.objects.get(pk=task_id)
+	if task_details.status == "Open":
+		return render(request, 'task_open.html', {"profile_details":profile_details, "task_detail":task_details})
+	elif task_details.status == "In Progress":
+		comments = task_comment.objects.filter(task=task_details)
+		return render(request, 'task_in_progress.html', {"profile_details":profile_details, "task_detail":task_details, "comments":comments})
+	elif task_details.status == "Complete":
+		comments = task_comment.objects.filter(task=task_details)
+		return render(request, 'task_in_progress.html', {"profile_details":profile_details, "task_detail":task_details, "comments":comments})
+	else:
+		return render(request, 'task_open.html', {"profile_details":profile_details, "task_detail":task_details})
+
+@login_required(login_url='/accounts/login')
+def editTask(request):
+	data = {}
+	data['status_code'] = 0
+	try:
+		task_details = task.objects.get(pk=request.POST['task_id'])
+	except:
+		data['error_msg'] = "Task does not exists!";
+		return JsonResponse(data, safe=False);
+
+	task_details.title = request.POST['task_title']
+	task_details.description = request.POST['description']
+
+	try:
+		task_details.save()
+		data['status_code'] = 1
+	except:
+		data['error_msg'] = "Error on saving the task!";
+		return JsonResponse(data, safe=False);
+
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def addRevision(request):
+	data = {}
+	data['status_code'] = 0
+	try:
+		task_details = task.objects.get(pk=request.POST['task_id'])
+	except:
+		data['error_msg'] = "Task does not exists!";
+		return JsonResponse(data, safe=False);
+
+	new_task_comment =  task_comment()
+	new_task_comment.comment = request.POST['revision_comment']
+	new_task_comment.task = task_details
+	new_task_comment.owner = request.user
+
+	try:
+		new_task_comment.save()
+		data['status_code'] = 1
+	except:
+		data['error_msg'] = "Error on saving the revision!";
+		return JsonResponse(data, safe=False);
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def taskApprove(request):
+	data = {}
+	data['status_code'] = 0
+	try:
+		task_details = task.objects.get(pk=request.POST['task_id'])
+	except:
+		data['error_msg'] = "Task does not exists!"
+		return JsonResponse(data, safe=False)
+
+	task_details.status = "Complete"
+	task_details.task_percentage = 100
+
+	try:
+		task_details.save();
+		data['status_code'] = 1
+	except:
+		data['error_msg'] = "Error on approving task!";
+		return JsonResponse(data, safe=False);
 
 	return JsonResponse(data, safe=False)

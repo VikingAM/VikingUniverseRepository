@@ -79,10 +79,9 @@ class task(models.Model):
 	create_date = models.DateTimeField(auto_now_add=True)
 	end_date = models.DateTimeField(null=True, blank=True)
 	update_date = models.DateTimeField(auto_now_add=True)
-	status = models.CharField(max_length=250, null=True, blank=True, default="Pending")
+	status = models.CharField(max_length=250, null=True, blank=True, default="Open")
 	owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
-
 
 class task_file(models.Model):
 	task =models.ForeignKey(task, on_delete=models.SET_NULL, null=True, blank=True)

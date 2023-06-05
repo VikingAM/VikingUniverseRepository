@@ -46,10 +46,14 @@
 								<div class="col-sm-12">
 									<span class="edit_profile_text">Edit Profile <li class="far fa-edit"></li></span>
 								</div>
+								
 							</div>
 							<div class="row">
 								<div class="col-sm-2">
-									<img src="{% static 'images/Profile Img.png' %}" class="rounded-circle" alt="Cinque Terre" style="width: 100%;margin-left: -25px;">
+									<img src="{{ profile_details.profile_picture.url }}" class="rounded-circle" alt="Cinque Terre" style="width: 100%;margin-left: -25px;"><br/>
+							
+									<input type="file" id="profile_picture" name="profile_picture">
+									
 								</div>
 								<div class="col-sm-5">
 									<h5 style="color: #0717A3;">Contact Information <li class='far fa-user-circle'></li></h5>

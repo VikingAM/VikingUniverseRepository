@@ -21,7 +21,7 @@ class details(models.Model):
 	company_name = models.CharField(max_length=250, null=True, blank=True)
 	title = models.CharField(max_length=250, null=True, blank=True)
 	website = models.CharField(max_length=250, null=True, blank=True)
-	photo_path = models.FileField(upload_to='profile_photo/', null=True)
+	profile_picture = models.FileField(upload_to='profile_photo/', null=True, blank=True)
 	account_type = models.ForeignKey(types, on_delete=models.SET_NULL, null=True, blank=True)
 	industry_type = models.ForeignKey(industry_type, on_delete=models.SET_NULL, null=True, blank=True)
 	status = models.CharField(max_length=250, null=True, default="unverified")
