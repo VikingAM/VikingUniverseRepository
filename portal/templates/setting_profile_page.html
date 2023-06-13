@@ -88,7 +88,7 @@
                     <div>
                     	
                         <h1 class="text-4xl xl:text-2xl text-editProfile"><b>Edit Profile</b></h1>
-                        <img src="{{ profile_details.profile_picture.url }}" class="object-scale-down w-60 h-60 xl:w-40 xl:h-44 rounded-full" > 
+                        <img src="{{ profile_details.profile_picture.url|default_if_none:'#' }}" class="object-scale-down w-60 h-60 xl:w-40 xl:h-44 rounded-full" > 
                         <div class="-mt-16 ml-48 xl:ml-32">
                             <label for="img">
                             <!-- <img src="{% static 'portal/images/uploadImg.png' %}" id="uploadImg" style="cursor:pointer" />
