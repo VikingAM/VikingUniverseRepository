@@ -1,16 +1,53 @@
-{% load static%}
-<div class="sidebar">
-	<ul>
-		<li><a href="{% url 'portalDashboard' %}"><img class="company_logo" src="{% static 'images/logo.png'%}"></a></li><br/>
-		<li><a href="{% url 'portalDashboard' %}"><i class="fas fa-home"></i>Dashboard</a></li>
-		<li><a href="#"><i class="fas fa-users"></i>Task</a></li>
-		<li><a href="#"><i class="fas fa-users"></i>Submit a Task</a></li>
-		<li><a href="{% url 'ticketingPage' %}"><i class="fas fa-users"></i>Ticketing</a></li>
-		<!-- <li class="notification1"><a href="#"><i class="fas fa-calendar-week"></i>Calender</a><span class="number1">4</span></li>
-		<li class="notification2"><a href="#"><i class="far fa-envelope"></i>Documents</a><span class="number2">5</span></li> -->
-		<li><a href="{% url 'creditScoreDashboard' %}"><i class="fas fa-signal"></i>Credits</a></li>
-		<li>
-			<a href="{% url 'portalSettingPage' %}"><i class="fas fa-cog mnp"></i>Settings</a>
-		</li>
-	</ul>
+{% load static %}
+<div>
+    <nav class="side-nav h-screen sticky top-0 bottom-0 left-0 bg-white w-24 xxl:w-32 overflow-hidden z-0">
+        <ul class="flex flex-col justify-between h-full ">
+            <div class=" space-y-7 bxl:space-y-12 xxl:space-y-10">
+                <li>
+                    <a href="{% url 'LandingPage' %}" class="logo text-center flex relative mt-5 mb-5 ">
+                        <img src="{% static 'portal/images/logo_v.png' %}" alt="Viking V Logo" class="nav-item1 ml-8 xxl:ml-12 object-scale-down bxl:h-10 bxl:w-20 xxl:h-10 xxl:w-20 slg:h-8 slg:w-20">
+                        <img src="{% static 'portal/images/logo_black.png' %}" alt="Viking V Logo" class=" nav-item2 -ml-20 xl:-ml-12 bxl:-ml-16 xxl:-ml-14 relative  object-scale-down bxl:h-16 bxl:w-44 xxl:h-16 xxl:w-44 slg:h-12 slg:w-36">
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'portalDashboard' %}" class="flex items-center justify-start relative mt-22 xl:mt-14 xxl:mt-25 py-3 xl:py-1 slg:py-1 w-72 xl:w-72 xxl:w-full hover:bg-slate-200 duration-500">
+                        <img src="{% static 'portal/nav/home.png' %}" alt="Home Icon" class="object-scale-down bxl:h-10 bxl:w-16 xxl:ml-12 xxl:h-12 xxl:w-24 slg:h-8 slg:w-16 slg:ml-4">
+                        <span class="nav-item font-Lato text-2base mxl:text-base xxl:text-base text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'taskDashboard' %}" class="flex items-center justify-start relative slg:py-1 xl:w-72 xxl:w-full w-72 hover:bg-slate-200 duration-500">
+                        <img src="{% static 'portal/nav/task.png' %}" alt="Task Icon" class="object-scale-down xxl:ml-10 bxl:h-10 bxl:w-16 xxl:h-10 xxl:w-24 slg:h-8 slg:w-16 slg:ml-4">
+                        <span class="nav-item font-Lato  mxl:text-base text-2base xxl:text-base">Task</span>
+                    </a> 
+                </li>
+                <li>
+                    <a href="{% url 'taskSubmit' %}" class="flex items-center justify-start relative slg:py-1 xl:w-72 xxl:w-full w-72 hover:bg-slate-200 duration-500">
+                        <img src="{% static 'portal/nav/submit.png' %}" alt="Submit Icon" class="object-scale-down xxl:ml-10 bxl:h-10 bxl:w-16 xxl:h-12 xxl:w-24 slg:h-8 slg:w-16 slg:ml-4">
+                        <span class="nav-item font-Lato  mxl:text-base text-2base xxl:text-base">Submit a Task</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'ticketingPage' %}" class="flex items-center justify-start relative slg:py-0 w-72 xl:w-72 xxl:w-full hover:bg-slate-200 duration-500">
+                        <img src="{% static 'portal/nav/ticket.png' %}" alt="Ticketing Icon" class="object-scale-down xxl:ml-10 bxl:h-10 bxl:w-16 xxl:h-12 xxl:w-24 slg:h-8 slg:w-16 slg:ml-4">
+                        <span class="nav-item font-Lato  mxl:text-base text-2base xxl:text-base">Ticketing</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'creditScoreDashboard' %}" class="flex items-center justify-start relative slg:py-2 w-72 xl:w-72 xxl:w-full space-x-0 hover:bg-slate-200 duration-500">
+                        <img src="{% static 'portal/nav/credits.png' %}" alt="Credits Icon" class="object-scale-down xxl:ml-12  xxl:h-7 xxl:w-24 slg:h-6 slg:w-16 slg:ml-4">
+                        <span class="nav-item font-Lato  mxl:text-base text-2base xxl:text-base">Credits</span>
+                    </a>
+                </li>
+            </div>
+            <div class="bxl:mb-16 xl:mb-10">
+                <li>
+                    <a href="{% url 'portalSettingPage' %}" class="flex items-center justify-start relative slg:mt-20 xl:mt-14 xxl:mt-32 slg:py-2 w-72 xl:w-72 xxl:w-full space-x-0 hover:bg-slate-200 duration-500">
+                        <img src="{% static 'portal/nav/settings.png' %}" alt="Settings Icon" class="object-scale-down xxl:ml-10 xxl:h-12 xxl:w-24 slg:h-6 slg:w-16 slg:ml-4">
+                        <span class="nav-item font-Lato text-2base  mxl:text-base xxl:text-base">Settings</span>
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </nav>
 </div>

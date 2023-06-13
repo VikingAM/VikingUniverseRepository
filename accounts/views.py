@@ -119,7 +119,7 @@ def passwordResetOtp(request):
 		user = authenticate(request, username=Userinstance.username, password=request.POST['current_password'])
 		if user is not None:
 			UserDetails = details.objects.get(userId=request.POST['userId'])
-			otp_random = random.randint(100000, 999999)
+			otp_random = random.randint(1000, 9999)
 			list_of_password_otp = password_reset_code.objects.filter(userId=request.POST['userId'], status=0)
 			if len(list_of_password_otp) > 0:
 				for password_otp in list_of_password_otp:
@@ -132,10 +132,10 @@ def passwordResetOtp(request):
 			client_email = UserDetails.email
 
 			fullname = UserDetails.last_name+", "+UserDetails.first_name
-			subject = 'Viking Universer password reset OTP'
+			subject = 'Viking Universe password reset OTP'
 			html_message = render_to_string('mail_password_reset_otp.html', {'UserFullname': fullname, 'OTP': otp_random, "site_url": settings.SITE_URL})
 			plain_message = strip_tags(html_message)
-			from_email = 'william.crumb@vikingassetmanagement.com'
+			from_email = 'no-reply@vikinguniverse.com'
 			msg = EmailMultiAlternatives(subject, plain_message, from_email, [client_email])
 			msg.attach_alternative(html_message, "text/html")
 

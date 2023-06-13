@@ -9,6 +9,7 @@ urlpatterns = [
     path('setting_password', views.SettingPasswordPage, name="SettingPasswordPage"),
     path('setting_invoice', views.SettingInvoicePage, name="SettingInvoicePage"),
     path('setting_password_management', views.SettingPasswordManagementPage, name="SettingPasswordManagementPage"),
+    path('settings_faqs', views.SettingFaqsPage, name="SettingFaqsPage"),
     
     
 ]

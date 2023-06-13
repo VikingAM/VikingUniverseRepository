@@ -2,158 +2,176 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Profile</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="{% static 'portal/css/navbar.css' %}">
-	<link rel="stylesheet" href="{% static 'portal/css/profile.css' %}">
-	<link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | Settings</title>
+	<link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
+	<link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+	<link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
+	<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body style="background:#F5F6FA;">
-	<div class="row" id="body-row">
-		{% include 'sidebar_v1.html' %}
-		<div class="col main-container" style="padding-left: 0px;">
-			<div class="row">
-				{% include 'setting_sub_menu.html' %}
-				<div class="col main-container">
-					<div class="container-fluid">
-						<br/>
-						<div class="row search_bar_wrapper">
-    						<div class="col-sm-10"></div>
-							<div class="col-sm-2" style="text-align:right; margin: auto;">
-								<i class="fas fa-fw fa-bell"></i> <span class="indicator"></span>
-								<span>
-									<img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle" width="25px">
-									{{ profile_details.first_name }} {{ profile_details.last_name }}
-			    					<span class="dropdown">
-										<span class="fa-solid fa-angle-down" type="button" id="Account-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
-										<div class="dropdown-menu dropdown-menu-right" aria-labelledby="Account-menu">
-											<button class="dropdown-item" type="button">Account</button>
-										    <button class="dropdown-item" type="button">Settings</button>
-										    <button class="dropdown-item" type="button">Logout</button>
-										</div>
-									</span>
-								</span>
-							</div>
-    					</div>
-						<form action="{% url 'portalSettingPage' %}" id="edit_profile" method="POST" enctype="multipart/form-data">
-							{% csrf_token %}
-							<div class="row">
-								<div class="col-sm-12">
-									<span class="edit_profile_text">Edit Profile <li class="far fa-edit"></li></span>
-								</div>
-								
-							</div>
-							<div class="row">
-								<div class="col-sm-2">
-									<img src="{{ profile_details.profile_picture.url }}" class="rounded-circle" alt="Cinque Terre" style="width: 100%;margin-left: -25px;"><br/>
-							
-									<input type="file" id="profile_picture" name="profile_picture">
-									
-								</div>
-								<div class="col-sm-5">
-									<h5 style="color: #0717A3;">Contact Information <li class='far fa-user-circle'></li></h5>
-									<div class="form-group">
-										<label for="exampleInputEmail1">First Name</label>
-									    <input type="text" class="form-control" id="first_name" name="first_name"  placeholder="First Name" value="{{ profile_details.first_name }}">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Last Name</label>
-										<input type="text" class="form-control" id="last_name" name="last_name"  placeholder="Last Name" value="{{ profile_details.last_name }}">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Email</label>
-									    <input type="email" class="form-control" id="email" name="email"  placeholder="Email" value="{{ profile_details.email }}">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Phone Number</label>
-									    <input type="text" class="form-control" id="phone_num" name="phone_num"  placeholder="Phone Number" value="{{ profile_details.phone|default_if_none:'' }}">
-									</div>
-								</div>
-								<div class="col-sm-5">
-									<h5 style="color: #0717A3;">Company Information<i class="far fa-building"></i></h5>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Company Name</label>
-									    <input type="text" class="form-control" id="company_name" name="company_name"  placeholder="Company Name" value="{{ profile_details.company_name|default_if_none:'' }}">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Industry Type</label>
-										<select class="form-control" id="industry_type" name="industry_type">
-											<option value=0>-- Industry Type --</option>
-											{% for industry_type in industry_type_list %}
-												{% if profile_details.industry_type == industry_type.pk %}
-													<option value="{{ industry_type.pk }}" selected>{{ industry_type.name }}</option>
-												{% else%}
-													<option value="{{ industry_type.pk }}" >{{ industry_type.name }}</option>
-												{% endif %}
-											{% empty %}
-												<!-- something soon -->
-											{% endfor %}
-										</select>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Website</label>
-									    <input type="text" class="form-control" id="website" name="website"  placeholder="Website" value="{{ profile_details.website|default_if_none:'' }}">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2"></div>
-								<div class="col-sm-5">
-									<h5 style="color: #0717A3;">Address Information<i class="far fa-building"></i></h5>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Street</label>
-										<input type="text" class="form-control" id="street" name="street"  placeholder="Street" value="{{ profile_address.street|default_if_none:'' }}">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">State</label>
-									    <input type="text" class="form-control" id="state" name="state"  placeholder="State" value="{{ profile_address.state|default_if_none:'' }}">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Country</label>
-									    <input type="text" class="form-control" id="country" name="country"  placeholder="Country" value="{{ profile_address.country|default_if_none:'' }}">
-									</div>
-								</div>
-								<div class="col-sm-5">
-									<br>
-									<div class="form-group" style="margin-top: 8px;">
-										<label for="exampleInputEmail1">City</label>
-									    <input type="text" class="form-control" id="city" name="city"  placeholder="City" value="{{ profile_address.city|default_if_none:'' }}">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Country</label>
-									    <input type="text" class="form-control" id="zip_code" name="zip_code"  placeholder="Zip Code" value="{{ profile_address.zip_code|default_if_none:'' }}">
-									</div>
-								</div>
-							</div>
-    						<br/><br/>
-	    					<div class="row">
-								<div class="col-sm-2"></div>
-								<div class="col-sm-3"></div>
-									<div class="col-sm-2">
-										<button type="submit" class="profile_save_btn">Save</button>
-									</div>
-									<div class="col-sm-2">
-										<a href="{% url 'portalDashboard' %}">
-											<button type="button" class="profile_cancel_btn">Cancel</button>
-										</a>
-									</div>
-								<div class="col-sm-3"></div>
-							</div>
-    					</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<body class="font-Lato">
+	<!-- Sidebar Panel -->
+    <div class="flex">
+    	{% include 'sidebar.html' %}
+    	<div class="flex">
+            <nav class="w-52 xl:ml-0 xl:w-44 bxl:w-52 h-auto ml-22 bg-gray-200 flex justify-center text-lg">
+                <ul>
+                    <li>
+                        <center><p href="#" class="text-2xl bxl:text-xl bxl:mt-12 xl:text-lg mt-5 font-Lato font-bold">Settings</p></center> 
+                    </li>
+                    <div class="mt-20 flex-row space-y-8 xl:text-2base">
+                        <li>
+                            <span class="fas fa-pencil-alt mr-2 text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2 bxl:text-base"></span>
+                            <a href="{% url 'portalSettingPage' %}" class="bxl:text-base font-Lato text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2">Edit Profile</a>  
+                        </li>
+                        <li>
+                            <span class="fas fa-lock mr-2 bxl:text-base"></span>
+                            <a href="{% url 'SettingPasswordPage' %}" class="font-Lato bxl:text-base">Password</a>    
+                        </li>
+                        <li>
+                            <span class="fas fa-file-invoice-dollar mr-3 bxl:text-base"></span>
+                            <a href="{% url 'SettingInvoicePage' %}" class="font-Lato bxl:text-base">Invoices</a>    
+                        </li>
+                        <li>
+                            <span class="fas fa-key mr-1 bxl:text-base"></span>
+                            <a href="{% url 'SettingPasswordManagementPage' %}" class="font-Lato bxl:text-base">Password Manager</a>    
+                        </li>
+                        <li>
+                            <span class="fas fa-question-circle mr-1 bxl:text-base"></span>
+                            <a href="{% url 'SettingFaqsPage' %}" class="font-Lato bxl:text-base">FAQs</a>    
+                        </li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+        <div class="">
+            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
+                <ul class="flex items-center text-sm  text-gray-600">
+                    <li class="flex items-center justify-center">
+                        <a class="fas fa-search text-lg" href="#"></a>
+                        <form action="">
+                            <div class="h-10 flex items-center space-x-5 w-52">
+                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="flex items-center text-sm text-gray-600">
+                    <div class="flex items-center justify-center space-x-5">
+                        <li>
+                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
+                        </li>
+                        <div class="flex items-center justify-center">
+                            <li>
+                                <a href="#">
+                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full"> 
+                                </a>
+                            </li>
+                            
+                            <li class="text-lg xl:text-sm xxl:text-lg">
+                                <p class="font-Jost">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
+                            </li>
+                        </div>
+                        <li class="">
+                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
+                        </li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+        <form action="{% url 'portalSettingPage' %}" id="edit_profile" method="POST" enctype="multipart/form-data">
+        	{% csrf_token %}
+	        <div class="w-full xxl:ml-32 xxl:mt-10">
+	            <div class="mt-32 bxl:mt-22 xl:mt-16 ml-8 xl:ml-6 flex space-x-72 xl:space-x-20">
+                    <div>
+                    	
+                        <h1 class="text-4xl xl:text-2xl text-editProfile"><b>Edit Profile</b></h1>
+                        <img src="{{ profile_details.profile_picture.url }}" class="object-scale-down w-60 h-60 xl:w-40 xl:h-44 rounded-full" > 
+                        <div class="-mt-16 ml-48 xl:ml-32">
+                            <label for="img">
+                            <!-- <img src="{% static 'portal/images/uploadImg.png' %}" id="uploadImg" style="cursor:pointer" />
+                            <input type="file"id="profile_picture" name="profile_picture" accept="image/*" style="display:none">
+                            </label>
+                            <span class="outputImg" id="outputImg"></span> -->
+                            <input type="file" id="profile_picture" name="profile_picture">
+                            
+                        </div>
+                    </div>
+                    <div class="mb-10">
+                        <div class="flex space-x-2">
+                            <p class="font-Lato bxl:text-lg xl:text-base text-profCol">Contact Information</p>
+                            <span class="fas fa-user mr-2 text-profCol xl:mt-1"></span>
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                                <label class="font-Lato bxl:text-base text-2base">First Name</label>
+                                <input type="text" id="first_name" name="first_name" value='{{ profile_details.first_name }}' placeholder="First Name" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+                                
+                                <label class="font-Lato bxl:text-base text-2base">Last Name</label>
+                                <input type="text" id="last_name" name="last_name"  placeholder="Last Name" value="{{ profile_details.last_name }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="{% static 'portal/js/portalnavbar.js' %}"></script>
+                                <label class="font-Lato bxl:text-base text-2base">Email</label>
+                                <input type="email" id="email" name="email"  placeholder="Email" value="{{ profile_details.email }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+
+                                <label class="font-Lato bxl:text-base text-2base">Phone Number</label>
+                                <input type="number" id="phone_num" name="phone_num"  placeholder="Phone Number" value="{{ profile_details.phone|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+                                <div class="flex space-x-2 ">
+                                    <div class="mt-6 flex space-x-2">
+                                        <p class="font-Lato bxl:text-lg text-profCol">Address Information</p>
+                                        <span class="fas fa-city mr-2 text-profCol xl:mt-1"></span>
+                                    </div>
+                                </div>
+                                <p class="font-Lato bxl:text-base text-2base">Street</p>
+                                <input type="text" id="street" name="street"  placeholder="Street" value="{{ profile_address.street|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+                                <p class="font-Lato bxl:text-base text-2base">State</p>
+                                <input type="text" id="state" name="state"  placeholder="State" value="{{ profile_address.state|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+                                <p class="font-Lato bxl:text-base text-2base">Country</p>
+                                <input type="text" id="country" name="country"  placeholder="Country" value="{{ profile_address.country|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+                        </div>
+                        <div class="flex space-x-4 w-52 justify-center items-center">
+                            <button type="submit" class="font-Lato mt-20 xl:mt-10 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-full rounded-full text-lg text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">Save</button>
+                            <button type="reset" class="font-Lato mt-20 xl:mt-10 xl:p-0 p-2 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-full rounded-full text-lg text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">Cancel</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex space-x-2">
+                            <p class="font-Lato bxl:text-lg text-profCol">Company Information</p>
+                            <span class="fas fa-building mr-2 text-profCol xl:mt-1"></span>
+                        </div>
+	                    <div class="flex flex-col space-y-2">
+	                        <label class="font-Lato bxl:text-base text-2base">Company Name</label>
+	                        <input type="text" id="company_name" name="company_name"  placeholder="Company Name" value="{{ profile_details.company_name|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+
+	                        <label class="font-Lato bxl:text-base text-2base">Industry Type</label>
+	                        <select id="industry_type" name="industry_type" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+	                            {% for industry_type in industry_type_list %}
+	                                <option value=0 class="font-Poppins bxl:text-sm">-- Industry Type --</option>
+	                                {% if profile_details.industry_type == industry_type.pk %}
+	                                    <option value="{{ industry_type.pk }}" class="font-Poppins bxl:text-sm" selected>{{ industry_type.name }}</option>
+	                                {% else%}
+	                                    <option value="{{ industry_type.pk }}" class="font-Poppins bxl:text-sm" >{{ industry_type.name }}</option>
+	                                {% endif %}
+	                            {% empty %}
+	                                <option value=0 class="font-Poppins bxl:text-sm">-- Industry Type --</option>
+	                            {% endfor %}
+	                        </select>
+
+	                        <label class="font-Lato bxl:text-base text-2base">Website</label>
+	                        <input type="text" id="website" name="website"  placeholder="Website" value="{{ profile_details.website|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+	                    </div>
+	                    <div class="flex flex-col space-y-2 xl:mt-32">
+	                        <label class="font-Lato bxl:text-base text-2base">City</label>
+	                        <input type="text" id="city" name="city"  placeholder="City" value="{{ profile_address.city|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+
+	                        <label class="font-Lato bxl:text-base text-2base">Zip Code</label>
+	                        <input type="text" id="zip_code" name="zip_code"  placeholder="Zip Code" value="{{ profile_address.zip_code|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base bg-gray-50 border border-gray-300 px-2">
+	                    </div>
+                	</div>
+                </div>
+        	</div>
+        </form>
+    </div>
+	<script src="{% static 'portal/js/uploadImg.js' %}"></script>
 </body>
 </html>

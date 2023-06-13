@@ -2,282 +2,231 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Portal Dashboard</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="{% static 'portal/css/navbar.css' %}">
-	<link rel="stylesheet" href="{% static 'portal/css/portal_dashboard.css' %}">
-	<link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+	<link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
+	<link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+	<link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
+	<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body style="background:#F5F6FA;">
-<div class="row" id="body-row">
-	{% include 'sidebar_v1.html' %}
-	<div class="col p-4 main-container">
-    	<div class="container-fluid">
-    		<!-- create a different file for this if needed -->
-    		<div class="row search_bar_wrapper">
-    			<div class="col-sm-10">
-    				<input class="form-control" type="text" id="portal_search_bar" name="portal_search_bar" placeholder="Search . . . ">
-    			</div>
-    			<div class="col-sm-2" style="text-align:right; margin: auto;">
-    				<i class="fas fa-fw fa-bell"></i> <span class="indicator"></span>
-    				<span>
-    					<img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle" width="25px">
-    					{{ profile_details.first_name }} {{ profile_details.last_name }}
-    					<span class="dropdown">
-							<span class="fa-solid fa-angle-down" type="button" id="Account-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
-							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="Account-menu">
-								<button class="dropdown-item" type="button">Account</button>
-							    <button class="dropdown-item" type="button">Settings</button>
-							    <button class="dropdown-item" type="button">Logout</button>
-							</div>
-						</span>
-    				</span>
-    				
-    			</div>
-    		</div>
-    		<br/><br/>
-    		<!-- end create a different file for this if needed -->
+<body>
+<div class="flex">
+	{% include 'sidebar.html' %}
+	<div class="bxl:w-full mxl:mr-20 xxl:mr-0 xxl:w-full xxl:p-5">
+		{% include 'portal_nav_bar.html' %}
+		<div class="flex space-x-14 xl:space-x-10 xxl:space-x-12 justify-center ml-32 xl:ml-10 xxl:ml-0 m-8 xl:m-0 ">
+            <!-- Total Task -->
+            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64  border-2  rounded-xl">
+                <div class="flex items-end justify-end">
+                    <a class="fas fa-ellipsis-h text-lg mr-2" href="#"></a>
+                </div>
+                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl:mr-5">
+                    <div class="flex items-center justify-center bg-totalTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                        <img src="{% static 'portal/dashboard/totaltask.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    </div>
+                    <div class="">
+                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Total Task</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- Open Task -->
+            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64 border-2 rounded-xl">
+                <div class="flex items-end justify-end">
+                    <a class="fas fa-ellipsis-h text-lg mr-2" href="#"></a>
+                </div>
+                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl:mr-5">
+                    <div class="flex items-center justify-center bg-openTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                        <img src="{% static 'portal/dashboard/opentask.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    </div>
+                    <div class="xl:text-sm">
+                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Open Task</h1>
+                    </div>
+                </div>
+            </div>
 
-    		<div class="row">
-    			<div class="col-sm-1"></div>
-    			<div class="col-sm-2">
-    				<div class="card">
-  						<div class="card-body" style="padding: 0% 3% 10% 3%;">
-						    <h6 class="card-title" style="text-align:right; line-height: 1rem;">...</h6>
-						    <br/>
-						    <div class="row">
-						    	<div class="col-sm-1"></div>
-						    	<div class="col-sm-2 card_icon">
-    								<i class="fa-solid fa-clipboard-check"></i>
-						    	</div>
-						    	<div class="col-sm-8 card_text">
-						    		<p><b>10</b><br/>Total Task</p>
-						    	</div>
-						    </div>
-						    <br/>
-					  	</div>
-					</div>
-    			</div>
-    			<div class="col-sm-2">
-    				<div class="card">
-  						<div class="card-body" style="padding: 0% 3% 10% 3%;">
-						    <h6 class="card-title" style="text-align:right; line-height: 1rem;">...</h6>
-						    <br/>
-						    <div class="row">
-						    	<div class="col-sm-1"></div>
-						    	<div class="col-sm-2 card_icon" style="background-color: #F4DEA6;">
-    								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="27" fill="currentColor" class="bi bi-clipboard2-check" viewBox="0 0 16 16">
-									  <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
-									  <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
-									  <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3Z"/>
-									</svg>
-						    	</div>
-						    	<div class="col-sm-8 card_text">
-						    		<p><b>10</b><br/>Open Task</p>
-						    	</div>
-						    </div>
-						    <br/>
-					  	</div>
-					</div>
-    			</div>
-    			<div class="col-sm-2">
-    				<div class="card">
-  						<div class="card-body" style="padding: 0% 3% 10% 3%;">
-						    <h6 class="card-title" style="text-align:right; line-height: 1rem;">...</h6>
-						    <br/>
-						    <div class="row">
-						    	<div class="col-sm-1"></div>
-						    	<div class="col-sm-2 card_icon" style="background-color: #83B8F6; padding-left: 3%;">
-    								<i class="fa-solid fa-circle-half-stroke"></i>
-						    	</div>
-						    	<div class="col-sm-8 card_text">
-						    		<p><b>10</b><br/>Task in Progress</p>
-						    	</div>
-						    </div>
-						    <br/>
-					  	</div>
-					</div>
-    			</div>
-    			<div class="col-sm-2">
-    				<div class="card">
-  						<div class="card-body" style="padding: 0% 3% 10% 3%;">
-						    <h6 class="card-title" style="text-align:right; line-height: 1rem;">...</h6>
-						    <br/>
-						    <div class="row">
-						    	<div class="col-sm-1"></div>
-						    	<div class="col-sm-2 card_icon" style="background-color: #F4A288;">
-    								<i class="fa-solid fa-check"></i>
-						    	</div>
-						    	<div class="col-sm-8 card_text">
-						    		<p><b>10</b><br/>Task for Approval</p>
-						    	</div>
-						    </div>
-						    <br/>
-					  	</div>
-					</div>
-    			</div>
-    			<div class="col-sm-2">
-    				<div class="card">
-  						<div class="card-body" style="padding: 0% 3% 10% 3%;">
-						    <h6 class="card-title" style="text-align:right; line-height: 1rem;">...</h6>
-						    <br/>
-						    <div class="row">
-						    	<div class="col-sm-1"></div>
-						    	<div class="col-sm-2 card_icon" style="background-color: #89C873; padding-left: 3%;">
-    								<i class="fa-solid fa-circle-dollar-to-slot"></i>
-						    	</div>
-						    	<div class="col-sm-8 card_text">
-						    		<p><b>10</b><br/>Credits Available</p>
-						    	</div>
-						    </div>
-						    <br/>
-					  	</div>
-					</div>
-    			</div>
-    			<div class="col-sm-1"></div>
-    		</div>
-    		<br/><br/>
-    		<div class="row">
-    			<div class="col-sm-1"></div>
-    			<div class="col-sm-10">
-    				<div class="row">
-    					<div class="col-sm-4">
-    						<div class="row">
-    							<div class="col-sm-7 task_details">
-    								<i class="fa-solid fa-circle" style="color: #69A2F9; font-size: 11px;"></i> Open Task
-    							</div>
-    							<div class='col-sm-5 task_sub_details'>
-    								Date Added
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-sm-4">
-    						<div class="row">
-    							<div class="col-sm-7 task_details">
-    								<i class="fa-solid fa-circle" style="color: #FD7168; font-size: 11px;"></i> In Progress
-    							</div>
-    							<div class='col-sm-5 task_sub_details'>
-    								Priority
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-sm-4">
-    						<div class="row">
-    							<div class="col-sm-7 task_details">
-    								<i class="fa-solid fa-circle" style="color: #1C7D42; font-size: 11px;"></i> For Approval
-    							</div>
-    							<div class='col-sm-5 task_sub_details'>
-    								
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-sm-1"></div>
-    		</div>
-    		<br/>
-    		<div class="row">
-    			<div class="col-sm-1"></div>
-    			<div class="col-sm-10">
-    				<div class="row">
-    					<div class="col-sm-4">
-    						<div class="row">
-    							<div class="card" style="width:98%; border-radius: 15px;">
-								  	<div class="card-body">
-									    <h5 class="card-title task_title">Task Name</h5>
-									    <p class="card-text task_card_description">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-									    <span class="badge badge-pill" style="background: #87DEC9; color: #387C6C;">Category</span>
-									    <span class="badge badge-pill" style="background: #D3D7FE; color: #4454DE;">Category</span>
-									    <span class="badge badge-pill" style="background: #FEEAD3; color: #EF9D3E;">Category</span>
-									    <br/>
-									    <div class="row">
-									    	<div class="col-sm-6">
-									    		<span class="task_create_date">
-											    	<i class="fa-regular fa-calendar-days"></i>04-February-2023
-											    </span>
-									    	</div>
-									    	<div class="col-sm-6" style="margin: auto;">
-									    		<div class="progress">
-			  										<div class="progress-bar" role="progressbar" style="width: 0%; text-align: center; background: #BEA4EC;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" >0%</div>
-												</div>
-									    	</div>
-									    </div>
-								  	</div>
-								</div>
-    						</div>
-    					</div>
-    					<div class="col-sm-4">
-    						<div class="row">
-    							<div class="card" style="width:98%; border-radius: 15px;">
-								  	<div class="card-body">
-									    <h5 class="card-title task_title">Task Name</h5>
-									    <span class="badge badge-pill" style="background: #87DEC9; color: #387C6C;">Category</span>
-									    <span class="badge badge-pill" style="background: #D3D7FE; color: #4454DE;">Category</span>
-									    <span class="badge badge-pill" style="background: #FEEAD3; color: #EF9D3E;">Category</span>
-									    <br/><br/>
-									    <p class="card-text task_card_description">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-									    <div class="row">
-									    	<div class="col-sm-6">
-									    		<span class="task_create_date">
-											    	<i class="fa-regular fa-calendar-days"></i>04-February-2023
-											    </span>
-									    	</div>
-									    	<div class="col-sm-6" style="margin: auto;">
-									    		<div class="progress">
-			  										<div class="progress-bar" role="progressbar" style="width: 70%; text-align: center; background: linear-gradient(90.97deg, rgba(26, 47, 238, 0.85) 0%, rgba(196, 26, 238, 0.85) 99.67%);;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" >70%</div>
-												</div>
-									    	</div>
-									    </div>
-								  	</div>
-								</div>
-    						</div>
-    					</div>
-    					<div class="col-sm-4">
-    						<div class="row">
-    							<div class="card" style="width:98%; border-radius: 15px;">
-								  	<div class="card-body">
-									    <h5 class="card-title task_title">Task Name</h5>
-									    <span class="badge badge-pill" style="background: #87DEC9; color: #387C6C;">Category</span>
-									    <span class="badge badge-pill" style="background: #D3D7FE; color: #4454DE;">Category</span>
-									    <span class="badge badge-pill" style="background: #FEEAD3; color: #EF9D3E;">Category</span>
-									    <br/><br/>
-									    <p class="card-text task_card_description">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-									    <div class="row">
-									    	<div class="col-sm-6">
-									    		<span class="task_create_date">
-											    	<i class="fa-regular fa-calendar-days"></i>04-February-2023
-											    </span>
-									    	</div>
-									    	<div class="col-sm-6" style="margin: auto;">
-									    		<div class="progress">
-			  										<div class="progress-bar" role="progressbar" style="width: 100%; text-align: center; background: linear-gradient(90.97deg, rgba(26, 47, 238, 0.85) 0%, rgba(196, 26, 238, 0.85) 99.67%);;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" >100%</div>
-												</div>
-									    	</div>
-									    </div>
-								  	</div>
-								</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-sm-1"></div>
-    		</div>
+            <!-- Task in Progress -->
+            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64 border-2 rounded-xl">
+                <div class="flex items-end justify-end">
+                    <a class="fas fa-ellipsis-h text-lg mr-2" href="#"></a>
+                </div>
+                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6">
+                    <div class="flex items-center justify-center bg-taskProg h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                        <img src="{% static 'portal/dashboard/taskprogress.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    </div>
+                    <div class="xl:text-sm">
+                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Task in Progress</h1>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Task for Approval -->
+            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64 border-2 rounded-xl">
+                <div class="flex items-end justify-end">
+                    <a class="fas fa-ellipsis-h text-lg mr-2" href="#"></a>
+                </div>
+                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6">
+                    <div class="flex items-center justify-center bg-taskAppr h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                        <img src="{% static 'portal/dashboard/taskapprv.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    </div>
+                    <div class="xl:text-sm">
+                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Task for Approval</h1>
+                    </div>
+                </div>
+            </div>
 
-    	</div>
-        
-    </div><!-- Main Col END -->
-</div>
+            <!-- Credits Available -->
+            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64 border-2 rounded-xl z-10">
+                <div class="flex items-end justify-end">
+                    <a class="fas fa-ellipsis-h text-lg mr-2 z-10" href="#"></a>
+                </div>
+                <div class="flex items-center justify-center xl:space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 ">
+                    <div class="flex items-center justify-center bg-credsAv h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                        <img src="{% static 'portal/dashboard/credsav.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    </div>
+                    <div class="xl:text-sm">
+                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Credits Available</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="{% static 'portal/js/portalnavbar.js' %}"></script>
+        <div class="flex xl:space-x-4 mxl:space-x-8 xxl:space-x-10 xxl:ml-5 mxl:ml-7 xl:mb-10 ">
+            <div class="flex xl:ml-10 xl:mt-5 ">
+                <main class="table xl:w-89 xxl:w-120 ">
+                    <section class="table__header">
+                        <div class="flex justify-between xl:w-full xl:mt-0">
+                            <div class="flex xl:space-x-2">
+                                <div class="xl:w-3 xl:h-3 rounded-full bg-blue-500 xl:mt-1"></div>
+                                <h1 class="text-2base mxl:text-base font-Lato text-black font-bold">Open Task</h1>
+                            </div>
+                            <p class="text-2base xxl:text-sm font-bold font-Poppins">Date Added</p>
+                        </div>  
+                    </section>
+                    <section class="table__body xl:h-screen xxl:h-150 ">
+                        <table class="border-separate overflow-auto border-spacing-2 ">
+                            <tbody>
+                                <tr>
+                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3">
+                                        <div class="flex justify-between text-2base font-bold  text-end ">
+                                            <h1 id="" class="font-Poppins">Task name</h1>
+                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400" href="#"></a>
+                                        </div>
+                                        <div class="mt-3">
+                                            <p id="" class="font-Poppins text-sm text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                        </div>
+                                        <div class="flex xl:space-x-3">
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                        </div>
+                                        <div class="flex xl:w-fit xl:mt-3 text-sm">
+                                            <div class="flex hover:text-white ">
+                                                <p class="far fa-calendar-alt text-lg mr-2" href="#"></p>
+                                                <p class="font-Lato">04 February 2023</p>
+                                            </div>
+                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-16 bxl:ml-10 duration-500">0%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </main>
+            </div>
+            <div class="flex xl:ml-10 xl:mt-5">       
+                <main class="table xl:w-89 xxl:w-120">
+                    <section class="table__header ">
+                        <div class="flex justify-between xl:w-full xl:mt-0">
+                            <div class="flex xl:space-x-2">
+                                <div class="xl:w-3 xl:h-3 rounded-full bg-red-400 xl:mt-1"></div>
+                                <h1 class="text-2base mxl:text-base font-Lato text-black font-bold">In Progress</h1>
+                            </div>
+                            <p class="text-2base xxl:text-sm font-bold font-Poppins">Priority</p>
+                        </div>
+                    </section>
+                    <section class="table__body overflow-auto xl:h-screen xxl:h-150">
+                        <table class="border-separate border-spacing-2 ">
+                            <tbody>
+                                <tr>
+                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3">
+                                        <div class="flex justify-between text-2base font-bold  text-end ">
+                                            <h1 id="" class="font-Poppins">Task name</h1>
+                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400" href="#"></a>
+                                        </div>
+                                        <div class="mt-3">
+                                            <p id="" class="font-Poppins text-sm text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                        </div>
+                                        <div class="flex xl:space-x-3">
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                        </div>
+                                        <div class="flex xl:w-fit xl:mt-3 text-sm">
+                                            <div class="flex hover:text-white ">
+                                                <p class="far fa-calendar-alt text-lg mr-2" href="#"></p>
+                                                <p class="font-Lato">04 February 2023</p>
+                                            </div>
+                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-16 bxl:ml-10 duration-500">0%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </main>
+            </div>
+
+            <div class="flex xl:ml-10 xl:mt-5">         
+                <main class="table xl:w-89 xxl:w-120">
+                    <section class="table__header ">
+                        <div class="flex justify-between xl:w-full xl:mt-0">
+                            <div class="flex xl:space-x-2">
+                                <div class="xl:w-3 xl:h-3 rounded-full bg-green-700 xl:mt-1"></div>
+                                <h1 class="text-2base mxl:text-base  font-Lato text-black font-bold">For Approval</h1>
+                            </div>
+                            <p class="text-2base"></p>
+                        </div>
+                    </section>
+                    <section class="table__body overflow-auto xl:h-screen xxl:h-150">
+                        <table class="border-separate border-spacing-2 ">
+                            <tbody>
+                                <tr>
+                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3">
+                                        <div class="flex justify-between text-2base font-bold  text-end ">
+                                            <h1 id="" class="font-Poppins">Task name</h1>
+                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400" href="#"></a>
+                                        </div>
+                                        <div class="mt-3">
+                                            <p id="" class="font-Poppins text-sm text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                        </div>
+                                        <div class="flex xl:space-x-3">
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                        </div>
+                                        <div class="flex xl:w-fit xl:mt-3 text-sm">
+                                            <div class="flex hover:text-white ">
+                                                <p class="far fa-calendar-alt text-lg mr-2" href="#"></p>
+                                                <p class="font-Lato">04 February 2023</p>
+                                            </div>
+                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-16 bxl:ml-10 duration-500">0%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </main>
+            </div>
+        </div>
+	</div>
+	<script src="{% static 'portal/js/uploadImg.js' %}"></script>
 </body>
 </html>
