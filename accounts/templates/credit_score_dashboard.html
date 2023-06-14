@@ -1,505 +1,328 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Credit Score Dashboard</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="{% static 'portal/css/navbar.css' %}">
-	<!-- <link rel="stylesheet" href="{% static 'portal/css/style.css' %}"> -->
-	<link rel="stylesheet" href="{% static 'account/css/credit_score.css' %}">
-	<link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credits Dashboard | Credits</title>
+    <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<style type="text/css">
-	@font-face {
-        font-family: 'Integral';
-        src:    url("{% static 'fonts/IntegralCF-DemiBold.woff2' %}") format('woff2'),
-                url("{% static 'fonts/IntegralCF-DemiBold.woff' %}") format('woff'),
-                url("{% static 'fonts/IntegralCF-DemiBold.eot' %}") format('eot'),
-                url("{% static 'fonts/IntegralCF-DemiBold.otf' %}") format('otf');
+<body>
+    <!-- Sidebar Panel -->
+    <div class="overlay hidden" onclick="toggleOverlayCredit()" id="overlay_id"></div>
+    <div class="flex">
+        {% include 'sidebar.html' %}
+        <div>
+            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
+                <ul class="flex items-center text-sm  text-gray-600">
+                    <li class="flex items-center justify-center">
+                        <a class="fas fa-search text-lg" href="#"></a>
+                        <form action="">
+                            <div class="h-10 flex items-center space-x-5 w-52">
+                                <input class="w-full bg-whiteSmoke text-black xl:py-1 xl:text-sm bxl:text-base font-Poppins xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="flex items-center text-sm text-gray-600">
+                    
+                    <div class="flex items-center justify-center space-x-5">
+                        
+                        <li>
+                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
+                        </li>
+                        <div class="flex items-center justify-center">
+                            <li>
+                                <a href="#">
+                                    <img src="../../assets/nav/dawg.jpg" class="object-scale-down h-10 w-20 rounded-full" > 
+                                </a>
+                            </li>
+                            
+                            <li class="text-lg xl:text-sm mxl:text-2base xxl:text-lg">
+                                <p class="font-Poppins">John Doe</p>
+                            </li>
+                        </div>
+                        
+                        <li class="">
+                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
+                        </li>
+                    </div>
+                </ul>
+                
+            </nav>
+        </div>
 
-    }
+        <div class="mt-32 bxl:mt-20 xl:mt-16 ml-5 xl:ml-10 xxl:ml-10 xxl:mt-16 overflow-hidden w-full">
+            <div class="flex justify-between overflow-auto">
+                <h1 class="text-4xl xl:text-2xl bxl:text-2xl mxl:text-3xl xxl:text-3xl font-Poppins text-editProfile font-extrabold">Your Credit</h1>
+                <a href="#" onclick="toggleAddCredit()" class="text-center justify-center items-center font-Lato mt-20 xl:mt-0 xxl:mt-10 p-2 xl:p-1 xxl:p-2 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg xl:text-sm xl:w-40 mxl:w-48 mxl:text-base mxl:py-3 xl:mr-10 xxl:mr-20 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">ADD MORE</a>
+            </div>
+            <a href="customPlan.html">Create custom plan</a>
+            <a href="managePlan.html">Manage custom plan</a>
+            <div class="flex xl:w-210 mxl:w-full xxl:w-full xl:mt-6 xl:space-x-8 xxl:space-x-24 xl:ml-5 xxl:ml-0 items-center justify-center">
+                <div class="flex flex-col xl:w-120 mxl:w-140 xl:h-44 bg-white border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2 mxl:p-4">
+                    <div class="flex justify-start font-bold ">
+                        <h1 id="" class="font-Poppins text-profCol xl:text-xl font-bold">Available Credit</h1>
+                    </div>
 
-	
-</style>
-<body style="background:#F5F6FA;">
-	<div class="row" id="body-row">
-		{% include 'sidebar_v1.html' %}
-		<div class="col p-4 main-container">
-			<div class="container-fluid">
-				<div class="row search_bar_wrapper">
-					<div class="col-sm-10"></div>
-		    			<div class="col-sm-2" style="text-align:right; margin: auto;">
-		    				<i class="fas fa-fw fa-bell"></i> <span class="indicator"></span>
-		    				<span>
-		    					<img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle" width="25px">
-		    					{{ profile_details.first_name }} {{ profile_details.last_name }} 
-		    					<span class="dropdown">
-								<span class="fa-solid fa-angle-down" type="button" id="Account-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
-								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="Account-menu">
-									<button class="dropdown-item" type="button">Account</button>
-								    <button class="dropdown-item" type="button">Settings</button>
-								    <button class="dropdown-item" type="button">Logout</button>
-								</div>
-							</span>
-		    				</span>
-		    				
-		    			</div>
-	    			</div><br/>
-				<div class="row">
-					<div class="col-sm-10">
-						<h2 class="yourcreditScore">YOUR CREDIT</h2>
-					</div>
-					<div class="col-sm-2">
-						<button class="add_more_credit_btn" data-toggle="modal" data-target="#AddMoreCredit">ADD MORE</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-6 creditbox" >
-								<div class="row">
-									<div class="col-sm-12 creditboxLabel">
-										Available Credit
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12 center CreditAmounts">
-										{{ AVC }}
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12 center CreditAmountsSubText">
-										Use your credits to request more task!
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 creditbox">
-								<div class="row">
-									<div class="col-sm-12 creditboxLabel">
-										Total Credits Used
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12 center CreditAmounts">
-										{{ TCU }}
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12 center CreditAmountsSubText">
-										Use your credits to request more task!
-									</div>
-								</div>
-								
-							</div>
-						</div>
-					</div>
-				</div><br/><br/>
-				<div class="row">
-					<div class="col-sm-12 creditboxHistory">
-						<div class="row">
-							<div class="col-sm-12 creditboxHistoryLabel">
-								Credits History
-							</div>
-						</div>
-						<div class="row">
-							<table class="table" style="margin: 2%">
-								<thead>
-								    <tr>
-								    	<th scope="col" width="40%"  >Task Name</th>
-								    	<th scope="col" width="20%" class="center"> Start Date</th>
-								    	<th scope="col" width="20%" class="center">End Date</th>
-								    	<th scope="col" width="20%" class="center">Credits</th>
-								    </tr>
-							  	</thead>
-							  	<tbody>
-							  		{% for history in history_list %}
-							  			<tr>
-								  			<td class="task_label">
-								  				{{ history.title }}!<br/>
-								  				<p>{{ history.desc }}</p>
-								  			</td>
-								  			<td class="credit_history_dates center">
-								  				{{ history.create_date|date:'M d, Y' }}
-								  			</td>
-								  			<td class="credit_history_dates center">
-								  				
-								  			</td>
-								  			{% if history.type == "0" %}
-								  				<td class="credit_history_use center" style="color:green;">
-									  				{{ history.credit }}
-									  			</td>
-								  			{% else %}
-								  				<td class="credit_history_use center" style="color:red;">
-									  				{{ history.credit }}
-									  			</td>
-								  			{% endif %}
-								  			
-								  		</tr>
-							  		{% empty %}
-							  			<tr>
-								  			<td class="task_label">
-								  				No Credit Added<br/>
-								  				
-								  			</td>
-								  			<td class="credit_history_dates center">
-								  				
-								  			</td>
-								  			<td class="credit_history_dates center">
-								  				
-								  			</td>
-								  			<td class="credit_history_use center">
-								  				0
-								  			</td>
-								  		</tr>
-							  		{% endfor %}
-							  		
-							  	</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<input type="hidden" name="userId" id="userId" value="{{ request.user.pk }}">
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="{% static 'portal/js/portalnavbar.js' %}"></script>
-</body>
+                    <div class="mt-5">
+                        <p class="text-3xl font-bold font-Poppins text-center">{{ AVC }}</p>
+                        <p id="" class="font-Poppins text-center text-sm bxl:text-2base">Use your credits to request more task!</p>
+                    </div>
+                </div>
+                <div class="flex flex-col xl:w-120 mxl:w-140 xl:h-44 bg-white border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2 mxl:p-4">
+                    <div class="flex justify-start font-bold ">
+                        <h1 id="" class="font-Poppins text-profCol xl:text-xl font-bold">Total Credits Used</h1>
+                    </div>
+                    <div class="mt-5">
+                        <p class="text-3xl font-bold font-Poppins text-center">{{ TCU }}</p>
+                        <p id="" class="font-Poppins text-center text-sm bxl:text-2base">Use your credits to request more task!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-32 xl:mt-4 ml-5 xxl:-ml-5 xxl:p-10 flex mxl:w-full xxl:w-full xl:mb-10">
+                <div class="credit_body overflow-auto  xl:h-110 bg-white border border-gray-300 rounded-xl xl:p-3 xxl:p-8 mxl:mr-24">
+                    <h1 class="text-4xl xl:text-2xl  font-bold font-Poppins text-profCol">Credits History</h1>
+                    <table class="table-auto xl:mt-5 xl:w-192 mxl:w-220 xxl:w-full xl:mx-20 mxl:mx-5 xxl:mx-0 text-star">
+                        <thead class="thead_bg">
+                            <tr class="credit text-2base bxl:text-base xxl:text-lg font-thin text-black border-b-1 border-gray-300 mxl:w-120 w-full">
+                                <th class="font-Poppins ">Task Name</th>
+                                <th class="font-Poppins ">Start Date</th>
+                                <th class="font-Poppins">End Date</th>
+                                <th class="font-Poppins text-center">Credits Used</th>
+                            </tr>
+                        </thead>
+                        <tbody class="credit text-2base  font-Lato ">
+                            {% for history in history_list %}
+                                <tr class="inv_tr xl:text-2base text-base">
+                                    <td class="font-Lato font-semibold p-2">
+                                        <p class="font-Poppins font-bold">{{ history.title }}!</p>
+                                        <p class="font-Poppins text-sm text-gray-500">{{ history.desc }}</p>
+                                    </td>
+                                    <td class="font-Lato font-semibold">{{ history.create_date|date:'M d, Y' }}</td>
+                                    <td class="font-Lato font-semibold">{{ history.create_date|date:'M d, Y' }}</td>
+                                    <td class="font-Lato font-semibold" style="text-align:center">{{ history.credit }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr class="inv_tr xl:text-2base text-base">
+                                    <td class="font-Lato font-semibold p-2">
+                                        <p class="font-Poppins font-bold ">No Credits Added</p>
+                                        <p class="font-Poppins text-sm text-gray-500"></p>
+                                    </td>
+                                    <td class="font-Lato font-semibold"></td>
+                                    <td class="font-Lato font-semibold"></td>
+                                    <td class="font-Lato font-semibold" style="text-align:center"></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>      
+        </div>
+    </div>
+    <div id="popup-add-credit" class="popup bg-gray-50 xl:w-135 xl:h-110 flex-col fixed z-10 xl:p-6">
+        <div class="flex justify-between">
+            <h1 class="font-Poppins text-xl font-bold text-purple-900">Buy Credits</h1>
+            <button onclick="toggleCancelAddCredit()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-10 " aria-hidden="true"></button>
+        </div>
+        <div class="xl:mt-2">
+            <h2 class="font-Poppins text-base">Buy credits to add more task</h2>
+        </div>
+        <form action="#">
+            <div class="flex flex-col items-center justify-center">
+                <h3 class="xl:mb-2 text-gray-600">How many credits would you like to add?</h3>
+                <div class="flex xl:space-x-4 ">
+                    <div>
+                        <input  type="radio" id="option1" name="choice" value="option1" class="hidden">
+                        <label for="option1" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">500</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="option2" name="choice" value="option2" class="hidden">
+                        <label for="option2" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">1500</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="option3" name="choice" value="option3" class="hidden">
+                        <label for="option3" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">3000</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="option4" name="choice" value="option4" class="hidden">
+                        <label for="option4" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">5000</label>
+                    </div>
+                </div>
+                <h3 class="text-base text-gray-500">or custom amount:</h3>
+                <input type="number" class="credit-no-arrows border-2 xl:p-2 rounded-xl font-Poppins text-center" id="creditReset">
+                <h3 class="text-base text-gray-500 xl:my-2">1 Credit = 1$</h3>
+                <div class="flex flex-col justify-center items-center border-t border-b border-gray-300 xl:w-52 xl:py-2">
+                    <h3 class="text-base text-gray-500">Total amount to pay:</h3>
+                    <h3 class="text-base text-gray-500 xl:mt-4">$1000</h3>
+                </div>
+                <div class="flex xl:mt-5">
+                    <button type="button" onclick="togglePaymentMethod()" class="text-center justify-center items-center font-Poppins mt-20 xl:mt-0 p-2 xl:p-1 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg bxl:text-sm xl:text-xvs xl:w-40 xl:mr-10 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">Proceed to Payment</button>
+                    <button type="reset" id="credit-reset-btn" class="font-Poppins bxl:text-sm text-xvs" onclick="uncheck()">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="popup-credit-payment-method" class="popup fixed bg-gray-50 xl:w-135 xl:h-120 flex-col z-10 xl:p-6 overflow-hidden">   
+        <div class="flex justify-between">
+            <h1 class="font-Poppins text-xl font-bold text-purple-900">Payment</h1>
+            <button onclick="toggleCancelPaymentMethod()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-10 " aria-hidden="true"></button>
+        </div>
+        <div class="xl:mt-2">   
+            <h2 class="font-Poppins font-bold text-profCol text-base">Payment Method</h2>
+        </div>
+        <form action="#">
+            <div class="xl:mt-2 ">
+                <hr>
+                <div class="flex justify-center items-center xl:space-x-4 xl:mt-4">
+                    <div>
+                        <input type="radio" id="payment_option1" name="choice" value="payment_option1" class="hidden">
+                        <label for="payment_option1" class="payment-element hover:bg-purple-500 hover:duration-500"><img src="/assets/payments/visa_icon.png" class="object-scale-down xl:w-12 xl:h-10"> </label>
+                    </div>
+                    <div>
+                        <input type="radio" id="payment_option2" name="choice" value="payment_option2" class="hidden">
+                        <label for="payment_option2" class="payment-element hover:bg-purple-500 hover:duration-500"><img src="/assets/payments/mastercard_icon.png" class="object-scale-down xl:w-16 xl:h-9"></label>
+                    </div>
+                    <div>
+                        <input type="radio" id="payment_option3" name="choice" value="payment_option3" class="hidden">
+                        <label for="payment_option3" class="payment-element hover:bg-purple-500 hover:duration-500"><img src="/assets/payments/amex_icon.png" class="object-scale-down xl:w-12 xl:h-10"></label>
+                    </div>
+                    <div>
+                        <input type="radio" id="payment_option4" name="choice" value="payment_option4" class="hidden">
+                        <label for="payment_option4" class="payment-element hover:bg-purple-500 hover:duration-500"><img src="/assets/payments/paypal_icon.png" class="object-scale-down xl:w-12 xl:h-9"></label>
+                    </div>    
+                </div>
 
+                <div class="flex flex-col">
+                    <label for="cardholder_name" class="font-Poppins text-sm font-semibold">Cardholder Name</label>
+                    <input type="text" id="cardholder_name" name="cardholder_name" class="font-Poppins border-2 border-inputBlue rounded-xl xl:py-1 xl:px-3 ">
+                
+                    <div class="flex xl:space-x-8">
+                        <div class="flex flex-col">
+                            <label for="card_number" class="font-Poppins text-sm font-semibold">Card Number</label>
+                            <input type="number" id="card_number" name="card_number" class="font-Poppins credit-no-arrows xl:w-72 border-2 border-inputBlue rounded-xl xl:py-1 xl:px-3 ">
+                        </div>
+                        <div class="flex xl:space-x-4">
+                            <div class="flex flex-col">
+                                <label for="exp_date" class="font-Poppins text-sm font-semibold">Expiry Date</label>
+                                <input type="number" id="exp_date" name="exp_date" class="credit-no-arrows font-Poppins xl:w-20 border-2 border-inputBlue rounded-xl xl:py-1 xl:px-3 ">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="card_ccv" class="font-Poppins text-sm font-semibold">CCV</label>
+                                <input type="number" id="card_ccv" name="card_ccv" class="font-Poppins credit-no-arrows xl:w-20 border-2 border-inputBlue rounded-xl xl:py-1 xl:px-3 ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex xl:space-x-2 xl:mt-3">
+                        <a href="#"><i class='fas fa-info-circle text-inputBlue'></i></a>
+                        <h3 class="font-Poppins text-xvs bxl:text-sm xxl:text-2base xl:mt-1">Credit card payment may take up to 24h to proceed</h3>
+                        <a href="#"><i class="fas fa-question-circle text-inputBlue"></i></a>
+                    </div>
+                    <label class="inline-flex items-center xl:mt-2">
+                        <input type="checkbox" class="form-checkbox xl:h-3 xl:w-3 text-inputBlue" />
+                        <span class="ml-2 text-xvs bxl:text-sm xxl:text-2base font-Poppins">Save my payment details for future purchases</span>
+                    </label>
+                    <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">Summary</h3>
+                    <hr>
+                    <div class="flex justify-between xl:mb-1">
+                        <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">50 Credits</h3>
+                        <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">$50</h3>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between">
+                        <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">Total</h3>
+                        <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">$50</h3>
+                    </div>
+                    <div class="flex items-center justify-center xl:mt-5">
+                        <button type="button" onclick="toggleCreditSuccess()" class="text-center justify-center items-center font-Poppins mt-20 xl:mt-0 p-2 xl:p-1 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg xl:text-xvs bxl:text-sm xl:w-40 xl:mr-10 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">Confirm Payment</button>
+                        <button type="reset" id="confirmPayment_reset" class="font-Poppins bxl:text-sm text-xvs" onclick="uncheck()">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
+    <div id="popup-credit-add-success" class="popup flex fixed bg-gray-50 xl:w-135 xl:h-72 flex-col z-10 xl:p-6 overflow-hidden"> 
+        <h1 class="text-2xl font-Poppins font-bold text-purple-800">Add Credits Successful!</h1>
+        <h4 class="font-Poppins text-sm xxl:text-2base xl:mt-3 xl:mb-4">Now you can have more task and exceed your limitation!</h4>
+        <h4 class="font-Poppins text-sm xxl:text-2base">An invoice will be sent into your email account to track your purchase.</h4>
+        <div class=" flex items-center justify-center">
+            <a href="credit.html" class="font-Poppins text-center mt-20 xl:mt-14 xxl:mt-20 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-full rounded-lg text-lg xl:text-sm xxl:text-2base xl:w-72 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-colors duration-500">Back to Dashboard</a>
+        </div>
+    </div>
+    <script src="{% static 'portal/js/uploadImg.js' %}"></script>
+    <script src="{% static 'portal/js/enableBtn.js' %}"></script>
+    <script src="{% static 'portal/js/tableStng.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/jquery_3.7.0.js' %}"></script>
+    <script type="text/javascript">
+        function ProcessPayment(){
+            var custom_amount = $("#custom_amount").val();
+            if($.isNumeric(custom_amount)){
+                $("#AddMoreCredit").modal("hide");
+                $("#PaymentMethodModal").modal("show");
+                $("#step2_credits").empty();
+                $("#step2_credits").append(custom_amount+" Credits");
+                $("#step2_Tamount").empty();
+                $("#step2_Tamount").append("$"+custom_amount);
+                $("#step2_SubTamount").empty();
+                $("#step2_SubTamount").append("$"+custom_amount);
+            }else{
+                alert("Please use a proper amount!");
+            }
+        }
+        //add computation for credits
+        function ConfirmPaymentBtn(){
+            var custom_amount = $("#custom_amount").val(); 
+            var userId = $("#userId").val();
+            jQuery.ajax({
+                type: "POST",
+                url: "{% url 'creditScoreAdd' %}",
+                data: {
+                        "csrfmiddlewaretoken": '{{ csrf_token }}',
+                        "custom_amount": parseInt(custom_amount),
+                        "userId": userId,
+                        "credits": parseInt(custom_amount),
+                    },
+                async:true,
+                success: function (data) {
+                    if(data.status_code != 0){
+                        $("#PaymentMethodModal").modal("hide");
+                        $("#ConfirmPaymentModal").modal("show");
+                    }else{
+                        // show error msg
+                    }
+                    
+                    
+                },
+                error: function (e) {
+                    // $("#error_msg").append("Error! please try again later.");
+                }
+            })
+            
+        }
 
-<!-- models -->
-<div class="modal fade" id="AddMoreCredit" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="AddMoreCreditLabel" aria-hidden="true">
-  	<div class="modal-dialog">
-    	<div class="modal-content">
-	      	<div class="modal-body">
-		        <div class="row">
-		        	<div class="col-sm-10 buy_credit_header">
-		        		Buy Credits
-		        	</div>
-		        	<div class="col-sm-2">
-		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		      				<span aria-hidden="true">&times;</span>
-		    			</button>
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12  buy_credit_sub_header">
-		        		Buy Credits to add more task
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12 center buy_credit_text">
-		        		How Many Credits You like to add?
-		        	</div>
-		        </div>
-		        <br/>
-		        <div class="row">
-					<div class="col-sm-2"></div>
-					<div class="col-sm-2 center buy_credit_default_amount" amountVal="500" onclick="ChooseAmount(this);">
-						500
-					</div>
-					<div class="col-sm-1"></div>
-					<div class="col-sm-2 center buy_credit_default_amount" amountVal="1500" onclick="ChooseAmount(this);">
-						1500
-					</div>
-					<div class="col-sm-1"></div>
-					<div class="col-sm-2 center buy_credit_default_amount" amountVal="5000" onclick="ChooseAmount(this);">
-						5000
-					</div>
-					<div class="col-sm-2"></div>
-				</div>
-				<div class="row">
-		        	<div class="col-sm-12 center buy_credit_text">
-		        		or custom amount
-		        	</div>
-		        </div>
-		        <br/>
-		        <div class="row">
-		        	<div class="col-sm-3"></div>
-		        	<div class="col-sm-6">
-		        		<input type="text" id="custom_amount" onkeyup="updateTotalAmount(this);" name="custom_amount" class="form-control" placeholder="Custom Amount">
-		        	</div>
-		        	<div class="col-sm-3"></div>
-		        </div>
-		        <br/>
-		        <div class="row">
-		        	<div class="col-sm-12 center buy_credit_text">
-		        		1 Credit = 1$
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-3"></div>
-		        	<div class="col-sm-6">
-		        		<hr>
-		        	</div>
-		        	<div class="col-sm-3"></div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12 center buy_credit_text">
-		        		Total amount to pay
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12 center buy_credit_text" id="total_amount_to_pay">
-		        		$0
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-3"></div>
-		        	<div class="col-sm-6">
-		        		<hr>
-		        	</div>
-		        	<div class="col-sm-3"></div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-3"></div>
-		        	<div class="col-sm-6 center">
-		        		<button class="buy_credit_payment_btn" onclick="ProcessPayment();">Proceed to Payment</button>
-		        	</div>
-		        	<div class="col-sm-3"></div>
-		        </div>
-		        <br/>
-	      	</div>
-    	</div>
-  	</div>
-</div>
+        function ChooseAmount(that) {
+            var choosenAmount = $(that).attr("amountVal");
+            $("#custom_amount").val(choosenAmount);
+            $("#total_amount_to_pay").empty();
+            $("#total_amount_to_pay").append("$"+choosenAmount);
+        }
 
-<div class="modal fade" id="PaymentMethodModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="PaymentMethodModalLabel" aria-hidden="true">
-  	<div class="modal-dialog">
-    	<div class="modal-content">
-	      	<div class="modal-body">
-		        <div class="row">
-		        	<div class="col-sm-10 buy_credit_header">
-		        		Payment
-		        	</div>
-		        	<div class="col-sm-2">
-		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		      				<span aria-hidden="true">&times;</span>
-		    			</button>
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12  buy_credit_sub_header">
-		        		Payment Method
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12">
-		        		<hr>
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12">
-		        		<div class="form-group">
-    						<label for="CardHolderName">Card Holder Name</label>
-							<input type="text" class="form-control" id="CardHolderName" name="CardHolderName" style="border-radius: 10px;">
-  						</div>
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-6">
-		        		<div class="form-group">
-    						<label for="CardNumber">Card Number</label>
-							<input type="text" class="form-control" id="CardNumber" name="CardNumber" style="border-radius: 10px;">
-  						</div>
-		        	</div>
-		        	<div class="col-sm-3">
-		        		<div class="form-group">
-    						<label for="ExpDate">Exp Date</label>
-							<input type="text" class="form-control" id="ExpDate" name="ExpDate"style="border-radius: 10px;">
-  						</div>
-		        	</div>
-		        	<div class="col-sm-3">
-		        		<div class="form-group">
-    						<label for="CCV">CCV</label>
-							<input type="text" class="form-control" id="CCV" name="CCV" style="border-radius: 10px;">
-  						</div>
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12 buy_credit_text">
-		        		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-  							<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-						</svg>Credit card payment may take up to 24h to proceed<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">
- 							 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
-						</svg>
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12 buy_credit_text">
-		        		<div class="form-group form-check">
-					    	<input type="checkbox" class="form-check-input" id="SaveCard">
-					    	<label class="form-check-label" for="SaveCard">Save my payment details for future purchases</label>
-					  	</div>
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-12 buy_credit_text">
-		        		Summary
-		        	</div>
-		        	<div class="col-sm-12">
-		        		<hr>
-		        	</div>
-		        	<div class="col-sm-6 buy_credit_text" id="step2_credits">
-		        		50 Credits
-		        	</div>
-		        	<div class="col-sm-6 buy_credit_text text_right" id="step2_SubTamount">
-		        		$50
-		        	</div>
-		        	<div class="col-sm-12">
-		        		<hr>
-		        	</div>
-		        	<div class="col-sm-6 buy_credit_text">
-		        		Total
-		        	</div>
-		        	<div class="col-sm-6 buy_credit_text text_right" id="step2_Tamount">
-		        		$50
-		        	</div>
-		        </div>
-		        <br/>
-		        <div class="row">
-		        	<div class="col-sm-2"></div>
-		        	<div class="col-sm-8 center">
-		        		<a href="{% url 'creditScoreDashboard' %}"><button class="buy_credit_payment_btn" style="padding: 3% 20%;" onclick="ConfirmPaymentBtn();">Confirm you payment</button></a>
-		        	</div>
-		        	<div class="col-sm-2"></div>
-		        </div>
-		        <br/>
-	      	</div>
-    	</div>
-  	</div>
-</div>
-
-<div class="modal fade" id="ConfirmPaymentModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ConfirmPaymentModalLabel" aria-hidden="true">
-  	<div class="modal-dialog">
-    	<div class="modal-content">
-	      	<div class="modal-body">
-		        <div class="row">
-		        	<div class="col-sm-10 buy_credit_header">
-		        		
-		        	</div>
-		        	<div class="col-sm-2">
-		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		      				<span aria-hidden="true">&times;</span>
-		    			</button>
-		        	</div>
-		        </div>
-		        
-		        <div class="row">
-		        	<div class="col-sm-12 center buy_credit_header">
-		        		Add Credit Successful
-		        	</div>
-		        </div>
-		        <div class="row">
-		        	<div class="col-sm-2"></div>
-		        	<div class="col-sm-8 center confirm_credit_text">
-		        		Now you can have more task and exceed your limitation!
-		        	</div>
-		        	<div class="col-sm-2"></div>
-		        </div>
-		        <br/><br/>
-		         <div class="row">
-		        	<div class="col-sm-2"></div>
-		        	<div class="col-sm-8 center confirm_credit_text">
-		        		An Invoice Will be sent into your email account to track your purchase!
-		        	</div>
-		        	<div class="col-sm-2"></div>
-		        </div>
-		        <br/><br/><br/>
-		        <div class="row">
-		        	<div class="col-sm-2"></div>
-		        	<div class="col-sm-8 center">
-		        		<button class="buy_credit_payment_btn" onclick="BacktoDashboard();" style="padding: 3% 20%;">Back To Dashboard</button>
-		        	</div>
-		        	<div class="col-sm-2"></div>
-		        </div>
-		        <br/>
-	      	</div>
-    	</div>
-  	</div>
-</div>
-<input type="hidden" name="userId" id="userId" value="{{ request.user.pk }}">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-	jQuery.noConflict();
-	function ProcessPayment(){
-		var custom_amount = $("#custom_amount").val();
-		if($.isNumeric(custom_amount)){
-			$("#AddMoreCredit").modal("hide");
-			$("#PaymentMethodModal").modal("show");
-			$("#step2_credits").empty();
-			$("#step2_credits").append(custom_amount+" Credits");
-			$("#step2_Tamount").empty();
-			$("#step2_Tamount").append("$"+custom_amount);
-			$("#step2_SubTamount").empty();
-			$("#step2_SubTamount").append("$"+custom_amount);
-		}else{
-			alert("Please use a proper amount!");
-		}
-		
-	}
-	//add computation for credits
-	function ConfirmPaymentBtn(){
-		var custom_amount = $("#custom_amount").val(); 
-		var userId = $("#userId").val();
-		jQuery.ajax({
-	        type: "POST",
-	        url: "{% url 'creditScoreAdd' %}",
-	        data: {
-	        		"csrfmiddlewaretoken": '{{ csrf_token }}',
-	        		"custom_amount": parseInt(custom_amount),
-	        		"userId": userId,
-	        		"credits": parseInt(custom_amount),
-	    		},
-	        async:true,
-	        success: function (data) {
-	        	if(data.status_code != 0){
-	        		$("#PaymentMethodModal").modal("hide");
-					$("#ConfirmPaymentModal").modal("show");
-	        	}else{
-	        		// show error msg
-	        	}
-	            
-	            
-	        },
-	        error: function (e) {
-	            // $("#error_msg").append("Error! please try again later.");
-	        }
-	    })
-		
-	}
-
-	function ChooseAmount(that) {
-		var choosenAmount = $(that).attr("amountVal");
-		$("#custom_amount").val(choosenAmount);
-		$("#total_amount_to_pay").empty();
-		$("#total_amount_to_pay").append("$"+choosenAmount);
-	}
-
-	function updateTotalAmount(that){
-		var totalAmountValue = $(that).val();
-		if($.isNumeric(totalAmountValue)){
-			$("#total_amount_to_pay").empty();
-			$("#total_amount_to_pay").append("$"+totalAmountValue);
-		}else{
-			$("#total_amount_to_pay").empty();
-			$("#total_amount_to_pay").append("$0");
-		}
-		
-	}
-</script>
+        function updateTotalAmount(that){
+            var totalAmountValue = $(that).val();
+            if($.isNumeric(totalAmountValue)){
+                $("#total_amount_to_pay").empty();
+                $("#total_amount_to_pay").append("$"+totalAmountValue);
+            }else{
+                $("#total_amount_to_pay").empty();
+                $("#total_amount_to_pay").append("$0");
+            }
+            
+        }
+    </script>
 </body>
 </html>
