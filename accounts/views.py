@@ -171,7 +171,21 @@ def accountVerificationPage(request, verification_id):
 
 def resendVerification(request):
 	data = {}
-	data['success'] = 1
+
+	verification_id = request.POST['verification_id'];
+
+	verification_details = user_validation.objects.get(pk=verification_id)
+	UserDetails = details.objects.get(userId=verification_details.userId)
+	verification_link = verification_details.code
+	fullname = UserDetails.last_name+", "+UserDetails.first_name
+	client_email = UserDetails.email
+
+	try:
+		send_email(fullname, verification_link, client_email):
+		data['success'] = 1
+	except:
+		data['success'] = 0
+	
 	return JsonResponse(data, safe=False)
 
 @login_required(login_url='accounts/login')
