@@ -176,7 +176,7 @@ def resendVerification(request):
 
 	verification_details = user_validation.objects.get(pk=verification_id)
 	UserDetails = details.objects.get(userId=verification_details.userId)
-	verification_link = verification_details.code
+	verification_link = verification_details.verification_code
 	fullname = UserDetails.last_name+", "+UserDetails.first_name
 	client_email = UserDetails.email
 

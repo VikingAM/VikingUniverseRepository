@@ -35,13 +35,13 @@
     <script type="text/javascript" src="{% static 'portal/js/jquery_3.7.0.js' %}"></script>
     <script type="text/javascript">
         function resendVerificationEmal(){
-            var verification_id = $("#verification_id");
+            var verification_id = $("#verification_id").val();
             $.ajax({
                 type: "POST",
                 url: "{% url 'resendVerification' %}",
                 data: {
                         "csrfmiddlewaretoken": '{{ csrf_token }}',
-                        "verification_id": verification_id
+                        "verification_id": verification_id,
                 },
                 async:true,
                 success: function (data) {
