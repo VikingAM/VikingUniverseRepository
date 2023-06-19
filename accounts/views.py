@@ -114,6 +114,7 @@ def send_email(fullname, verification_link, client_email):
 def passwordResetOtp(request):
 	data = {}
 	data['status'] = "OTP email failed"
+	data['success'] = 0
 	if request.method == 'POST':
 		Userinstance = User.objects.get(pk=request.POST['userId'])
 		user = authenticate(request, username=Userinstance.username, password=request.POST['current_password'])
@@ -142,6 +143,7 @@ def passwordResetOtp(request):
 			try:
 				msg.send()
 				data['status'] = "OTP sent"
+				data['success'] = 1
 			except BadHeaderError:
 				data['status'] = "error on sending email."
 		else:
@@ -191,6 +193,7 @@ def resendVerification(request):
 @login_required(login_url='accounts/login')
 def changePassword(request):
 	data = {}
+	data['success'] = 0
 	otp_details = password_reset_code.objects.get(code=request.POST['otp'])
 	if otp_details.userId.pk == int(request.POST['userId']):
 		if otp_details.status == 0:

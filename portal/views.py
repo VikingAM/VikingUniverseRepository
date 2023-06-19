@@ -64,7 +64,8 @@ def edit_profile(request):
 @login_required(login_url='/accounts/login')
 def SettingPasswordPage(request):
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'setting_password_page.html', {"profile_details": profile_details})
+
+	return render(request, 'setting_password_page.html', {"profile_details": profile_details, "site_url": settings.SITE_URL})
 
 @login_required(login_url='/accounts/login')
 def SettingInvoicePage(request):
