@@ -181,7 +181,7 @@ def resendVerification(request):
 	client_email = UserDetails.email
 
 	try:
-		send_email(fullname, verification_link, client_email):
+		send_email(fullname, verification_link, client_email)
 		data['success'] = 1
 	except:
 		data['success'] = 0
