@@ -101,7 +101,7 @@ def send_email(fullname, verification_link, client_email):
 	subject = 'Viking Universer Email Verification'
 	html_message = render_to_string('mail_verification.html', {'UserFullname': fullname, 'verification_link': verification_link, "site_url": settings.SITE_URL})
 	plain_message = strip_tags(html_message)
-	from_email = 'william.crumb@vikingassetmanagement.com'
+	from_email = 'no-reply@vikinguniverse.com'
 	msg = EmailMultiAlternatives(subject, plain_message, from_email, [client_email])
 	msg.attach_alternative(html_message, "text/html")
 
