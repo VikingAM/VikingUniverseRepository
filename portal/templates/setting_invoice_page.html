@@ -83,8 +83,6 @@
                 </ul>
             </nav>
         </div>
-
-
         <div class="mt-32 xl:mt-10 xxl:mt-32 bxl:mt-16 ml-5 flex">
             <div>
                 <h1 class="text-4xl xl:text-2xl font-bold font-Poppins text-editProfile"><b>Invoices</b></h1>
@@ -133,61 +131,59 @@
 
 
     <div id="popup-view-invoice" class="popup bg-gray-50 xl:w-135 xl:h-110 flex-col absolute z-10 xl:p-6">
-            
-            <div class="flex justify-between">
-                <h1 class="font-Poppins text-xl font-bold text-purple-900 invoiceModalHeader" >INVOICE No. ###</h1>
-                <button onclick="toggleCancelInvoice()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-10 " aria-hidden="true"></button>
-            </div>
-            
-            <div>
-                <table class=" xl:mt-5 xl:w-120">
-                    
-                    <tbody class="inv_popup text-2base font-Lato ">
+        <div class="flex justify-between">
+            <h1 class="font-Poppins text-xl font-bold text-purple-900 invoiceModalHeader" >INVOICE No. ###</h1>
+            <button onclick="toggleCancelInvoice()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-10 " aria-hidden="true"></button>
+        </div>
+        <div>
+            <table class=" xl:mt-5 xl:w-120">
+                
+                <tbody class="inv_popup text-2base font-Lato ">
+              
+                  <tr class="inv_tr border-b-1 border-gray-300 ">
+                        <td class="font-Lato font-semibold text-purple-900 ">Date</td>
+                        <td class="font-Lato purchase_date">November 8, 2022</td>
+                  </tr>
+                  <tr class="inv_tr border-b-1 border-gray-300">
+                        <td class="font-Lato font-semibold text-purple-900">Payment Method</td>
+                        <td class="font-Lato payment_method">Card (#### #### #### 1234)</td>
+                  </tr>
+                  <tr class="inv_tr border-b-1 border-gray-300">
+                        <td class="font-Lato font-semibold text-purple-900">Customer Number</td>
+                        <td class="font-Lato customer_id">0081</td>
+                  </tr>
+                  <tr class="inv_tr border-b-1 border-gray-300">
+                        <td class="font-Lato font-semibold text-purple-900">Address</td>
+                        <td class="font-Lato customer_address">123 Anywhere St., Any City, ST 12345</td>
+                  </tr>
+                  <tr class="inv_tr border-b-1 border-gray-300">
+                        <td class="font-Lato font-semibold text-purple-900">Product</td>
+                        <td class="font-Lato invoice_product">Credits Bundle A</td>
+                  </tr>
+                  <tr class="inv_tr border-b-1 border-gray-300">
+                        <td class="font-Lato font-semibold text-purple-900">Quantity</td>
+                        <td class="font-Lato invoice_quantity">1</td>
+                  </tr>
+                  <tr class="inv_tr border-b-1 border-gray-300">
+                    <td class="font-Lato font-semibold text-purple-900">Breakdown</td>
+                    <td class="font-Lato invoice_description">Credits Bundle A - 150 Credits</td>
+                  </tr>
+                  <tr class="inv_tr border-b-1 border-gray-300">
+                        <td class="font-Lato font-semibold text-purple-900">Total Tax</td>
+                        <td class="font-Lato invoice_tax">$0</td>
+                  </tr>
+                  <tr class="inv_tr border-b-1 border-gray-300">
+                        <td class="font-Lato font-semibold text-purple-900">Total</td>
+                        <td class="font-Lato invoice_total">$1000</td>
+                  </tr>
                   
-                      <tr class="inv_tr border-b-1 border-gray-300 ">
-                            <td class="font-Lato font-semibold text-purple-900 ">Date</td>
-                            <td class="font-Lato purchase_date">November 8, 2022</td>
-                      </tr>
-                      <tr class="inv_tr border-b-1 border-gray-300">
-                            <td class="font-Lato font-semibold text-purple-900">Payment Method</td>
-                            <td class="font-Lato payment_method">Card (#### #### #### 1234)</td>
-                      </tr>
-                      <tr class="inv_tr border-b-1 border-gray-300">
-                            <td class="font-Lato font-semibold text-purple-900">Customer Number</td>
-                            <td class="font-Lato customer_id">0081</td>
-                      </tr>
-                      <tr class="inv_tr border-b-1 border-gray-300">
-                            <td class="font-Lato font-semibold text-purple-900">Address</td>
-                            <td class="font-Lato customer_address">123 Anywhere St., Any City, ST 12345</td>
-                      </tr>
-                      <tr class="inv_tr border-b-1 border-gray-300">
-                            <td class="font-Lato font-semibold text-purple-900">Product</td>
-                            <td class="font-Lato invoice_product">Credits Bundle A</td>
-                      </tr>
-                      <tr class="inv_tr border-b-1 border-gray-300">
-                            <td class="font-Lato font-semibold text-purple-900">Quantity</td>
-                            <td class="font-Lato invoice_quantity">1</td>
-                      </tr>
-                      <tr class="inv_tr border-b-1 border-gray-300">
-                        <td class="font-Lato font-semibold text-purple-900">Breakdown</td>
-                        <td class="font-Lato invoice_description">Credits Bundle A - 150 Credits</td>
-                      </tr>
-                      <tr class="inv_tr border-b-1 border-gray-300">
-                            <td class="font-Lato font-semibold text-purple-900">Total Tax</td>
-                            <td class="font-Lato invoice_tax">$0</td>
-                      </tr>
-                      <tr class="inv_tr border-b-1 border-gray-300">
-                            <td class="font-Lato font-semibold text-purple-900">Total</td>
-                            <td class="font-Lato invoice_total">$1000</td>
-                      </tr>
-                      
-                    </tbody>
-                </table>
-                <div class="flex flex-col xl:mt-2">
-                    <a href="#" class=" font-Lato text-gray-400 text-2base"><u>Terms and Conditions</u></a>
-                    <a href="#" class=" font-Lato text-gray-400 text-2base"><u>Print Invoice</u></a>
-                </div>
+                </tbody>
+            </table>
+            <div class="flex flex-col xl:mt-2">
+                <a href="#" class=" font-Lato text-gray-400 text-2base"><u>Terms and Conditions</u></a>
+                <a href="#" class=" font-Lato text-gray-400 text-2base"><u>Print Invoice</u></a>
             </div>
+        </div>
     </div>
     
    

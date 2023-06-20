@@ -227,7 +227,8 @@ def profileNewPassword(request):
 		new_passowrd = password_manager()
 		new_passowrd.userId = Userinstance
 		if request.POST['category'] != 0:
-			new_passowrd.categoryId = request.POST['category']
+			password_category_instance = password_category.objects.get(pk=request.POST['category'])
+			new_passowrd.category = password_category_instance
 		new_passowrd.name = passowrd_name
 		new_passowrd.username = username
 		new_passowrd.password = password
