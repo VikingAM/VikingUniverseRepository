@@ -110,7 +110,7 @@
                                         {% for ticket in issue_tickets %}
                                             <tr>
                                                 <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2">
-                                                    <button onclick="togglePopup()">
+                                                    <button ticket_id="{{ ticket.pk }}" onclick="ticket_view(this)">
                                                         <div class="flex justify-between text-2base bxl:text-base xxl:text-base font-bold text-profCol text-end ">
                                                             <h1 id="ticket_title" class="font-Poppins">{{ ticket.title }}</h1>
                                                             <h3 id="ticket_time" class="font-Poppins">{{ ticket.create_date | timesince }} ago</h3>
@@ -153,9 +153,9 @@
         <div id="popup-1" class="popup bg-gray-50 xl:w-160 xl:h-89 flex-col absolute z-10 xl:p-6">
             <div class="flex justify-between">
                 <div class="flex xl:space-x-3">
-                    <h1 class="font-Poppins text-2xl font-bold text-purple-900">Ticket Name</h1>
+                    <h1 class="font-Poppins text-2xl font-bold text-purple-900" id="view_ticket_name">Ticket Name</h1>
                     <div class="bg-gray-50 flex justify-center items-center border border-gray-300 rounded-xl xl:w-fit xl:mt-1 xl:h-7 xl:p-2 text-sm">
-                        <p class="font-Lato">#1100</p>
+                        <p class="font-Lato" id="view_ticket_id">#1100</p>
                     </div>
                     <div class="flex justify-center items-center font-Lato xl:mt-1 xl:p-2 xl:text-sm xl:w-fit xl:h-6 rounded-full text-vs text-catText3 bg-catThree">Ongoing</div>
                 </div>
@@ -197,7 +197,7 @@
         <h4 class="font-Poppins text-xvs bxl:mt-3 bxl:text-base xl:mt-3">We're on it.</h4>
         <h4 class="font-Poppins text-xvs bxl:text-base">Give us awhile. We'll get back to you as soon as we can.</h4>
         <div class=" flex items-center justify-center">
-            <button type="submit" class=" font-Poppins  mt-20 bxl:mt-16 xl:mt-12 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-full rounded-full text-lg xl:text-sm bxl:text-base xl:w-72 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-colors duration-500">View Ticket</button>
+            <button type="submit" class=" font-Poppins  mt-20 bxl:mt-16 xl:mt-12 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-full rounded-full text-lg xl:text-sm bxl:text-base xl:w-72 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-colors duration-500" onclick="location.reload(true);">View Tickets</button>
         </div>
     </div>
     <script src="{% static 'portal/js/uploadImg.js' %}"></script>
@@ -247,6 +247,36 @@
 	    })
 
 	}
+
+    function ticket_view(that){
+        var ticket_id = $(that).attr("ticket_id");
+        $("#view_ticket_name").empty();
+        $("#view_ticket_id").empty();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'get_ticket_details' %}",
+            data: {
+                "csrfmiddlewaretoken": '{{ csrf_token }}',
+                "ticket_id":ticket_id,
+            },
+            async:true,
+            success: function (data) {
+                if(data.status_code == 1){
+                    $("#view_ticket_name").append();
+                    $("#view_ticket_id").append();
+
+                    document.getElementById("popup-1").classList.toggle("active");
+                    document.getElementById("overlay_id").classList.toggle("active");
+                }else{
+                    alert("error on adding a ticket!");
+                }
+            },
+            error: function (e) {
+                
+            }
+        })
+        
+    }
 </script>
 </body>
 </html>

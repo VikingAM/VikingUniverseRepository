@@ -11,6 +11,7 @@ class issue(models.Model):
 	description = models.TextField(null=True, blank=True)
 	issue_type = models.ForeignKey(issue_type, on_delete=models.SET_NULL, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
+	ticket_status = models.CharField(max_length=250, null=True, blank=True, default="Pending")
 	create_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	update_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	history = models.TextField(null=True, blank=True)

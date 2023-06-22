@@ -19,9 +19,12 @@ def Addticket(request):
 	else:
 		issue_type_instance = None
 
+	userInstance = User.objects.get(pk=request.user.id)
+
 	new_issue.title = request.POST['title']
 	new_issue.description = request.POST['description']
 	new_issue.issue_type = issue_type_instance
+	new_issue.userId = userInstance
 	try:
 		new_issue.save()
 		data['status_code'] = 1
@@ -37,7 +40,7 @@ def Addticket(request):
 @login_required(login_url='/accounts/login')
 def ticketingPage(request):
 	issue_types = issue_type.objects.all()
-	list_of_issue_ticket = issue.objects.all();
+	list_of_issue_ticket = issue.objects.filter(userId=request.user.id);
 	profile_details = details.objects.get(userId=request.user.id)
 	return render(request, 'ticketing_page.html', {"issue_types":issue_types, "issue_tickets": list_of_issue_ticket, "profile_details": profile_details})
 
@@ -152,8 +155,8 @@ def getTciketByFilter(request):
 	try:
 		tasks = task.objects.filter(status=request.POST['filter'], owner=request.user.id, is_delete=0)
 	except:
-		data['error_msg'] = "error on grabing the tickets";
-		return JsonResponse(data, safe=False);
+		data['error_msg'] = "error on grabing the tickets"
+		return JsonResponse(data, safe=False)
 
 	list_of_task = {}
 	for easch_task in tasks:
@@ -192,8 +195,8 @@ def editTask(request):
 	try:
 		task_details = task.objects.get(pk=request.POST['task_id'])
 	except:
-		data['error_msg'] = "Task does not exists!";
-		return JsonResponse(data, safe=False);
+		data['error_msg'] = "Task does not exists!"
+		return JsonResponse(data, safe=False)
 
 	task_details.title = request.POST['task_title']
 	task_details.description = request.POST['description']
@@ -202,8 +205,8 @@ def editTask(request):
 		task_details.save()
 		data['status_code'] = 1
 	except:
-		data['error_msg'] = "Error on saving the task!";
-		return JsonResponse(data, safe=False);
+		data['error_msg'] = "Error on saving the task!"
+		return JsonResponse(data, safe=False)
 
 	return JsonResponse(data, safe=False)
 
@@ -215,7 +218,7 @@ def addRevision(request):
 		task_details = task.objects.get(pk=request.POST['task_id'])
 	except:
 		data['error_msg'] = "Task does not exists!";
-		return JsonResponse(data, safe=False);
+		return JsonResponse(data, safe=False)
 
 	new_task_comment =  task_comment()
 	new_task_comment.comment = request.POST['revision_comment']
@@ -227,7 +230,7 @@ def addRevision(request):
 		data['status_code'] = 1
 	except:
 		data['error_msg'] = "Error on saving the revision!";
-		return JsonResponse(data, safe=False);
+		return JsonResponse(data, safe=False)
 	return JsonResponse(data, safe=False)
 
 @login_required(login_url='/accounts/login')
@@ -247,7 +250,29 @@ def taskApprove(request):
 		task_details.save();
 		data['status_code'] = 1
 	except:
-		data['error_msg'] = "Error on approving task!";
-		return JsonResponse(data, safe=False);
+		data['error_msg'] = "Error on approving task!"
+		return JsonResponse(data, safe=False)
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def getTicketDetails(request):
+	data = {}
+	data['status_code'] = 0
+
+	try:
+		issue_details = issue.objects.get(pk=request.POST['ticket_id'])
+		issueOwnder = details.objects.get(userId=issue_details.userId)
+	except:
+		data['error_msg'] = "Ticket does exists!"
+		return JsonResponse(data, safe=False)
+
+	data['issue_name'] = issue_details.title
+	data['issue_id'] = issue_details.pk
+	data['issue_status'] = issue_details.ticket_status
+	data['issue_description'] = issue_details.description
+	data['create_date'] = issue_details.create_date
+	data['owner_name'] = issueOwnder.first_name+" "+issueOwnder.last_name
+
+
 
 	return JsonResponse(data, safe=False)

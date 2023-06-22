@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path('portal_tickets', views.ticketingPage, name="ticketingPage"),
     path('add_ticket', views.Addticket, name='Addticket'),
+    path('get_ticket_details', views.getTicketDetails, name="getTicketDetails"),
     path('get_category_services', views.getCategoryServices, name='getCategoryServices'),
     path('get_category_details', views.getCategoryDetailsById, name='getCategoryDetailsById'),
 
