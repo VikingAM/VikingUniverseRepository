@@ -262,6 +262,7 @@ def getTicketDetails(request):
 	try:
 		issue_details = issue.objects.get(pk=request.POST['ticket_id'])
 		issueOwnder = details.objects.get(userId=issue_details.userId)
+		data['status_code'] = 1
 	except:
 		data['error_msg'] = "Ticket does exists!"
 		return JsonResponse(data, safe=False)
@@ -270,7 +271,7 @@ def getTicketDetails(request):
 	data['issue_id'] = issue_details.pk
 	data['issue_status'] = issue_details.ticket_status
 	data['issue_description'] = issue_details.description
-	data['create_date'] = issue_details.create_date
+	data['create_date'] = issue_details.create_date.strftime("%B %d, %Y %I:%M %p")
 	data['owner_name'] = issueOwnder.first_name+" "+issueOwnder.last_name
 
 

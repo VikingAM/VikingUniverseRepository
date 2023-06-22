@@ -109,7 +109,7 @@
                                     <tbody>
                                         {% for ticket in issue_tickets %}
                                             <tr>
-                                                <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2">
+                                                <td  class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2">
                                                     <button ticket_id="{{ ticket.pk }}" onclick="ticket_view(this)">
                                                         <div class="flex justify-between text-2base bxl:text-base xxl:text-base font-bold text-profCol text-end ">
                                                             <h1 id="ticket_title" class="font-Poppins">{{ ticket.title }}</h1>
@@ -157,12 +157,12 @@
                     <div class="bg-gray-50 flex justify-center items-center border border-gray-300 rounded-xl xl:w-fit xl:mt-1 xl:h-7 xl:p-2 text-sm">
                         <p class="font-Lato" id="view_ticket_id">#1100</p>
                     </div>
-                    <div class="flex justify-center items-center font-Lato xl:mt-1 xl:p-2 xl:text-sm xl:w-fit xl:h-6 rounded-full text-vs text-catText3 bg-catThree">Ongoing</div>
+                    <div class="flex justify-center items-center font-Lato xl:mt-1 xl:p-2 xl:text-sm xl:w-fit xl:h-6 rounded-full text-vs text-catText3 bg-catThree" id="view_ticket_status">Ongoing</div>
                 </div>
                 <button onclick="toggleCloseTickets()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-2 " aria-hidden="true"></button>
             </div>
             <div>
-                <h4 class="font-Poppins text-gray-500 text-vs">Submitted February 23 2023, 3:00 PM</h4>
+                <h4 class="font-Poppins text-gray-500 text-vs view_ticket_create_date">Submitted February 23 2023, 3:00 PM</h4>
             </div>
             <div class="bg-gray-50 border flex items-center xl:space-x-3 border-gray-300 rounded-xl xl:w-full xl:mt-1 xl:h-14 xl:px-4 xl:py-0 xl:mb-10 text-sm">
                 <object data="{% static 'portal/images/person_q.svg' %}" class="xl:w-10 xl:h-15"></object>
@@ -176,12 +176,12 @@
                     <div class="flex justify-between items-center">
                         <div class="flex items-center xl:space-x-3">
                             <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down xl:w-10 xl:h-10">
-                            <h3 name="client_name" class="font-Poppins font-semibold">Client Name</h3>
+                            <h3 name="client_name" class="font-Poppins font-semibold" id="view_ticket_owner_name">Client Name</h3>
                         </div>
                         <a class="fas fa-chevron-up text-2base" href="#"></a>
                     </div>
-                    <h4 class="font-Poppins text-gray-500 text-vs">Submitted February 23 2023, 3:00 PM</h4>
-                    <h3 name="client_message" class="font-Poppins xl:text-xvs text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</h3>
+                    <h4 class="font-Poppins text-gray-500 text-vs view_ticket_create_date">Submitted February 23 2023, 3:00 PM</h4>
+                    <h3 name="client_message" id="view_ticket_description" class="font-Poppins xl:text-xvs text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</h3>
                     <div class="bg-gray-50 flex justify-center items-center border border-gray-300 rounded-xl xl:w-fit xl:mt-1 xl:h-7 xl:p-2 text-sm">
                         <p class="font-Lato">Attachment</p>
                     </div>
@@ -252,9 +252,13 @@
         var ticket_id = $(that).attr("ticket_id");
         $("#view_ticket_name").empty();
         $("#view_ticket_id").empty();
+        $("#view_ticket_status").empty();
+        $(".view_ticket_create_date").empty();
+        $("#view_ticket_owner_name").empty();
+        $("#view_ticket_description").empty();
         $.ajax({
             type: "POST",
-            url: "{% url 'get_ticket_details' %}",
+            url: "{% url 'getTicketDetails' %}",
             data: {
                 "csrfmiddlewaretoken": '{{ csrf_token }}',
                 "ticket_id":ticket_id,
@@ -262,8 +266,12 @@
             async:true,
             success: function (data) {
                 if(data.status_code == 1){
-                    $("#view_ticket_name").append();
-                    $("#view_ticket_id").append();
+                    $("#view_ticket_name").append(data.issue_name);
+                    $("#view_ticket_id").append("#"+data.issue_id);
+                    $("#view_ticket_status").append(data.issue_status);
+                    $(".view_ticket_create_date").append("Submitted "+data.create_date);
+                    $("#view_ticket_owner_name").append(data.owner_name);
+                    $("#view_ticket_description").append(data.issue_description);
 
                     document.getElementById("popup-1").classList.toggle("active");
                     document.getElementById("overlay_id").classList.toggle("active");
