@@ -47,14 +47,14 @@ def ticketingPage(request):
 @login_required(login_url='/accounts/login')
 def taskDashboard(request):
 	profile_details = details.objects.get(userId=request.user.id)
-	tickets = task.objects.filter(owner=request.user, is_delete=0)
+	tickets = task.objects.filter(owner=request.user, is_delete=0).order_by('-create_date')
 	return render(request, 'task_dashboard.html', {"profile_details":profile_details, "tickets":tickets})
 
 @login_required(login_url='/accounts/login')
 def taskSubmit(request):
 	profile_details = details.objects.get(userId=request.user.id)
 	category_theme = task_cetegory_theme.objects.filter(is_delete=0)
-	return render(request, 'submit_task_page.html', {"profile_details":profile_details, "category_themes": category_theme})
+	return render(request, 'submit_task_page.html', {"profile_details":profile_details, "category_themes": category_theme, "site_url":settings.SITE_URL})
 
 @login_required(login_url='/accounts/login')
 def getCategoryServices(request):

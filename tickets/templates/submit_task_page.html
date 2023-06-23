@@ -61,100 +61,69 @@
                     </div>
                 </form>
                 <div>
-                    <select id="services" name="services" class="block bg-whiteSmoke xl:w-96 xl:text-xl xxl:text-2xl font-Poppins text-editProfile font-bold  ">
-                        <option value="design_arts" class="xl:text-sm font-Poppins hover:bg-red-300">Design and Arts</option>
-                        <option value="" class="xl:text-sm font-Poppins">Accounting and Finance</option>
-                        <option value="" class="xl:text-sm font-Poppins">Business and Operational Assistance </option>
-                        <option value="" class="xl:text-sm font-Poppins">Content Creation</option>
-                        <option value="" class="xl:text-sm font-Poppins">Content & Creative Writing</option>
-                        <option value="" class="xl:text-sm font-Poppins">Marketing</option>
-                        <option value="" class="xl:text-sm font-Poppins">Technology and Development</option>
-                    </select>
-                    <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:mt-20 xxl:text-xl text-profCol">Branding</h1>
-                    <section id="first-slider" class="splide">
-                        <div class="splide__track">
-                            <ul class="splide__list">
-                                <li class="splide__slide">
-                                    <button onclick="toggleChooseService()" class="cursor-pointer">
-                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">2D Logo Design</h3>
-                                            <div class="xl:mt-5 flex items-center justify-center">
-                                                <i class="fas fa-pen-square  text-7xl text-purple-400"></i>
-                                            </div>
-                                            <h3 class="text-gray-500 xl:text-vs xl:mt-3 xxl:text-2base font-Poppins">2D Logo Design Service Description</h3>
-                                        </div>
-                                    </button>
-                                </li>
-                                <li class="splide__slide">
-                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                        <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">2D Packaging Design</h3>
-                                        <div class="xl:mt-5 flex items-center justify-center">
-                                            <i class="fas fa-shopping-bag text-6xl text-purple-400" ></i>
-                                        </div>
-                                        <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base font-Poppins">2D Packaging Design Service Description</h3>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <button onclick="toggleTaskReOccurence()" class="cursor-pointer">
-                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Business Card & Stationery Design</h3>
-                                            <div class="xl:mt-3 flex items-center justify-center">
-                                                <i class="fas fa-id-card text-6xl text-purple-400"></i>
-                                            </div>
-                                            <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base  font-Poppins">Business Card & Stationery Design Service Description</h3>
-                                        </div>
-                                    </button>
-                                </li>
+                    <select id="services" name="services" onchange="UpdateActiveCategory(this);" class="block bg-whiteSmoke xl:w-96 xl:text-xl xxl:text-2xl font-Poppins text-editProfile font-bold ">
+                        {% for category_theme in category_themes %}
+                             <option value="{{ category_theme.id  }}" class="xl:text-sm font-Poppins hover:bg-red-300">{{ category_theme.name }}</option>
+                        {% empty %}
 
-                                <li class="splide__slide">
-                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                        <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Envelope Design</h3>
-                                        <div class="xl:mt-5 flex items-center justify-center">
-                                            <i class="fas fa-envelope  text-7xl text-purple-400"></i>
+                        {% endfor %}
+                    </select>
+                    <div id="category_wrapper">
+                        <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:mt-20 xxl:text-xl text-profCol">Branding</h1>
+                        <section id="first-slider" class="splide">
+                            <div class="splide__track">
+                                <ul class="splide__list">
+                                    <li class="splide__slide">
+                                        <button onclick="toggleChooseService_v2()" class="cursor-pointer">
+                                            <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                                <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">2D Logo Design</h3>
+                                                <div class="xl:mt-5 flex items-center justify-center">
+                                                    <i class="fas fa-pen-square  text-7xl text-purple-400"></i>
+                                                </div>
+                                                <h3 class="text-gray-500 xl:text-vs xl:mt-3 xxl:text-2base font-Poppins">2D Logo Design Service Description</h3>
+                                            </div>
+                                        </button>
+                                    </li>
+                                    <li class="splide__slide">
+                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">2D Packaging Design</h3>
+                                            <div class="xl:mt-5 flex items-center justify-center">
+                                                <i class="fas fa-shopping-bag text-6xl text-purple-400" ></i>
+                                            </div>
+                                            <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base font-Poppins">2D Packaging Design Service Description</h3>
                                         </div>
-                                        <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base font-Poppins">Envelope Design Service Description</h3>
-                                    </div>
-                                </li>
-                            </ul>    
-                        </div>
-                    </section>
-                    <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:text-xl text-profCol">Reports and Presentation</h1>
-                    <section id="second-slider" class="splide">
-                        <div class="splide__track">
-                            <ul class="splide__list">
-                                <li class="splide__slide z-0">
-                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                        <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Documentation Design</h3>
-                                        <div class="xl:mt-5 flex items-center justify-center">
-                                            <i class="fas fa-pen-square  text-7xl text-purple-400"></i>
+                                    </li>
+                                    <li class="splide__slide">
+                                        <button onclick="toggleTaskReOccurence()" class="cursor-pointer">
+                                            <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                                <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Business Card & Stationery Design</h3>
+                                                <div class="xl:mt-3 flex items-center justify-center">
+                                                    <i class="fas fa-id-card text-6xl text-purple-400"></i>
+                                                </div>
+                                                <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base  font-Poppins">Business Card & Stationery Design Service Description</h3>
+                                            </div>
+                                        </button>
+                                    </li>
+
+                                    <li class="splide__slide">
+                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Envelope Design</h3>
+                                            <div class="xl:mt-5 flex items-center justify-center">
+                                                <i class="fas fa-envelope  text-7xl text-purple-400"></i>
+                                            </div>
+                                            <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base font-Poppins">Envelope Design Service Description</h3>
                                         </div>
-                                        <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base font-Poppins">Documentation Design Service Description</h3>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                        <h3 class="font-Poppins flex-none font-bold text-xvs  xxl:text-base">Infographic Design</h3>
-                                        <div class="xl:mt-5 flex items-center justify-center">
-                                            <i class="fas fa-shopping-bag text-6xl text-purple-400" ></i>
-                                        </div>
-                                        <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base font-Poppins">Infographic Design Service Description</h3>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                        <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Presentation Design</h3>
-                                        <div class="xl:mt-3 flex items-center justify-center">
-                                            <i class="fas fa-id-card text-6xl text-purple-400"></i>
-                                        </div>
-                                        <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base font-Poppins">Presentation Design Service Description</h3>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
+                                    </li>
+                                </ul>    
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
         <div id="popup-choose-service" class="popup-submit-task  bg-gray-50 xl:w-210 xl:h-120 absolute z-10 overflow-auto">
             <div class="flex h-full ">
                 <div class="xl:py-20 text-white bg-gradient-to-b from-blue-500 via-purple-400 to-purple-500 xl:w-40 h-screen rounded-l-xl text-center">
@@ -170,11 +139,11 @@
                     </div> 
                 </div>  
                 <!-- Form Page 1 -->
-                <div>
+                <div >
                     <div class="form-step form-step-active">
                         <div class="xl:py-4 xl:px-5 w-full h-full ">
                             <div class="flex justify-between">
-                                <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
+                                <h1 class="xl:text-lg text-editProfile font-Poppins font-bold" id="pop-header">Design and Arts / Branding / 2D Logo Design</h1>
                                 <button onclick="toggleCancelNewTask()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-4 " aria-hidden="true"></button>
                             </div>
                             <h2 class="text-profCol text-lg font-semibold xl:mt-2 font-Poppins"><u>Task Details</u></h2>
@@ -188,11 +157,11 @@
                             <hr class="xl:mt-5 border border-gray-300">
                             <div class="flex xl:space-x-3 xl:mt-1">
                                 <label class="font-Poppins text-gray-500 text-xsm">Task Name:</label>
-                                <input type="text" class="border-1 border-gray-500 text-xsm xl:w-85 font-Poppins p-1">
+                                <input type="text" id="task_name" name="task_name" class="border-1 border-gray-500 text-xsm xl:w-85 font-Poppins p-1">
                             </div>
                             <div class="flex xl:space-x-3 xl:mt-1">
                                 <label class="font-Poppins text-gray-500 text-xsm">Description:</label>
-                                <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 xl:h-14 p-1"></textarea>
+                                <textarea  id="task_description" name="task_description" class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 xl:h-14 p-1"></textarea>
                             </div>
                             <hr class="xl:mt-2 border  border-gray-300">
                             <div class="flex text-xsm xl:space-x-52 xl:mt-2">
@@ -239,8 +208,8 @@
                                         </label>
                                     </div>
                                     <div>
-                                        <button type="button">
-                                            <a href="#" class="btn btn-prev">Previous</a>
+                                        <button type="button" onclick="SaveTaskandContinue();">
+                                            <a  class="btn btn-prev">Submit</a>
                                             <i class="fas fa-arrow-circle-right btn btn-next xl:text-2xl xl:mt-14"></i>
                                         </button>
                                     </div>
@@ -249,7 +218,7 @@
                         </div> 
                     </div>
                     <!-- Form Page 2 -->
-                    <div class="form-step">    
+                    <div class="form-step" style="display:none;">    
                         <div class="xl:py-4 xl:px-5 w-full h-full">
                             <div class="flex justify-between">
                                 <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
@@ -317,7 +286,7 @@
                         </div>
                     </div>
                     <!-- Form Page 3 -->
-                    <div class="form-step">        
+                    <div class="form-step" style="display:none;">        
                         <div class="xl:py-4 xl:px-5 w-full h-full">
                             <div class="flex justify-between">
                                 <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
@@ -423,7 +392,7 @@
                         </div>
                     </div>
                     <!-- Form Page 4 -->
-                    <div class="form-step"> 
+                    <div class="form-step" style="display:none;"> 
                         <div class="xl:py-4 xl:px-5 w-full h-full">
                             <div class="flex justify-between">
                                 <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
@@ -826,11 +795,12 @@
             <i class="fas fa-tasks mr-1"></i>Add Another Task</button>
         </div>
     </div>
+    <input type='hidden' id="task_list_url" value="{{ site_url }}{% url 'taskDashboard' %}">
+    <script type="text/javascript" src="{% static 'portal/js/jquery_3.7.0.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="{% static 'portal/js/uploadImg.js' %}"></script>
     <script src="{% static 'portal/js/enableBtn.js' %}"></script>
     <script src="{% static 'portal/js/index.js' %}"></script>
-    <script type="text/javascript" src="{% static 'portal/js/jquery_3.7.0.js' %}"></script>
     <script>
         new Splide('#first-slider', {
             perPage: 4,
@@ -852,190 +822,161 @@
         }).mount();
     </script>
     <script type="text/javascript">
-      $(document).ready(function(){
-        // getCategoryDetailsByTheme(2);
-      })
-      function UpdateActiveCategory(that){
-        var category_chosen = $(that).attr("category_text");
-        var category_theme_id = $(that).attr("category_id");
-        $(".ActiveCategory").empty();
-        $(".ActiveCategory").append(category_chosen);
-        getCategoryDetailsByTheme(category_theme_id);
-      }
-      function SaveTaskandContinue(){
-        var taskName = $("#task_name").val();
-        var taskDescription = $("#task_description").val();
-        var categoryId = $("#category_services").val();
-
-        if(taskName.length == 0 ){
-          alert("Please fill up the task name!");
-          return false;
-        }
-        if(taskDescription.length == 0){
-          alert("Please make at least short a short description of the task!");
-          return false;
-        }
-
-        jQuery.noConflict();
-        jQuery.ajax({
-              type: "POST",
-              url: "{% url 'createTask' %}",
-              async:true,
-              data: {
-                "csrfmiddlewaretoken": '{{ csrf_token }}',
-                "task_name":taskName,
-                "task_description":taskDescription,
-                "category_id": categoryId,
-              },
-              success: function (data) {
-                alert("Task Created!")
-            window.$("#SubmitATaskModal").modal("hide");
-                console.log(data);
-              },
-              error: function (e) {
-                console.log(e);
-              }
-          })
-      }
-      function getCategoryDetailsByTheme(CategoryThemeId){
-        jQuery.noConflict();
-        jQuery.ajax({
-              type: "POST",
-              url: "{% url 'getCategoryServices' %}",
-              async:true,
-              data: {
-                "csrfmiddlewaretoken": '{{ csrf_token }}',
-                "CategoryThemeId":CategoryThemeId,
-              },
-              success: function (data) {
-                if(data.status_code == 1){
-                  reload_services(data.list_of_category); 
-                }
-              },
-              error: function (e) {
-                console.log(e);
-              }
-          })
-      }
-      function showCreateTaskForm(that){
-        jQuery.noConflict();
-        window.$("#LoadingMoodal").modal("show");
-        var category_id = $(that).attr("category_id");
-        jQuery.ajax({
-          type: "POST",
-          url: "{% url 'getCategoryDetailsById' %}",
-          async:true,
-          data: {
-                "csrfmiddlewaretoken": '{{ csrf_token }}',
-                "category_id":category_id,
-              },
-              success: function (data) {
-                if(data.status_code == 1){
-                  showModalCategory(data);
-                } 
-              },
-              error: function (e) {
-                console.log(e);
-              }
+        $(document).ready(function(){
+            getCategoryDetailsByTheme(2);
         })
-      }
-      function showModalCategory(dataValue){
+
+        function toggleChooseService_v2(that){
+            document.getElementById("popup-choose-service").classList.toggle("active");
+            document.getElementById("overlay_id").classList.toggle("active");
+            var service_id = $(that).attr("service_id");
+            var service_name = $(that).attr("service_name");
+            var category_name = $(that).attr("category_name");
+            var services = $("#services option:selected").text();
+            $("#pop-header").empty();
+            $("#pop-header").append(services+" / "+category_name+" / "+ service_name);
+
+            $("#logo_service").empty();
+            $("#logo_service").append("<option value='"+service_id+"'>"+service_name+"</option>");
+        }
         
-        window.$("#LoadingMoodal").modal("hide");
-        window.$("#SubmitATaskModal").modal('show');
-        jQuery("#SubmitTaskTitle").empty();
-        jQuery("#SubmitTaskTitle").append(dataValue.category_theme+" / "+dataValue.category_parent_name+" / "+dataValue.category_name);
-        jQuery("#category_services").empty();
-        jQuery("#task_name").val("");
-        jQuery("#task_description").val("");
-        jQuery.each(dataValue.list_of_category, function(index,value){
-          if(value.id == dataValue.category_id){
-            jQuery("#category_services").append("<option value='"+value.id+"' selected>"+value.name+"</option>");
-          }else{
-            jQuery("#category_services").append("<option value='"+value.id+"'>"+value.name+"</option>");  
-          }
-          
-        });
-         
-      }
-  
-      function reload_services(listOfCategory){
-        jQuery(".category_wrapper").empty();
-        jQuery.each(listOfCategory, function(index, value){
-          if(value.parent == 0){
-            jQuery(".category_wrapper").append("<br/><div class='row'> <div class='col-sm-12 parent_category'>"+value.name+"</div></div>");
-            var childCounter = 0;
-            jQuery.each(listOfCategory, function(index2, value2){
-              if(value2.parent == value.id){
-                childCounter++;
-              }
-            })
-            if(childCounter > 4){
-              var listofcategoryCard = "";
-              var loopCounter = 0;
-              jQuery.each(listOfCategory, function(index2,value2){
-                if(value2.parent == value.id){
-                  if(loopCounter > 3){
-                    listofcategoryCard += "<div class='col-sm-3' style='display:none;'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";
-                  }else{
-                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
-                  }
-                  loopCounter++;
-                }
-              })
+        function UpdateActiveCategory(that){
+            var category_theme_id = $(that).val();
+            getCategoryDetailsByTheme(category_theme_id);
+        }
 
-              var output = "<div class='row'><div class='col-sm-1 text-right text-pure-center' style='color: #BCBABA; font-size: 40px; cursor: pointer;'>";
-              output += "<i class='fa-solid fa-chevron-left'></i>";
-              output += "</div>";
-              output += "<div class='col-sm-10'>";
-              output +=   "<div class='row'>";
-              output += listofcategoryCard
-              output +=   "</div>"
-              output += "</div>"
-              output += "<div class='col-sm-1 text-left text-pure-center' style='color: #BCBABA; font-size: 40px; cursor:pointer;'>"
-              output +=   "<i class='fa-solid fa-chevron-right'></i>"
-              output += "</div></div>";
-              jQuery(".category_wrapper").append(output);
-              
-              
-            }else{
-              if(childCounter == 1){
-                var listofcategoryCard = "";
-                jQuery.each(listOfCategory, function(index2,value2){
-                  if(value2.parent == value.id){
-                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
-                  }
-                })
-                jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-4'></div> "+listofcategoryCard+" <div class='col-sm-5'></div></div>");
-              }else if(childCounter == 2){
-                var listofcategoryCard = "";
-                jQuery.each(listOfCategory, function(index2,value2){
-                  if(value2.parent == value.id){
-                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
-                  }
-                })
-                jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-3'></div>"+listofcategoryCard+"<div class='col-sm-3'></div></div>");
-              }else if(childCounter == 3){
-                var listofcategoryCard = "";
-                jQuery.each(listOfCategory, function(index2,value2){
-                  if(value2.parent == value.id){
-                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
-                  }
-                })
-                jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-1'></div> "+listofcategoryCard+"<div class='col-sm-2'></div>");
-              }else{
-                var listofcategoryCard = "";
-                jQuery.each(listOfCategory, function(index2,value2){
-                  if(value2.parent == value.id){
-                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
-                  }
-                })
-                jQuery(".category_wrapper").append("<div class='row'> "+listofcategoryCard+"</div>");
-              }
+        function SaveTaskandContinue(){
+            var redirect_url = $("#task_list_url").val();   
+            var taskName = $("#task_name").val();
+            var taskDescription = $("#task_description").val();
+            var categoryId = $("#logo_service").val();
+
+            if (taskName.length == 0 ){
+                alert("Please fill up the task name!");
+                return false;
             }
-          }
-        })
-      }
+        
+            if (taskDescription.length == 0){
+                alert("Please make at least short a short description of the task!");
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'createTask' %}",
+                async:true,
+                data: {
+                    "csrfmiddlewaretoken": '{{ csrf_token }}',
+                    "task_name":taskName,
+                    "task_description":taskDescription,
+                    "category_id": categoryId,
+                },
+                success: function (data) {
+                    alert("Task Created!");
+                    window.location.replace(redirect_url);
+                    
+                    
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        }
+
+        function getCategoryDetailsByTheme(CategoryThemeId){
+            $.ajax({
+                type: "POST",
+                url: "{% url 'getCategoryServices' %}",
+                async:true,
+                data: {
+                    "csrfmiddlewaretoken": '{{ csrf_token }}',
+                    "CategoryThemeId":CategoryThemeId,
+                },
+                success: function (data) {
+                    if(data.status_code == 1){
+                        reload_services_v2(data.list_of_category); 
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        }
+
+        function showCreateTaskForm(that){
+            window.$("#LoadingMoodal").modal("show");
+            var category_id = $(that).attr("category_id");
+            $.ajax({
+                type: "POST",
+                url: "{% url 'getCategoryDetailsById' %}",
+                async:true,
+                data: {
+                    "csrfmiddlewaretoken": '{{ csrf_token }}',
+                    "category_id":category_id,
+                },
+                success: function (data) {
+                    if(data.status_code == 1){
+                        showModalCategory(data);
+                    } 
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        }
+
+        function showModalCategory(dataValue){    
+            window.$("#LoadingMoodal").modal("hide");
+            window.$("#SubmitATaskModal").modal('show');
+            $("#SubmitTaskTitle").empty();
+            $("#SubmitTaskTitle").append(dataValue.category_theme+" / "+dataValue.category_parent_name+" / "+dataValue.category_name);
+            $("#category_services").empty();
+            $("#task_name").val("");
+            $("#task_description").val("");
+            $.each(dataValue.list_of_category, function(index,value){
+                if(value.id == dataValue.category_id){
+                    jQuery("#category_services").append("<option value='"+value.id+"' selected>"+value.name+"</option>");
+                }else{
+                    jQuery("#category_services").append("<option value='"+value.id+"'>"+value.name+"</option>");  
+                }      
+            });  
+        }
+
+        function reload_services_v2(listOfCategory){
+            $("#category_wrapper").empty();
+            $.each(listOfCategory, function(index, value){
+                if(value.parent == 0){
+                    $("#category_wrapper").append("<h1 class='font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:mt-20 xxl:text-xl text-profCol'>"+value.name+"</h1>");
+                    $list = "";
+                    $list += "<section id='first-slider' class='splide'>";
+                    $list += "  <div class='splide__track'>";
+                    $list += "      <ul class='splide__list'>";
+
+                    $.each(listOfCategory, function(index2, value2){
+                        if(value2.parent == value.id){
+                            
+                            $list += "<li class='splide__slide'>";
+                            $list += "  <button onclick='toggleChooseService_v2(this)' category_name='"+value.name+"' service_id='"+value2.id+"' service_name='"+value2.name+"' class='cursor-pointer'>";
+                            $list += "      <div class='hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2'>";
+                            $list += "          <h3 class='font-Poppins flex-none font-bold text-xvs xxl:text-base'>"+value2.name+"</h3>";
+                            $list += "          <div class='xl:mt-5 flex items-center justify-center'>";
+                            $list += "              <i class='fas fa-pen-square  text-7xl text-purple-400'></i>";
+                            $list += "          </div>";
+                            $list += "          <h3 class='text-gray-500 xl:text-vs xl:mt-3 xxl:text-2base font-Poppins'>"+value2.description+"</h3>";
+                            $list += "      </div>";
+                            $list += "  </button>";
+                            $list += "</li>";
+                        }
+                    })
+
+                    $list += "      </ul>";
+                    $list += "  </div>";
+                    $list += "</section>"   
+                    $("#category_wrapper").append($list);        
+                }
+            });
+        }
+
     </script>
 </body>
 </html>
