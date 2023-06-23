@@ -7,8 +7,8 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core.mail import BadHeaderError, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-
 from accounts.models import details, address_info, user_validation, password_reset_code, password_manager, password_category, credit_score, invoice
+from payment.models import products
 import uuid, datetime, random
 
 # Create your views here.
@@ -304,6 +304,7 @@ def creditScoreDashboard(request):
 	total_credits_used = 0
 
 	credit_list = credit_score.objects.filter(userId=userId).order_by('-create_date')
+	product = products.objects.filter(productType="sub")
 	Available_credit = sum(credit_list.values_list('credit', flat=True))
 
 	history_list = []
@@ -316,7 +317,7 @@ def creditScoreDashboard(request):
 		detail['type'] = "0"
 		history_list.append(detail)
 
-	return render(request, "credit_score_dashboard.html", {"AVC": Available_credit, "TCU": total_credits_used, "history_list":history_list, "profile_details":profile_details })
+	return render(request, "credit_score_dashboard.html", {"AVC": Available_credit, "TCU": total_credits_used, "history_list":history_list, "profile_details":profile_details, "products":product})
 
 @login_required(login_url='accounts/login')
 def creditScoreAdd(request):

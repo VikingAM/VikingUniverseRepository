@@ -29,9 +29,7 @@
                     </li>
                 </ul>
                 <ul class="flex items-center text-sm text-gray-600">
-                    
                     <div class="flex items-center justify-center space-x-5">
-                        
                         <li>
                             <a class="fas fa-bell text-lg ml-6 " href="#"></a>
                         </li>
@@ -135,114 +133,31 @@
         <form action="#">
             <div class="flex flex-col items-center justify-center">
                 <h3 class="xl:mb-2 text-gray-600">How many credits would you like to add?</h3>
-                <div class="flex xl:space-x-4 ">
-                    <div>
-                        <input  type="radio" id="option1" name="choice" value="option1" class="hidden">
-                        <label for="option1" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">500</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="option2" name="choice" value="option2" class="hidden">
-                        <label for="option2" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">1500</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="option3" name="choice" value="option3" class="hidden">
-                        <label for="option3" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">3000</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="option4" name="choice" value="option4" class="hidden">
-                        <label for="option4" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">5000</label>
-                    </div>
+                <div class="flex xl:space-x-3 ">
+                    {% for product in products %}
+                        <div>
+                            <input  type="radio" id="option_{{ product.pk }}" name="choice" value="{{ product.pk }}" prod_amount="{{ product.price }}" onclick="selectSubscription(this)" class="hidden">
+                            <label for="option_{{ product.pk }}" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">{{ product.name }}</label>
+                        </div>
+                    {% empty %}
+
+                    {% endfor %}
                 </div>
-                <h3 class="text-base text-gray-500">or custom amount:</h3>
-                <input type="number" class="credit-no-arrows border-2 xl:p-2 rounded-xl font-Poppins text-center" id="creditReset">
-                <h3 class="text-base text-gray-500 xl:my-2">1 Credit = 1$</h3>
                 <div class="flex flex-col justify-center items-center border-t border-b border-gray-300 xl:w-52 xl:py-2">
                     <h3 class="text-base text-gray-500">Total amount to pay:</h3>
-                    <h3 class="text-base text-gray-500 xl:mt-4">$1000</h3>
+                    <h3 class="text-base text-gray-500 xl:mt-4" id="total_amount_to_pay">$0</h3>
                 </div>
                 <div class="flex xl:mt-5">
-                    <button type="button" onclick="togglePaymentMethod()" class="text-center justify-center items-center font-Poppins mt-20 xl:mt-0 p-2 xl:p-1 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg bxl:text-sm xl:text-xvs xl:w-40 xl:mr-10 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">Proceed to Payment</button>
+                    <!-- <button type="button" onclick="togglePaymentMethod()" class="text-center justify-center items-center font-Poppins mt-20 xl:mt-0 p-2 xl:p-1 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg bxl:text-sm xl:text-xvs xl:w-40 xl:mr-10 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">Proceed to Payment</button> -->
+                    <button type="button" onclick="proceedCheckout()" class="text-center justify-center items-center font-Poppins mt-20 xl:mt-0 p-2 xl:p-1 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg bxl:text-sm xl:text-xvs xl:w-40 xl:mr-10 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">Proceed to Payment</button>
                     <button type="reset" id="credit-reset-btn" class="font-Poppins bxl:text-sm text-xvs" onclick="uncheck()">Reset</button>
                 </div>
             </div>
         </form>
     </div>
-    <div id="popup-credit-payment-method" class="popup fixed bg-gray-50 xl:w-135 xl:h-120 flex-col z-10 xl:p-6 overflow-hidden">   
-        <div class="flex justify-between">
-            <h1 class="font-Poppins text-xl font-bold text-purple-900">Payment</h1>
-            <button onclick="toggleCancelPaymentMethod()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-10 " aria-hidden="true"></button>
-        </div>
-        <div class="xl:mt-2">   
-            <h2 class="font-Poppins font-bold text-profCol text-base">Payment Method</h2>
-        </div>
-        <form action="#">
-            <div class="xl:mt-2 ">
-                <hr>
-                <div class="flex justify-center items-center xl:space-x-4 xl:mt-4">
-                    <div>
-                        <input type="radio" id="payment_option1" name="choice" value="payment_option1" class="hidden">
-                        <label for="payment_option1" class="payment-element hover:bg-purple-500 hover:duration-500"><img src="/assets/payments/visa_icon.png" class="object-scale-down xl:w-12 xl:h-10"> </label>
-                    </div>
-                    <div>
-                        <input type="radio" id="payment_option2" name="choice" value="payment_option2" class="hidden">
-                        <label for="payment_option2" class="payment-element hover:bg-purple-500 hover:duration-500"><img src="/assets/payments/mastercard_icon.png" class="object-scale-down xl:w-16 xl:h-9"></label>
-                    </div>
-                    <div>
-                        <input type="radio" id="payment_option3" name="choice" value="payment_option3" class="hidden">
-                        <label for="payment_option3" class="payment-element hover:bg-purple-500 hover:duration-500"><img src="/assets/payments/amex_icon.png" class="object-scale-down xl:w-12 xl:h-10"></label>
-                    </div>
-                    <div>
-                        <input type="radio" id="payment_option4" name="choice" value="payment_option4" class="hidden">
-                        <label for="payment_option4" class="payment-element hover:bg-purple-500 hover:duration-500"><img src="/assets/payments/paypal_icon.png" class="object-scale-down xl:w-12 xl:h-9"></label>
-                    </div>    
-                </div>
-
-                <div class="flex flex-col">
-                    <label for="cardholder_name" class="font-Poppins text-sm font-semibold">Cardholder Name</label>
-                    <input type="text" id="cardholder_name" name="cardholder_name" class="font-Poppins border-2 border-inputBlue rounded-xl xl:py-1 xl:px-3 ">
-                
-                    <div class="flex xl:space-x-8">
-                        <div class="flex flex-col">
-                            <label for="card_number" class="font-Poppins text-sm font-semibold">Card Number</label>
-                            <input type="number" id="card_number" name="card_number" class="font-Poppins credit-no-arrows xl:w-72 border-2 border-inputBlue rounded-xl xl:py-1 xl:px-3 ">
-                        </div>
-                        <div class="flex xl:space-x-4">
-                            <div class="flex flex-col">
-                                <label for="exp_date" class="font-Poppins text-sm font-semibold">Expiry Date</label>
-                                <input type="number" id="exp_date" name="exp_date" class="credit-no-arrows font-Poppins xl:w-20 border-2 border-inputBlue rounded-xl xl:py-1 xl:px-3 ">
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="card_ccv" class="font-Poppins text-sm font-semibold">CCV</label>
-                                <input type="number" id="card_ccv" name="card_ccv" class="font-Poppins credit-no-arrows xl:w-20 border-2 border-inputBlue rounded-xl xl:py-1 xl:px-3 ">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex xl:space-x-2 xl:mt-3">
-                        <a href="#"><i class='fas fa-info-circle text-inputBlue'></i></a>
-                        <h3 class="font-Poppins text-xvs bxl:text-sm xxl:text-2base xl:mt-1">Credit card payment may take up to 24h to proceed</h3>
-                        <a href="#"><i class="fas fa-question-circle text-inputBlue"></i></a>
-                    </div>
-                    <label class="inline-flex items-center xl:mt-2">
-                        <input type="checkbox" class="form-checkbox xl:h-3 xl:w-3 text-inputBlue" />
-                        <span class="ml-2 text-xvs bxl:text-sm xxl:text-2base font-Poppins">Save my payment details for future purchases</span>
-                    </label>
-                    <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">Summary</h3>
-                    <hr>
-                    <div class="flex justify-between xl:mb-1">
-                        <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">50 Credits</h3>
-                        <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">$50</h3>
-                    </div>
-                    <hr>
-                    <div class="flex justify-between">
-                        <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">Total</h3>
-                        <h3 class="text-sm font-Poppins xl:mt-2 text-gray-500">$50</h3>
-                    </div>
-                    <div class="flex items-center justify-center xl:mt-5">
-                        <button type="button" onclick="toggleCreditSuccess()" class="text-center justify-center items-center font-Poppins mt-20 xl:mt-0 p-2 xl:p-1 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg xl:text-xvs bxl:text-sm xl:w-40 xl:mr-10 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">Confirm Payment</button>
-                        <button type="reset" id="confirmPayment_reset" class="font-Poppins bxl:text-sm text-xvs" onclick="uncheck()">Reset</button>
-                    </div>
-                </div>
-            </div>
+    <div style="display: hidden;">
+        <form id="checkoutFrom" method="post" action="{% url 'paymentCheckout' %}">
+            <input type="hidden" id="product_id_form" name="product_id" value="0">
         </form>
     </div>
 
@@ -259,6 +174,23 @@
     <script src="{% static 'portal/js/tableStng.js' %}"></script>
     <script type="text/javascript" src="{% static 'portal/js/jquery_3.7.0.js' %}"></script>
     <script type="text/javascript">
+        function selectSubscription(that){
+            var product_id = $(that).val();
+            var product_price = $(that).attr("prod_amount");
+            $("#product_id_form").val(product_id);
+            $("#total_amount_to_pay").empty();
+            $("#total_amount_to_pay").append("$"+product_price);
+        }
+
+        function proceedCheckout(){
+            var product_id = $("#product_id_form").val();
+            if(product_id != 0){
+                $("#checkoutFrom").submit();
+            }else{
+                alert("Please select a plan!");
+            }
+        }
+
         function ProcessPayment(){
             var custom_amount = $("#custom_amount").val();
             if($.isNumeric(custom_amount)){

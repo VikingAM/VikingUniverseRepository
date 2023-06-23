@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from payment.models import sessions
 
 # Create your models here.
 class types(models.Model):
@@ -79,6 +80,7 @@ class credit_score(models.Model):
 	paid = models.BooleanField(default=0)
 	create_date = models.DateTimeField(auto_now_add=True)
 	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+	sessionId = models.ForeignKey(sessions, on_delete=models.SET_NULL, null=True, blank=True)
 	status = models.BooleanField(default=1)
 
 class invoice(models.Model):
