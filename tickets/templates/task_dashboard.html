@@ -64,62 +64,44 @@
                         <p class="text-2base bxl:text-base xxl:text-lg font-bold font-Poppins text-purple-700 xl:mt-5 xl:mr-2">Filter by:</p>
                         <select id="filterSelect" onchange="filterData()" class="font-Poppins text-blue-900 xl:text-base bxl:text-lg xxl:text-lg xl:mt-5">
                             <option value="all" class="font-Poppins bxl:text-sm">All</option>
-                            <option onclick="SelectFilter(this);"  attr_val="Open Task" value="open" class="font-Poppins bxl:text-sm">Open</option>
-                            <option attr_val="In Progress" onclick="SelectFilter(this);" value="in_progress" class="font-Poppins bxl:text-sm">In Progress</option>
-                            <option attr_val="For Approval" onclick="SelectFilter(this);" value="for_approval" class="font-Poppins bxl:text-sm">For Approval</option>
-                            <option attr_val="Completed" onclick="SelectFilter(this);" value="completed" class="font-Poppins bxl:text-sm">Completed</option>
+                            <option attr_val="Open Task" value="open" class="font-Poppins bxl:text-sm">Open</option>
+                            <option attr_val="In Progress" value="In Progress" class="font-Poppins bxl:text-sm">In Progress</option>
+                            <option attr_val="For Approval" value="for_approval" class="font-Poppins bxl:text-sm">For Approval</option>
+                            <option attr_val="Completed" value="completed" class="font-Poppins bxl:text-sm">Completed</option>
                         </select>
                     </div>
                     <div class="xl:mt-5 ">
                         <main class="table xl:mx-10 xxl:ml-32 mxl:ml-20"> 
                             <section class="table__body overflow-auto xl:h-110 bxl:h-130 mxl:h-160 xxl:h-180 xxl:w-full">
                                 <table class="border-separate border-spacing-2" >
-                                    <tbody id="data" >
+                                    <tbody id="data">
                                         <div>
-                                            <tr class="in_progress">
+                                        {% for ticket in tickets %}
+                                            <tr class="{{ticket.status}}" task_id="{{ ticket.pk }}" onclick='viewTaskDetails(this);' style="cursor:pointer;">
                                                 <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gray-200 bxl:w-210 mxl:w-220 xxl:w-240  duration-300 p-2 xxl:p-5 mxl:p-4 mxl:mb-2">
-                                                    <a href="view_task.html">
+                                                    
                                                         <div class="flex justify-start text-base bxl:text-lg font-bold ">
-                                                            <h1 id="" class="font-Poppins">In Progress</h1>
+                                                            <h1 id="" class="font-Poppins">{{ticket.status}}</h1>
                                                             <div class="flex xl:space-x-3 xl:ml-4 justify-center items-center text-center">
-                                                                <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xxl:text-base xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
-                                                                <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xxl:text-base xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
-                                                                <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text-sm xxl:text-base xl:w-24 rounded-full text-vs text-catText3 bg-catThree duration-500">Category</div>
+                                                                <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xxl:text-base xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">{{ ticket.category.name }}</div>
+                                                                <!-- <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xxl:text-base xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                                                <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text-sm xxl:text-base xl:w-24 rounded-full text-vs text-catText3 bg-catThree duration-500">Category</div> -->
                                                             </div>
                                                         </div>
                                                         <div class="flex xl:w-fit xl:mt-3 text-sm text-gray-500 ">
                                                             <p class="far fa-calendar-alt text-lg xxl:text-xl mr-2" href="#"></p>
-                                                            <p class="font-Lato bxl:text-base xxl:text-base">04 February 2023</p>
-                                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-6 mxl:text-base duration-500">0%</div>
+                                                            <p class="font-Lato bxl:text-base xxl:text-base">{{ticket.create_date |date:"D d M Y" }}</p>
+                                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-6 mxl:text-base duration-500">{{ ticket.task_percentage }}%</div>
                                                         </div>
                                                         <div class="mt-5">
-                                                            <p id="ticket_desc" class="font-Poppins text-sm bxl:text-2base mxl:text-base xxl:text-base text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. </p>
+                                                            <p id="ticket_desc" class="font-Poppins text-sm bxl:text-2base mxl:text-base xxl:text-base text-start">{{ ticket.description }}</p>
                                                         </div>
-                                                    </a>
+                                                    
                                                 </td>
                                             </tr>
-                                            <tr class="in_progress">
-                                                <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gray-200 bxl:w-210 mxl:w-220 xxl:w-240  duration-300 p-2 xxl:p-5 mxl:p-4 mxl:mb-2">
-                                                    <a href="view_task.html">
-                                                        <div class="flex justify-start text-base bxl:text-lg font-bold ">
-                                                            <h1 id="" class="font-Poppins">In Progress</h1>
-                                                            <div class="flex xl:space-x-3 xl:ml-4 justify-center items-center text-center">
-                                                                <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xxl:text-base xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
-                                                                <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xxl:text-base xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
-                                                                <div class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text-sm xxl:text-base xl:w-24 rounded-full text-vs text-catText3 bg-catThree duration-500">Category</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex xl:w-fit xl:mt-3 text-sm text-gray-500 ">
-                                                            <p class="far fa-calendar-alt text-lg xxl:text-xl mr-2" href="#"></p>
-                                                            <p class="font-Lato bxl:text-base xxl:text-base">04 February 2023</p>
-                                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-6 mxl:text-base duration-500">0%</div>
-                                                        </div>
-                                                        <div class="mt-5">
-                                                            <p id="ticket_desc" class="font-Poppins text-sm bxl:text-2base mxl:text-base xxl:text-base text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. </p>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                            </tr>  
+                                        {% empty %}
+
+                                        {% endfor %}
                                         </div>
                                     </tbody>
                                 </table>

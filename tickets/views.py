@@ -47,8 +47,8 @@ def ticketingPage(request):
 @login_required(login_url='/accounts/login')
 def taskDashboard(request):
 	profile_details = details.objects.get(userId=request.user.id)
-	open_tickets = task.objects.filter(status="Open", owner=request.user, is_delete=0)
-	return render(request, 'task_dashboard.html', {"profile_details":profile_details, "open_tickets":open_tickets})
+	tickets = task.objects.filter(owner=request.user, is_delete=0)
+	return render(request, 'task_dashboard.html', {"profile_details":profile_details, "tickets":tickets})
 
 @login_required(login_url='/accounts/login')
 def taskSubmit(request):
