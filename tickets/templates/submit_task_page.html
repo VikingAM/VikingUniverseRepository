@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
   <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
   <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
-  <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 <body>
     <!-- Sidebar Panel -->
@@ -71,9 +71,10 @@
                         <option value="" class="xl:text-sm font-Poppins">Technology and Development</option>
                     </select>
                     <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:mt-20 xxl:text-xl text-profCol">Branding</h1>
+                    
                     <section id="first-slider" class="splide">
                         <div class="splide__track">
-                            <ul class="splide__list">
+                            <ul class="splide__list flex">
                                 <li class="splide__slide">
                                     <button onclick="toggleChooseService()" class="cursor-pointer">
                                         <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
@@ -95,7 +96,7 @@
                                     </div>
                                 </li>
                                 <li class="splide__slide">
-                                    <button onclick="toggleTaskReOccurence()" class="cursor-pointer">
+                                    <button class="cursor-pointer">
                                         <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
                                             <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Business Card & Stationery Design</h3>
                                             <div class="xl:mt-3 flex items-center justify-center">
@@ -117,11 +118,14 @@
                                 </li>
                             </ul>    
                         </div>
-                    </section>
+                    </section><br>
+
+
+
                     <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:text-xl text-profCol">Reports and Presentation</h1>
                     <section id="second-slider" class="splide">
                         <div class="splide__track">
-                            <ul class="splide__list">
+                            <ul class="splide__list flex">
                                 <li class="splide__slide z-0">
                                     <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
                                         <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Documentation Design</h3>
@@ -151,7 +155,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </section>
+                    </section><br><br>
                 </div>
             </div>
         </div>
@@ -174,7 +178,7 @@
                     <div class="form-step form-step-active">
                         <div class="xl:py-4 xl:px-5 w-full h-full ">
                             <div class="flex justify-between">
-                                <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
+                                <h1 class="xl:text-xl text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
                                 <button onclick="toggleCancelNewTask()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-4 " aria-hidden="true"></button>
                             </div>
                             <h2 class="text-profCol text-lg font-semibold xl:mt-2 font-Poppins"><u>Task Details</u></h2>
@@ -837,6 +841,7 @@
             perMove: 1,
             padding: '10rem',
             pagination: false,
+            arrows: false,
             gap: '1rem',
             omitEnd  : true,
             snap: true
@@ -848,9 +853,12 @@
             pagination: false,
             gap: '1rem',
             omitEnd  : true,
+            arrows: false,
             snap: true
         }).mount();
     </script>
+
+    
     <script type="text/javascript">
       $(document).ready(function(){
         // getCategoryDetailsByTheme(2);

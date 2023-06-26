@@ -7,131 +7,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 	<link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
-	<link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal/css/style_v1.css' %}">
+    <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
+
 	<link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
-	<script src="https://cdn.tailwindcss.com"></script>
+	<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
 </head>
 <body>
 <div class="flex">
 	{% include 'sidebar.html' %}
-	<div class="bxl:w-full mxl:mr-20 xxl:mr-0 xxl:w-full xxl:p-5">
+	<div class="bxl:w-full mxl:mr-20 xxl:mr-0 xxl:p-5 bxl:pr-10">
 		{% include 'portal_nav_bar.html' %}
-		<div class="flex space-x-14 xl:space-x-10 xxl:space-x-12 justify-center ml-32 xl:ml-10 xxl:ml-0 m-8 xl:m-0 ">
+		<div class="flex space-x-14 xl:space-x-8 bxl:space-x-10 mxl:space-x-10 xxl:space-x-12 xl_4k:space-x-20 justify-center ml-32 xl:ml-8 mxl:ml-14 xxl:ml-0 m-8 xl:m-0 mxl:mt-12 xl_4k:mt-20">
+            
             <!-- Total Task -->
-            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64  border-2  rounded-xl">
+            <div class="bg-white h-40 xl:h-25 xl:w-48 mxl:h-32 mxl:w-58 xxl:h-36 xxl:w-72 xl_4k:w-120 xl_4k:h-68 w-64 border-2 rounded-xl">
                 <div class="flex items-end justify-end">
-                    <a class="fas fa-ellipsis-h text-lg mr-2" href="#"></a>
+                    <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2" href="#"></a>
                 </div>
-                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl:mr-5">
-                    <div class="flex items-center justify-center bg-totalTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
-                        <img src="{% static 'portal/dashboard/totaltask.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12 xl:mr-5">
+                    <div class="flex items-center justify-center bg-totalTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
+                        <img src="{% static 'portal/dashboard/totaltask.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 xl_4k:h-20 xl_4k:w-48 rounded-full" > 
                     </div>
-                    <div class="">
-                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Total Task</h1>
+                    <div class="xl_4k:space-y-2">
+                        <h1 class="font-Poppins xl:text-lg  xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Total Task</h1>
+                        
                     </div>
                 </div>
             </div>
+
             <!-- Open Task -->
-            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64 border-2 rounded-xl">
+            <div class="bg-white h-40 xl:h-25 xl:w-48 mxl:h-32 mxl:w-58  xxl:h-36 xxl:w-72 xl_4k:w-120 xl_4k:h-68 w-64 border-2 rounded-xl">
                 <div class="flex items-end justify-end">
-                    <a class="fas fa-ellipsis-h text-lg mr-2" href="#"></a>
+                    <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2" href="#"></a>
                 </div>
-                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl:mr-5">
-                    <div class="flex items-center justify-center bg-openTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12 xl:mr-5">
+                    <div class="flex items-center justify-center bg-openTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
                         <img src="{% static 'portal/dashboard/opentask.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
                     </div>
-                    <div class="xl:text-sm">
-                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Open Task</h1>
+                    <div class="xl:text-sm xl_4k:space-y-2">
+                        <h1 class="font-Poppins xl:text-lg xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Open Task</h1>
                     </div>
                 </div>
             </div>
 
             <!-- Task in Progress -->
-            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64 border-2 rounded-xl">
+            <div class="bg-white h-40 xl:h-25 xl:w-48 mxl:h-32 mxl:w-58  xxl:h-36 xxl:w-72 xl_4k:w-120 xl_4k:h-68 w-64 border-2 rounded-xl">
                 <div class="flex items-end justify-end">
-                    <a class="fas fa-ellipsis-h text-lg mr-2" href="#"></a>
+                    <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2" href="#"></a>
                 </div>
-                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6">
-                    <div class="flex items-center justify-center bg-taskProg h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12">
+                    <div class="flex items-center justify-center bg-taskProg h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
                         <img src="{% static 'portal/dashboard/taskprogress.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
                     </div>
-                    <div class="xl:text-sm">
-                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Task in Progress</h1>
+                    <div class="xl:text-sm xl_4k:space-y-2">
+                        <h1 class="font-Poppins xl:text-lg bxl:text-xl xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Task in Progress</h1>
                     </div>
                 </div>
             </div>
 
             <!-- Task for Approval -->
-            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64 border-2 rounded-xl">
+            <div class="bg-white h-40 xl:h-25 xl:w-48 mxl:h-32 mxl:w-58  xxl:h-36 xxl:w-72 xl_4k:w-120 xl_4k:h-68 w-64 border-2 rounded-xl">
                 <div class="flex items-end justify-end">
-                    <a class="fas fa-ellipsis-h text-lg mr-2" href="#"></a>
+                    <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2" href="#"></a>
                 </div>
-                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6">
-                    <div class="flex items-center justify-center bg-taskAppr h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12">
+                    <div class="flex items-center justify-center bg-taskAppr h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
                         <img src="{% static 'portal/dashboard/taskapprv.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
                     </div>
-                    <div class="xl:text-sm">
-                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Task for Approval</h1>
+                    <div class="xl:text-sm xl_4k:space-y-2">
+                        <h1 class="font-Poppins xl:text-lg xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Task for Approval</h1>
                     </div>
                 </div>
             </div>
 
             <!-- Credits Available -->
-            <div class="bg-white h-40 xl:h-25 xl:w-48 xxl:h-36 xxl:w-72 w-64 border-2 rounded-xl z-10">
+            <div class="bg-white h-40 xl:h-25 xl:w-48 mxl:h-32 mxl:w-58  xxl:h-36 xxl:w-72 xl_4k:w-120 xl_4k:h-68 w-64 border-2 rounded-xl z-10">
                 <div class="flex items-end justify-end">
-                    <a class="fas fa-ellipsis-h text-lg mr-2 z-10" href="#"></a>
+                    <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2 z-10" href="#"></a>
                 </div>
-                <div class="flex items-center justify-center xl:space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 ">
-                    <div class="flex items-center justify-center bg-credsAv h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 rounded-full">
+                <div class="flex items-center justify-center xl:space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12">
+                    <div class="flex items-center justify-center bg-credsAv h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
                         <img src="{% static 'portal/dashboard/credsav.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
                     </div>
-                    <div class="xl:text-sm">
-                        <h1 class="font-Poppins xl:text-lg xxl:text-xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs mxl:text-2base xxl:text-2base">Credits Available</h1>
+                    <div class="xl:text-sm xl_4k:space-y-2">
+                        <h1 class="font-Poppins xl:text-lg xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Credits Available</h1>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex xl:space-x-4 mxl:space-x-8 xxl:space-x-10 xxl:ml-5 mxl:ml-7 xl:mb-10 ">
+        <div class="flex xl_4k:justify-center xl:space-x-4 bxl:space-x-7 mxl:space-x-10 xxl:space-x-10 xl_4k:space-x-28 bxl:ml-3 xxl:ml-5 mxl:ml-7 xl:mb-10 xl_4k:mt-16">
+            
             <div class="flex xl:ml-10 xl:mt-5 ">
-                <main class="table xl:w-89 xxl:w-120 ">
+                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-192">
                     <section class="table__header">
                         <div class="flex justify-between xl:w-full xl:mt-0">
                             <div class="flex xl:space-x-2">
-                                <div class="xl:w-3 xl:h-3 rounded-full bg-blue-500 xl:mt-1"></div>
-                                <h1 class="text-2base mxl:text-base font-Lato text-black font-bold">Open Task</h1>
+                                <div class="xl:w-3 xl:h-3 xl_4k:w-5 xl_4k:h-5 rounded-full bg-blue-500 xl:mt-1 xl_4k:mt-2"></div>
+                                <h1 class="text-2base mxl:text-base xl_4k:text-2xl font-Lato text-black font-bold">Open Task</h1>
                             </div>
-                            <p class="text-2base xxl:text-sm font-bold font-Poppins">Date Added</p>
+                            <p class="text-2base xxl:text-base xl_4k:text-2xl font-bold font-Poppins">Date Added</p>
                         </div>  
                     </section>
-                    <section class="table__body xl:h-screen xxl:h-150 ">
+                    <section class="table__body xl:h-screen xxl:h-150">
                         <table class="border-separate overflow-auto border-spacing-2 ">
                             <tbody>
                                 <tr>
-                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3">
+                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3 xl_4k:p-6">
                                         <div class="flex justify-between text-2base font-bold  text-end ">
-                                            <h1 id="" class="font-Poppins">Task name</h1>
-                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400" href="#"></a>
+                                            <h1 id="" class="font-Poppins text-sm bxl:text-base xl_4k:text-3xl">Task name</h1>
+                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400 xl_4k:text-4xl xl_4k:-mt-5" href="#"></a>
                                         </div>
                                         <div class="mt-3">
-                                            <p id="" class="font-Poppins text-sm text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-2xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
                                         </div>
-                                        <div class="flex xl:space-x-3">
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                        <div class="flex xl:space-x-3 xl_4k:mt-2">
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24  rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
                                         </div>
-                                        <div class="flex xl:w-fit xl:mt-3 text-sm">
-                                            <div class="flex hover:text-white ">
-                                                <p class="far fa-calendar-alt text-lg mr-2" href="#"></p>
-                                                <p class="font-Lato">04 February 2023</p>
+                                        <div class="flex xl:mt-3 text-sm">
+                                            <div class="flex hover:text-white xl:w-full">
+                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-2xl mr-2 xxl:mt-2 xl_4k:mt-1" href="#"></p>
+                                                <p class="font-Lato xl:mt-1 xxl:mt-0 xxl:text-base xl_4k:text-2xl">04 February 2023</p>
                                             </div>
-                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-16 bxl:ml-10 duration-500">0%</div>
+                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl_4k:text-2xl xl:w-48 xl_4k:w-85 rounded-full text-sm text-white bg-progressCol xl:ml-0 bxl:ml-10 duration-500">0%</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -140,40 +147,41 @@
                     </section>
                 </main>
             </div>
+
             <div class="flex xl:ml-10 xl:mt-5">       
-                <main class="table xl:w-89 xxl:w-120">
+                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-192">
                     <section class="table__header ">
                         <div class="flex justify-between xl:w-full xl:mt-0">
                             <div class="flex xl:space-x-2">
-                                <div class="xl:w-3 xl:h-3 rounded-full bg-red-400 xl:mt-1"></div>
-                                <h1 class="text-2base mxl:text-base font-Lato text-black font-bold">In Progress</h1>
+                                <div class="xl:w-3 xl:h-3 xl_4k:w-5 xl_4k:h-5 rounded-full bg-red-400 xl:mt-1 xl_4k:mt-2"></div>
+                                <h1 class="text-2base mxl:text-base xl_4k:text-2xl font-Lato text-black font-bold">In Progress</h1>
                             </div>
-                            <p class="text-2base xxl:text-sm font-bold font-Poppins">Priority</p>
+                            <p class="text-2base xxl:text-base xl_4k:text-2xl font-bold font-Poppins">Priority</p>
                         </div>
                     </section>
                     <section class="table__body overflow-auto xl:h-screen xxl:h-150">
                         <table class="border-separate border-spacing-2 ">
                             <tbody>
                                 <tr>
-                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3">
+                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3 xl_4k:p-6">
                                         <div class="flex justify-between text-2base font-bold  text-end ">
-                                            <h1 id="" class="font-Poppins">Task name</h1>
-                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400" href="#"></a>
+                                            <h1 id="" class="font-Poppins text-sm bxl:text-base xl_4k:text-3xl">Task name</h1>
+                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400 xl_4k:text-4xl xl_4k:-mt-5" href="#"></a>
                                         </div>
                                         <div class="mt-3">
-                                            <p id="" class="font-Poppins text-sm text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-2xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
                                         </div>
-                                        <div class="flex xl:space-x-3">
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                        <div class="flex xl:space-x-3 xl_4k:mt-2">
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
                                         </div>
-                                        <div class="flex xl:w-fit xl:mt-3 text-sm">
-                                            <div class="flex hover:text-white ">
-                                                <p class="far fa-calendar-alt text-lg mr-2" href="#"></p>
-                                                <p class="font-Lato">04 February 2023</p>
+                                        <div class="flex xl:mt-3 text-sm">
+                                            <div class="flex hover:text-white xl:w-full">
+                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-2xl mr-2 xxl:mt-2 xl_4k:mt-1" href="#"></p>
+                                                <p class="font-Lato xl:mt-1 xxl:mt-0 xxl:text-base xl_4k:text-2xl">04 February 2023</p>
                                             </div>
-                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-16 bxl:ml-10 duration-500">0%</div>
+                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl_4k:text-2xl xl:w-48 xl_4k:w-85 rounded-full text-sm text-white bg-progressCol xl:ml-0 bxl:ml-10 duration-500">0%</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -184,12 +192,12 @@
             </div>
 
             <div class="flex xl:ml-10 xl:mt-5">         
-                <main class="table xl:w-89 xxl:w-120">
+                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-192">
                     <section class="table__header ">
                         <div class="flex justify-between xl:w-full xl:mt-0">
                             <div class="flex xl:space-x-2">
-                                <div class="xl:w-3 xl:h-3 rounded-full bg-green-700 xl:mt-1"></div>
-                                <h1 class="text-2base mxl:text-base  font-Lato text-black font-bold">For Approval</h1>
+                                <div class="xl:w-3 xl:h-3 xl_4k:w-5 xl_4k:h-5 rounded-full bg-green-700 xl:mt-1 xl_4k:mt-2"></div>
+                                <h1 class="text-2base mxl:text-base xl_4k:text-2xl font-Lato text-black font-bold">For Approval</h1>
                             </div>
                             <p class="text-2base"></p>
                         </div>
@@ -198,25 +206,25 @@
                         <table class="border-separate border-spacing-2 ">
                             <tbody>
                                 <tr>
-                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3">
+                                    <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300 xl:p-3 xl_4k:p-6">
                                         <div class="flex justify-between text-2base font-bold  text-end ">
-                                            <h1 id="" class="font-Poppins">Task name</h1>
-                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400" href="#"></a>
+                                            <h1 id="" class="font-Poppins text-sm bxl:text-base xl_4k:text-3xl">Task name</h1>
+                                            <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400 xl_4k:text-4xl xl_4k:-mt-5" href="#"></a>
                                         </div>
                                         <div class="mt-3">
-                                            <p id="" class="font-Poppins text-sm text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-2xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
                                         </div>
-                                        <div class="flex xl:space-x-3">
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:vs xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                        <div class="flex xl:space-x-3 xl_4k:mt-2">
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
                                         </div>
-                                        <div class="flex xl:w-fit xl:mt-3 text-sm">
-                                            <div class="flex hover:text-white ">
-                                                <p class="far fa-calendar-alt text-lg mr-2" href="#"></p>
-                                                <p class="font-Lato">04 February 2023</p>
+                                        <div class="flex xl:mt-3 text-sm">
+                                            <div class="flex hover:text-white xl:w-full">
+                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-2xl mr-2 xxl:mt-2 xl_4k:mt-1" href="#"></p>
+                                                <p class="font-Lato xl:mt-1 xxl:mt-0 xxl:text-base xl_4k:text-2xl">04 February 2023</p>
                                             </div>
-                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl:w-32 rounded-full text-sm text-white bg-progressCol xl:ml-16 bxl:ml-10 duration-500">0%</div>
+                                            <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl_4k:text-2xl xl:w-48 xl_4k:w-85 rounded-full text-sm text-white bg-progressCol xl:ml-0 bxl:ml-10 duration-500">0%</div>
                                         </div>
                                     </td>
                                 </tr>

@@ -8,8 +8,10 @@
     <title>Edit Profile | Settings</title>
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+    <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
+
     <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 <body>
     <!-- Sidebar Panel -->
@@ -18,52 +20,52 @@
         {% include 'sidebar.html' %}
         <!-- Settings Sidebar -->
         <div class="flex">
-            <nav class="w-52 xl:ml-0 xl:w-44 bxl:w-52 h-auto ml-22 bg-gray-200 flex justify-center text-lg">
+            <nav class="w-52 xl:ml-0 xl:w-44 bxl:w-52 xl_4k:w-120 h-auto ml-22 bg-gray-200 flex justify-center text-lg">
                 <ul>
                     <li>
-                        <center><p href="#" class="text-2xl bxl:text-xl bxl:mt-12 xl:text-lg mt-5 font-Lato font-bold">Settings</p></center> 
+                        <center><p href="#" class="text-2xl bxl:text-xl bxl:mt-12 xl:text-lg xl_4k:text-6xl xl_4k:mt-32 mt-5 font-Lato font-bold">Settings</p></center> 
                     </li>
-                    <div class="mt-20 flex-row space-y-8 xl:text-2base">
+                    <div class="mt-20 xl_4k:mt-44 flex-row space-y-8 xl_4k:space-y-28 xl:text-2base">
                         <li>
-                            <span class="fas fa-pencil-alt mr-2 text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2 bxl:text-base"></span>
-                            <a href="{% url 'portalSettingPage' %}" class="bxl:text-base font-Lato text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2">Edit Profile</a>  
+                            <span class="fas fa-pencil-alt mr-2 xl_4k:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2 bxl:text-base"></span>
+                            <a href="{% url 'portalSettingPage' %}" class="bxl:text-base xl_4k:text-4xl font-Lato text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2">Edit Profile</a>  
                         </li>
                         <li>
-                            <span class="fas fa-lock mr-2 bxl:text-base"></span>
-                            <a href="{% url 'SettingPasswordPage' %}" class="font-Lato bxl:text-base">Password</a>    
+                            <span class="fas fa-lock mr-2 bxl:text-base xl_4k:text-4xl"></span>
+                            <a href="{% url 'SettingPasswordPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Password</a>    
                         </li>
                         <li>
-                            <span class="fas fa-file-invoice-dollar mr-3 bxl:text-base"></span>
-                            <a href="{% url 'SettingInvoicePage' %}" class="font-Lato bxl:text-base">Invoices</a>    
+                            <span class="fas fa-file-invoice-dollar mr-3 bxl:text-base xl_4k:text-4xl"></span>
+                            <a href="{% url 'SettingInvoicePage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Invoices</a>    
                         </li>
                         <li>
-                            <span class="fas fa-key mr-1 bxl:text-base"></span>
-                            <a href="{% url 'SettingPasswordManagementPage' %}" class="font-Lato bxl:text-base">Password Manager</a>    
+                            <span class="fas fa-key mr-1 bxl:text-base xl_4k:text-4xl"></span>
+                            <a href="{% url 'SettingPasswordManagementPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Password Manager</a>    
                         </li>
                         <li>
-                            <span class="fas fa-question-circle mr-1 bxl:text-base"></span>
-                            <a href="{% url 'SettingFaqsPage' %}" class="font-Lato bxl:text-base">FAQs</a>    
+                            <span class="fas fa-question-circle mr-1 bxl:text-base xl_4k:text-4xl"></span>
+                            <a href="{% url 'SettingFaqsPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">FAQs</a>    
                         </li>
                     </div>
                 </ul>
             </nav>
         </div>
         <div class="">
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
+            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3 xl_4k:mt-12 xl_4k:px-12">
                 <ul class="flex items-center text-sm  text-gray-600">
                     <li class="flex items-center justify-center">
-                        <a class="fas fa-search text-lg" href="#"></a>
+                        <a class="fas fa-search text-lg xl_4k:text-5xl" href="#"></a>
                         <form action="">
-                            <div class="h-10 flex items-center space-x-5 w-52">
-                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
+                            <div class="h-10 flex items-center space-x-5 w-52 xl_4k:w-80">
+                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg xl_4k:text-4xl" type="text" placeholder="Search">
                             </div>
                         </form>
                     </li>
                 </ul>
                 <ul class="flex items-center text-sm text-gray-600">
-                    <div class="flex items-center justify-center space-x-5">
+                    <div class="flex items-center justify-center space-x-5 xl_4k:space-x-20">
                         <li>
-                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
+                            <a class="fas fa-bell text-lg ml-6  xl_4k:text-5xl" href="#"></a>
                         </li>
                         <div class="flex items-center justify-center">
                             <li>
@@ -73,48 +75,50 @@
                             </li>
                             
                             <li class="text-lg xl:text-sm xxl:text-lg">
-                                <p class="font-Jost">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
+                                <p class="font-Jost xl_4k:text-5xl">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
                             </li>
                         </div>
                         <li class="">
-                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
+                            <a class="fas fa-chevron-down text-lg xl_4k:text-4xl ml-3" href="#"></a>
                         </li>
                     </div>
                 </ul>
             </nav>
         </div>
-        <div class="mt-32 xl:mt-10 xxl:mt-32 bxl:mt-16 ml-5 flex">
+        <div class="mt-32 xl:mt-10 xxl:mt-32 bxl:mt-16 xl_4k:mt-72 xl_4k:ml-40 ml-5 flex">
             <div>
-                <h1 class="text-4xl xl:text-2xl font-bold font-Poppins text-editProfile"><b>Invoices</b></h1>
-                <p class="font-Poppins text-gray-500 text-sm bxl:text-2base xl:w-180 font-medium">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
+                <h1 class="text-4xl xl:text-2xl xl_4k:text-7xl font-bold font-Poppins text-editProfile"><b>Invoices</b></h1>
+                <p class="font-Poppins text-gray-500 text-sm bxl:text-2base xl_4k:text-4xl xl_4k:w-240 xl:w-180 font-medium">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
                     Velit officia consequat duis enim velit mollit. 
                     Exercitation veniam consequat sunt nostrud amet.</p>
 
                 <div class="w-full xxl:ml-52 xxl:mt-10">
+                   
+                    <!-- remove table__body -->
 
-                <div class="table__body overflow-auto xl:h-110 bxl:h-130">
-                    <table class="table-auto xl:mt-5 xl:w-170 xl:mx-20 bxl:ml-32">
-                        <thead class="thead_bg bg-gray-200 xl:h-8">
-                            <tr class="text-sm bxl:text-2base text-gray-500">
-                                <th class="font-Poppins">Invoice ID</th>
+                <div class=" overflow-auto xl:h-110 bxl:h-130 xl_4k:h-220 xl_4k:ml-0">
+                    <table class="table-auto xl:mt-5 xl:w-170 xl_4k:mt-20 xl_4k:w-500 xl_4k:ml-0 xl:mx-20 bxl:ml-32">
+                        <thead class="thead_bg bg-gray-200 xl:h-8 ">
+                            <tr class="text-sm bxl:text-2base xl_4k:text-4xl text-gray-500 xl_4k:w-full">
+                                <th class="font-Poppins xl_4k:p-6">Invoice ID</th>
                                 <th class="font-Poppins">Purchase Date</th>
                                 <th class="font-Poppins">Item Purchased</th>
                                 <th class="font-Poppins">Invoice Amount</th>
                             </tr>
                         </thead>
-                        <tbody class="text-2base text-invCol font-Lato ">
+                        <tbody class="text-2base text-invCol font-Lato xl_4k:text-3xl">
                             {% for invoice_detail in list_of_invoice %}
                                 <tr class="inv_tr border-b-1 border-gray-300">
                                     <td class="font-Lato font-semibold">
                                         <button onclick="InvoiceDetails(this)" invoice_id="{{ invoice_detail.pk }}">#{{ invoice_detail.pk }}</button>
                                     </td>
-                                    <td class="font-Lato font-semibold">{{ invoice_detail.create_date|date:'M d, Y' }}</td>
-                                    <td class="font-Lato font-semibold">{{ invoice_detail.product_description }}</td>
-                                    <td class="font-Lato font-semibold">${{ invoice_detail.amount }}</td>
+                                    <td class="font-Lato font-semibold xl_4k:text-3xl">{{ invoice_detail.create_date|date:'M d, Y' }}</td>
+                                    <td class="font-Lato font-semibold xl_4k:text-3xl">{{ invoice_detail.product_description }}</td>
+                                    <td class="font-Lato font-semibold xl_4k:text-3xl">${{ invoice_detail.amount }}</td>
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td rowspan="4">No Invoices</td>
+                                    <td rowspan="4" class="xl_4k:text-4xl font-Poppins">No Invoices</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -132,7 +136,7 @@
 
     <div id="popup-view-invoice" class="popup bg-gray-50 xl:w-135 xl:h-110 flex-col absolute z-10 xl:p-6">
         <div class="flex justify-between">
-            <h1 class="font-Poppins text-xl font-bold text-purple-900 invoiceModalHeader" >INVOICE No. ###</h1>
+            <h1 class="font-Poppins text-xl font-bold text-purple-900 invoiceModalHeader xl_4k:text-4xl">INVOICE No. ###</h1>
             <button onclick="toggleCancelInvoice()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-10 " aria-hidden="true"></button>
         </div>
         <div>
@@ -141,40 +145,40 @@
                 <tbody class="inv_popup text-2base font-Lato ">
               
                   <tr class="inv_tr border-b-1 border-gray-300 ">
-                        <td class="font-Lato font-semibold text-purple-900 ">Date</td>
-                        <td class="font-Lato purchase_date">November 8, 2022</td>
+                        <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Date</td>
+                        <td class="font-Lato purchase_date xl_4k:text-2xl">November 8, 2022</td>
                   </tr>
                   <tr class="inv_tr border-b-1 border-gray-300">
-                        <td class="font-Lato font-semibold text-purple-900">Payment Method</td>
-                        <td class="font-Lato payment_method">Card (#### #### #### 1234)</td>
+                        <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Payment Method</td>
+                        <td class="font-Lato payment_method xl_4k:text-2xl">Card (#### #### #### 1234)</td>
                   </tr>
                   <tr class="inv_tr border-b-1 border-gray-300">
-                        <td class="font-Lato font-semibold text-purple-900">Customer Number</td>
-                        <td class="font-Lato customer_id">0081</td>
+                        <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Customer Number</td>
+                        <td class="font-Lato customer_id xl_4k:text-2xl">0081</td>
                   </tr>
                   <tr class="inv_tr border-b-1 border-gray-300">
-                        <td class="font-Lato font-semibold text-purple-900">Address</td>
-                        <td class="font-Lato customer_address">123 Anywhere St., Any City, ST 12345</td>
+                        <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Address</td>
+                        <td class="font-Lato customer_address xl_4k:text-2xl">123 Anywhere St., Any City, ST 12345</td>
                   </tr>
                   <tr class="inv_tr border-b-1 border-gray-300">
-                        <td class="font-Lato font-semibold text-purple-900">Product</td>
-                        <td class="font-Lato invoice_product">Credits Bundle A</td>
+                        <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Product</td>
+                        <td class="font-Lato invoice_product xl_4k:text-2xl">Credits Bundle A</td>
                   </tr>
                   <tr class="inv_tr border-b-1 border-gray-300">
-                        <td class="font-Lato font-semibold text-purple-900">Quantity</td>
-                        <td class="font-Lato invoice_quantity">1</td>
+                        <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Quantity</td>
+                        <td class="font-Lato invoice_quantity xl_4k:text-2xl">1</td>
                   </tr>
                   <tr class="inv_tr border-b-1 border-gray-300">
-                    <td class="font-Lato font-semibold text-purple-900">Breakdown</td>
-                    <td class="font-Lato invoice_description">Credits Bundle A - 150 Credits</td>
+                    <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Breakdown</td>
+                    <td class="font-Lato invoice_description xl_4k:text-2xl">Credits Bundle A - 150 Credits</td>
                   </tr>
                   <tr class="inv_tr border-b-1 border-gray-300">
-                        <td class="font-Lato font-semibold text-purple-900">Total Tax</td>
-                        <td class="font-Lato invoice_tax">$0</td>
+                        <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Total Tax</td>
+                        <td class="font-Lato invoice_tax xl_4k:text-2xl">$0</td>
                   </tr>
                   <tr class="inv_tr border-b-1 border-gray-300">
-                        <td class="font-Lato font-semibold text-purple-900">Total</td>
-                        <td class="font-Lato invoice_total">$1000</td>
+                        <td class="font-Lato font-semibold text-purple-900 xl_4k:text-4xl">Total</td>
+                        <td class="font-Lato invoice_total xl_4k:text-2xl">$1000</td>
                   </tr>
                   
                 </tbody>
