@@ -1,0 +1,1041 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Task | Design & Arts</title>
+    <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+  <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- Sidebar Panel -->
+    <div class="overlay hidden" onclick="toggleCloseService()" id="overlay_id"></div>
+    <div class="flex">
+        {% include 'sidebar.html' %}
+        <div>
+            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
+                <ul class="flex items-center text-sm  text-gray-600">
+                    <li class="flex items-center justify-center">
+                        <a class="fas fa-search text-lg" href="#"></a>
+                        <form action="">
+                            <div class="h-10 flex items-center space-x-5 w-52">
+                                <input class="w-full bg-whiteSmoke text-black xl:py-1 xl:text-sm bxl:text-base font-Poppins xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="flex items-center text-sm text-gray-600">
+                    <div class="flex items-center justify-center space-x-5">
+                        <li>
+                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
+                        </li>
+                        <div class="flex items-center justify-center">
+                            <li>
+                                <a href="#">
+                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full" > 
+                                </a>
+                            </li>
+                            <li class="text-lg xl:text-sm mxl:text-2base xxl:text-lg">
+                                <p class="font-Poppins">John Doe</p>
+                            </li>
+                        </div>
+                        <li class="">
+                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
+                        </li>
+                    </div>
+                </ul>
+                
+            </nav>
+        </div>
+        <div class="flex flex-col w-full xl:mt-14 overflow-hidden">
+            <div class="xl:ml-5 ">
+                <h1 class="text-4xl xl:text-2xl xxl:text-3xl font-Poppins text-editProfile font-bold text-center">CHOOSE A SERVICE</h1>
+                <form action="">
+                    <div class="xl:mt-2 rounded-xl xl:py-1 xxl:py-3 xl:px-3 xl:w-52 xxl:w-72 xl:mb-5 bg-gradient-to-r from-linearButton1 to-linearButton2 border border-gray-300 flex justify-center  items-center">
+                        <a class="fas fa-search text-sm xxl:text-lg  text-white" href="#"></a>
+                        <input type="search" placeholder="Search a Service" class="xl:w-full xl:p-1 text-white font-Poppins text-xvs placeholder:text-gray-100 bg-gradient-to-r from-linearButton1 to-linearButton2 xxl:text-base">
+                    </div>
+                </form>
+                <div>
+                    <select id="services" name="services" class="block bg-whiteSmoke xl:w-96 xl:text-xl xxl:text-2xl font-Poppins text-editProfile font-bold  ">
+                        <option value="design_arts" class="xl:text-sm font-Poppins hover:bg-red-300">Design and Arts</option>
+                        <option value="" class="xl:text-sm font-Poppins">Accounting and Finance</option>
+                        <option value="" class="xl:text-sm font-Poppins">Business and Operational Assistance </option>
+                        <option value="" class="xl:text-sm font-Poppins">Content Creation</option>
+                        <option value="" class="xl:text-sm font-Poppins">Content & Creative Writing</option>
+                        <option value="" class="xl:text-sm font-Poppins">Marketing</option>
+                        <option value="" class="xl:text-sm font-Poppins">Technology and Development</option>
+                    </select>
+                    <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:mt-20 xxl:text-xl text-profCol">Branding</h1>
+                    <section id="first-slider" class="splide">
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                <li class="splide__slide">
+                                    <button onclick="toggleChooseService()" class="cursor-pointer">
+                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">2D Logo Design</h3>
+                                            <div class="xl:mt-5 flex items-center justify-center">
+                                                <i class="fas fa-pen-square  text-7xl text-purple-400"></i>
+                                            </div>
+                                            <h3 class="text-gray-500 xl:text-vs xl:mt-3 xxl:text-2base font-Poppins">2D Logo Design Service Description</h3>
+                                        </div>
+                                    </button>
+                                </li>
+                                <li class="splide__slide">
+                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                        <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">2D Packaging Design</h3>
+                                        <div class="xl:mt-5 flex items-center justify-center">
+                                            <i class="fas fa-shopping-bag text-6xl text-purple-400" ></i>
+                                        </div>
+                                        <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base font-Poppins">2D Packaging Design Service Description</h3>
+                                    </div>
+                                </li>
+                                <li class="splide__slide">
+                                    <button onclick="toggleTaskReOccurence()" class="cursor-pointer">
+                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Business Card & Stationery Design</h3>
+                                            <div class="xl:mt-3 flex items-center justify-center">
+                                                <i class="fas fa-id-card text-6xl text-purple-400"></i>
+                                            </div>
+                                            <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base  font-Poppins">Business Card & Stationery Design Service Description</h3>
+                                        </div>
+                                    </button>
+                                </li>
+
+                                <li class="splide__slide">
+                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                        <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Envelope Design</h3>
+                                        <div class="xl:mt-5 flex items-center justify-center">
+                                            <i class="fas fa-envelope  text-7xl text-purple-400"></i>
+                                        </div>
+                                        <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base font-Poppins">Envelope Design Service Description</h3>
+                                    </div>
+                                </li>
+                            </ul>    
+                        </div>
+                    </section>
+                    <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:text-xl text-profCol">Reports and Presentation</h1>
+                    <section id="second-slider" class="splide">
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                <li class="splide__slide z-0">
+                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                        <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Documentation Design</h3>
+                                        <div class="xl:mt-5 flex items-center justify-center">
+                                            <i class="fas fa-pen-square  text-7xl text-purple-400"></i>
+                                        </div>
+                                        <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base font-Poppins">Documentation Design Service Description</h3>
+                                    </div>
+                                </li>
+                                <li class="splide__slide">
+                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                        <h3 class="font-Poppins flex-none font-bold text-xvs  xxl:text-base">Infographic Design</h3>
+                                        <div class="xl:mt-5 flex items-center justify-center">
+                                            <i class="fas fa-shopping-bag text-6xl text-purple-400" ></i>
+                                        </div>
+                                        <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base font-Poppins">Infographic Design Service Description</h3>
+                                    </div>
+                                </li>
+                                <li class="splide__slide">
+                                    <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
+                                        <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Presentation Design</h3>
+                                        <div class="xl:mt-3 flex items-center justify-center">
+                                            <i class="fas fa-id-card text-6xl text-purple-400"></i>
+                                        </div>
+                                        <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base font-Poppins">Presentation Design Service Description</h3>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div id="popup-choose-service" class="popup-submit-task  bg-gray-50 xl:w-210 xl:h-120 absolute z-10 overflow-auto">
+            <div class="flex h-full ">
+                <div class="xl:py-20 text-white bg-gradient-to-b from-blue-500 via-purple-400 to-purple-500 xl:w-40 h-screen rounded-l-xl text-center">
+                    <h1 id="barTitle" class="font-Poppins font-semibold xl:text-sm xl:mx-3">Launch a New Task</h1>
+                    <!-- Progress Bar -->
+                    <div class="progressbar z-10 xl:ml-8 xl:mt-5">
+                        <div class="progress " id="progress"></div>
+                        <div class="progress-step progress-step-active font-Poppins" data-title="Task Details"></div>
+                        <div class="progress-step font-Poppins" data-title="Company Details"></div>
+                        <div class="progress-step font-Poppins" data-title="Branding"></div>
+                        <div class="progress-step font-Poppins" data-title="Target Audience"></div>
+                        <div class="progress-step font-Poppins" data-title="Design Preference"></div>
+                    </div> 
+                </div>  
+                <!-- Form Page 1 -->
+                <div>
+                    <div class="form-step form-step-active">
+                        <div class="xl:py-4 xl:px-5 w-full h-full ">
+                            <div class="flex justify-between">
+                                <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
+                                <button onclick="toggleCancelNewTask()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-4 " aria-hidden="true"></button>
+                            </div>
+                            <h2 class="text-profCol text-lg font-semibold xl:mt-2 font-Poppins"><u>Task Details</u></h2>
+                            <div class="flex xl:space-x-3 xl:mt-2">
+                                <label class="font-Poppins text-gray-500 text-xsm">Select Service:</label>
+                                <select id="logo_service" name="logo_service" class="block bg-whiteSmoke xl:w-fit xl:text-xsm font-Poppins border-1 ">
+                                    <option value="design_arts" class="font-Poppins hover:bg-red-300">Select Service</option>
+                                    <option value="" class=" font-Poppins">Combinationmark Logos</option>
+                                </select>
+                            </div>
+                            <hr class="xl:mt-5 border border-gray-300">
+                            <div class="flex xl:space-x-3 xl:mt-1">
+                                <label class="font-Poppins text-gray-500 text-xsm">Task Name:</label>
+                                <input type="text" class="border-1 border-gray-500 text-xsm xl:w-85 font-Poppins p-1">
+                            </div>
+                            <div class="flex xl:space-x-3 xl:mt-1">
+                                <label class="font-Poppins text-gray-500 text-xsm">Description:</label>
+                                <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 xl:h-14 p-1"></textarea>
+                            </div>
+                            <hr class="xl:mt-2 border  border-gray-300">
+                            <div class="flex text-xsm xl:space-x-52 xl:mt-2">
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Start Date:</label>
+                                    <h3 class="font-Poppins">16/01/2023</h3>
+                                </div>
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins text-gray-500 text-xsm">End  Date:</label>
+                                    <h3 class="font-Poppins ">28/02/2023</h3>
+                                </div>
+                            </div>
+                            <hr class="xl:mt-3 border  border-gray-300">
+                            <div class="xl:mt-3">
+                                <label class="font-Poppins text-gray-500 text-xsm">
+                                    <div class="">                
+                                        <button class="border border-gray-400 rounded-lg p-4 ">
+                                            <input  type="file" id="upload-file" class="font-Poppins cursor-pointer ext-xsm">
+                                        </button>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="xl:mt-4">
+                                <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Add-on Task Deals</h1>
+                                <div class="flex justify-between">
+                                    <div class="flex xl:space-x-10 xl:w-170">
+                                        <label class="flex xl:space-x-3  items-center">
+                                            <input type="checkbox" name="envelope_design" value="envelope_design">
+                                            <i class="fas fa-envelope  text-4xl text-purple-400"></i>
+                                            <div class="xl:text-sm">
+                                                <h3 class="font-Poppins font-semibold">Envelope Design</h3>
+                                                <h4><span class="text-gray-500">Service:</span> Commercial Envelope</h4>
+                                                <h4><span class="text-gray-500">Credits:</span> 50</h4>
+                                            </div>
+                                        </label>
+                                        <label class="flex xl:space-x-3 items-center">
+                                            <input type="checkbox" name="tag_label_design" value="tag_label_design">    
+                                            <i class="fas fa-tag  text-4xl text-purple-400"></i>
+                                            <div class="xl:text-sm">
+                                                <h3 class="font-Poppins font-semibold">Tag and Label Design</h3>
+                                                <h4><span class="text-gray-500">Service:</span> Product Labels and Tag</h4>
+                                                <h4><span class="text-gray-500">Credits:</span> 50</h4>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <button type="button">
+                                            <a href="#" class="btn btn-prev">Previous</a>
+                                            <i class="fas fa-arrow-circle-right btn btn-next xl:text-2xl xl:mt-14"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <!-- Form Page 2 -->
+                    <div class="form-step">    
+                        <div class="xl:py-4 xl:px-5 w-full h-full">
+                            <div class="flex justify-between">
+                                <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
+                                <button onclick="toggleCancelNewTask()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-4 " aria-hidden="true"></button>
+                            </div> 
+                            <h2 class="text-profCol text-base font-semibold xl:mt-0 font-Poppins"><u>Company Details</u></h2> 
+                            <div class="flex xl:space-x-20 xl:mt-2">
+                                <label class="font-Poppins text-gray-500 text-xsm">Industry Type:</label>
+                                <select id="logo_service" name="logo_service" class="block bg-whiteSmoke xl:w-fit xl:text-xsm font-Poppins border-1 ">
+                                    <option value="design_arts" class="font-Poppins hover:bg-red-300">Select Industry Type</option>
+                                    <option value="" class=" font-Poppins">Retail Type</option>
+                    
+                                </select>
+
+                                <label class="font-Poppins text-gray-500 text-xsm">Services/Products:</label>
+                                <select id="logo_service" name="logo_service" class="block bg-whiteSmoke xl:w-fit xl:text-xsm font-Poppins border-1 ">
+                                    <option value="design_arts" class="font-Poppins hover:bg-red-300">Select Services/Products</option>
+                                    <option value="" class=" font-Poppins">Men's Clothing Stores</option>
+                    
+                                </select>
+                            </div>
+                            <div class="flex xl:space-x-40 xl:mt-3">
+                                <label class="font-Poppins text-gray-500 text-xsm">Company Establishment Date:</label>
+                                <input type="text" class="border-1 border-gray-500 text-xsm xl:w-85 font-Poppins">
+                            </div>
+                            <hr class="xl:mt-1 border border-gray-300">
+                            <div class="flex flex-col space-y-2 xl:mt-3">
+                                <div class="space-x-58">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Main Competitors:</label>
+                                    <input type="text" class="border-1 border-gray-500 text-xsm xl:w-85 font-Poppins">
+                                </div>
+                                <div class="space-x-12">
+                                    <label class="font-Poppins text-gray-500 text-xsm">How does your competitors market
+                                        themselves?</label>
+                                    <input type="text" class="border-1 border-gray-500 text-xsm xl:w-85 font-Poppins">
+                                </div>
+                                <div class="flex space-x-10">
+                                    <label class="font-Poppins text-gray-500 text-xsm">What sets your company apart from competition?</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>        
+                            </div>
+                            <hr class="xl:mt-2 border  border-gray-300">
+                            <div class="flex flex-col space-y-2 xl:mt-3">
+                                <div class="flex space-x-44">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Strengths of your company:</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>     
+                                <div class="flex space-x-40">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Weaknesses of your company:</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>    
+                            </div>
+                            <hr class="xl:mt-2 border  border-gray-300">
+                            <div class="flex justify-between xl:mt-3">
+                                <div class="flex space-x-25">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Company’s Value or Mission
+                                        Statement:</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>
+                                
+                                <button type="button">
+                                    <i class="fas fa-arrow-circle-right btn btn-next xl:text-2xl xl:mt-14"></i>                    
+                                </button>
+                            </div>      
+                        </div>
+                    </div>
+                    <!-- Form Page 3 -->
+                    <div class="form-step">        
+                        <div class="xl:py-4 xl:px-5 w-full h-full">
+                            <div class="flex justify-between">
+                                <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
+                                <button onclick="toggleCancelNewTask()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-4 " aria-hidden="true"></button>
+                            </div>
+                            <h2 class="text-profCol text-base font-semibold xl:mt-0 font-Poppins"><u>Branding</u></h2>
+                            <div class="flex space-x-50">
+                                <label class="font-Poppins text-gray-500 text-xsm">Do you have a current logo?</label>
+                                <div class="flex space-x-1">
+                                    <label class="font-Poppins xl:text-xsm mt-1">
+                                        <input type="radio" name="answer" value="yes">Yes
+                                    </label>
+                                    <label class="font-Poppins xl:text-xsm mt-1">
+                                        <input type="radio" name="answer" value="no">No
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="xl:ml-92">
+                                <label class="font-Poppins text-gray-500 text-xsm">Upload File:</label>
+                                <input type="file" class="text-xsm">
+                            </div>
+                            <div class="flex space-x-22">
+                                <label class="font-Poppins text-gray-500 text-xsm">Do you have slogan that goes with your logo?</label>
+                                <div class="flex space-x-1">
+                                    <label class="font-Poppins xl:text-xsm mt-1">
+                                        <input type="radio" name="answer2" value="yes">Yes
+                                    </label>
+                                    <label class="font-Poppins xl:text-xsm mt-1">
+                                        <input type="radio" name="answer2" value="no">No
+                                    </label>
+                                </div> 
+                            </div>
+                            <div class="xl:ml-92">
+                                <label class="font-Poppins text-gray-500 text-xsm">Type it here:</label>
+                                <input type="text" class="border-1 border-gray-500 text-xsm xl:w-60 font-Poppins">
+                            </div>
+                            <div class="flex xl:space-x-20 xl:mt-3">
+                                <label class="font-Poppins text-gray-500 text-xsm">What do you like and dislike about current logo?</label>
+                                <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                            </div>
+                            <hr class="xl:mt-1 border border-gray-300">
+                            <div class="flex flex-col space-y-2 xl:mt-3">
+                                <div class="flex space-x-20">
+                                    <label class="font-Poppins text-gray-500 text-xsm">What do you want the new logo to accomplish?</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea>     
+                                </div>
+                                <div class="flex space-x-32">
+                                    <div class=" xl:w-60">
+                                        <label class="font-Poppins text-gray-500 text-xsm">What three attributes would you like your target audience to think of when looking at new branding?</label>
+                                    </div>
+                                    <input type="text" class="border-1 border-gray-500 text-xsm xl:w-85 font-Poppins">
+                                </div>                          
+                            </div>
+                            <hr class="xl:mt-2 border  border-gray-300">
+                            <div class="flex justify-between xl:mt-3">
+                                <div class="flex space-x-4 xl:w-160">
+                                    <label class="font-Poppins text-gray-500 text-xsm xl:mr-12">Which of these words is a better fit for your brand?</label>                        
+                                    <div class="">
+                                        <div class="">
+                                            <input type="checkbox" id="option1" name="option1" class="" value="option1">
+                                            <label for="option1" class="text-xsm font-Poppins cursor-pointer">Traditional</label>
+                                        </div>
+                                        <div class="">
+                                            <input type="checkbox" id="option2" name="option2" class="" value="option2">
+                                            <label for="option2" class="text-xsm font-Poppins cursor-pointer">Friendly</label>
+                                        </div>
+                                        <div class="">
+                                            <input type="checkbox" id="option3" name="option3" class="" value="option3">
+                                            <label for="option3" class="text-xsm font-Poppins cursor-pointer">High-end</label>
+                                        </div>
+                                        <div class="">
+                                            <input type="checkbox" id="option4" name="option4" class="" value="option4">
+                                            <label for="option4" class="text-xsm font-Poppins cursor-pointer">Consumer</label>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="">
+                                            <input type="checkbox" id="option5" name="option5" class="" value="option5">
+                                            <label for="option5" class="text-xsm font-Poppins cursor-pointer">Modern</label>
+                                        </div>
+
+                                        <div class="">
+                                            <input type="checkbox" id="option6" name="option6" class="" value="option6">
+                                            <label for="option6" class="text-xsm font-Poppins cursor-pointer">Corporate</label>
+                                        </div>
+
+                                        <div class="">
+                                            <input type="checkbox" id="option7" name="option7" class="" value="option7">
+                                            <label for="option7" class="text-xsm font-Poppins cursor-pointer">Cost-effective</label>
+                                        </div>
+
+                                        <div class="">
+                                            <input type="checkbox" id="option8" name="option8" class="" value="option8">
+                                            <label for="option8" class="text-xsm font-Poppins cursor-pointer">Trade</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button">
+                                    <a href="#" class="btn btn-prev">Previous</a>
+                                    <i class="fas fa-arrow-circle-right btn btn-next xl:text-2xl xl:mt-14"></i>                    
+                                </button>
+                            </div> 
+                        </div>
+                    </div>
+                    <!-- Form Page 4 -->
+                    <div class="form-step"> 
+                        <div class="xl:py-4 xl:px-5 w-full h-full">
+                            <div class="flex justify-between">
+                                <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
+                                <button onclick="toggleCancelNewTask()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-4 " aria-hidden="true"></button>
+                            </div>
+                            <h2 class="text-profCol text-base font-semibold xl:mt-0 font-Poppins"><u>Target Audience</u></h2>
+                            <div class=" space-x-4 xl:w-160">
+                                <label class="font-Poppins text-gray-500 text-xsm xl:mr-12">Primary Target Audience:</label>
+                                    <div class="">
+                                        <div class="flex space-x-6">
+                                            <div>
+                                                <div>
+                                                    <label class="font-Poppins text-gray-500 text-xsm xl:mr-12">Gender:</label>
+                                                    <div class="xl:w-52">
+                                                        <input type="checkbox" id="male" name="male" class="" value="male">
+                                                        <label for="male" class="text-xsm font-Poppins cursor-pointer">Male</label>
+                                                        <input type="checkbox" id="female" name="female" class="" value="female">
+                                                        <label for="female" class="text-xsm font-Poppins cursor-pointer">Female</label>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label class="font-Poppins text-gray-500 text-xsm xl:mr-12">Marital Status:</label>
+                                                    <div class="">
+                                                        <div>
+                                                            <input type="checkbox" id="married" name="married" class="" value="married">
+                                                            <label for="married" class="text-xsm font-Poppins cursor-pointer">Married</label>
+                                                            <input type="checkbox" id="widowed" name="widowed" class="" value="widowed">
+                                                            <label for="widowed" class="text-xsm font-Poppins cursor-pointer">Widowed</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="checkbox" id="divorced" name="divorced" class="" value="divorced">
+                                                            <label for="divorced" class="text-xsm font-Poppins cursor-pointer">Divorced</label>
+                                                            <input type="checkbox" id="nvr_married" name="nvr_married" class="" value="nvr_married">
+                                                            <label for="nvr_married" class="text-xsm font-Poppins cursor-pointer">Never Married</label>
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="font-Poppins text-gray-500 text-xsm xl:mr-12">Age Group:</label>
+                                                <div class="xl:w-52">
+                                                    <div>
+                                                        <input type="checkbox" id="zerofif" name="zerofif" class="" value="zerofif">
+                                                        <label for="zerofif" class="text-xsm font-Poppins cursor-pointer">0-15 years old</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="checkbox" id="sixteen_thirty" name="sixteen_thirty" class="" value="sixteen_thirty">
+                                                        <label for="sixteen_thirty" class="text-xsm font-Poppins cursor-pointer">16-30 years old</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" id="thir_ftyfive" name="thir_ftyfive" class="" value="thir_ftyfive">
+                                                        <label for="thir_ftyfive" class="text-xsm font-Poppins cursor-pointer">31-45 years old</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" id="foursixabv" name="foursixabv" class="" value="foursixabv">
+                                                        <label for="foursixabv" class="text-xsm font-Poppins cursor-pointer">46 years old above</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="font-Poppins text-gray-500 text-xsm xl:mr-12">Education Level:</label>
+                                                <div class="xl:w-80">
+                                                    <div>
+                                                        <input type="checkbox" id="sm_hs" name="sm_hs" class="" value="sm_hs">
+                                                        <label for="sm_hs" class="text-xsm font-Poppins cursor-pointer">Some High School</label>
+                                                        
+                                                        <input type="checkbox" id="phd_high" name="phd_high" class="" value="phd_high">
+                                                        <label for="phd_high" class="text-xsm font-Poppins cursor-pointer">Ph.D. or Higher</label>
+                                                    
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="checkbox" id="high_s" name="high_s" class="" value="high_s">
+                                                        <label for="high_s" class="text-xsm font-Poppins cursor-pointer">High School</label>
+                                                        
+                                                        <input type="checkbox" id="trade_s" name="trade_s" class="" value="trade_s">
+                                                        <label for="trade_s" class="text-xsm font-Poppins cursor-pointer">Trade School</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="checkbox" id="bch_deg" name="bch_deg" class="" value="bch_deg">
+                                                        <label for="bch_deg" class="text-xsm font-Poppins cursor-pointer">Bachelor’s Degree</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="checkbox" id="mas_deg" name="mas_deg" class="" value="mas_deg">
+                                                        <label for="mas_deg" class="text-xsm font-Poppins cursor-pointer">Master’s Degree</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex">
+                                            <div>
+                                                <label class="font-Poppins text-gray-500 text-xsm xl:mr-12">Employment:</label>
+                                                <div class="xl:w-80">
+                                                    <div>
+                                                        <input type="checkbox" id="emp_ft" name="emp_ft" class="" value="emp_ft">
+                                                        <label for="emp_ft" class="text-xsm font-Poppins cursor-pointer">Employed Full-Time</label>
+                                                        
+                                                        <input type="checkbox" id="sk_oppr" name="sk_oppr" class="" value="sk_oppr">
+                                                        <label for="sk_oppr" class="text-xsm font-Poppins cursor-pointer">Seeking Opportunities</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" id="emp_pt" name="emp_pt" class="" value="emp_pt">
+                                                        <label for="emp_pt" class="text-xsm font-Poppins cursor-pointer">Employed Part-Time</label>
+                                                        
+                                                        <input type="checkbox" id="retired" name="retired" class="" value="retired">
+                                                        <label for="retired" class="text-xsm font-Poppins cursor-pointer">Retired</label>
+                                                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="xl:ml-0">
+                                                <label class="font-Poppins text-gray-500 text-xsm ">Average Household Income:</label>
+                                                <div class="xl:w-120">
+                                                    <div>
+                                                        <input type="checkbox" id="less_25" name="less_25" class="" value="less_25">
+                                                        <label for="less_25" class="text-xsm font-Poppins cursor-pointer">Less than $25,000</label>
+                                                        
+                                                        <input type="checkbox" id="oneh_up" name="oneh_up" class="" value="oneh_up">
+                                                        <label for="oneh_up" class="text-xsm font-Poppins cursor-pointer">$100,000-$200,000</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" id="twentyfiveh_up" name="twentyfiveh_up" class="" value="twentyfiveh_up">
+                                                        <label for="twentyfiveh_up" class="text-xsm font-Poppins cursor-pointer">$25,000-$50,000</label>
+                                                        
+                                                        <input type="checkbox" id="twohundr_up" name="twohundr_up" class="" value="twohundr_up">
+                                                        <label for="twohundr_up" class="text-xsm font-Poppins cursor-pointer">More than $200,000</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" id="fifty_hundred" name="fifty_hundred" class="" value="fifty_hundred">
+                                                        <label for="fifty_hundred" class="text-xsm font-Poppins cursor-pointer">$50,000-$100,000</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="xl:mt-1 border border-gray-300">
+                                <div class="flex xl:space-x-10 xl:mt-3">
+                                    <label class="font-Poppins text-gray-500 text-xsm">How do most of your customer find out about your company?</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>        
+                                <div class="flex flex-col space-y-2 xl:mt-3">
+                                    <div class="flex space-x-10">
+                                        <label class="font-Poppins text-gray-500 text-xsm">How do you plan to communicate with your target audience?</label>
+                                        <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea>     
+                                    </div>
+                                    <hr class="xl:mt-1 border border-gray-300">
+                                </div>
+                                <div class="flex justify-between xl:mt-3">
+                                    <div class="flex space-x-40">
+                                        <div class=" xl:w-60">
+                                            <label class="font-Poppins text-gray-500 text-xsm">Are there any new markets you’d like to break into? if so, what would they be and why?</label>
+                                        </div>
+                                        <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea>     
+                                    </div>
+                                    <button type="button">
+                                        <a href="#" class="btn btn-prev">Previous</a>
+                                        <i class="fas fa-arrow-circle-right btn btn-next xl:text-2xl xl:mt-14"></i>                    
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Form Page 5 -->
+                        <div class="form-step">    
+                            <div class="xl:py-4 xl:px-5 w-full h-full text-vs">
+                                <div class="flex justify-between">
+                                    <h1 class="xl:text-lg text-editProfile font-Poppins font-bold">Design and Arts / Branding / 2D Logo Design</h1>
+                                    <button onclick="toggleCancelNewTask()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-4 " aria-hidden="true"></button>
+                                </div>
+                                <h2 class="text-profCol text-base font-semibold xl:mt-0 font-Poppins"><u>Design Preference</u></h2>
+                                <div class="flex space-x-3">
+                                    <label class="font-Poppins text-gray-500 text-xsm">What colors or color palettes does the company typically use and why?</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>
+                                <div class="flex xl:space-x-44">
+                                    <label class="font-Poppins text-gray-500 text-xsm xl:mr-12">Where will the logo be mainly used?</label>
+                                    <div class="flex xl:mt-3 xl:space-x-5">
+                                        <div class="">
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_1" name="designpref_1" class="" value="designpref_1">
+                                                <label for="designpref_1" class="text-xsm font-Poppins cursor-pointer">Websites & Blogs</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_2" name="designpref_2" class="" value="designpref_2">
+                                                <label for="designpref_2" class="text-xsm font-Poppins cursor-pointer">Business Cards</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_3" name="designpref_3" class="" value="designpref_3">
+                                                <label for="designpref_3" class="text-xsm font-Poppins cursor-pointer">Signs & Banners</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_4" name="designpref_4" class="" value="designpref_4">
+                                                <label for="designpref_4" class="text-xsm font-Poppins cursor-pointer">Products & Packaging</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_5" name="designpref_5" class="" value="designpref_5">
+                                                <label for="designpref_5" class="text-xsm font-Poppins cursor-pointer">Letters & Emails</label>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_6" name="designpref_6" class="" value="designpref_6">
+                                                <label for="designpref_6" class="text-xsm font-Poppins cursor-pointer">Invoices & Forms</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_7" name="designpref_7" class="" value="designpref_7">
+                                                <label for="designpref_7" class="text-xsm font-Poppins cursor-pointer">Social Media Profiles</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_8" name="designpref_8" class="" value="designpref_8">
+                                                <label for="designpref_8" class="text-xsm font-Poppins cursor-pointer">Promotional Merchandise</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_9" name="designpref_9" class="" value="designpref_9">
+                                                <label for="designpref_9" class="text-xsm font-Poppins cursor-pointer">Company Apparel</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox" id="designpref_10" name="designpref_10" class="" value="designpref_10">
+                                                <label for="designpref_10" class="text-xsm font-Poppins cursor-pointer">Business Vehicles</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="flex xl:space-x-9 xl:mt-3">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Are there any restrictions to consider when designing the new logo?</label>
+                                    <textarea class="border-1  xl:ml-20 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>
+                                <div class="flex xl:space-x-6 xl:mt-3">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Are there any elements from existing logo you’d like to keep and why?</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>
+                                <div class="flex xl:space-x-38 xl:mt-3">
+                                    <label class="font-Poppins text-gray-500 text-xsm xl:w-72">Is there anything that must be included like existing brand elements, words, or icons?</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>
+                                <hr class="xl:mt-1 border border-gray-300">
+                                <div class="flex xl:space-x-36 xl:mt-3">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Are there any logos you don't think work and why?</label>
+                                    <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                </div>
+                                <div class="flex justify-between xl:mt-3">
+                                    <div class="flex xl:space-x-32 xl:mt-3">
+                                        <label class="font-Poppins text-gray-500 text-xsm">In your opinion, what defines a successful logos?</label>
+                                        <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 p-1"></textarea> 
+                                    </div>
+                                    <button type="button">
+                                        <a href="#" class="btn btn-prev xl:text-xsm">Previous</a>
+                                        <a id="prBtn" href="#" class="btn btn-prw xl:text-xsm">Preview</a>    
+                                        <a onclick="toggleTaskReOccurence()" id="submitFormBtn" href="#" class="btn btn-prw xl:text-xsm" hidden>Submit</a>                  
+                                    </button>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div id="popup-taskReOccurence" class="popup bg-gray-50 xl:w-210 xl:h-120 absolute z-10 xl:p-5 overflow-hidden">
+                <div class="flex justify-between">
+                    <h1 class="text-2xl font-Poppins font-bold text-purple-800">Task Reoccurence</h1>
+                    <button onclick="toggleCloseService()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-7 " aria-hidden="true"></button>
+                </div>
+                <div class="flex">
+                    <div class="w-full ">
+                        <h2 class="text-profCol text-lg font-semibold xl:mt-2 font-Poppins"><u>Reoccurence</u></h2>
+                        <div class="flex">
+                            <label class="font-Poppins text-gray-500 text-xsm xl:mr-10">Recurring Frequency:</label>
+                            <select id="" class="block bg-whiteSmoke xl:w-fit xl:text-xsm font-Poppins border-1 ">
+                                <option value="" class="font-Poppins">Choose Frequency</option>
+                                <option value="" class="font-Poppins hover:bg-red-300">Yearly</option>
+                                <option value="" class=" font-Poppins">Monthly</option>
+                             </select>
+                        </div>
+                        <div class="flex xl:mt-2">
+                            <label class="font-Poppins text-gray-500 text-xsm xl:mr-24">Once Every:</label>
+                            <select id="" class="block bg-whiteSmoke xl:w-fit xl:text-xsm font-Poppins border-1 ">
+                                <option value="" class="font-Poppins">Choose Frequency</option>
+                                <option value="" class="font-Poppins hover:bg-red-300">Yearly</option>
+                                <option value="" class=" font-Poppins">Monthly</option>
+                            </select>
+                        </div>
+                        <div class="flex xl:mt-2">
+                            <label class="font-Poppins text-gray-500 text-xsm xl:mr-25">End After:</label>
+                            <select id="" class="block bg-whiteSmoke xl:w-20 xl:text-xsm font-Poppins border-1 ">
+                                <option value="" class="font-Poppins hover:bg-red-300">1</option>
+                                <option value="" class=" font-Poppins">2</option>
+                            </select>
+                            <label class="font-Poppins xl:ml-2 text-gray-500 text-xsm">occurence(s)</label>
+                        </div>
+                        <div class="xl:mt-2">
+                            <input type="checkbox" id="taskReOccur1" name="taskReOccur1" class="" value="designpref_2">
+                            <label for="taskReOccur1" class="text-xsm font-Poppins cursor-pointer">Set to Previous Business Day</label>
+                        </div>
+                        <div class="">
+                            <input type="checkbox" id="taskReOccur2" name="taskReOccur2" class="" value="designpref_2">
+                            <label for="taskReOccur2" class="text-xsm font-Poppins cursor-pointer">Retain comments for subsequent recurrences</label>
+                        </div>
+                        <div class="">
+                            <input type="checkbox" id="taskReOccur3" name="taskReOccur3" class="" value="designpref_2">
+                            <label for="taskReOccur3" class="text-xsm font-Poppins cursor-pointer">Create next recurrence after closing the current task.</label>
+                        </div>
+                        <h2 class="text-profCol text-lg font-semibold xl:mt-2 font-Poppins"><u>Reoccurence</u></h2>
+                        <label class="font-Poppins text-gray-500 text-xsm">Add-on Task Details</label>
+                        <div class="flex xl:space-x-3 xl:mt-1">
+                            <label class="font-Poppins text-gray-500 text-xsm">Task Name:</label>
+                            <input type="text" class="border-1 border-gray-500 text-xsm xl:w-85 font-Poppins p-1">
+                        </div>
+                        <div class="flex xl:space-x-3 xl:mt-1">
+                            <label class="font-Poppins text-gray-500 text-xsm">Description:</label>
+                            <textarea class="border-1 border-gray-500 text-xsm font-Poppins xl:w-105 xl:h-14 p-1"></textarea>
+                        </div>
+                        <div class="xl:mt-2">
+                            <input type="checkbox" id="taskReOccur4" name="taskReOccur4" class="" value="designpref_2">
+                            <label for="taskReOccur4" class="text-xsm font-Poppins cursor-pointer">Apply current task details in this add-on task.</label>
+                        </div>
+                        <div class="">
+                            <input type="checkbox" id="taskReOccur5" name="taskReOccur5" class="" value="designpref_2">
+                            <label for="taskReOccur5" class="text-xsm font-Poppins cursor-pointer">Apply reoccurrence in this task as well.</label>
+                        </div>
+                    </div>
+                    <div  class="w-full">
+                        <h2 class="text-profCol text-lg font-semibold xl:mt-2 font-Poppins"><u>Credits Allocation</u></h2>
+                        <ul class="xl:space-y-3">
+                            <li>
+                                <div class="flex xl:mt-2 xl:space-x-2">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Credits used in this task:</label>
+                                    <p class="font-Poppins text-xsm">50 credits</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Occurrence for this task:</label>
+                                    <p class="font-Poppins text-xsm">2 occurences</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Credits used in occurrence:</label>
+                                    <p class="font-Poppins text-xsm">100 credits</p>
+                                </div>
+                            </li>
+                            <hr>
+                            <li>
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Credits used in add-on task:</label>
+                                    <p class="font-Poppins text-xsm">50 credits</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Occurrence in add-on task:</label>
+                                    <p class="font-Poppins text-xsm">0 occurences</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins text-gray-500 text-xsm">Credits used in occurrence:</label>
+                                    <p class="font-Poppins text-xsm">100 credits</p>
+                                </div>
+                            </li>
+                            <hr>
+                            <li>
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins font-bold text-gray-500 text-xsm">Total Credits Used:</label>
+                                    <p class="font-Poppins text-xsm">200 credits</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex xl:space-x-2">
+                                    <label class="font-Poppins font-bold text-gray-500 text-xsm">Credits Left:</label>
+                                    <p class="font-Poppins text-xsm">50 credits</p>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="/html/credits/credit.html" class="font-Poppins text-blue-800 text-xs"><u>Add Credits</u></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class=" flex items-center justify-center xl:space-x-5">
+                    <button onclick="toggleTaskAddSuccess()" type="submit"  class=" font-Poppins xl:mt-3 p-2 xl:p-0 xl:text:sm w-full rounded-full text-lg xl:text-sm xl:w-20 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-colors duration-500">Done</button>
+                    <button type="reset" class=" font-Poppins border-1 border-black xl:mt-3 p-2 xl:p-0 xl:text:sm w-full rounded-full text-lg xl:text-sm xl:w-20 text-black">Cancel</button>
+                </div>
+            </div>
+            <div id="popup-taskAddSuccess" class="popup-addSuccess flex flex-col justify-between bg-gray-50 xl:w-180 xl:h-110 absolute z-10 overflow-hidden">
+                <div class="w-full flex flex-col text-center items-center justify-center xl:mt-14">
+                    <img src="/assets/taskAddSuccess.jpg" class="object-scale-down xl:w-40 xl:h-40">
+                    <h2 class="text-profCol text-lg font-semibold font-Poppins">Task Added Successfully!</h2>
+                    <p class="font-Poppins text-gray-500 text-xsm xl:mr-10">Task now will be assigned to one of our best employee!</p>
+                    <div class="flex xl:space-x-3">
+                        <button type="submit"  class=" font-Poppins xl:mt-3 xl:p-1 rounded-full xl:text-vs xl:w-28 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-colors duration-500">See All Active Task</button>
+                        <button type="submit"  class=" font-Poppins xl:mt-3 xl:p-1 rounded-full xl:text-vs xl:w-32 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-colors duration-500">See Available Credits</button>
+                    </div>
+                </div>
+        <div class="flex justify-end items-end w-full">
+            <button type="submit"  class=" font-Poppins xl:mt-3 xl:p-3 xl:text-sm xl:w-full text-white bg-gradient-to-r from-blue-600 to-purple-500 transition-colors duration-500">
+            <i class="fas fa-tasks mr-1"></i>Add Another Task</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="{% static 'portal/js/uploadImg.js' %}"></script>
+    <script src="{% static 'portal/js/enableBtn.js' %}"></script>
+    <script src="{% static 'portal/js/index.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/jquery_3.7.0.js' %}"></script>
+    <script>
+        new Splide('#first-slider', {
+            perPage: 4,
+            perMove: 1,
+            padding: '10rem',
+            pagination: false,
+            gap: '1rem',
+            omitEnd  : true,
+            snap: true
+        }).mount();
+        new Splide('#second-slider', {
+            perPage: 3,
+            perMove: 1,
+            padding: '15rem',
+            pagination: false,
+            gap: '1rem',
+            omitEnd  : true,
+            snap: true
+        }).mount();
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // getCategoryDetailsByTheme(2);
+      })
+      function UpdateActiveCategory(that){
+        var category_chosen = $(that).attr("category_text");
+        var category_theme_id = $(that).attr("category_id");
+        $(".ActiveCategory").empty();
+        $(".ActiveCategory").append(category_chosen);
+        getCategoryDetailsByTheme(category_theme_id);
+      }
+      function SaveTaskandContinue(){
+        var taskName = $("#task_name").val();
+        var taskDescription = $("#task_description").val();
+        var categoryId = $("#category_services").val();
+
+        if(taskName.length == 0 ){
+          alert("Please fill up the task name!");
+          return false;
+        }
+        if(taskDescription.length == 0){
+          alert("Please make at least short a short description of the task!");
+          return false;
+        }
+
+        jQuery.noConflict();
+        jQuery.ajax({
+              type: "POST",
+              url: "{% url 'createTask' %}",
+              async:true,
+              data: {
+                "csrfmiddlewaretoken": '{{ csrf_token }}',
+                "task_name":taskName,
+                "task_description":taskDescription,
+                "category_id": categoryId,
+              },
+              success: function (data) {
+                alert("Task Created!")
+            window.$("#SubmitATaskModal").modal("hide");
+                console.log(data);
+              },
+              error: function (e) {
+                console.log(e);
+              }
+          })
+      }
+      function getCategoryDetailsByTheme(CategoryThemeId){
+        jQuery.noConflict();
+        jQuery.ajax({
+              type: "POST",
+              url: "{% url 'getCategoryServices' %}",
+              async:true,
+              data: {
+                "csrfmiddlewaretoken": '{{ csrf_token }}',
+                "CategoryThemeId":CategoryThemeId,
+              },
+              success: function (data) {
+                if(data.status_code == 1){
+                  reload_services(data.list_of_category); 
+                }
+              },
+              error: function (e) {
+                console.log(e);
+              }
+          })
+      }
+      function showCreateTaskForm(that){
+        jQuery.noConflict();
+        window.$("#LoadingMoodal").modal("show");
+        var category_id = $(that).attr("category_id");
+        jQuery.ajax({
+          type: "POST",
+          url: "{% url 'getCategoryDetailsById' %}",
+          async:true,
+          data: {
+                "csrfmiddlewaretoken": '{{ csrf_token }}',
+                "category_id":category_id,
+              },
+              success: function (data) {
+                if(data.status_code == 1){
+                  showModalCategory(data);
+                } 
+              },
+              error: function (e) {
+                console.log(e);
+              }
+        })
+      }
+      function showModalCategory(dataValue){
+        
+        window.$("#LoadingMoodal").modal("hide");
+        window.$("#SubmitATaskModal").modal('show');
+        jQuery("#SubmitTaskTitle").empty();
+        jQuery("#SubmitTaskTitle").append(dataValue.category_theme+" / "+dataValue.category_parent_name+" / "+dataValue.category_name);
+        jQuery("#category_services").empty();
+        jQuery("#task_name").val("");
+        jQuery("#task_description").val("");
+        jQuery.each(dataValue.list_of_category, function(index,value){
+          if(value.id == dataValue.category_id){
+            jQuery("#category_services").append("<option value='"+value.id+"' selected>"+value.name+"</option>");
+          }else{
+            jQuery("#category_services").append("<option value='"+value.id+"'>"+value.name+"</option>");  
+          }
+          
+        });
+         
+      }
+  
+      function reload_services(listOfCategory){
+        jQuery(".category_wrapper").empty();
+        jQuery.each(listOfCategory, function(index, value){
+          if(value.parent == 0){
+            jQuery(".category_wrapper").append("<br/><div class='row'> <div class='col-sm-12 parent_category'>"+value.name+"</div></div>");
+            var childCounter = 0;
+            jQuery.each(listOfCategory, function(index2, value2){
+              if(value2.parent == value.id){
+                childCounter++;
+              }
+            })
+            if(childCounter > 4){
+              var listofcategoryCard = "";
+              var loopCounter = 0;
+              jQuery.each(listOfCategory, function(index2,value2){
+                if(value2.parent == value.id){
+                  if(loopCounter > 3){
+                    listofcategoryCard += "<div class='col-sm-3' style='display:none;'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>";
+                  }else{
+                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
+                  }
+                  loopCounter++;
+                }
+              })
+
+              var output = "<div class='row'><div class='col-sm-1 text-right text-pure-center' style='color: #BCBABA; font-size: 40px; cursor: pointer;'>";
+              output += "<i class='fa-solid fa-chevron-left'></i>";
+              output += "</div>";
+              output += "<div class='col-sm-10'>";
+              output +=   "<div class='row'>";
+              output += listofcategoryCard
+              output +=   "</div>"
+              output += "</div>"
+              output += "<div class='col-sm-1 text-left text-pure-center' style='color: #BCBABA; font-size: 40px; cursor:pointer;'>"
+              output +=   "<i class='fa-solid fa-chevron-right'></i>"
+              output += "</div></div>";
+              jQuery(".category_wrapper").append(output);
+              
+              
+            }else{
+              if(childCounter == 1){
+                var listofcategoryCard = "";
+                jQuery.each(listOfCategory, function(index2,value2){
+                  if(value2.parent == value.id){
+                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
+                  }
+                })
+                jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-4'></div> "+listofcategoryCard+" <div class='col-sm-5'></div></div>");
+              }else if(childCounter == 2){
+                var listofcategoryCard = "";
+                jQuery.each(listOfCategory, function(index2,value2){
+                  if(value2.parent == value.id){
+                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
+                  }
+                })
+                jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-3'></div>"+listofcategoryCard+"<div class='col-sm-3'></div></div>");
+              }else if(childCounter == 3){
+                var listofcategoryCard = "";
+                jQuery.each(listOfCategory, function(index2,value2){
+                  if(value2.parent == value.id){
+                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
+                  }
+                })
+                jQuery(".category_wrapper").append("<div class='row'><div class='col-sm-1'></div> "+listofcategoryCard+"<div class='col-sm-2'></div>");
+              }else{
+                var listofcategoryCard = "";
+                jQuery.each(listOfCategory, function(index2,value2){
+                  if(value2.parent == value.id){
+                    listofcategoryCard += "<div class='col-sm-3'><div class='card' style='cursor:pointer;' category_id='"+value2.id+"' onclick='showCreateTaskForm(this);'><div class='card-body'><h5 class='card-title'>"+ value2.name +"</h5><img src='/static/images/Services.png' class='card-img-top' alt='...'><p class='card-text'><small class='text-muted'>Business Card & Stationery Design Service Description</small></p></div></div></div>"; 
+                  }
+                })
+                jQuery(".category_wrapper").append("<div class='row'> "+listofcategoryCard+"</div>");
+              }
+            }
+          }
+        })
+      }
+    </script>
+</body>
+</html>

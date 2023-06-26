@@ -8,8 +8,10 @@
     <title>Edit Profile | Settings</title>
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+    <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
+
     <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 <body>
     <!-- Sidebar Panel -->
@@ -18,166 +20,158 @@
         {% include 'sidebar.html' %}
         <!-- Settings Sidebar -->
         <div class="flex">
-            <nav class="w-52 xl:ml-0 xl:w-44 bxl:w-52 h-auto ml-22 bg-gray-200 flex justify-center text-lg">
+            <nav class="w-52 xl:ml-0 xl:w-44 bxl:w-52 xl_4k:w-120 h-auto ml-22 bg-gray-200 flex justify-center text-lg">
                 <ul>
                     <li>
-                        <center><p href="#" class="text-2xl bxl:text-xl bxl:mt-12 xl:text-lg mt-5 font-Lato font-bold">Settings</p></center> 
+                        <center><p href="#" class="text-2xl bxl:text-xl bxl:mt-12 xl:text-lg xl_4k:text-6xl xl_4k:mt-32 mt-5 font-Lato font-bold">Settings</p></center> 
                     </li>
-                    <div class="mt-20 flex-row space-y-8 xl:text-2base">
+                    <div class="mt-20 xl_4k:mt-44 flex-row space-y-8 xl_4k:space-y-28 xl:text-2base">
                         <li>
-                            <span class="fas fa-pencil-alt mr-2 text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2 bxl:text-base"></span>
-                            <a href="{% url 'portalSettingPage' %}" class="bxl:text-base font-Lato text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2">Edit Profile</a>  
+                            <span class="fas fa-pencil-alt mr-2 xl_4k:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2 bxl:text-base"></span>
+                            <a href="{% url 'portalSettingPage' %}" class="bxl:text-base xl_4k:text-4xl font-Lato text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2">Edit Profile</a>  
                         </li>
                         <li>
-                            <span class="fas fa-lock mr-2 bxl:text-base"></span>
-                            <a href="{% url 'SettingPasswordPage' %}" class="font-Lato bxl:text-base">Password</a>    
+                            <span class="fas fa-lock mr-2 bxl:text-base xl_4k:text-4xl"></span>
+                            <a href="{% url 'SettingPasswordPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Password</a>    
                         </li>
                         <li>
-                            <span class="fas fa-file-invoice-dollar mr-3 bxl:text-base"></span>
-                            <a href="{% url 'SettingInvoicePage' %}" class="font-Lato bxl:text-base">Invoices</a>    
+                            <span class="fas fa-file-invoice-dollar mr-3 bxl:text-base xl_4k:text-4xl"></span>
+                            <a href="{% url 'SettingInvoicePage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Invoices</a>    
                         </li>
                         <li>
-                            <span class="fas fa-key mr-1 bxl:text-base"></span>
-                            <a href="{% url 'SettingPasswordManagementPage' %}" class="font-Lato bxl:text-base">Password Manager</a>    
+                            <span class="fas fa-key mr-1 bxl:text-base xl_4k:text-4xl"></span>
+                            <a href="{% url 'SettingPasswordManagementPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Password Manager</a>    
                         </li>
                         <li>
-                            <span class="fas fa-question-circle mr-1 bxl:text-base"></span>
-                            <a href="{% url 'SettingFaqsPage' %}" class="font-Lato bxl:text-base">FAQs</a>    
+                            <span class="fas fa-question-circle mr-1 bxl:text-base xl_4k:text-4xl"></span>
+                            <a href="{% url 'SettingFaqsPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">FAQs</a>    
                         </li>
                     </div>
                 </ul>
             </nav>
         </div>
-
-        
         <div class="">
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
+            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3 xl_4k:mt-12 xl_4k:px-12">
                 <ul class="flex items-center text-sm  text-gray-600">
                     <li class="flex items-center justify-center">
-    
-                        <a class="fas fa-search text-lg" href="#"></a>
-                    <form action="">
-                        <div class="h-10 flex items-center space-x-5 w-52">
-                            <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
-                        </div>
-                    </form>
+                        <a class="fas fa-search text-lg xl_4k:text-5xl" href="#"></a>
+                        <form action="">
+                            <div class="h-10 flex items-center space-x-5 w-52 xl_4k:w-80">
+                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg xl_4k:text-4xl" type="text" placeholder="Search">
+                            </div>
+                        </form>
                     </li>
                 </ul>
-               
                 <ul class="flex items-center text-sm text-gray-600">
-                    
-                    <div class="flex items-center justify-center space-x-5">
-                        
+                    <div class="flex items-center justify-center space-x-5 xl_4k:space-x-20">
                         <li>
-                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
+                            <a class="fas fa-bell text-lg ml-6  xl_4k:text-5xl" href="#"></a>
                         </li>
                         <div class="flex items-center justify-center">
                             <li>
                                 <a href="#">
-                                    <img src="{% static 'portal/images/faqs/dawg.jpg' %}" class="object-scale-down h-10 w-20 rounded-full" > 
+                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full"> 
                                 </a>
                             </li>
                             
                             <li class="text-lg xl:text-sm xxl:text-lg">
-                                <p class="font-Jost">John Doe</p>
+                                <p class="font-Jost xl_4k:text-5xl">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
                             </li>
                         </div>
-                        
                         <li class="">
-                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
+                            <a class="fas fa-chevron-down text-lg xl_4k:text-4xl ml-3" href="#"></a>
                         </li>
                     </div>
                 </ul>
-                
             </nav>
         </div>
 
-        <div class="mt-32 xl:mt-10 xxl:mt-32 bxl:mt-16 ml-5 flex">
+        <div class="mt-32 xl:mt-10 xxl:mt-32 bxl:mt-16 xl_4k:mt-72 xl_4k:ml-40 ml-5 flex">
             <div>
-                <h1 class="text-4xl xl:text-2xl font-Poppins text-editProfile"><b>FAQs</b></h1>
+                <h1 class="text-4xl xl:text-2xl xl_4k:text-7xl font-Poppins text-editProfile"><b>FAQs</b></h1>
                  
             </div>
 
-        <div class="w-full xxl:ml-32 xxl:mt-10">
+        <div class="w-full xxl:ml-32 xxl:mt-10 xl_4k:w-500 xl_4k:mx-18">
 
-        <div class="xl:ml-20 text-center w-150 mt-20 xl:mt-8 bxl:ml-28 bxl:mt-10">
+        <div class="xl:ml-20 text-center w-150 mt-20 xl:mt-8 bxl:ml-28 bxl:mt-10  xl_4k:w-full xl_4k:flex xl_4k:flex-col xl_4k:justify-center xl_4k:items-center">
                 
-            <div class="ml-32">
-                <p class="font-Poppins bxl:text-base text-gray-500 font-medium xxl:text-xl xl:mb-3 w-120">Ask us anything. Search through our FAQ below.</p>
+            <div class="ml-32 xl_4k:ml-0">
+                <p class="font-Poppins bxl:text-base text-gray-500 font-medium xxl:text-xl xl:mb-3 w-120 xl_4k:w-full xl_4k:text-5xl">Ask us anything. Search through our FAQ below.</p>
 
-                <form action="#" > 
-                    <input class="w-full xl:w-85 xl:mt-0 rounded-lg text-black  bxl:text-base xl:py-0 xxl:text-lg xl:text-sm outline-0 py-4 px-5 xl:px-2 text-lg bg-gray-50 border placeholder:font-Poppins border-gray-300" type="text" placeholder="What can we help you with today?">
-                    <a class="fas fa-search text-2base" href="#"></a>
+                <form action="#" class="xl_4k:flex xl_4k:items-center xl_4k:justify-center xl_4k:space-x-10"> 
+                    <input class="w-full xl:w-85 xl:mt-0 rounded-lg text-black  bxl:text-base xl:py-0 xxl:text-lg xl:text-sm outline-0 py-4 px-5 xl:px-2 text-lg xl_4k:text-4xl xl_4k:w-full xl_4k:p-5 bg-gray-50 border placeholder:font-Poppins border-gray-300" type="text" placeholder="What can we help you with today?">
+                    <a class="fas fa-search text-2base xl_4k:text-4xl" href="#"></a>
                 </form>  
             </div>
 
-                <div class="flex space-x-14  xl:space-x-10 items-center  xl:mt-5 ml-32 xl:ml-0 m-8 xl:m-0 xxl:mt-10">
+                <div class="flex space-x-14 xl_4k:space-x-24 xl:space-x-10 items-center  xl:mt-5 ml-32 xl:ml-0 m-8 xl:m-0 xxl:mt-10">
 
                 <a href="">
-                    <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
-                        <div class="flex flex-col items-center justify-center xl:mt-2">
-                            <img src="{% static 'portal/images/faqs/payment_img.png' %}" class="object-scale-down xl:w-20 h-20">  
+                    <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 xl_4k:w-120 xl_4k:h-96 xl_4k:flex xl_4k:items-center xl_4k:justify-center border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
+                        <div class="flex flex-col items-center justify-center xl:mt-2 xl_4k:-mt-12">
+                            <img src="{% static 'portal/images/faqs/payment_img.png' %}" class="object-scale-down xl:w-20 h-20 xl_4k:w-40 xl_4k:h-40">  
                             
-                            <h1 class="font-Poppins xl:text-2base xl:font-bold xxl:text-base">Payment</h1>
-                                <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2 xxl:text-2base xxl:px-5">Payment sample tagline here ...</h4>
+                            <h1 class="font-Poppins xl:text-2base xl:font-bold xxl:text-base xl_4k:text-3xl">Payment</h1>
+                                <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2 xxl:text-2base xxl:px-5 xl_4k:text-2xl">Payment sample tagline here ...</h4>
                         </div>
                     </div>
                 </a>
 
                 <a href="">
-                    <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
-                        <div class="flex flex-col items-center justify-center xl:mt-2">
-                            <img src="{% static 'portal/images/faqs/credits_img.png' %}" class="object-scale-down xl:w-20 h-20">  
+                    <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 xl_4k:w-120 xl_4k:h-96 xl_4k:flex xl_4k:items-center xl_4k:justify-center border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
+                        <div class="flex flex-col items-center justify-center xl:mt-2 xl_4k:-mt-12">
+                            <img src="{% static 'portal/images/faqs/credits_img.png' %}" class="object-scale-down xl:w-20 h-20 xl_4k:w-40 xl_4k:h-40">  
                             
-                            <h1 class="font-Poppins xl:text-2base xl:font-bold xxl:text-base">Credits</h1>
-                                <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2  xxl:text-2base xxl:px-5">Credits sample tagline here ...</h4>
+                            <h1 class="font-Poppins xl:text-2base xl:font-bold xxl:text-base xl_4k:text-3xl">Credits</h1>
+                                <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2  xxl:text-2base xxl:px-5 xl_4k:text-2xl">Credits sample tagline here ...</h4>
                         </div>
                     </div>
                 </a>
 
                 <button onclick="toggleAccountFAQ()">
-                    <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
-                        <div class="flex flex-col items-center justify-center xl:mt-2">
-                            <img src="{% static 'portal/images/faqs/account_img.png' %}" class="object-scale-down xl:w-10 h-14 mt-3">  
+                    <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 xl_4k:w-120 xl_4k:h-96 xl_4k:flex xl_4k:items-center xl_4k:justify-center border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
+                        <div class="flex flex-col items-center justify-center xl:mt-2 xl_4k:-mt-12">
+                            <img src="{% static 'portal/images/faqs/account_img.png' %}" class="object-scale-down xl:w-10 h-14 xl_4k:w-40 xl_4k:h-40 mt-3">  
                             
-                            <h1 class="font-Poppins xl:text-2base xl:font-bold xl:mt-3 xxl:text-base">Account</h1>
-                                <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2  xxl:text-2base xxl:px-5">Account sample tagline here ...</h4>
+                            <h1 class="font-Poppins xl:text-2base xl:font-bold xl:mt-3 xxl:text-base xl_4k:text-3xl">Account</h1>
+                                <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2  xxl:text-2base xxl:px-5 xl_4k:text-2xl">Account sample tagline here ...</h4>
                         </div>
                     </div>
                 </button>
         </div>
 
-        <div class="flex space-x-14  xl:space-x-10 items-center xl:mt-5 ml-32 xl:ml-0 m-8 xl:m-0 ">
+        <div class="flex space-x-14 xl_4k:space-x-24 xl:space-x-10 items-center xl:mt-5 ml-32 xl:ml-0 m-8 xl:m-0 xl_4k:mt-12">
 
             <a href="">
-                <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
-                    <div class="flex flex-col items-center justify-center xl:mt-2">
-                        <img src="{% static 'portal/images/faqs/issuetick_img.png' %}" class="object-scale-down xl:w-20 h-20">  
+                <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 xl_4k:w-120 xl_4k:h-96 xl_4k:flex xl_4k:items-center xl_4k:justify-center border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
+                    <div class="flex flex-col items-center justify-center xl:mt-2 xl_4k:-mt-12">
+                        <img src="{% static 'portal/images/faqs/issuetick_img.png' %}" class="object-scale-down xl:w-20 h-20 xl_4k:w-40 xl_4k:h-40">  
                         
-                        <h1 class="font-Poppins xl:text-2base xl:font-bold xxl:text-base">Issue Ticket</h1>
-                            <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2 xxl:text-2base xxl:px-5">Issue Ticket sample tagline here ...</h4>
+                        <h1 class="font-Poppins xl:text-2base xl:font-bold xxl:text-base xl_4k:text-3xl">Issue Ticket</h1>
+                            <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2 xxl:text-2base xxl:px-5 xl_4k:text-2xl">Issue Ticket sample tagline here ...</h4>
                     </div>
                 </div>
             </a>
 
             <a href="">
-                <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
-                    <div class="flex flex-col items-center justify-center xl:mt-2">
-                        <img src="{% static 'portal/images/faqs/tasks_img.png' %}" class="object-scale-down xl:w-16 h-16 xl:mt-2">  
+                <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 xl_4k:w-120 xl_4k:h-96 xl_4k:flex xl_4k:items-center xl_4k:justify-center border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
+                    <div class="flex flex-col items-center justify-center xl:mt-2 xl_4k:-mt-12">
+                        <img src="{% static 'portal/images/faqs/tasks_img.png' %}" class="object-scale-down xl:w-16 h-16 xl:mt-2xl_4k:w-40 xl_4k:h-40">  
                         
-                        <h1 class="font-Poppins xl:text-2base xl:font-bold xl:mt-2 xxl:text-base">Tasks</h1>
-                            <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2 xxl:text-2base xxl:px-5">Tasks sample tagline here ...</h4>
+                        <h1 class="font-Poppins xl:text-2base xl:font-bold xl:mt-2 xxl:text-base xl_4k:text-3xl">Tasks</h1>
+                            <h4 class="font-Poppins xl:text-vs xl:mt-4 xl:px-2 xxl:text-2base xxl:px-5 xl_4k:text-2xl">Tasks sample tagline here ...</h4>
                     </div>
                 </div>
             </a>
 
             <a href="">
-                <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
-                    <div class="flex flex-col items-center justify-center xl:mt-2">
-                        <img src="{% static 'portal/images/faqs/invoice_img.png' %}" class="object-scale-down xl:w-10 h-14 mt-3">  
+                <div class=" bg-white h-40 xl:h-44 xl:w-52 w-64 xxl:w-60 xxl:h-52 xl_4k:w-120 xl_4k:h-96 xl_4k:flex xl_4k:items-center xl_4k:justify-center border-2 rounded-xl hover:bg-gradient-to-r hover:text-white from-hoverCol1 to-hoverCol2 duration-300">
+                    <div class="flex flex-col items-center justify-center xl:mt-2 xl_4k:-mt-12">
+                        <img src="{% static 'portal/images/faqs/invoice_img.png' %}" class="object-scale-down xl:w-10 h-14 mt-3 xl_4k:w-40 xl_4k:h-40">  
                         
-                        <h1 class="font-Poppins xl:text-2base xl:font-bold xl:mt-3 xxl:text-base">Invoices</h1>
-                            <h4 class="font-Poppins xl:text-vs xl:mt-4 xxl:text-2base xxl:px-5 ">Invoices sample tagline here ...</h4>
+                        <h1 class="font-Poppins xl:text-2base xl:font-bold xl:mt-3 xxl:text-base xl_4k:text-3xl">Invoices</h1>
+                            <h4 class="font-Poppins xl:text-vs xl:mt-4 xxl:text-2base xxl:px-5 xl_4k:text-2xl">Invoices sample tagline here ...</h4>
                     </div>
                 </div>
             </a>
@@ -187,25 +181,25 @@
     </div>
 </div>
 
-    <div id="popup-account-faqs" class="popup bg-gray-50 xl:w-150 xl:h-85 flex-col fixed z-10 xl:p-3 overflow-hidden">
+    <div id="popup-account-faqs" class="popup bg-gray-50 xl:w-150 xl:h-85 xl_4k:w-250 xl_4k:h-220 xl_4k:p-8 flex-col fixed z-10 xl:p-3 overflow-hidden">
         <div class="overflow-auto h-full">
             
         <div class="flex justify-between xl:mb-3">
-            <h1 class="font-Poppins text-xl font-bold text-purple-900">Account FAQs</h1>
-            <button onclick="toggleCloseFAQs()" class="fa fa-times-circle text-xl " aria-hidden="true"></button>
+            <h1 class="font-Poppins text-xl font-bold text-purple-900 xl_4k:text-5xl">Account FAQs</h1>
+            <button onclick="toggleCloseFAQs()" class="fa fa-times-circle text-xl xl_4k:text-4xl xl_4k:-mt-7" aria-hidden="true"></button>
         </div>
 
         <div class="xl:mb-4">
             <div class="flex xl:space-x-4">
                 <div class="bg-gradient-to-r from-blue-500 to-purple-500 xl:w-3 xl:h-10"></div>
-                <p class="text-2xl font-bold font-Poppins bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">Q.</p>
-                <p class="text-xvs font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
+                <p class="text-2xl xl_4k:text-6xl font-bold font-Poppins bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">Q.</p>
+                <p class="text-xvs xl_4k:text-4xl font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
             </div>
 
             <div class="flex xl:space-x-4">
                 <div class="bg-gray-500 xl:w-3 xl:h-10 "></div>
-                <p class="text-2xl font-bold font-Poppins text-gray-500">A.</p>
-                <p class="text-xvs text-gray-500 font-Poppins flex justify-center items-center">Click on Setting icon then select Password. 
+                <p class="text-2xl xl_4k:text-6xl font-bold font-Poppins text-gray-500">A.</p>
+                <p class="text-xvs xl_4k:text-4xl text-gray-500 font-Poppins flex justify-center items-center">Click on Setting icon then select Password. 
                     After that read the instructions in changing the password. </p>
             </div>
         </div>
@@ -214,34 +208,34 @@
         <div class="xl:mb-4">
             <div class="flex xl:space-x-4">
                 <div class="bg-gradient-to-r from-blue-500 to-purple-500 xl:w-3 xl:h-10"></div>
-                <p class="text-2xl font-bold font-Poppins bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">Q.</p>
-                <p class="text-xvs font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
+                <p class="text-2xl xl_4k:text-6xl font-bold font-Poppins bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">Q.</p>
+                <p class="text-xvs xl_4k:text-4xl font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
             </div>
             <div class="flex xl:space-x-4">
                 <div class="bg-gray-500 xl:w-3 xl:h-10"></div>
-                <p class="text-2xl font-bold font-Poppins text-gray-500">A.</p>
-                <p class="text-xvs font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
+                <p class="text-2xl xl_4k:text-6xl font-bold font-Poppins text-gray-500">A.</p>
+                <p class="text-xvs xl_4k:text-4xl font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
             </div>
         </div>
 
         <div class="xl:mb-4">
             <div class="flex xl:space-x-4">
                 <div class="bg-gradient-to-r from-blue-500 to-purple-500 xl:w-3 xl:h-10"></div>
-                <p class="text-2xl font-bold font-Poppins bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">Q.</p>
-                <p class="text-xvs font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
+                <p class="text-2xl xl_4k:text-6xl font-bold font-Poppins bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">Q.</p>
+                <p class="text-xvs xl_4k:text-4xl font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
             </div>
             <div class="flex xl:space-x-4">
                 <div class="bg-gray-500 xl:w-3 xl:h-10"></div>
-                <p class="text-2xl font-bold font-Poppins text-gray-500">A.</p>
-                <p class="text-xvs font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
+                <p class="text-2xl xl_4k:text-6xl font-bold font-Poppins text-gray-500">A.</p>
+                <p class="text-xvs xl_4k:text-4xl font-bold font-Poppins flex justify-center items-center">How to change my account password?</p>
             </div>
         </div>
 
-        <div class="flex items-center justify-center space-x-4">
+        <div class="flex items-center justify-center space-x-4 mt-20">
 
-            <a href="#" class="text-gray-500 font-Poppins text-xvs">Didn't find the answer you were looking for?</a>
-            <button type="submit" class=" font-Poppins  mt-20 xl:mt-0 xl:p-0 rounded-full 
-                    xl:text-sm xl:w-40 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 ">Submit Ticket Now
+            <a href="#" class="text-gray-500 font-Poppins text-xvs xl_4k:text-4xl">Didn't find the answer you were looking for?</a>
+            <button type="submit" class=" font-Poppins  mt-20 xl:mt-0 xl:p-0 rounded-full xl_4k:w-96 xl_4k:p-2
+                    xl:text-sm xl:w-40 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 xl_4k:text-4xl">Submit Ticket Now
             </button>
         </div>
     </div>

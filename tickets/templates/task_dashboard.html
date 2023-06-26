@@ -8,8 +8,10 @@
     <title>Task Dashboard | Task</title>
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+    <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
+
     <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 <body>
     <!-- Sidebar Panel -->
@@ -17,52 +19,47 @@
     <div class="flex">
         {% include 'sidebar.html' %}
         <div>
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
+            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3 xl_4k:mt-12 xl_4k:px-12">
                 <ul class="flex items-center text-sm  text-gray-600">
                     <li class="flex items-center justify-center">
-
-                        <a class="fas fa-search text-lg" href="#"></a>
-                    <form action="">
-                        <div class="h-10 flex items-center space-x-5 w-52">
-                            <input class="w-full bg-whiteSmoke text-black xl:py-1 xl:text-sm bxl:text-base font-Poppins xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
-                        </div>
-                    </form>
+                        <a class="fas fa-search text-lg xl_4k:text-5xl" href="#"></a>
+                        <form action="">
+                            <div class="h-10 flex items-center space-x-5 w-52 xl_4k:w-80">
+                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg xl_4k:text-4xl" type="text" placeholder="Search">
+                            </div>
+                        </form>
                     </li>
                 </ul>
                 <ul class="flex items-center text-sm text-gray-600">
-                    
-                    <div class="flex items-center justify-center space-x-5">
-                        
+                    <div class="flex items-center justify-center space-x-5 xl_4k:space-x-20">
                         <li>
-                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
+                            <a class="fas fa-bell text-lg ml-6  xl_4k:text-5xl" href="#"></a>
                         </li>
                         <div class="flex items-center justify-center">
                             <li>
                                 <a href="#">
-                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full" > 
+                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full"> 
                                 </a>
                             </li>
                             
-                            <li class="text-lg xl:text-sm mxl:text-2base xxl:text-lg">
-                                <p class="font-Poppins">John Doe</p>
+                            <li class="text-lg xl:text-sm xxl:text-lg">
+                                <p class="font-Jost xl_4k:text-5xl">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
                             </li>
                         </div>
-                        
                         <li class="">
-                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
+                            <a class="fas fa-chevron-down text-lg xl_4k:text-4xl ml-3" href="#"></a>
                         </li>
                     </div>
                 </ul>
-                
             </nav>
         </div>
-        <div class="mt-32 xl:mt-10 bxl:mt-16 xxl:mt-16 ml-5 overflow-auto w-full">
+        <div class="mt-32 xl:mt-10 bxl:mt-16 xxl:mt-16 xl_4k:mt-56 xl_4k:ml-20 ml-5  overflow-auto w-full">
             <div>
-                <h1 class="text-4xl xl:text-2xl bxl:text-2xl xxl:text-4xl font-Poppins text-editProfile font-extrabold">Your Task</h1> 
-                <div class="">
+                <h1 class="text-4xl xl:text-2xl bxl:text-2xl xxl:text-4xl xl_4k:text-6xl font-Poppins text-editProfile font-extrabold">Your Task</h1> 
+                <div class=" ">
                     <div class="flex">
-                        <p class="text-2base bxl:text-base xxl:text-lg font-bold font-Poppins text-purple-700 xl:mt-5 xl:mr-2">Filter by:</p>
-                        <select id="filterSelect" onchange="filterData()" class="font-Poppins text-blue-900 xl:text-base bxl:text-lg xxl:text-lg xl:mt-5">
+                        <p class="text-2base bxl:text-base xxl:text-lg xl_4k:text-4xl font-bold font-Poppins text-purple-700 xl:mt-5 xl:mr-2">Filter by:</p>
+                        <select id="filterSelect" onchange="filterData()" class="font-Poppins text-blue-900 xl:text-base bxl:text-lg xxl:text-lg xl_4k:text-4xl xl:mt-5 xl_4k:mt-2">
                             <option value="all" class="font-Poppins bxl:text-sm">All</option>
                             <option attr_val="Open Task" value="open" class="font-Poppins bxl:text-sm">Open</option>
                             <option attr_val="In Progress" value="In Progress" class="font-Poppins bxl:text-sm">In Progress</option>
@@ -70,9 +67,9 @@
                             <option attr_val="Completed" value="completed" class="font-Poppins bxl:text-sm">Completed</option>
                         </select>
                     </div>
-                    <div class="xl:mt-5 ">
-                        <main class="table xl:mx-10 xxl:ml-32 mxl:ml-20"> 
-                            <section class="table__body overflow-auto xl:h-110 bxl:h-130 mxl:h-160 xxl:h-180 xxl:w-full">
+                    <div class="xl:mt-5 xl_4k:mt-20 xl_4k:ml-40">
+                        <main class="table xl:mx-10 xxl:ml-32 mxl:ml-20 xl_4k:w-220 "> 
+                            <section class="table__body overflow-auto xl:h-110 bxl:h-130 mxl:h-160 xxl:h-180 xxl:w-full xl_4k:h-220 xl_4k:w-200">
                                 <table class="border-separate border-spacing-2" >
                                     <tbody id="data">
                                         <div>
@@ -95,6 +92,7 @@
                                                         </div>
                                                         <div class="mt-5">
                                                             <p id="ticket_desc" class="font-Poppins text-sm bxl:text-2base mxl:text-base xxl:text-base text-start">{{ ticket.description }}</p>
+
                                                         </div>
                                                     
                                                 </td>

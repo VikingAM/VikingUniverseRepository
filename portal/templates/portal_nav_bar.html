@@ -1,29 +1,32 @@
 {% load static %}
-<nav class="bg-white text-white flex justify-between items-center bxl:w-full mxl:w-full xxl:w-full ml-10 xxl:ml-0 xxl:m-0  m-8 mt-4 h-14 xxl:h-16 z-0 xl:px-10 xxl:mb-10">
+<nav class="bg-white text-white flex justify-between items-center bxl:w-full mxl:w-full xxl:w-full ml-10 xxl:ml-0 xxl:m-0  m-8 mt-4 h-14 xxl:h-16 xl_4k:h-32 xl_4k:m-5 z-0 xl:px-10 bxl:ml-5 xxl:mb-10">
     <ul class="flex items-center text-sm xxl:text-xl  text-gray-600">
         <li class="flex items-center justify-center">
-            <a class="fas fa-search text-lg xxl:text-xl" href="#"></a>
+            <a class="fas fa-search text-lg xxl:text-xl xl_4k:text-3xl" href="#"></a>
             <div class="h-10 flex items-center space-x-5 w-52">
-                <input class="w-full text-black outline-0 py-4 px-5 text-lg xl:text-2base xxl:text-base font-Poppins" type="text" placeholder="Search">
+                <input class="w-full text-black outline-0 py-4 px-5 bxl:py-0 text-lg xl:text-sm bxl:text-2base xxl:text-base xl_4k:text-3xl font-Poppins" type="text" placeholder="Search">
             </div>
         </li>
     </ul>
     <ul class="flex items-center text-sm text-gray-600">
         <div class="flex items-center justify-center space-x-5">
             <li>
-                <a id="notifTabOne" onclick="openNotifs()" class="fas fa-bell text-lg xxl:text-xl ml-6 " href="#"></a>
-                <ul id="notifTab" class="hidden absolute bg-white z-10 border-1 rounded-xl shadow-lg border-gray-500 xl:h-40 xl:w-56 xxl:w-80 z-1 xl:right-68 xl:top-14 overflow-y-auto">
+                <a id="notifTabOne" onclick="openNotifs()" class="fas fa-bell text-lg xxl:text-xl ml-6 xl_4k:text-3xl" href="#"></a>
+                <ul id="notifTab" class="hidden absolute bg-white z-10 border-1 rounded-xl shadow-lg border-gray-500 xl:h-40 xl:w-56 xxl:w-80 xl_4k:w-120 z-1 xl:right-68 xl:top-14 xl_4k:right-64 xl_4k:top-20 overflow-y-auto">
                     <div class="flex justify-between">
-                        <h1 class="xl:text-xvs xxl:text-base font-Poppins text-editProfile font-bold xl:p-2">NOTIFICATIONS</h1>
-                        <button type="button"><h1 class="xl:text-xvs xxl:text-2base font-Poppins text-editProfile font-bold xl:p-2">Mark all as read</h1></button>
+                        <h1 class="xl:text-xvs xxl:text-base xl_4k:text-2xl font-Poppins text-editProfile font-bold xl:p-2">NOTIFICATIONS</h1>
+                        <button type="button"><h1 class="xl:text-xvs xxl:text-2base xl_4k:text-2xl font-Poppins text-editProfile font-bold xl:p-2">Mark all as read</h1></button>
                     </div>
                     <table class="notifTable flex justify-center">
                         <tr class="hover:bg-purple-200  duration-500">
                           <td class="font-Lato font-semibold xl:w-120 xl:pl-3"> 
-                              <p class="text-start font-Poppins text-xsm font-bold">Task Name was Submitted</p>
-                              <p class="text-start font-Poppins text-xsm text-gray-500">3 hours ago</p>
+                              <p class="text-start font-Poppins text-xsm xl_4k:text-2xl font-bold">Task Name was Submitted</p>
+                              <p class="text-start font-Poppins text-xsm xl_4k:text-2xl text-gray-500">3 hours ago</p>
                           </td>
                         </tr>
+
+
+                        
                         <!-- <tr class="hover:bg-purple-200  duration-500">
                             <td class="font-Lato font-semibold xl:w-120 xl:pl-3"> 
                                 <p class="text-start font-Poppins text-xsm font-bold">Task Name was Submitted</p>
@@ -42,19 +45,19 @@
         </div>
         <div class="flex items-center justify-center">
             <li>
-                <a href="#">
-                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full" > 
+                <a href="#" >
+                    <!-- image code /// remove code temporarily, generates error on responsively app -->
                 </a>
             </li>
-            <li class="text-sm mxl:text-2base xxl:text-base">
-                <p class="font-Poppins">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
+            <li class="text-sm mxl:text-2base xxl:text-base xl:mr-2 ">
+              <p class="font-Poppins text-2base xxl:text-lg xl_4k:text-3xl">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
             </li>
         </div> 
-        <li onclick="openNavSettings()" id="closeNav" class="cursor-pointer fas fa-chevron-down text-lg"> </li>
+        <li onclick="openNavSettings()" id="closeNav" class="cursor-pointer fas fa-chevron-down text-lg xl_4k:text-3xl"> </li>
         <ul id="navSettings" class="hidden bg-white absolute border-1 rounded-xl shadow-lg border-gray-500 xl:p-2 xxl:p-3 xl:right-16 xl:top-14 xxl:top-26 z-30">
-            <li><a  href="#" class="font-Poppins xl:text-sm xxl:text-base hover:bg-gray-300 duration-300 xl:pr-10">Account</a></li>
-            <li><a  href="{% url 'portalSettingPage' %}" class="font-Poppins xl:text-sm xxl:text-base hover:bg-gray-300 duration-300 xl:pr-10">Settings</a></li>
-            <li><a  href="{% url 'accountLogout' %}" class="font-Poppins xl:text-sm xxl:text-base hover:bg-gray-300 duration-300 xl:pr-10">Logout</a></li>
+            <li><a  href="#" class="font-Poppins  xl:text-sm xxl:text-base xl_4k:text-2xl hover:bg-gray-300 duration-300 xl:pr-10">Account</a></li>
+            <li><a  href="{% url 'portalSettingPage' %}" class="font-Poppins xl:text-sm xxl:text-base xl_4k:text-2xl hover:bg-gray-300 duration-300 xl:pr-10">Settings</a></li>
+            <li><a  href="{% url 'accountLogout' %}" class="font-Poppins xl:text-sm xxl:text-base xl_4k:text-2xl hover:bg-gray-300 duration-300 xl:pr-10">Logout</a></li>
         </ul>    
     </ul>
 </nav>
