@@ -8,9 +8,7 @@
     <title>Credits Dashboard | Credits</title>
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
-    <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 <body>
     <!-- Sidebar Panel -->
@@ -18,51 +16,132 @@
     <div class="flex">
         {% include 'sidebar.html' %}
         <div>
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3 xl_4k:mt-12 xl_4k:px-12">
+            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
                 <ul class="flex items-center text-sm  text-gray-600">
                     <li class="flex items-center justify-center">
-                        <a class="fas fa-search text-lg xl_4k:text-5xl" href="#"></a>
+                        <a class="fas fa-search text-lg" href="#"></a>
                         <form action="">
-                            <div class="h-10 flex items-center space-x-5 w-52 xl_4k:w-80">
-                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg xl_4k:text-4xl" type="text" placeholder="Search">
+                            <div class="h-10 flex items-center space-x-5 w-52">
+                                <input class="w-full bg-whiteSmoke text-black xl:py-1 xl:text-sm bxl:text-base font-Poppins xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
                             </div>
                         </form>
                     </li>
                 </ul>
                 <ul class="flex items-center text-sm text-gray-600">
-                    <div class="flex items-center justify-center space-x-5 xl_4k:space-x-20">
-                        <div class="flex xl:space-x-3 ">
-                            {% for product in products %}
-                                <div>
-                                    <input  type="radio" id="option_{{ product.pk }}" name="choice" value="{{ product.pk }}" prod_amount="{{ product.price }}" onclick="selectSubscription(this)" class="hidden">
-                                    <label for="option_{{ product.pk }}" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">{{ product.name }}</label>
-                                </div>
+                    <div class="flex items-center justify-center space-x-5">
+                        <li>
+                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
+                        </li>
+                        <div class="flex items-center justify-center">
+                            <li>
+                                <a href="#">
+                                    <img src="../../assets/nav/dawg.jpg" class="object-scale-down h-10 w-20 rounded-full" > 
+                                </a>
+                            </li>
+                            
+                            <li class="text-lg xl:text-sm mxl:text-2base xxl:text-lg">
+                                <p class="font-Poppins">John Doe</p>
+                            </li>
+                        </div>
+                        
+                        <li class="">
+                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
+                        </li>
+                    </div>
+                </ul>
+                
+            </nav>
+        </div>
+
+        <div class="mt-32 bxl:mt-20 xl:mt-16 ml-5 xl:ml-10 xxl:ml-10 xxl:mt-16 overflow-hidden w-full">
+            <div class="flex justify-between overflow-auto">
+                <h1 class="text-4xl xl:text-2xl bxl:text-2xl mxl:text-3xl xxl:text-3xl font-Poppins text-editProfile font-extrabold">Your Credit</h1>
+                <a href="#" onclick="toggleAddCredit()" class="text-center justify-center items-center font-Lato mt-20 xl:mt-0 xxl:mt-10 p-2 xl:p-1 xxl:p-2 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg xl:text-sm xl:w-40 mxl:w-48 mxl:text-base mxl:py-3 xl:mr-10 xxl:mr-20 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">ADD MORE</a>
+            </div>
+            <a href="customPlan.html">Create custom plan</a>
+            <a href="managePlan.html">Manage custom plan</a>
+            <div class="flex xl:w-210 mxl:w-full xxl:w-full xl:mt-6 xl:space-x-8 xxl:space-x-24 xl:ml-5 xxl:ml-0 items-center justify-center">
+                <div class="flex flex-col xl:w-120 mxl:w-140 xl:h-44 bg-white border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2 mxl:p-4">
+                    <div class="flex justify-start font-bold ">
+                        <h1 id="" class="font-Poppins text-profCol xl:text-xl font-bold">Available Credit</h1>
+                    </div>
+
+                    <div class="mt-5">
+                        <p class="text-3xl font-bold font-Poppins text-center">{{ AVC }}</p>
+                        <p id="" class="font-Poppins text-center text-sm bxl:text-2base">Use your credits to request more task!</p>
+                    </div>
+                </div>
+                <div class="flex flex-col xl:w-120 mxl:w-140 xl:h-44 bg-white border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2 mxl:p-4">
+                    <div class="flex justify-start font-bold ">
+                        <h1 id="" class="font-Poppins text-profCol xl:text-xl font-bold">Total Credits Used</h1>
+                    </div>
+                    <div class="mt-5">
+                        <p class="text-3xl font-bold font-Poppins text-center">{{ TCU }}</p>
+                        <p id="" class="font-Poppins text-center text-sm bxl:text-2base">Use your credits to request more task!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-32 xl:mt-4 ml-5 xxl:-ml-5 xxl:p-10 flex mxl:w-full xxl:w-full xl:mb-10">
+                <div class="credit_body overflow-auto  xl:h-110 bg-white border border-gray-300 rounded-xl xl:p-3 xxl:p-8 mxl:mr-24">
+                    <h1 class="text-4xl xl:text-2xl  font-bold font-Poppins text-profCol">Credits History</h1>
+                    <table class="table-auto xl:mt-5 xl:w-192 mxl:w-220 xxl:w-full xl:mx-20 mxl:mx-5 xxl:mx-0 text-star">
+                        <thead class="thead_bg">
+                            <tr class="credit text-2base bxl:text-base xxl:text-lg font-thin text-black border-b-1 border-gray-300 mxl:w-120 w-full">
+                                <th class="font-Poppins ">Task Name</th>
+                                <th class="font-Poppins ">Start Date</th>
+                                <th class="font-Poppins">End Date</th>
+                                <th class="font-Poppins text-center">Credits Used</th>
+                            </tr>
+                        </thead>
+                        <tbody class="credit text-2base  font-Lato ">
+                            {% for history in history_list %}
+                                <tr class="inv_tr xl:text-2base text-base">
+                                    <td class="font-Lato font-semibold p-2">
+                                        <p class="font-Poppins font-bold">{{ history.title }}!</p>
+                                        <p class="font-Poppins text-sm text-gray-500">{{ history.desc }}</p>
+                                    </td>
+                                    <td class="font-Lato font-semibold">{{ history.create_date|date:'M d, Y' }}</td>
+                                    <td class="font-Lato font-semibold">{{ history.create_date|date:'M d, Y' }}</td>
+                                    <td class="font-Lato font-semibold" style="text-align:center">{{ history.credit }}</td>
+                                </tr>
                             {% empty %}
-
+                                <tr class="inv_tr xl:text-2base text-base">
+                                    <td class="font-Lato font-semibold p-2">
+                                        <p class="font-Poppins font-bold ">No Credits Added</p>
+                                        <p class="font-Poppins text-sm text-gray-500"></p>
+                                    </td>
+                                    <td class="font-Lato font-semibold"></td>
+                                    <td class="font-Lato font-semibold"></td>
+                                    <td class="font-Lato font-semibold" style="text-align:center"></td>
+                                </tr>
                             {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>      
+        </div>
+    </div>
+    <div id="popup-add-credit" class="popup bg-gray-50 xl:w-135 xl:h-110 flex-col fixed z-10 xl:p-6">
+        <div class="flex justify-between">
+            <h1 class="font-Poppins text-xl font-bold text-purple-900">Buy Credits</h1>
+            <button onclick="toggleCancelAddCredit()" class="fa fa-times-circle text-purple-900 text-xl xl:-mt-10 " aria-hidden="true"></button>
+        </div>
+        <div class="xl:mt-2">
+            <h2 class="font-Poppins text-base">Buy credits to add more task</h2>
+        </div>
+        <form action="#">
+            <div class="flex flex-col items-center justify-center">
+                <h3 class="xl:mb-2 text-gray-600">How many credits would you like to add?</h3>
+                <div class="flex xl:space-x-3 ">
+                    {% for product in products %}
+                        <div>
+                            <input  type="radio" id="option_{{ product.pk }}" name="choice" value="{{ product.pk }}" prod_amount="{{ product.price }}" onclick="selectSubscription(this)" class="hidden">
+                            <label for="option_{{ product.pk }}" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">{{ product.name }}</label>
                         </div>
-                        <div class="flex items-center justify-center xl:space-x-4 mb-2">
-                            <div>
-                                <input  type="radio" id="option1" name="choice" value="option1" class="hidden">
-                                <label for="option1" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">500</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="option2" name="choice" value="option2" class="hidden">
-                                <label for="option2" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">1500</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="option3" name="choice" value="option3" class="hidden">
-                                <label for="option3" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">3000</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="option4" name="choice" value="option4" class="hidden">
-                                <label for="option4" class="custom-element hover:bg-purple-500 hover:duration-500 font-Poppins text-sm font-semibold">5000</label>
-                            </div>
-                        </div>
+                    {% empty %}
 
-                <h3 class=" text-gray-500 mt-5 ">or custom amount:</h3>
-                <input type="number" class="credit-no-arrows border-2 xl:p-2 rounded-xl font-Poppins text-center" id="creditReset">
-                <h3 class="text-base text-gray-500 xl:my-2">1 Credit = 1$</h3>
+                    {% endfor %}
+                </div>
                 <div class="flex flex-col justify-center items-center border-t border-b border-gray-300 xl:w-52 xl:py-2">
                     <h3 class="text-base text-gray-500">Total amount to pay:</h3>
                     <h3 class="text-base text-gray-500 xl:mt-4" id="total_amount_to_pay">$0</h3>
