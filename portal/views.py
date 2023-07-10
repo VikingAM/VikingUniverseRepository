@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
+from tickets.models import issue
 import random, os
 
 
@@ -84,3 +86,40 @@ def SettingPasswordManagementPage(request):
 def SettingFaqsPage(request):
 	profile_details = details.objects.get(userId=request.user.id)
 	return render(request, 'setting_faqs_page.html', {"profile_details": profile_details})
+
+
+# admin side
+
+@login_required(login_url='/accounts/login')
+def portalAdminDashboard(request):
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'adnin_templates/admin_dashboard.html', {"profile_details": profile_details})
+
+@login_required(login_url='/accounts/login')
+def portalAdminTicketDashboard(request):
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'adnin_templates/tickets/ticket_dashboard.html', {"profile_details": profile_details})
+
+@login_required(login_url='/accounts/login')
+def portalAdminTicketList(request):
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'adnin_templates/tickets/ticket_list.html', {"profile_details": profile_details})
+
+@login_required(login_url='/accounts/login')
+def portalAdminGetTicketList(request):
+	data = {}
+	list_of_tickets = issue.objects.filter(is_delete=0).order_by("-id")
+	tickets = {}
+	for ticket in list_of_tickets:
+		tickets_array = {}
+		tickets_array['id'] = ticket.pk
+		tickets_array['title'] = ticket.title
+		tickets_array['status'] = ticket.ticket_status
+		tickets_array['type'] = ticket.issue_type.name
+		owner_instance = details.objects.get(userId=ticket.userId.pk)
+		tickets_array['ticket_owner_name'] = owner_instance.first_name+" "+owner_instance.last_name
+		tickets_array['ticket_owner_id'] = ticket.userId.pk
+		tickets[ticket.pk] = tickets_array
+	data['tickets'] = tickets
+
+	return JsonResponse(data, safe=False)

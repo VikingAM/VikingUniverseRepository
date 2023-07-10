@@ -1,0 +1,1025 @@
+{% extends 'adnin_templates/admin_base.html' %}
+
+{% load static %}
+
+{% block title %} Admin Dashboard {% endblock title %}
+
+{% block style %}
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<style type="text/css">
+	
+	.dot {
+		width: 70%;
+	  	background-color: #6417A180;
+	  	border-radius: 50%;
+	  	display: inline-block;
+	}
+
+	.dashboard_cards{
+		font-weight: 800;
+		font-size: 15px;
+	}
+
+	.overdue_header{
+		color: #6417A1;
+		font-family: 'Lato';
+		font-weight: 800;
+	}
+	.overdue_nav{
+		padding-bottom: 0px;
+	}
+
+	
+	
+
+	#TaskFeedDropDown{
+		color: #091370;
+	}
+
+	.task_color{
+		color:#0602C8;
+	}
+	.approval_color{
+		color:#EDAC06;
+	}
+	.task_feed{
+		font-size: 13px;
+	}
+	.task_feed_id_color{
+		color:#6F4CBB;
+	}
+	.task_feed_title_color{
+		color:#878383;
+	}
+	.in_progress_color{
+		color: #2CC2F1;
+	}
+	.close_color{
+		color: #F12C2C;
+	}
+
+	
+	.client_update_title{
+		color: #1B1971;
+	}
+
+
+	.task_feed_view_task{
+		color: #05A91F;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	
+</style>
+
+{% endblock style %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<h4 class="dashboard_welcome_greeting">Welcome, {{ profile_details.last_name | capfirst  }} {{ profile_details.first_name | capfirst  }}!</h4>
+			<span class="dashboard_welcome_greeting_small_text">See the latest updates</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-9">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/open_tasks.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">15</h5>
+        							<p class="card-text dashboard_cards">Open Tasks</p>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/in_process.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">15</h5>
+        							<p class="card-text dashboard_cards">Task in Process</p>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/task_approval.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">15</h5>
+        							<p class="card-text dashboard_cards">Task for Approval</p>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/all_task.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">View All<br/> Task</h5>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/open_tickets.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">15</h5>
+        							<p class="card-text dashboard_cards">Open Tickets</p>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/ticket_in_progress.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">15</h5>
+        							<p class="card-text dashboard_cards">Tickets in Process</p>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/edit_prices.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">Edit <br/> Prices</h5>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/add_forms.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">Add<br/> Forms</h5>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="card scroll">
+  						<div class="card-body" style="height: 550px;">
+  							<div class="row">
+  								<div class="col-sm-9 feeds_title">
+  									<h3>Task Feeds</h3>
+  								</div>
+  								<div class="col-sm-3" style="text-align: right;">
+  									<div class="dropdown">
+  										<span class="dropdown-toggle" type="button" id="TaskFeedDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+  											<b>All Tasks</b>
+  										</span>
+  										<ul class="dropdown-menu" aria-labelledby="TaskFeedDropDown">
+										    <li><a class="dropdown-item" href="#">Open</a></li>
+										    <li><a class="dropdown-item" href="#">In Progress</a></li>
+										    <li><a class="dropdown-item" href="#">For Approval</a></li>
+										    <li><a class="dropdown-item" href="#">Complete</a></li>
+  										</ul>
+									</div>
+  								</div>
+  							</div>
+  							<div class="row">
+  								<ul class="list-group">
+  									<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="task_color">Task</span> and changed status to <span class="approval_color">For Approval</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-warning text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			<div class="col-sm-12 task_feed_title_color">
+										 				<span class="task_feed_id_color">VU-IE102 </span> Mountain Peak Germany Tour Blog
+										 			</div>
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View task
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero posted a comment
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-success">Comment ID </span> last comment.
+										 			</div>
+										 			<div class="col-sm-12 task_feed_title_color">
+										 				<span class="task_feed_id_color">VU-IE102 </span> Mountain Peak Germany Tour Blog
+										 			</div>
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View task
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has update the status of a  <span class="task_color">Task</span> to <span class="in_progress_color">In Progress</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			<div class="col-sm-12 task_feed_title_color">
+										 				<span class="task_feed_id_color">VU-IE102 </span> Mountain Peak Germany Tour Blog
+										 			</div>
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View task
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has update the status of a  <span class="task_color">Task</span> to <span class="close_color">Closed</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-danger">Comment ID </span> last comment.
+										 			</div>
+										 			<div class="col-sm-12 task_feed_title_color">
+										 				<span class="task_feed_id_color">VU-IE102 </span> Mountain Peak Germany Tour Blog
+										 			</div>
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View task
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="task_color">Task</span> and changed status to <span class="approval_color">For Approval</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-warning text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			<div class="col-sm-12 task_feed_title_color">
+										 				<span class="task_feed_id_color">VU-IE102 </span> Mountain Peak Germany Tour Blog
+										 			</div>
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View task
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero posted a comment
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-success">Comment ID </span> last comment.
+										 			</div>
+										 			<div class="col-sm-12 task_feed_title_color">
+										 				<span class="task_feed_id_color">VU-IE102 </span> Mountain Peak Germany Tour Blog
+										 			</div>
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View task
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has update the status of a  <span class="task_color">Task</span> to <span class="in_progress_color">In Progress</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			<div class="col-sm-12 task_feed_title_color">
+										 				<span class="task_feed_id_color">VU-IE102 </span> Mountain Peak Germany Tour Blog
+										 			</div>
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View task
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has update the status of a  <span class="task_color">Task</span> to <span class="close_color">Closed</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-danger">Comment ID </span> last comment.
+										 			</div>
+										 			<div class="col-sm-12 task_feed_title_color">
+										 				<span class="task_feed_id_color">VU-IE102 </span> Mountain Peak Germany Tour Blog
+										 			</div>
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View task
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+								</ul>
+  							</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="card scroll">
+  						<div class="card-body" style="height: 550px;">
+  							<div class="row">
+  								<div class="col-sm-9 feeds_title">
+  									<h3>Ticket Feeds</h3>
+  								</div>
+  								<div class="col-sm-3" style="text-align: right;">
+  									<div class="dropdown">
+  										<span class="dropdown-toggle" type="button" id="TicketFeedDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+  											<b>All Tickets</b>
+  										</span>
+  										<ul class="dropdown-menu" aria-labelledby="TicketFeedDropDown">
+										    <li><a class="dropdown-item" href="#">Open</a></li>
+										    <li><a class="dropdown-item" href="#">In Progress</a></li>
+										    <li><a class="dropdown-item" href="#">For Approval</a></li>
+										    <li><a class="dropdown-item" href="#">Complete</a></li>
+  										</ul>
+									</div>
+  								</div>
+  							</div>
+  							<div class="row">
+  								<ul class="list-group">
+								  	<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_progress_color">For Approval</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-warning text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right;">
+											 				Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_tested_color">To be Tested</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-success">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right;">
+											 				Severity: <span class="ticket_major"><b>MAJOR</b></span>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_close_color">Closed</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right; color: #878383;">
+											 				Severity: <b>MAJOR</b>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_close_color">Closed</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+									 				<div class="col-sm-6" style="color:#878383;">
+										 				Type: <b>Credit</b>
+										 			</div>
+										 			<div class="col-sm-6" style="text-align:right; color: #878383;">
+										 				Severity: <span class="ticket_critical"><b>SHOW STOPPER</b></span>
+										 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_progress_color">For Approval</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-warning text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right;">
+											 				Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_tested_color">To be Tested</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-success">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right;">
+											 				Severity: <span class="ticket_major"><b>MAJOR</b></span>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_close_color">Closed</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right; color: #878383;">
+											 				Severity: <b>MAJOR</b>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+	  									<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_close_color">Closed</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+									 				<div class="col-sm-6" style="color:#878383;">
+										 				Type: <b>Credit</b>
+										 			</div>
+										 			<div class="col-sm-6" style="text-align:right; color: #878383;">
+										 				Severity: <span class="ticket_critical"><b>SHOW STOPPER</b></span>
+										 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+								</ul>
+  							</div>
+  						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="card" style="width: 100%;">
+  				<div class="card-body">
+    				<h4 class="card-title overdue_header">Overdue Work Items</h4>
+    				<ul class="nav nav-tabs" id="myTab" role="tablist">
+  						<li class="nav-item overdue_nav" role="presentation">
+    						<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><img style="margin-top: -15px;" src="{% static 'portal_admin/images/overdue_tasks_nav.png' %}">Tasks</button>
+  						</li>
+  						<li class="nav-item overdue_nav" role="presentation">
+    						<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><img style="margin-top: -15px;" src="{% static 'portal_admin/images/overdue_tickets_nav.png' %}">Tickets</button>
+  						</li>
+					</ul>
+					<div class="tab-content" id="myTabContent">
+  						<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+  							<ul class="list-group">
+							 	<li class="list-group-item">
+							 		<div class="row">
+							 			<div class="col-sm-2">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 		</div>
+								 		<div class="col-sm-10 font-12">
+								 			<div class="row">
+								 				<div class="col-sm-12" style="color:#182279;">
+									 				<b>Sample OverDue Tasks</b>
+									 			</div>
+									 			<div class="col-sm-12">
+									 				Small Description of the task
+									 			</div>
+									 			<div class="col-sm-6" style="text-align: left;">
+									 				<span class="badge rounded-pill bg-info text-dark">In Progress</span>
+									 			</div>
+									 			<div class="col-sm-6" style="text-align: right;">
+									 				
+									 			</div>
+								 			</div>
+								 			
+								 		</div>
+							 		</div>
+							 	</li>
+							  	<li class="list-group-item">
+							  		<div class="row">
+							  			<div class="col-sm-2">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 		</div>
+								 		<div class="col-sm-10 font-12">
+								 			<div class="row">
+								 				<div class="col-sm-12" style="color:#182279;">
+									 				<b>Sample OverDue Tasks</b>
+									 			</div>
+									 			<div class="col-sm-12">
+									 				Small Description of the task
+									 			</div>
+									 			<div class="col-sm-6" style="text-align: left;">
+									 				<span class="badge rounded-pill bg-warning text-dark">For Approval</span>
+									 			</div>
+									 			<div class="col-sm-6" style="text-align: right;">
+									 				
+									 			</div>
+								 			</div>
+								 		</div>
+							  		</div>
+							  	</li>
+							  	<li class="list-group-item">
+							  		<div class="row">
+							  			<div class="col-sm-2 ">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 		</div>
+								 		<div class="col-sm-10 font-12">
+								 			<div class="col-sm-12" style="color:#182279;">
+								 				<b>Sample OverDue Tasks</b>
+								 			</div>
+								 			<div class="col-sm-12">
+								 				Small Description of the task
+								 			</div>
+								 			<div class="col-sm-6" style="text-align: left;">
+								 				<span class="badge rounded-pill bg-success">In Review</span>
+								 			</div>
+								 			<div class="col-sm-6" style="text-align: right;">
+								 				
+								 			</div>
+								 		</div>
+							  		</div>
+							  	</li>
+							 	<li class="list-group-item" style="text-align:center;">
+							 		<h6>Show More</h6>
+							 	</li>
+							</ul>
+  						</div>
+  						<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+  							<ul class="list-group">
+							 	<li class="list-group-item">
+							 		<div class="row">
+							 			<div class="col-sm-2">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 		</div>
+								 		<div class="col-sm-10 font-12">
+								 			<div class="row">
+								 				<div class="col-sm-12" style="color:#182279;">
+									 				<b>Sample OverDue Tickets</b>
+									 			</div>
+									 			<div class="col-sm-12">
+									 				Small Description of the task
+									 			</div>
+									 			<div class="col-sm-6" style="text-align: left;">
+									 				<span class="badge rounded-pill bg-info text-dark">In Progress</span>
+									 			</div>
+									 			<div class="col-sm-6" style="text-align: right;">
+									 				
+									 			</div>
+								 			</div>
+								 			
+								 		</div>
+							 		</div>
+							 	</li>
+							  	<li class="list-group-item">
+							  		<div class="row">
+							  			<div class="col-sm-2">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 		</div>
+								 		<div class="col-sm-10 font-12">
+								 			<div class="row">
+								 				<div class="col-sm-12" style="color:#182279;">
+									 				<b>Sample OverDue Tickets</b>
+									 			</div>
+									 			<div class="col-sm-12">
+									 				Small Description of the task
+									 			</div>
+									 			<div class="col-sm-6" style="text-align: left;">
+									 				<span class="badge rounded-pill bg-warning text-dark">For Approval</span>
+									 			</div>
+									 			<div class="col-sm-6" style="text-align: right;">
+									 				
+									 			</div>
+								 			</div>
+								 		</div>
+							  		</div>
+							  	</li>
+							  	<li class="list-group-item">
+							  		<div class="row">
+							  			<div class="col-sm-2">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 		</div>
+								 		<div class="col-sm-10 font-12">
+								 			<div class="col-sm-12" style="color:#182279;">
+								 				<b>Sample OverDue Tickets</b>
+								 			</div>
+								 			<div class="col-sm-12">
+								 				Small Description of the task
+								 			</div>
+								 			<div class="col-sm-6" style="text-align: left;">
+								 				<span class="badge rounded-pill bg-success">In Review</span>
+								 			</div>
+								 			<div class="col-sm-6" style="text-align: right;">
+								 				
+								 			</div>
+								 		</div>
+							  		</div>
+							  	</li>
+							 	<li class="list-group-item" style="text-align:center;">
+							 		<h6>Show More</h6>
+							 	</li>
+							</ul>
+  						</div>
+  					</div>
+  				</div>
+			</div>
+			<br/>
+			<div class="card scroll" style="width: 100%; height: 380px;">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-10">
+							<h4 class="card-title overdue_header">Clients Updates </h4>
+						</div>
+						<div class="col-sm-2" style="text-align:right; color: #6417A1;">
+							<div class="dropdown">
+								<span class="dropdown-toggle" type="button" id="clicentUpdateDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="fa-solid fa-filter"></i>
+								</span>
+								<ul class="dropdown-menu" aria-labelledby="clicentUpdateDropdown">
+							    <li><a class="dropdown-item" href="#">Open</a></li>
+							    <li><a class="dropdown-item" href="#">In Progress</a></li>
+							    <li><a class="dropdown-item" href="#">For Approval</a></li>
+							    <li><a class="dropdown-item" href="#">Complete</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<ul class="list-group font-12">
+							<li class="list-group-item remove-border-list">
+								<div class="row">
+						  			<div class="col-sm-2" style="text-align: right;">
+							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+							 		</div>
+							 		<div class="col-sm-10">
+							 			<b>Calvin Aguirre</b> posted a comment in <span class="client_update_title"><b>Tokkyum Takoyaki Logo Design</b></span>
+							 		</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10">Can you please tone down the color of the cartoon logo? Then for the background ...</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10" style="color:#1B1971"> 
+										<!-- comment date and time -->
+										22 April, 08:01 AM
+									</div>
+								</div>
+							</li>
+							<hr>
+							<li class="list-group-item remove-border-list">
+								<div class="row">
+						  			<div class="col-sm-2" style="text-align: right;">
+							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+							 		</div>
+							 		<div class="col-sm-10">
+							 			<b>Calvin Aguirre</b> posted a comment in <span class="client_update_title"><b>Tokkyum Takoyaki Logo Design</b></span>
+							 		</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10">Can you please tone down the color of the cartoon logo? Then for the background ...</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10" style="color:#1B1971"> 
+										<!-- comment date and time -->
+										22 April, 08:01 AM
+									</div>
+								</div>
+							</li>
+							<hr>
+							<li class="list-group-item remove-border-list">
+								<div class="row">
+						  			<div class="col-sm-2" style="text-align: right;">
+							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+							 		</div>
+							 		<div class="col-sm-10">
+							 			<b>Calvin Aguirre</b> posted a comment in <span class="client_update_title"><b>Tokkyum Takoyaki Logo Design</b></span>
+							 		</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10">Can you please tone down the color of the cartoon logo? Then for the background ...</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10" style="color:#1B1971"> 
+										<!-- comment date and time -->
+										22 April, 08:01 AM
+									</div>
+								</div>
+							</li>
+							<hr>
+							<li class="list-group-item remove-border-list">
+								<div class="row">
+						  			<div class="col-sm-2" style="text-align: right;">
+							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+							 		</div>
+							 		<div class="col-sm-10">
+							 			<b>Calvin Aguirre</b> posted a comment in <span class="client_update_title"><b>Tokkyum Takoyaki Logo Design</b></span>
+							 		</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10">Can you please tone down the color of the cartoon logo? Then for the background ...</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-2"></div>
+									<div class="col-sm-10" style="color:#1B1971"> 
+										<!-- comment date and time -->
+										22 April, 08:01 AM
+									</div>
+								</div>
+							</li>
+							<hr>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
