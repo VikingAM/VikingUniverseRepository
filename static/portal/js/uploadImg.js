@@ -606,5 +606,3 @@ function filterData() {
     }
   }
   
-
-  

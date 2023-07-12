@@ -1,48 +1,41 @@
 {% load static %}
-<div id="sub-sidebar-container" class="sidebar-expanded-sub d-none d-md-block" >
-	<!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-	<!-- Bootstrap List Group -->
-    <ul class="sub-list-group">
-        <!-- Separator with title -->
-        <br/>
-        <a href="#" data-toggle="collapse" aria-expanded="false" class="list-group-item flex-column " style="height: 120px; text-align: center;">
-        	
-                <span class="menu-expanded" id="sub-menu-label">Settings</span>
-            
-        </a>
-        <!-- /END Separator -->
-        <!-- Menu with submenu -->
-        <br/><br/>
-        <a href="{% url 'portalSettingPage' %}" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start">
-            	
-            	<span class="fa-solid fa-pen-to-square sub-navbar-icons"></span>
-                <span class="menu-expanded setting-sub-menu">Edit Profile</span>
+
+
+
+
+<div class="flex">
+    <nav class="w-52 xl:ml-0 xl:w-44 bxl:w-52 xl_4k:w-120 h-auto ml-22 bg-gray-200 flex justify-center text-lg">
+        <ul>
+            <li>
+                <center><p href="#" class="text-2xl bxl:text-xl bxl:mt-12 xl:text-lg xl_4k:text-6xl xl_4k:mt-32 mt-5 font-Lato font-bold">Settings</p></center> 
+            </li>
+            <div class="mt-20 xl_4k:mt-44 flex-row space-y-8 xl_4k:space-y-28 xl:text-2base">
+                <li>
+                    <span class="setting-sidebar-item fas fa-pencil-alt mr-2 xl_4k:text-4xl bxl:text-base {% if active_page == 'editProfile' %}active{% endif %}"></span>
+                    <a href="{% url 'portalSettingPage' %}" class="setting-sidebar-item bxl:text-base xl_4k:text-4xl font-Lato {% if active_page == 'editProfile' %}active{% endif %}">Edit Profile</a>  
+                </li>
+                <li>
+                    <span class="setting-sidebar-item fas fa-lock mr-2 bxl:text-base xl_4k:text-4xl {% if active_page == 'password' %}active{% endif %}"></span>
+                    <a href="{% url 'SettingPasswordPage' %}" class="setting-sidebar-item font-Lato bxl:text-base xl_4k:text-4xl {% if active_page == 'password' %}active{% endif %}">Password</a>    
+                </li>
+                <li class="">
+                    <span class="setting-sidebar-item fas fa-file-invoice-dollar mr-3 bxl:text-base xl_4k:text-4xl setting-sidebar-item {% if active_page == 'invoice' %}active{% endif %}"></span>
+                    <a href="{% url 'SettingInvoicePage' %}"  class="font-Lato bxl:text-base xl_4k:text-4xl setting-sidebar-item {% if active_page == 'invoice' %}active{% endif %}">Invoices</a>    
+                    
+                </li>
+                <li>
+                    <span class="setting-sidebar-item fas fa-key mr-1 bxl:text-base xl_4k:text-4xl {% if active_page == 'passwordManager' %}active{% endif %}"></span>
+                    <a href="{% url 'SettingPasswordManagementPage' %}" class="setting-sidebar-item font-Lato bxl:text-base xl_4k:text-4xl {% if active_page == 'passwordManager' %}active{% endif %}">Password Manager</a>    
+                </li>
+                <li>
+                    <span class="setting-sidebar-item fas fa-question-circle mr-1 bxl:text-base xl_4k:text-4xl {% if active_page == 'faqs' %}active{% endif %}"></span>
+                    <a href="{% url 'SettingFaqsPage' %}" class="setting-sidebar-item font-Lato bxl:text-base xl_4k:text-4xl {% if active_page == 'faqs' %}active{% endif %}">FAQs</a>    
+                </li>
+
+                <li>
+                    <a href="{% url 'services' %}" class="setting-sidebar-item font-Lato bxl:text-base xl_4k:text-4xl">Services</a>    
+                </li>
             </div>
-        </a>
-       	<a href="{% url 'SettingPasswordPage' %}" class="list-group-item list-group-item-action ">
-            <div class="d-flex w-100 justify-content-start ">
-            	<span class="fa-solid fa-lock sub-navbar-icons"></span>
-                <span class="menu-expanded setting-sub-menu">Password</span>
-            </div>
-        </a>
-        <a href="{% url 'SettingInvoicePage' %}" class="list-group-item list-group-item-action ">
-            <div class="d-flex w-100 justify-content-start ">
-            	<i class="fa-solid fa-file-invoice-dollar sub-navbar-icons"></i>
-                <span class="menu-expanded setting-sub-menu">Invoice</span>
-            </div>
-        </a>
-        <a href="{% url 'SettingPasswordManagementPage' %}" class="list-group-item list-group-item-action ">
-            <div class="d-flex w-100 justify-content-start ">
-            	<span class="fa-solid fa-key sub-navbar-icons"></span>
-                <span class="menu-expanded setting-sub-menu">Password Manager</span>
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action ">
-            <div class="d-flex w-100 justify-content-start ">
-            	<span class="fa-solid fa-person-circle-question sub-navbar-icons"></span>
-                <span class="menu-expanded setting-sub-menu">FAQS</span>
-            </div>
-        </a> 
-    </ul><!-- List Group END-->
+        </ul>
+    </nav>
 </div>

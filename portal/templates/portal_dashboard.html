@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -6,16 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-	<link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'portal/css/style_v1.css' %}">
-    <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
-
+    
+	<link rel="stylesheet" href="{% static 'portal/css/index.css' %}"> 
+	<link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
 	<link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'portal/images/logo_v.png' %}">
 
+    
 </head>
 <body>
 <div class="flex">
-	{% include 'sidebar.html' %}
+    {% include 'sidebar.html' with active_page='sidebar_Dashboard' %}
 	<div class="bxl:w-full mxl:mr-20 xxl:mr-0 xxl:p-5 bxl:pr-10">
 		{% include 'portal_nav_bar.html' %}
 		<div class="flex space-x-14 xl:space-x-8 bxl:space-x-10 mxl:space-x-10 xxl:space-x-12 xl_4k:space-x-20 justify-center ml-32 xl:ml-8 mxl:ml-14 xxl:ml-0 m-8 xl:m-0 mxl:mt-12 xl_4k:mt-20">
@@ -26,13 +28,13 @@
                     <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2" href="#"></a>
                 </div>
                 <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12 xl:mr-5">
-                    <div class="flex items-center justify-center bg-totalTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
-                        <img src="{% static 'portal/dashboard/totaltask.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 xl_4k:h-20 xl_4k:w-48 rounded-full" > 
+                    <!-- bg-totalTask -->
+                    <div class="flex items-center justify-center bg-totalTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-28 xl_4k:w-28 rounded-full">
+                        <img src="{% static 'portal/dashboard/totaltask.png' %}" class="xl:object-scale-down xl_4k:object-none h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 xl_4k:h-10 xl_4k:w-8 " > 
                     </div>
-                    <div class="xl_4k:space-y-2">
-                        <h1 class="font-Poppins xl:text-lg  xxl:text-xl xl_4k:text-4xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Total Task</h1>
-                        
+                    <div class="">
+                        <h1 class="font-Poppins xl:text-base xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-sm bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Total Task</h1>
                     </div>
                 </div>
             </div>
@@ -43,12 +45,12 @@
                     <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2" href="#"></a>
                 </div>
                 <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12 xl:mr-5">
-                    <div class="flex items-center justify-center bg-openTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
-                        <img src="{% static 'portal/dashboard/opentask.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    <div class="flex items-center justify-center bg-openTask h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-28 xl_4k:w-28 rounded-full">
+                        <img src="{% static 'portal/dashboard/opentask.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 xl_4k:h-10 xl_4k:w-8 " > 
                     </div>
-                    <div class="xl:text-sm xl_4k:space-y-2">
-                        <h1 class="font-Poppins xl:text-lg xxl:text-xl xl_4k:text-4xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Open Task</h1>
+                    <div class="">
+                        <h1 class="font-Poppins xl:text-base xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-sm bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Open Task</h1>
                     </div>
                 </div>
             </div>
@@ -59,12 +61,12 @@
                     <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2" href="#"></a>
                 </div>
                 <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12">
-                    <div class="flex items-center justify-center bg-taskProg h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
-                        <img src="{% static 'portal/dashboard/taskprogress.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    <div class="flex items-center justify-center bg-taskProg h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-28 xl_4k:w-28 rounded-full">
+                        <img src="{% static 'portal/dashboard/taskprogress.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 xl_4k:h-10 xl_4k:w-8" > 
                     </div>
-                    <div class="xl:text-sm xl_4k:space-y-2">
-                        <h1 class="font-Poppins xl:text-lg bxl:text-xl xxl:text-xl xl_4k:text-4xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Task in Progress</h1>
+                    <div>
+                        <h1 class="font-Poppins xl:text-base bxl:text-xl xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-sm bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Task in Progress</h1>
                     </div>
                 </div>
             </div>
@@ -75,12 +77,12 @@
                     <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2" href="#"></a>
                 </div>
                 <div class="flex items-center justify-center space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12">
-                    <div class="flex items-center justify-center bg-taskAppr h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
-                        <img src="{% static 'portal/dashboard/taskapprv.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    <div class="flex items-center justify-center bg-taskAppr h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-28 xl_4k:w-28 rounded-full">
+                        <img src="{% static 'portal/dashboard/taskapprv.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 xl_4k:h-10 xl_4k:w-8" > 
                     </div>
-                    <div class="xl:text-sm xl_4k:space-y-2">
-                        <h1 class="font-Poppins xl:text-lg xxl:text-xl xl_4k:text-4xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Task for Approval</h1>
+                    <div>
+                        <h1 class="font-Poppins xl:text-base xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-sm bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Task for Approval</h1>
                     </div>
                 </div>
             </div>
@@ -91,28 +93,28 @@
                     <a class="fas fa-ellipsis-h text-lg xl_4k:text-4xl mr-2 z-10" href="#"></a>
                 </div>
                 <div class="flex items-center justify-center xl:space-x-2 xxl:space-x-4 mt-8 xl:mt-4 xxl:mt-6 xl_4k:mt-12">
-                    <div class="flex items-center justify-center bg-credsAv h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-20 xl_4k:w-20 rounded-full">
-                        <img src="{% static 'portal/dashboard/credsav.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 rounded-full" > 
+                    <div class="flex items-center justify-center bg-credsAv h-12 w-12 xl:h-9 xl:w-9 xxl:h-14 xxl:w-14 xl_4k:h-28 xl_4k:w-28 rounded-full">
+                        <img src="{% static 'portal/dashboard/credsav.png' %}" class="object-scale-down h-10 w-20 xl:h-5 xl:w-5 xxl:h-7 xxl:w-8 xl_4k:h-10 xl_4k:w-8" > 
                     </div>
-                    <div class="xl:text-sm xl_4k:space-y-2">
-                        <h1 class="font-Poppins xl:text-lg xxl:text-xl xl_4k:text-4xl">10</h1>
-                        <h1 class="font-Poppins xl:text-xs bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Credits Available</h1>
+                    <div>
+                        <h1 class="font-Poppins xl:text-base xxl:text-xl xl_4k:text-4xl">10</h1>
+                        <h1 class="font-Poppins xl:text-sm bxl:text-sm mxl:text-2base xxl:text-base xl_4k:text-3xl">Credits Available</h1>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex xl_4k:justify-center xl:space-x-4 bxl:space-x-7 mxl:space-x-10 xxl:space-x-10 xl_4k:space-x-28 bxl:ml-3 xxl:ml-5 mxl:ml-7 xl:mb-10 xl_4k:mt-16">
+        <div class="flex xl:justify-center xl:space-x-4 bxl:space-x-7 mxl:space-x-10 xxl:space-x-10 xl_4k:space-x-28 bxl:ml-3 xxl:ml-5 mxl:ml-7 xl:mb-10 xl_4k:mt-16">
             
             <div class="flex xl:ml-10 xl:mt-5 ">
-                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-192">
+                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-200">
                     <section class="table__header">
                         <div class="flex justify-between xl:w-full xl:mt-0">
                             <div class="flex xl:space-x-2">
-                                <div class="xl:w-3 xl:h-3 xl_4k:w-5 xl_4k:h-5 rounded-full bg-blue-500 xl:mt-1 xl_4k:mt-2"></div>
-                                <h1 class="text-2base mxl:text-base xl_4k:text-2xl font-Lato text-black font-bold">Open Task</h1>
+                                <div class="xl:w-3 xl:h-3 xl_4k:w-7 xl_4k:h-7 rounded-full bg-blue-500 xl:mt-1 xl_4k:mt-2"></div>
+                                <h1 class="text-2base mxl:text-base xl_4k:text-3xl font-Lato text-black font-bold">Open Task</h1>
                             </div>
-                            <p class="text-2base xxl:text-base xl_4k:text-2xl font-bold font-Poppins">Date Added</p>
+                            <p class="text-2base xxl:text-base xl_4k:text-3xl font-bold font-Poppins">Date Added</p>
                         </div>  
                     </section>
                     <section class="table__body xl:h-screen xxl:h-150">
@@ -125,17 +127,17 @@
                                             <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400 xl_4k:text-4xl xl_4k:-mt-5" href="#"></a>
                                         </div>
                                         <div class="mt-3">
-                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-2xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-3xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
                                         </div>
                                         <div class="flex xl:space-x-3 xl_4k:mt-2">
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24  rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24  rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
                                         </div>
                                         <div class="flex xl:mt-3 text-sm">
                                             <div class="flex hover:text-white xl:w-full">
-                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-2xl mr-2 xxl:mt-2 xl_4k:mt-1" href="#"></p>
-                                                <p class="font-Lato xl:mt-1 xxl:mt-0 xxl:text-base xl_4k:text-2xl">04 February 2023</p>
+                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-3xl mr-2 xxl:mt-1 xl_4k:mt-1" href="#"></p>
+                                                <p class="font-Lato xxl:mt-0 xxl:text-base xl_4k:text-3xl">04 February 2023</p>
                                             </div>
                                             <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl_4k:text-2xl xl:w-48 xl_4k:w-85 rounded-full text-sm text-white bg-progressCol xl:ml-0 bxl:ml-10 duration-500">0%</div>
                                         </div>
@@ -148,14 +150,14 @@
             </div>
 
             <div class="flex xl:ml-10 xl:mt-5">       
-                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-192">
+                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-200">
                     <section class="table__header ">
                         <div class="flex justify-between xl:w-full xl:mt-0">
                             <div class="flex xl:space-x-2">
-                                <div class="xl:w-3 xl:h-3 xl_4k:w-5 xl_4k:h-5 rounded-full bg-red-400 xl:mt-1 xl_4k:mt-2"></div>
-                                <h1 class="text-2base mxl:text-base xl_4k:text-2xl font-Lato text-black font-bold">In Progress</h1>
+                                <div class="xl:w-3 xl:h-3 xl_4k:w-7 xl_4k:h-7 rounded-full bg-red-400 xl:mt-1 xl_4k:mt-2"></div>
+                                <h1 class="text-2base mxl:text-base xl_4k:text-3xl font-Lato text-black font-bold">In Progress</h1>
                             </div>
-                            <p class="text-2base xxl:text-base xl_4k:text-2xl font-bold font-Poppins">Priority</p>
+                            <p class="text-2base xxl:text-base xl_4k:text-3xl font-bold font-Poppins">Priority</p>
                         </div>
                     </section>
                     <section class="table__body overflow-auto xl:h-screen xxl:h-150">
@@ -168,17 +170,17 @@
                                             <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400 xl_4k:text-4xl xl_4k:-mt-5" href="#"></a>
                                         </div>
                                         <div class="mt-3">
-                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-2xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-3xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
                                         </div>
                                         <div class="flex xl:space-x-3 xl_4k:mt-2">
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
                                         </div>
                                         <div class="flex xl:mt-3 text-sm">
                                             <div class="flex hover:text-white xl:w-full">
-                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-2xl mr-2 xxl:mt-2 xl_4k:mt-1" href="#"></p>
-                                                <p class="font-Lato xl:mt-1 xxl:mt-0 xxl:text-base xl_4k:text-2xl">04 February 2023</p>
+                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-3xl mr-2 xxl:mt-1 xl_4k:mt-1" href="#"></p>
+                                                <p class="font-Lato xxl:mt-0 xxl:text-base xl_4k:text-3xl">04 February 2023</p>
                                             </div>
                                             <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl_4k:text-2xl xl:w-48 xl_4k:w-85 rounded-full text-sm text-white bg-progressCol xl:ml-0 bxl:ml-10 duration-500">0%</div>
                                         </div>
@@ -191,12 +193,12 @@
             </div>
 
             <div class="flex xl:ml-10 xl:mt-5">         
-                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-192">
+                <main class="table xl:w-89 mxl:w-105 xxl:w-120 xl_4k:w-200">
                     <section class="table__header ">
                         <div class="flex justify-between xl:w-full xl:mt-0">
                             <div class="flex xl:space-x-2">
-                                <div class="xl:w-3 xl:h-3 xl_4k:w-5 xl_4k:h-5 rounded-full bg-green-700 xl:mt-1 xl_4k:mt-2"></div>
-                                <h1 class="text-2base mxl:text-base xl_4k:text-2xl font-Lato text-black font-bold">For Approval</h1>
+                                <div class="xl:w-3 xl:h-3 xl_4k:w-7 xl_4k:h-7 rounded-full bg-green-700 xl:mt-1 xl_4k:mt-2"></div>
+                                <h1 class="text-2base mxl:text-base xl_4k:text-3xl font-Lato text-black font-bold">For Approval</h1>
                             </div>
                             <p class="text-2base"></p>
                         </div>
@@ -211,17 +213,17 @@
                                             <a class="fas fa-ellipsis-h text-lg mr-2 text-gray-400 xl_4k:text-4xl xl_4k:-mt-5" href="#"></a>
                                         </div>
                                         <div class="mt-3">
-                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-2xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                                            <p id="" class="font-Poppins text-sm bxl:text-2base xxl:text-base xl_4k:text-3xl text-start">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
                                         </div>
                                         <div class="flex xl:space-x-3 xl_4k:mt-2">
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
-                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-2xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText1 bg-catOne duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText2 bg-catTwo duration-500">Category</div>
+                                            <div class="font-Lato mt-20 xl:mt-3 p-2 xl:p-0 kxl:p-3 xl:text:vs xl_4k:text-3xl xl_4k:w-40 xl:w-24 rounded-full text-sm text-catText3 bg-catThree duration-500">Category</div>
                                         </div>
                                         <div class="flex xl:mt-3 text-sm">
                                             <div class="flex hover:text-white xl:w-full">
-                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-2xl mr-2 xxl:mt-2 xl_4k:mt-1" href="#"></p>
-                                                <p class="font-Lato xl:mt-1 xxl:mt-0 xxl:text-base xl_4k:text-2xl">04 February 2023</p>
+                                                <p class="far fa-calendar-alt text-lg xxl:text-base xl_4k:text-3xl mr-2 xxl:mt-1 xl_4k:mt-1" href="#"></p>
+                                                <p class="font-Lato xxl:mt-0 xxl:text-base xl_4k:text-3xl">04 February 2023</p>
                                             </div>
                                             <div class="justify-end items-end self-end justify-items-end place-content-end font-Lato xl:p-0 xl:text:vs xl_4k:text-2xl xl:w-48 xl_4k:w-85 rounded-full text-sm text-white bg-progressCol xl:ml-0 bxl:ml-10 duration-500">0%</div>
                                         </div>

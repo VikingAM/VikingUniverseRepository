@@ -60,7 +60,7 @@ body {
     /* put your CSS styles for this screen size here */
   
     .side-nav:hover{
-        width: 280px;
+        width: 580px;
         transition: all 0.5s ease;
         
     }
@@ -526,4 +526,30 @@ hr {
   .splide__slide {
     width: 100vw;
     height: auto;
+  }
+
+  .setting-sidebar-item {
+    /* Default color */
+    color: #000; 
+  }
+  
+  .setting-sidebar-item.active {
+    /* Active color */
+    background: linear-gradient(to right, #1A2FEED9, #C41AEED9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+  }
+
+  .primary-sidebar-item {
+    /* Default color */
+    color: #000; 
+  }
+  
+  .primary-sidebar-item.active {
+    /* Active color */
+    background: linear-gradient(to right, #1A2FEED9, #C41AEED9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
   }
