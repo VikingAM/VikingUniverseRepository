@@ -1,0 +1,53 @@
+{% extends 'admin_templates/admin_base.html' %}
+
+{% load static %}
+
+{% block title %} Admin Dashboard {% endblock title %}
+
+{% block style %}
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<style type="text/css">
+	.dot {
+		width: 70%;
+	  	background-color: #6417A180;
+	  	border-radius: 50%;
+	  	display: inline-block;
+	}
+	.dashboard_cards{
+		font-weight: 800;
+		font-size: 15px;
+	}
+</style>
+
+{% endblock style %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<h3 class="dashboard_welcome_greeting">Ticket Dashboard</h3>
+		</div>
+	</div>
+	<div class="container-fluid" style="border: 1px solid green; padding: 1%;">
+		<div class="row" style="border: 1px solid #EAEAEA;">
+			<div class="col-sm-6">
+				<h5>May Billing Failed to Receive</h5>
+				
+			</div>
+			<div class="col-sm-5"></div>
+			<div class="col-sm-1"> . . .</div>
+			
+		</div>
+	</div>
+	
+	
+{% endblock %}
+
+{% block script %}
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		
+		
+	</script>
+{% endblock %}
