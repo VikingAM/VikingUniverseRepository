@@ -93,33 +93,23 @@ def SettingFaqsPage(request):
 @login_required(login_url='/accounts/login')
 def portalAdminDashboard(request):
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'adnin_templates/admin_dashboard.html', {"profile_details": profile_details})
+	return render(request, 'admin_templates/admin_dashboard.html', {"profile_details": profile_details})
 
 @login_required(login_url='/accounts/login')
 def portalAdminTicketDashboard(request):
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'adnin_templates/tickets/ticket_dashboard.html', {"profile_details": profile_details})
+	return render(request, 'admin_templates/tickets/ticket_dashboard.html', {"profile_details": profile_details})
 
 @login_required(login_url='/accounts/login')
 def portalAdminTicketList(request):
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'adnin_templates/tickets/ticket_list.html', {"profile_details": profile_details})
+	# list_of_tickets = issue.objects.filter(is_delete=0).order_by("-id") I comment this out and create a raw sql cause the user other details
+	list_of_tickets = issue.objects.raw("SELECT * FROM tickets_issue a INNER JOIN accounts_details b ON a.`userId_id` = b.`userId_id` WHERE STATUS = 0")
+	return render(request, 'admin_templates/tickets/ticket_list.html', {"profile_details": profile_details, "tickets":list_of_tickets})
 
 @login_required(login_url='/accounts/login')
-def portalAdminGetTicketList(request):
-	data = {}
-	list_of_tickets = issue.objects.filter(is_delete=0).order_by("-id")
-	tickets = {}
-	for ticket in list_of_tickets:
-		tickets_array = {}
-		tickets_array['id'] = ticket.pk
-		tickets_array['title'] = ticket.title
-		tickets_array['status'] = ticket.ticket_status
-		tickets_array['type'] = ticket.issue_type.name
-		owner_instance = details.objects.get(userId=ticket.userId.pk)
-		tickets_array['ticket_owner_name'] = owner_instance.first_name+" "+owner_instance.last_name
-		tickets_array['ticket_owner_id'] = ticket.userId.pk
-		tickets[ticket.pk] = tickets_array
-	data['tickets'] = tickets
+def getAdminTicketDetails(request, ticket_id):
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'admin_templates/tickets/ticket_detailed.html', {"profile_details": profile_details})
 
-	return JsonResponse(data, safe=False)
+

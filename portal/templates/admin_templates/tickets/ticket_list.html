@@ -1,4 +1,4 @@
-{% extends 'adnin_templates/admin_base.html' %}
+{% extends 'admin_templates/admin_base.html' %}
 
 {% load static %}
 
@@ -42,12 +42,17 @@
 				</thead>
 				<tbody class="ticket_table_list">
 					{% for ticket in tickets %}
-
 						<tr>
-							<td>{{ ticket }}</td>
+							<td><b><a style='text-decoration: none;' href="{% url 'getAdminTicketDetails' ticket.pk %}">{{ ticket.title }}</a></b></td>
 							<td>#{{ ticket.id }} </td>
 							<td>Task</td>
-							<td><img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket.user_set.get.first_name }} </span> Thalia Cantrell</td>
+							<td>
+								{% if ticket.profile_picture|length > 0 %}
+                            		<img src="/{{ ticket.profile_picture|default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span> 	
+                        		{% else %}
+                            		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span> 	
+                        		{% endif %}	
+							</td>
 							<td>
 								{% if ticket.ticket_status == "OPEN" %}
 									<span class='badge bg-primary'>OPEN</span>
@@ -83,48 +88,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			getTicketList();
-		})
-
-		function getTicketList(){
-			$.ajax({
-		        type: "GET",
-		        url: "{% url 'portalAdminGetTicketList' %}",
-		        async:true,
-		        success: function (data) {
-		        	var tickets = data.tickets;
-		        	if(Object.keys(data.tickets).length > 0){
-		        		$(".ticket_table_list").empty();
-		        		$.each(data.tickets, function(index, value){
-		        			var output = "";
-		        			output +="<tr>";
-		        			output +="<td>"+value.title+"</td>";
-		        			output +="<td>#"+value.id+"</td>";
-		        			output +="<td>"+value.type+"</td>";
-		        			output +="<td>V"+value.ticket_owner_id+" "+value.ticket_owner_name+"</td>";
-		        			if(value.status == "OPEN"){
-		        				output += "<td><span class='badge bg-primary'>OPEN</span></td>";
-		        			}else if(value.status == "IN PROGRESS"){
-		        				output += "<td><span class='badge bg-warning'>IN PROGRESS</span></td>";
-		        			}else if(value.status == "TO BE TESTED"){
-		        				output += "<td><span class='badge bg-success'>TO BE TESTED</span></td>";
-		        			}else if(value.status == "CLOSED"){
-		        				output += "<td><span class='badge bg-info'>CLOSED</span></td>";
-		        			}
-		        			output +="</tr>";
-		        			$(".ticket_table_list").append(output);
-		        			// 
-		        		});
-		        		let table = new DataTable('#ticket_list', { order: [[0, 'desc']]});
-		        	}
-		        	
-		        },
-		        error: function (e) {
-		            // $("#new_password_error").append("Error! please try again later.");
-		        }
-		    })
-		}
+		
 		
 	</script>
 {% endblock %}
