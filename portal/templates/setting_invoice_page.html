@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,85 +10,30 @@
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
     <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'portal/images/logo_v.png' %}">
 
     <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+    
+
+        
 </head>
+
+
 <body>
     <!-- Sidebar Panel -->
     <div class="overlay hidden" onclick="toggleOverlayInvoice()" id="overlay_id"></div>
     <div class="flex">
-        {% include 'sidebar.html' %}
+    	{% include 'sidebar.html' with active_page='sidebar_Settings' %}
         <!-- Settings Sidebar -->
-        <div class="flex">
-            <nav class="w-52 xl:ml-0 xl:w-44 bxl:w-52 xl_4k:w-120 h-auto ml-22 bg-gray-200 flex justify-center text-lg">
-                <ul>
-                    <li>
-                        <center><p href="#" class="text-2xl bxl:text-xl bxl:mt-12 xl:text-lg xl_4k:text-6xl xl_4k:mt-32 mt-5 font-Lato font-bold">Settings</p></center> 
-                    </li>
-                    <div class="mt-20 xl_4k:mt-44 flex-row space-y-8 xl_4k:space-y-28 xl:text-2base">
-                        <li>
-                            <span class="fas fa-pencil-alt mr-2 xl_4k:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2 bxl:text-base"></span>
-                            <a href="{% url 'portalSettingPage' %}" class="bxl:text-base xl_4k:text-4xl font-Lato text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2">Edit Profile</a>  
-                        </li>
-                        <li>
-                            <span class="fas fa-lock mr-2 bxl:text-base xl_4k:text-4xl"></span>
-                            <a href="{% url 'SettingPasswordPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Password</a>    
-                        </li>
-                        <li>
-                            <span class="fas fa-file-invoice-dollar mr-3 bxl:text-base xl_4k:text-4xl"></span>
-                            <a href="{% url 'SettingInvoicePage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Invoices</a>    
-                        </li>
-                        <li>
-                            <span class="fas fa-key mr-1 bxl:text-base xl_4k:text-4xl"></span>
-                            <a href="{% url 'SettingPasswordManagementPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Password Manager</a>    
-                        </li>
-                        <li>
-                            <span class="fas fa-question-circle mr-1 bxl:text-base xl_4k:text-4xl"></span>
-                            <a href="{% url 'SettingFaqsPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">FAQs</a>    
-                        </li>
-                    </div>
-                </ul>
-            </nav>
-        </div>
-        <div class="">
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3 xl_4k:mt-12 xl_4k:px-12">
-                <ul class="flex items-center text-sm  text-gray-600">
-                    <li class="flex items-center justify-center">
-                        <a class="fas fa-search text-lg xl_4k:text-5xl" href="#"></a>
-                        <form action="">
-                            <div class="h-10 flex items-center space-x-5 w-52 xl_4k:w-80">
-                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg xl_4k:text-4xl" type="text" placeholder="Search">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="flex items-center text-sm text-gray-600">
-                    <div class="flex items-center justify-center space-x-5 xl_4k:space-x-20">
-                        <li>
-                            <a class="fas fa-bell text-lg ml-6  xl_4k:text-5xl" href="#"></a>
-                        </li>
-                        <div class="flex items-center justify-center">
-                            <li>
-                                <a href="#">
-                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full"> 
-                                </a>
-                            </li>
-                            
-                            <li class="text-lg xl:text-sm xxl:text-lg">
-                                <p class="font-Jost xl_4k:text-5xl">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
-                            </li>
-                        </div>
-                        <li class="">
-                            <a class="fas fa-chevron-down text-lg xl_4k:text-4xl ml-3" href="#"></a>
-                        </li>
-                    </div>
-                </ul>
-            </nav>
-        </div>
+        {% include 'setting_sub_menu.html' with active_page='invoice' %}
+        {% include 'portal_secondary_nav_bar.html' %}
+
+        
         <div class="mt-32 xl:mt-10 xxl:mt-32 bxl:mt-16 xl_4k:mt-72 xl_4k:ml-40 ml-5 flex">
             <div>
-                <h1 class="text-4xl xl:text-2xl xl_4k:text-7xl font-bold font-Poppins text-editProfile"><b>Invoices</b></h1>
+                <h1 class="text-4xl xl:text-2xl xxl:text-3xl xl_4k:text-7xl font-bold font-Poppins text-editProfile"><b>Invoices</b></h1>
                 <p class="font-Poppins text-gray-500 text-sm bxl:text-2base xl_4k:text-4xl xl_4k:w-240 xl:w-180 font-medium">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
                     Velit officia consequat duis enim velit mollit. 
                     Exercitation veniam consequat sunt nostrud amet.</p>
@@ -125,8 +71,6 @@
                     </table>
                 </div>
             </div>
-
-           
 
      
         </div>

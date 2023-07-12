@@ -6,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Task | Design & Arts</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'portal/images/logo_v.png' %}">
+
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
   <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+  <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
   <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
@@ -15,49 +18,17 @@
     <!-- Sidebar Panel -->
     <div class="overlay hidden" onclick="toggleCloseService()" id="overlay_id"></div>
     <div class="flex">
-        {% include 'sidebar.html' %}
-        <div>
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
-                <ul class="flex items-center text-sm  text-gray-600">
-                    <li class="flex items-center justify-center">
-                        <a class="fas fa-search text-lg" href="#"></a>
-                        <form action="">
-                            <div class="h-10 flex items-center space-x-5 w-52">
-                                <input class="w-full bg-whiteSmoke text-black xl:py-1 xl:text-sm bxl:text-base font-Poppins xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="flex items-center text-sm text-gray-600">
-                    <div class="flex items-center justify-center space-x-5">
-                        <li>
-                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
-                        </li>
-                        <div class="flex items-center justify-center">
-                            <li>
-                                <a href="#">
-                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full" > 
-                                </a>
-                            </li>
-                            <li class="text-lg xl:text-sm mxl:text-2base xxl:text-lg">
-                                <p class="font-Poppins">John Doe</p>
-                            </li>
-                        </div>
-                        <li class="">
-                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
-                        </li>
-                    </div>
-                </ul>
-                
-            </nav>
-        </div>
-        <div class="flex flex-col w-full xl:mt-14 overflow-hidden">
-            <div class="xl:ml-5 ">
-                <h1 class="text-4xl xl:text-2xl xxl:text-3xl font-Poppins text-editProfile font-bold text-center">CHOOSE A SERVICE</h1>
+        {% include 'sidebar.html' with active_page='sidebar_SubmitTask' %}
+        {% include 'portal_secondary_nav_bar.html' %}
+
+
+        <div class="flex flex-col w-full xl:mt-14 xl_4k:mt-40 xl_4k:ml-12 overflow-hidden">
+            <div class="xl:ml-5">
+                <h1 class="text-4xl xl:text-2xl xxl:text-3xl xl_4k:text-7xl font-Poppins text-editProfile font-bold text-center">CHOOSE A SERVICE</h1>
                 <form action="">
-                    <div class="xl:mt-2 rounded-xl xl:py-1 xxl:py-3 xl:px-3 xl:w-52 xxl:w-72 xl:mb-5 bg-gradient-to-r from-linearButton1 to-linearButton2 border border-gray-300 flex justify-center  items-center">
-                        <a class="fas fa-search text-sm xxl:text-lg  text-white" href="#"></a>
-                        <input type="search" placeholder="Search a Service" class="xl:w-full xl:p-1 text-white font-Poppins text-xvs placeholder:text-gray-100 bg-gradient-to-r from-linearButton1 to-linearButton2 xxl:text-base">
+                    <div class="xl:mt-2 rounded-xl xl:py-1 xxl:py-3 xl:px-3 xl:w-52 xxl:w-72 xl_4k:w-170 xl_4k:p-4 xl:mb-5 bg-gradient-to-r from-linearButton1 to-linearButton2 border border-gray-300 flex justify-center  items-center">
+                        <a class="fas fa-search text-sm xxl:text-lg xl_4k:text-4xl text-white" href="#"></a>
+                        <input type="search" placeholder="Search a Service" class="xl:w-full xl:p-1 xl_4k:p-3 text-white font-Poppins text-xvs placeholder:text-gray-100 bg-gradient-to-r from-linearButton1 to-linearButton2 xxl:text-base xl_4k:text-4xl">
                     </div>
                 </form>
                 <div>
@@ -69,49 +40,49 @@
                         {% endfor %}
                     </select>
                     <div id="category_wrapper">
-                        <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:mt-20 xxl:text-xl text-profCol">Branding</h1>
+                        <h1 class="font-Poppins font-bold xl:ml-1 xl:mt-2 xxl:mt-20 xxl:text-xl xl_4k:text-5xl text-profCol">Branding</h1>
                         <section id="first-slider" class="splide">
                             <div class="splide__track">
-                                <ul class="splide__list">
+                                <ul class="splide__list flex xl_4k:px-120">
                                     <li class="splide__slide">
                                         <button onclick="toggleChooseService_v2()" class="cursor-pointer">
-                                            <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                                <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">2D Logo Design</h3>
-                                                <div class="xl:mt-5 flex items-center justify-center">
-                                                    <i class="fas fa-pen-square  text-7xl text-purple-400"></i>
+                                            <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 xl_4k:w-96 xl_4k:h-89 rounded-xl xl:p-2 ">
+                                                <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base xl_4k:text-3xl text-center">2D Logo Design</h3>
+                                                <div class="xl:mt-5 xl_4k:mb-10 flex items-center justify-center">
+                                                    <i class="fas fa-pen-square text-7xl xl_4k:text-10xl text-purple-400"></i>
                                                 </div>
-                                                <h3 class="text-gray-500 xl:text-vs xl:mt-3 xxl:text-2base font-Poppins">2D Logo Design Service Description</h3>
+                                                <h3 class="text-gray-500 xl:text-vs xl:mt-3 xxl:text-2base xl_4k:text-3xl font-Poppins ">2D Logo Design Service Description</h3>
                                             </div>
                                         </button>
                                     </li>
                                     <li class="splide__slide">
-                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">2D Packaging Design</h3>
-                                            <div class="xl:mt-5 flex items-center justify-center">
-                                                <i class="fas fa-shopping-bag text-6xl text-purple-400" ></i>
+                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 xl_4k:w-96 xl_4k:h-89 rounded-xl xl:p-2 ">
+                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base xl_4k:text-3xl text-center">2D Packaging Design</h3>
+                                            <div class="xl:mt-5 xl_4k:mb-10 flex items-center justify-center">
+                                                <i class="fas fa-shopping-bag text-6xl xl_4k:text-10xl text-purple-400" ></i>
                                             </div>
-                                            <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base font-Poppins">2D Packaging Design Service Description</h3>
+                                            <h3 class="text-gray-500 xl:text-vs xl:mt-5 text-center xxl:text-2base xl_4k:text-3xl font-Poppins">2D Packaging Design Service Description</h3>
                                         </div>
                                     </li>
                                     <li class="splide__slide">
                                         <button onclick="toggleTaskReOccurence()" class="cursor-pointer">
-                                            <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                                <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Business Card & Stationery Design</h3>
-                                                <div class="xl:mt-3 flex items-center justify-center">
-                                                    <i class="fas fa-id-card text-6xl text-purple-400"></i>
+                                            <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 xl_4k:w-96 xl_4k:h-89 rounded-xl xl:p-2 ">
+                                                <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base xl_4k:text-3xl text-center">Stationery Design</h3>
+                                                <div class="xl:mt-5 xl_4k:mb-10 flex items-center justify-center">
+                                                    <i class="fas fa-id-card text-6xl xl_4k:text-10xl text-purple-400"></i>
                                                 </div>
-                                                <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base  font-Poppins">Business Card & Stationery Design Service Description</h3>
+                                                <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base xl_4k:text-3xl font-Poppins">Stationery Design Service Description</h3>
 
                                             </div>
                                         </button>
                                     </li>
                                     <li class="splide__slide">
-                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 rounded-xl xl:p-2 ">
-                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base">Envelope Design</h3>
-                                            <div class="xl:mt-5 flex items-center justify-center">
-                                                <i class="fas fa-envelope  text-7xl text-purple-400"></i>
+                                        <div class="hover:bg-red-200 duration-500 bg-white xl:w-40 xl:h-40 xxl:w-60 xxl:h-52 xl_4k:w-96 xl_4k:h-89 rounded-xl xl:p-2 ">
+                                            <h3 class="font-Poppins flex-none font-bold text-xvs xxl:text-base xl_4k:text-3xl text-center">Envelope Design</h3>
+                                            <div class="xl:mt-5 xl_4k:mb-10 flex items-center justify-center">
+                                                <i class="fas fa-envelope  text-7xl xl_4k:text-10xl text-purple-400"></i>
                                             </div>
-                                            <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base font-Poppins">Envelope Design Service Description</h3>
+                                            <h3 class="text-gray-500 xl:text-vs xl:mt-3 text-center xxl:text-2base xl_4k:text-3xl font-Poppins">Envelope Design Service Description</h3>
                                         </div>
                                     </li>
                                 </ul>    

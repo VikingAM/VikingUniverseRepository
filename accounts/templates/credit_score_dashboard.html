@@ -6,87 +6,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Credits Dashboard | Credits</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'portal/images/logo_v.png' %}">
+
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
+    <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
+
     <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
 </head>
 <body>
     <!-- Sidebar Panel -->
     <div class="overlay hidden" onclick="toggleOverlayCredit()" id="overlay_id"></div>
     <div class="flex">
-        {% include 'sidebar.html' %}
-        <div>
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3">
-                <ul class="flex items-center text-sm  text-gray-600">
-                    <li class="flex items-center justify-center">
-                        <a class="fas fa-search text-lg" href="#"></a>
-                        <form action="">
-                            <div class="h-10 flex items-center space-x-5 w-52">
-                                <input class="w-full bg-whiteSmoke text-black xl:py-1 xl:text-sm bxl:text-base font-Poppins xxl:text-lg outline-0 py-4 px-5 text-lg" type="text" placeholder="Search">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="flex items-center text-sm text-gray-600">
-                    <div class="flex items-center justify-center space-x-5">
-                        <li>
-                            <a class="fas fa-bell text-lg ml-6 " href="#"></a>
-                        </li>
-                        <div class="flex items-center justify-center">
-                            <li>
-                                <a href="#">
-                                    <img src="../../assets/nav/dawg.jpg" class="object-scale-down h-10 w-20 rounded-full" > 
-                                </a>
-                            </li>
-                            
-                            <li class="text-lg xl:text-sm mxl:text-2base xxl:text-lg">
-                                <p class="font-Poppins">John Doe</p>
-                            </li>
-                        </div>
-                        
-                        <li class="">
-                            <a class="fas fa-chevron-down text-lg ml-3" href="#"></a>
-                        </li>
-                    </div>
-                </ul>
-                
-            </nav>
-        </div>
+        {% include 'sidebar.html' with active_page='sidebar_Credits' %}
+        {% include 'portal_secondary_nav_bar.html' %}
 
-        <div class="mt-32 bxl:mt-20 xl:mt-16 ml-5 xl:ml-10 xxl:ml-10 xxl:mt-16 overflow-hidden w-full">
-            <div class="flex justify-between overflow-auto">
-                <h1 class="text-4xl xl:text-2xl bxl:text-2xl mxl:text-3xl xxl:text-3xl font-Poppins text-editProfile font-extrabold">Your Credit</h1>
-                <a href="#" onclick="toggleAddCredit()" class="text-center justify-center items-center font-Lato mt-20 xl:mt-0 xxl:mt-10 p-2 xl:p-1 xxl:p-2 kxl:p-3 kxl:text-4xl txl:text-xl xl:text:sm w-32 rounded-lg text-lg xl:text-sm xl:w-40 mxl:w-48 mxl:text-base mxl:py-3 xl:mr-10 xxl:mr-20 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500">ADD MORE</a>
+
+
+        <div class="mt-32 bxl:mt-20 xl:mt-16 ml-5 xl:ml-10 xxl:ml-10 xxl:mt-16 xl_4k:mt-40 overflow-hidden w-full">
+            <div class="flex justify-between overflow-auto ">
+                <h1 class="text-4xl xl:text-2xl bxl:text-2xl mxl:text-3xl xxl:text-3xl xl_4k:text-7xl font-Poppins text-editProfile font-extrabold">Your Credit</h1>
+                <a href="#" onclick="toggleAddCredit()" class="text-center flex justify-center items-center font-Lato mt-20 xl:mt-0 xxl:mt-10 p-2 xl:p-1 xxl:p-2 xl_4k:text-4xl xl_4k:w-96 xl_4k:h-32 xl:text:sm w-32 text-lg xl:text-sm xl:w-40 mxl:w-48 mxl:text-base mxl:py-3 xl:mr-10 xxl:mr-20 text-white bg-gradient-to-r from-linearButton1 to-linearButton2 duration-500 rounded-lg">ADD MORE</a>
             </div>
             <a href="customPlan.html">Create custom plan</a>
             <a href="managePlan.html">Manage custom plan</a>
-            <div class="flex xl:w-210 mxl:w-full xxl:w-full xl:mt-6 xl:space-x-8 xxl:space-x-24 xl:ml-5 xxl:ml-0 items-center justify-center">
-                <div class="flex flex-col xl:w-120 mxl:w-140 xl:h-44 bg-white border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2 mxl:p-4">
+            <div class="flex xl:w-full xl:mt-6 xl:space-x-8 xxl:space-x-24 xxl:ml-0 items-center justify-center">
+                
+                <div class="flex flex-col xl:w-120 mxl:w-140 xl:h-44 xl_4k:w-192 xl_4k:h-92 bg-white border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2 mxl:p-4">
                     <div class="flex justify-start font-bold ">
-                        <h1 id="" class="font-Poppins text-profCol xl:text-xl font-bold">Available Credit</h1>
+                        <h1 id="" class="font-Poppins text-profCol xl:text-xl xl_4k:text-4xl font-bold">Available Credit</h1>
                     </div>
 
-                    <div class="mt-5">
-                        <p class="text-3xl font-bold font-Poppins text-center">{{ AVC }}</p>
-                        <p id="" class="font-Poppins text-center text-sm bxl:text-2base">Use your credits to request more task!</p>
+                    <div class="mt-5 xl_4k:mt-12">
+                        <p class="text-3xl xl_4k:text-5xl font-bold font-Poppins text-center">{{ AVC }}</p>
+                        <p id="" class="font-Poppins text-center text-sm bxl:text-2base xl_4k:text-3xl">Use your credits to request more task!</p>
                     </div>
                 </div>
-                <div class="flex flex-col xl:w-120 mxl:w-140 xl:h-44 bg-white border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2 mxl:p-4">
+
+                <div class="flex flex-col xl:w-120 mxl:w-140 xl:h-44 xl_4k:w-192 xl_4k:h-92 bg-white border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2 mxl:p-4">
                     <div class="flex justify-start font-bold ">
-                        <h1 id="" class="font-Poppins text-profCol xl:text-xl font-bold">Total Credits Used</h1>
+                        <h1 id="" class="font-Poppins text-profCol xl:text-xl xl_4k:text-4xl font-bold">Total Credits Used</h1>
                     </div>
-                    <div class="mt-5">
-                        <p class="text-3xl font-bold font-Poppins text-center">{{ TCU }}</p>
-                        <p id="" class="font-Poppins text-center text-sm bxl:text-2base">Use your credits to request more task!</p>
+                    <div class="mt-5 xl_4k:mt-12">
+                        <p class="text-3xl xl_4k:text-5xl font-bold font-Poppins text-center">{{ TCU }}</p>
+                        <p id="" class="font-Poppins text-center text-sm bxl:text-2base xl_4k:text-3xl ">Use your credits to request more task!</p>
                     </div>
                 </div>
             </div>
-            <div class="mt-32 xl:mt-4 ml-5 xxl:-ml-5 xxl:p-10 flex mxl:w-full xxl:w-full xl:mb-10">
-                <div class="credit_body overflow-auto  xl:h-110 bg-white border border-gray-300 rounded-xl xl:p-3 xxl:p-8 mxl:mr-24">
-                    <h1 class="text-4xl xl:text-2xl  font-bold font-Poppins text-profCol">Credits History</h1>
+
+
+            <div class="mt-32 xl:mt-4 xl:px-6 xxl:-ml-5 xxl:p-10 flex xl:w-full mxl:w-full xxl:w-full xl:mb-10">
+                <div class="credit_body overflow-auto  xl:h-110 xl_4k:h-200 bg-white border border-gray-300 rounded-xl xl:p-3 xxl:p-8 mxl:mr-24">
+                    <h1 class="text-4xl xl:text-2xl xl_4k:text-4xl font-bold font-Poppins text-profCol">Credits History</h1>
                     <table class="table-auto xl:mt-5 xl:w-192 mxl:w-220 xxl:w-full xl:mx-20 mxl:mx-5 xxl:mx-0 text-star">
                         <thead class="thead_bg">
-                            <tr class="credit text-2base bxl:text-base xxl:text-lg font-thin text-black border-b-1 border-gray-300 mxl:w-120 w-full">
+                            <tr class="credit text-2base bxl:text-base xxl:text-lg xl_4k:text-3xl font-thin text-black border-b-1 border-gray-300 mxl:w-120 w-full">
                                 <th class="font-Poppins ">Task Name</th>
                                 <th class="font-Poppins ">Start Date</th>
                                 <th class="font-Poppins">End Date</th>
@@ -95,7 +69,7 @@
                         </thead>
                         <tbody class="credit text-2base  font-Lato ">
                             {% for history in history_list %}
-                                <tr class="inv_tr xl:text-2base text-base">
+                                <tr class="inv_tr xl:text-2base text-base xl_4k:text-3xl">
                                     <td class="font-Lato font-semibold p-2">
                                         <p class="font-Poppins font-bold">{{ history.title }}!</p>
                                         <p class="font-Poppins text-sm text-gray-500">{{ history.desc }}</p>
@@ -104,8 +78,10 @@
                                     <td class="font-Lato font-semibold">{{ history.create_date|date:'M d, Y' }}</td>
                                     <td class="font-Lato font-semibold" style="text-align:center">{{ history.credit }}</td>
                                 </tr>
+
+
                             {% empty %}
-                                <tr class="inv_tr xl:text-2base text-base">
+                                <tr class="inv_tr xl:text-2base text-base xl_4k:text-3xl">
                                     <td class="font-Lato font-semibold p-2">
                                         <p class="font-Poppins font-bold ">No Credits Added</p>
                                         <p class="font-Poppins text-sm text-gray-500"></p>
@@ -121,6 +97,10 @@
             </div>      
         </div>
     </div>
+
+
+
+
     <div id="popup-add-credit" class="popup bg-gray-50 xl:w-135 xl:h-110 flex-col fixed z-10 xl:p-6">
         <div class="flex justify-between">
             <h1 class="font-Poppins text-xl font-bold text-purple-900">Buy Credits</h1>

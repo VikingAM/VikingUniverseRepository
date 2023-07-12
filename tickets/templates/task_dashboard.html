@@ -6,60 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Dashboard | Task</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'portal/images/logo_v.png' %}">
+
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
     <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
-
     <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+
 </head>
 <body>
     <!-- Sidebar Panel -->
     <div class="overlay hidden" onclick="toggleOverlay()" id="overlay_id"></div>
     <div class="flex">
-        {% include 'sidebar.html' %}
-        <div>
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3 xl_4k:mt-12 xl_4k:px-12">
-                <ul class="flex items-center text-sm  text-gray-600">
-                    <li class="flex items-center justify-center">
-                        <a class="fas fa-search text-lg xl_4k:text-5xl" href="#"></a>
-                        <form action="">
-                            <div class="h-10 flex items-center space-x-5 w-52 xl_4k:w-80">
-                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg xl_4k:text-4xl" type="text" placeholder="Search">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="flex items-center text-sm text-gray-600">
-                    <div class="flex items-center justify-center space-x-5 xl_4k:space-x-20">
-                        <li>
-                            <a class="fas fa-bell text-lg ml-6  xl_4k:text-5xl" href="#"></a>
-                        </li>
-                        <div class="flex items-center justify-center">
-                            <li>
-                                <a href="#">
-                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full"> 
-                                </a>
-                            </li>
-                            
-                            <li class="text-lg xl:text-sm xxl:text-lg">
-                                <p class="font-Jost xl_4k:text-5xl">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
-                            </li>
-                        </div>
-                        <li class="">
-                            <a class="fas fa-chevron-down text-lg xl_4k:text-4xl ml-3" href="#"></a>
-                        </li>
-                    </div>
-                </ul>
-            </nav>
-        </div>
+        {% include 'sidebar.html' with active_page='sidebar_Task' %}
+        {% include 'portal_secondary_nav_bar.html' %}
+
+
         <div class="mt-32 xl:mt-10 bxl:mt-16 xxl:mt-16 xl_4k:mt-56 xl_4k:ml-20 ml-5  overflow-auto w-full">
             <div>
-                <h1 class="text-4xl xl:text-2xl bxl:text-2xl xxl:text-4xl xl_4k:text-6xl font-Poppins text-editProfile font-extrabold">Your Task</h1> 
+                <h1 class="text-4xl xl:text-2xl bxl:text-2xl xxl:text-4xl xl_4k:text-7xl font-Poppins text-editProfile font-extrabold">Your Task</h1> 
                 <div class=" ">
                     <div class="flex">
-                        <p class="text-2base bxl:text-base xxl:text-lg xl_4k:text-4xl font-bold font-Poppins text-purple-700 xl:mt-5 xl:mr-2">Filter by:</p>
-                        <select id="filterSelect" onchange="filterData()" class="font-Poppins text-blue-900 xl:text-base bxl:text-lg xxl:text-lg xl_4k:text-4xl xl:mt-5 xl_4k:mt-2">
+                        <p class="text-2base bxl:text-base xxl:text-lg xl_4k:text-5xl font-bold font-Poppins text-purple-700 xl:mt-5 xl_4k:mt-0 xl:mr-2">Filter by:</p>
+                        <select id="filterSelect" onchange="filterData()" class="font-Poppins text-blue-900 xl:text-base bxl:text-lg xxl:text-lg xl_4k:text-5xl xl:mt-5 xl_4k:mt-0">
                             <option value="all" class="font-Poppins bxl:text-sm">All</option>
                             <option attr_val="Open Task" value="open" class="font-Poppins bxl:text-sm">Open</option>
                             <option attr_val="In Progress" value="In Progress" class="font-Poppins bxl:text-sm">In Progress</option>

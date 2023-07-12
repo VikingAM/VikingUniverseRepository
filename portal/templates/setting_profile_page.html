@@ -9,87 +9,29 @@
 	<link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
 	<link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
     <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'portal/images/logo_v.png' %}">
 
 	<link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
 	<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
 </head>
 <body class="font-Lato">
 	<!-- Sidebar Panel -->
     <div class="flex">
-    	{% include 'sidebar.html' %}
-    	<div class="flex">
-            <nav class="w-52 xl:ml-0 xl:w-44 bxl:w-52 xl_4k:w-120 h-auto ml-22 bg-gray-200 flex justify-center text-lg">
-                <ul>
-                    <li>
-                        <center><p href="#" class="text-2xl bxl:text-xl bxl:mt-12 xl:text-lg xl_4k:text-6xl xl_4k:mt-32 mt-5 font-Lato font-bold">Settings</p></center> 
-                    </li>
-                    <div class="mt-20 xl_4k:mt-44 flex-row space-y-8 xl_4k:space-y-28 xl:text-2base">
-                        <li>
-                            <span class="fas fa-pencil-alt mr-2 xl_4k:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2 bxl:text-base"></span>
-                            <a href="{% url 'portalSettingPage' %}" class="bxl:text-base xl_4k:text-4xl font-Lato text-transparent bg-clip-text bg-gradient-to-r from-textGrad1 to-textGrad2">Edit Profile</a>  
-                        </li>
-                        <li>
-                            <span class="fas fa-lock mr-2 bxl:text-base xl_4k:text-4xl"></span>
-                            <a href="{% url 'SettingPasswordPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Password</a>    
-                        </li>
-                        <li>
-                            <span class="fas fa-file-invoice-dollar mr-3 bxl:text-base xl_4k:text-4xl"></span>
-                            <a href="{% url 'SettingInvoicePage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Invoices</a>    
-                        </li>
-                        <li>
-                            <span class="fas fa-key mr-1 bxl:text-base xl_4k:text-4xl"></span>
-                            <a href="{% url 'SettingPasswordManagementPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">Password Manager</a>    
-                        </li>
-                        <li>
-                            <span class="fas fa-question-circle mr-1 bxl:text-base xl_4k:text-4xl"></span>
-                            <a href="{% url 'SettingFaqsPage' %}" class="font-Lato bxl:text-base xl_4k:text-4xl">FAQs</a>    
-                        </li>
-                    </div>
-                </ul>
-            </nav>
-        </div>
-        <div class="">
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3 xl_4k:mt-12 xl_4k:px-12">
-                <ul class="flex items-center text-sm  text-gray-600">
-                    <li class="flex items-center justify-center">
-                        <a class="fas fa-search text-lg xl_4k:text-5xl" href="#"></a>
-                        <form action="">
-                            <div class="h-10 flex items-center space-x-5 w-52 xl_4k:w-80">
-                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg xl_4k:text-4xl" type="text" placeholder="Search">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="flex items-center text-sm text-gray-600">
-                    <div class="flex items-center justify-center space-x-5 xl_4k:space-x-20">
-                        <li>
-                            <a class="fas fa-bell text-lg ml-6  xl_4k:text-5xl" href="#"></a>
-                        </li>
-                        <div class="flex items-center justify-center">
-                            <li>
-                                <a href="#">
-                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full"> 
-                                </a>
-                            </li>
-                            
-                            <li class="text-lg xl:text-sm xxl:text-lg">
-                                <p class="font-Jost xl_4k:text-5xl">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
-                            </li>
-                        </div>
-                        <li class="">
-                            <a class="fas fa-chevron-down text-lg xl_4k:text-4xl ml-3" href="#"></a>
-                        </li>
-                    </div>
-                </ul>
-            </nav>
-        </div>
+    	{% include 'sidebar.html' with active_page='sidebar_Settings' %}
+        {% include 'setting_sub_menu.html' with active_page='editProfile' %}
+
+        {% include 'portal_secondary_nav_bar.html' %}
+
+        
+        
         <form action="{% url 'portalSettingPage' %}" id="edit_profile" method="POST" enctype="multipart/form-data">
         	{% csrf_token %}
 	        <div class="w-full xxl:ml-32 xxl:mt-10">
 	            <div class="mt-32 bxl:mt-22 xl:mt-16 xl_4k:mt-56 ml-8 xl:ml-6 flex space-x-72 xl:space-x-20">
                     <div>
                     	
-                        <h1 class="text-4xl xl:text-2xl xl_4k:text-7xl text-editProfile"><b>Edit Profile</b></h1>
+                        <h1 class="text-4xl xl:text-2xl xxl:text-3xl xl_4k:text-7xl text-editProfile"><b>Edit Profile</b></h1>
                         {% if profile_details.profile_picture|length > 0 %}
                             <img src="{{ profile_details.profile_picture.url|default_if_none:'#' }}" class="object-scale-down w-60 h-60 xl:w-40 xl:h-44 xl_4k:w-85 xl_4k:h-85 rounded-full" >
                         {% else %}
@@ -102,85 +44,91 @@
                             <input type="file"id="profile_picture" name="profile_picture" accept="image/*" style="display:none">
                             </label>
                             <span class="outputImg" id="outputImg"></span> -->
-                            <input type="file" id="profile_picture" name="profile_picture" class="xl_4k:text-4xl">
+                            <input type="file" id="profile_picture" name="profile_picture" class="xxl:text-xl xl_4k:text-5xl">
                             
                         </div>
                     </div>
 
-                    
+                    <div class="xl:flex xl:space-x-12 xxl:space-x-52">
+
                     <div class="mb-10">
                         <div class="flex space-x-2 xl_4k:space-x-4">
-                            <p class="font-Lato bxl:text-lg xl:text-base xl_4k:text-5xl text-profCol">Contact Information</p>
-                            <span class="fas fa-user mr-2 text-profCol xl:mt-1 xl_4k:mt-0 xl_4k:text-4xl"></span>
+                            <p class="font-Lato bxl:text-lg xl:text-base xxl:text-2xl xl_4k:text-6xl text-profCol">Contact Information</p>
+                            <span class="fas fa-user mr-2 text-profCol xl:mt-1 xl_4k:text-6xl xl_4k:mt-2"></span>
                         </div>
                         <div class="flex flex-col space-y-2 xl_4k:space-y-6">
-                                <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl xl_4k:mt-4">First Name</label>
-                                <input type="text" id="first_name" name="first_name" value='{{ profile_details.first_name }}' placeholder="First Name" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+                                <label class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl xl_4k:mt-4">First Name</label>
+                                <input type="text" id="first_name" name="first_name" value='{{ profile_details.first_name }}' placeholder="First Name" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
                                 
-                                <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">Last Name</label>
-                                <input type="text" id="last_name" name="last_name"  placeholder="Last Name" value="{{ profile_details.last_name }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+                                <label class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl">Last Name</label>
+                                <input type="text" id="last_name" name="last_name"  placeholder="Last Name" value="{{ profile_details.last_name }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
 
-                                <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">Email</label>
-                                <input type="email" id="email" name="email"  placeholder="Email" value="{{ profile_details.email }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+                                <label class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl">Email</label>
+                                <input type="email" id="email" name="email"  placeholder="Email" value="{{ profile_details.email }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
 
-                                <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">Phone Number</label>
-                                <input type="number" id="phone_num" name="phone_num"  placeholder="Phone Number" value="{{ profile_details.phone|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+                                <label class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl">Phone Number</label>
+                                <input type="number" id="phone_num" name="phone_num"  placeholder="Phone Number" value="{{ profile_details.phone|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
                                 <div class="flex space-x-2 ">
                                     <div class="mt-6 flex space-x-2 xl_4k:space-x-4">
-                                        <p class="font-Lato bxl:text-lg text-profCol xl_4k:text-5xl">Address Information</p>
-                                        <span class="fas fa-city mr-2 text-profCol xl:mt-1 xl_4k:mt-0 xl_4k:text-4xl"></span>
+                                        <p class="font-Lato bxl:text-lg text-profCol  xxl:text-2xl xl_4k:text-6xl">Address Information</p>
+                                        <span class="fas fa-city mr-2 text-profCol xl:mt-1 xl_4k:mt-2 xl_4k:text-6xl"></span>
                                     </div>
                                 </div>
-                                <p class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">Street</p>
-                                <input type="text" id="street" name="street"  placeholder="Street" value="{{ profile_address.street|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
-                                <p class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">State</p>
-                                <input type="text" id="state" name="state"  placeholder="State" value="{{ profile_address.state|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
-                                <p class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">Country</p>
-                                <input type="text" id="country" name="country"  placeholder="Country" value="{{ profile_address.country|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+                                <p class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl">Street</p>
+                                <input type="text" id="street" name="street"  placeholder="Street" value="{{ profile_address.street|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
+                                <p class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl">State</p>
+                                <input type="text" id="state" name="state"  placeholder="State" value="{{ profile_address.state|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
+                                <p class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl">Country</p>
+                                <input type="text" id="country" name="country"  placeholder="Country" value="{{ profile_address.country|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
                         </div>
-                        <div class="flex space-x-4 xl_4k:space-x-8 w-52 xl_4k:ml-32 xl_4k:mt-12 justify-center items-center">
-                            <button type="submit" class="font-Lato mt-20 xl:mt-10 p-2 xl:p-0 xl_4k:text-4xl xl_4k:p-4 xl_4k:px-14 xl:text:sm w-full rounded-full text-lg text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">Save</button>
-                            <button type="reset" class="font-Lato mt-20 xl:mt-10 xl:p-0 p-2 xl_4k:text-4xl xl_4k:p-4 xl_4k:px-14 w-full rounded-full text-lg text-white bg-gradient-to-r from-linearButton1 to-linearButton2 transition-all duration-500">Cancel</button>
+                        <div class="flex space-x-4 xl_4k:space-x-8 xl_4k:w-full w-52 xl_4k:ml-0 xl_4k:mt-12 justify-center items-center">
+                            <button type="submit" class="font-Lato mt-20 xl:mt-10 p-2 xxl:p-2 xl:p-0 xl_4k:text-5xl xl_4k:p-0 xl:text:sm w-full rounded-full text-lg text-white bg-gradient-to-r from-linearButton1 to-linearButton2">Save</button>
+                            <button type="reset" class="font-Lato mt-20 xl:mt-10 xxl:p-2 xl:p-0 p-2 xl_4k:text-5xl xl_4k:p-0 w-full rounded-full text-lg text-white bg-gradient-to-r from-linearButton1 to-linearButton2">Cancel</button>
                         </div>
                     </div>
+
                     <div>
                         <div class="flex space-x-2 xl_4k:space-x-4">
-                            <p class="font-Lato bxl:text-lg text-profCol xl_4k:text-5xl">Company Information</p>
-                            <span class="fas fa-building mr-2 text-profCol xl:mt-1 xl_4k:mt-0 xl_4k:text-4xl"></span>
+                            <p class="font-Lato bxl:text-lg text-profCol  xxl:text-2xl xl_4k:text-6xl">Company Information</p>
+                            <span class="fas fa-building mr-2 text-profCol xl:mt-1 xl_4k:mt-2 xl_4k:text-6xl"></span>
                         </div>
 	                    <div class="flex flex-col space-y-2 xl_4k:space-y-6">
-	                        <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl xl_4k:mt-4">Company Name</label>
-	                        <input type="text" id="company_name" name="company_name"  placeholder="Company Name" value="{{ profile_details.company_name|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+	                        <label class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl xl_4k:mt-4">Company Name</label>
+	                        <input type="text" id="company_name" name="company_name"  placeholder="Company Name" value="{{ profile_details.company_name|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
 
-	                        <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">Industry Type</label>
-	                        <select id="industry_type" name="industry_type" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+	                        <label class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl">Industry Type</label>
+	                        <select id="industry_type" name="industry_type" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
 	                            {% for industry_type in industry_type_list %}
-	                                <option value=0 class="font-Poppins bxl:text-sm xl_4k:text-4xl">-- Industry Type --</option>
+	                                <option value=0 class="font-Poppins bxl:text-sm  xxl:text-xl xl_4k:text-5xl">-- Industry Type --</option>
 	                                {% if profile_details.industry_type == industry_type.pk %}
-	                                    <option value="{{ industry_type.pk }}" class="font-Poppins bxl:text-sm xl_4k:text-4xl" selected>{{ industry_type.name }}</option>
+	                                    <option value="{{ industry_type.pk }}" class="font-Poppins bxl:text-sm xxl:text-xl xl_4k:text-5xl" selected>{{ industry_type.name }}</option>
 	                                {% else%}
-	                                    <option value="{{ industry_type.pk }}" class="font-Poppins bxl:text-sm xl_4k:text-4xl" >{{ industry_type.name }}</option>
+	                                    <option value="{{ industry_type.pk }}" class="font-Poppins bxl:text-sm xxl:text-xl xl_4k:text-5xl" >{{ industry_type.name }}</option>
 	                                {% endif %}
 	                            {% empty %}
-	                                <option value=0 class="font-Poppins bxl:text-sm xl_4k:text-4xl">-- Industry Type --</option>
+	                                <option value=0 class="font-Poppins bxl:text-sm  xxl:text-xl xl_4k:text-5xl">-- Industry Type --</option>
 	                            {% endfor %}
 	                        </select>
 
-	                        <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">Website</label>
-	                        <input type="text" id="website" name="website"  placeholder="Website" value="{{ profile_details.website|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+	                        <label class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl">Website</label>
+	                        <input type="text" id="website" name="website"  placeholder="Website" value="{{ profile_details.website|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
 	                    </div>
-	                    <div class="flex flex-col space-y-2 xl_4k:space-y-5 xl:mt-32 xl_4k:mt-72">
-	                        <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">City</label>
-	                        <input type="text" id="city" name="city"  placeholder="City" value="{{ profile_address.city|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+	                    <div class="flex flex-col space-y-2 xl_4k:space-y-5 xl:mt-32 xxl:mt-38 xl_4k:mt-96">
+	                        <label class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl">City</label>
+	                        <input type="text" id="city" name="city"  placeholder="City" value="{{ profile_address.city|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
 
-	                        <label class="font-Lato bxl:text-base text-2base xl_4k:text-4xl">Zip Code</label>
-	                        <input type="text" id="zip_code" name="zip_code"  placeholder="Zip Code" value="{{ profile_address.zip_code|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl bg-gray-50 border border-gray-300 px-2">
+	                        <label class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl">Zip Code</label>
+	                        <input type="text" id="zip_code" name="zip_code"  placeholder="Zip Code" value="{{ profile_address.zip_code|default_if_none:'' }}" class="font-Lato bxl:text-base text-2base  xxl:text-xl xl_4k:text-5xl bg-gray-50 border border-gray-300 px-2">
 	                    </div>
                 	</div>
                 </div>
+                
+                </div>
         	</div>
         </form>
+        
     </div>
+
 	<script src="{% static 'portal/js/uploadImg.js' %}"></script>
 </body>
 </html>

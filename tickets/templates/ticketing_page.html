@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'portal/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'portal/css/style_v1.css' %}">
     <link rel="stylesheet" href="{% static 'tailwinds/output.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'portal/images/logo_v.png' %}">
 
     <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome_5_13.min.css' %}">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
@@ -17,53 +18,21 @@
     <!-- Sidebar Panel -->
     <div class="overlay hidden" onclick="toggleCloseTickets()" id="overlay_id"></div>
     <div class="flex">  
-        {% include 'sidebar.html' %}
-        <div>
-            <nav class="bg-whiteSmoke text-white flex absolute right-0 justify-between items-center ml-0 m-8 h-20 xl:h-12 z-0 px-10 xl:px-0 mt-0 bxl:mt-2 xxl:mt-3 xl_4k:mt-12 xl_4k:px-12">
-                <ul class="flex items-center text-sm  text-gray-600">
-                    <li class="flex items-center justify-center">
-                        <a class="fas fa-search text-lg xl_4k:text-5xl" href="#"></a>
-                        <form action="">
-                            <div class="h-10 flex items-center space-x-5 w-52 xl_4k:w-80">
-                                <input class="w-full font-Poppins bxl:text-base bg-whiteSmoke text-black xl:py-1 xl:text-sm xxl:text-lg outline-0 py-4 px-5 text-lg xl_4k:text-4xl" type="text" placeholder="Search">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="flex items-center text-sm text-gray-600">
-                    <div class="flex items-center justify-center space-x-5 xl_4k:space-x-20">
-                        <li>
-                            <a class="fas fa-bell text-lg ml-6  xl_4k:text-5xl" href="#"></a>
-                        </li>
-                        <div class="flex items-center justify-center">
-                            <li>
-                                <a href="#">
-                                    <img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" class="object-scale-down h-10 w-20 rounded-full"> 
-                                </a>
-                            </li>
-                            
-                            <li class="text-lg xl:text-sm xxl:text-lg">
-                                <p class="font-Jost xl_4k:text-5xl">{{ profile_details.first_name }} {{ profile_details.last_name }}</p>
-                            </li>
-                        </div>
-                        <li class="">
-                            <a class="fas fa-chevron-down text-lg xl_4k:text-4xl ml-3" href="#"></a>
-                        </li>
-                    </div>
-                </ul>
-            </nav>
-        </div>
+        {% include 'sidebar.html' with active_page='sidebar_Ticketing' %}
+        {% include 'portal_secondary_nav_bar.html' %}
+
+            
         <div class="mt-32 xl:mt-5 bxl:mt-14 ml-5 xxl:ml-10 mxl:mt-20 xxl:mt-16 xl_4k:mt-56 xl_4k:ml-20 w-full">
             <div>
-                <h1 class="text-4xl xl:text-2xl bxl:text-2xl xxl:text-3xl xl_4k:text-6xl font-Poppins text-editProfile font-bold">Submit Issue Ticket</h1>
+                <h1 class="text-4xl xl:text-2xl bxl:text-2xl xxl:text-3xl xl_4k:text-7xl font-Poppins text-editProfile font-bold">Submit Issue Ticket</h1>
                 <div class="flex xl:space-x-10 xxl:space-x-20">
                     <div>
                         <p class="text-2base bxl:text-base xxl:text-base font-Poppins text-gray-500 xl_4k:text-4xl">Please provide the details of the problem.</p>
                         <!-- <form> -->
-                            <div class="flex flex-col xl:space-y-10 xl:w-120 xxl:w-170 h-105 xl:mt-8">
+                            <div class="flex flex-col xl:space-y-10 xl:w-120 xxl:w-170 xl_4k:w-240 h-105 xl:mt-8">
                                 <div class="flex flex-col">
-                                    <label class="font-Lato text-2base bxl:text-base mxl:text-lg xxl:text-lg xl_4k:text-4xl">Ticket Type</label>
-                                    <select id="ticket_type" name="ticket_type" class="font-Lato text-2base bxl:text-base xxl:text-base xl_4k:text-4xl bg-gray-50 border border-gray-300 xl:h-8 rounded-lg">
+                                    <label class="font-Lato text-2base bxl:text-base mxl:text-lg xxl:text-lg xl_4k:text-5xl">Ticket Type</label>
+                                    <select id="ticket_type" name="ticket_type" class="font-Lato text-2base bxl:text-base xxl:text-base xl_4k:text-5xl bg-gray-50 border border-gray-300 xl:h-8 rounded-lg xl_4k:h-20">
                                         <option value="#" class="font-Lato bxl:text-2base">Select</option>
                                         {% for type in issue_types %}
                                             <option value="{{ type.pk }}" class="font-Lato bxl:text-2base">{{ type.name }}</option>
@@ -71,32 +40,33 @@
                                     </select>
                                 </div>
                                 <div class="flex flex-col">
-                                    <label class="font-Lato text-2base bxl:text-base mxl:text-lg xxl:text-lg xl_4k:text-4xl">Ticket Title</label>
-                                    <input type="text" id="ticket_title" name="ticket_title" autocapitalize="on" autofocus class="font-Lato bxl:text-base xl_4k:text-4xl text-2base xxl:text-lg rounded-lg bg-gray-50 border border-gray-300 p-2 xl:h-8">
+                                    <label class="font-Lato text-2base bxl:text-base mxl:text-lg xxl:text-lg xl_4k:text-5xl">Ticket Title</label>
+                                    <input type="text" id="ticket_title" name="ticket_title" autocapitalize="on" autofocus class="font-Lato bxl:text-base xl_4k:text-5xl text-2base xxl:text-lg rounded-lg bg-gray-50 border border-gray-300 p-2 xl:h-8 xl_4k:h-20">
                                 </div>
                                 <div class="flex flex-col">
-                                    <label class="font-Lato text-2base bxl:text-base mxl:text-lg xxl:text-lg xl_4k:text-4xl">Ticket Description</label>
-                                    <textarea type="text" id="ticket_description" name="ticket_description" class="font-Lato bxl:text-base text-2base xl_4k:text-4xl xxl:text-lg rounded-lg bg-gray-50 border border-gray-300 xl:h-38 mxl:h-40 xxl:h-64 p-2"></textarea>
+                                    <label class="font-Lato text-2base bxl:text-base mxl:text-lg xxl:text-lg xl_4k:text-5xl">Ticket Description</label>
+                                    <textarea type="text" id="ticket_description" name="ticket_description" class="font-Lato bxl:text-base text-2base xxl:text-lg rounded-lg bg-gray-50 border border-gray-300 xl:h-38 mxl:h-40 xxl:h-64 xl_4k:h-120 xl_4k:p-6 xl_4k:text-5xl p-2"></textarea>
                                 </div>
                                 <center>
-                                    <button type="button" onclick="SubmitNewTicket()" class="font-Lato mt-20 xl:mt-0 p-2 xl:p-0 xxl:p-1 xl:text:sm w-full xl_4k:w-120 xl_4k:p-5 xl_4k:text-3xl rounded-lg text-lg xl:text-sm bxl:text-base bxl:p-1 xxl:text-lg xl:w-72 bxl:w-96 xxl:w-80 text-white bg-gradient-to-r from-linearButton1 to-linearButton2">Submit Ticket</button>
+                                    <button type="button" onclick="SubmitNewTicket()" class="font-Lato mt-20 xl:mt-0 xl_4k:mt-14 p-2 xl:p-0 xxl:p-1 xl:text:sm w-full xl_4k:w-182 xl_4k:p-7 xl_4k:text-4xl rounded-lg text-lg xl:text-sm bxl:text-base bxl:p-1 xxl:text-lg xl:w-72 bxl:w-96 xxl:w-80  text-white bg-gradient-to-r from-linearButton1 to-linearButton2">Submit Ticket</button>
                                 </center>
                             </div>
                         <!-- </form> -->
                     </div>
+
                     <div class="flex">
-                        <main class="table xl:w-160 bxl:w-170 mxl:w-190 xxl:w-200 border border-gray-300 rounded-xl">
+                        <main class="table xl:w-160 bxl:w-170 mxl:w-190 xxl:w-200 xl_4k:w-250 border border-gray-300 rounded-xl">
                             <section class="table__body overflow-auto xl:h-110 bxl:h-160 mxl:h-180 xxl:h-182">
                                 <table id="myTable" class="border-separate border-spacing-2 ">
                                     <section>
-                                        <div class="flex justify-between xl:w-full xl:mt-0 xl:p-3">
-                                            <h1 class="text-2xl bxl:text-2xl xxl:text-3xl font-Poppins text-editProfile font-bold">All tickets</h1>
+                                        <div class="flex justify-between xl:w-full xl:mt-0 xl:p-3 xl_4k:p-7">
+                                            <h1 class="text-2xl bxl:text-2xl xxl:text-3xl xl_4k:text-6xl font-Poppins text-editProfile font-bold">All tickets</h1>
                                             <div class="input-group xl:mt-2 rounded-xl xl:py-1 xxl:py-2 xl:px-3 bg-gray-50 border border-gray-300 ">
-                                                <input class="text-2base xxl:text-base font-Poppins bg-gray-50" type="search" placeholder="Search Tickets">
-                                                <a class="fas fa-search text-base" href="#"></a>
+                                                <input class="text-2base xxl:text-base font-Poppins bg-gray-50 xl_4k:text-4xl xl_4k:p-4" type="search" placeholder="Search Tickets">
+                                                <a class="fas fa-search text-base xl_4k:text-4xl" href="#"></a>
                                             </div>    
-                                            <div class="xl:mt-2 ">  
-                                                <i onclick="openFilter()" id="openFilter" class="cursor-pointer fas fa-filter"></i>
+                                            <div class="xl:mt-2 xl_4k:mt-8">  
+                                                <i onclick="openFilter()" id="openFilter" class="cursor-pointer fas fa-filter xl_4k:text-4xl"></i>
                                                 <ul id="openNavFilter" class="hidden bg-white absolute border-1 rounded-xl shadow-lg border-gray-500 xl:p-3 xl:right-5 xl:top-10">
                                                     
                                                     <li class="font-Poppins font-bold xl:text-sm text-purple-900 xl:pr-10">Filter by</li>
@@ -114,15 +84,15 @@
                                             <tr>
                                                 <td  class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2">
                                                     <button ticket_id="{{ ticket.pk }}" onclick="ticket_view(this)">
-                                                        <div class="flex justify-between text-2base bxl:text-base xxl:text-base font-bold text-profCol text-end ">
+                                                        <div class="flex justify-between text-2base bxl:text-base xxl:text-base xl_4k:text-4xl font-bold text-profCol text-end ">
                                                             <h1 id="ticket_title" class="font-Poppins">{{ ticket.title }}</h1>
                                                             <h3 id="ticket_time" class="font-Poppins">{{ ticket.create_date | timesince }} ago</h3>
                                                         </div>
                                                         <div class="mt-5">
-                                                            <p id="ticket_desc" class="font-Poppins text-start text-sm bxl:text-2base  xxl:text-2base">{{ ticket.description }}</p>
+                                                            <p id="ticket_desc" class="font-Poppins text-start text-sm bxl:text-2base xl_4k:text-3xl xxl:text-2base">{{ ticket.description }}</p>
                                                         </div>
                                                         <div class="border border-gray-300 rounded-xl xl:w-fit xl:mt-3 text-sm bxl:p-1 xxl:p-1">
-                                                            <p id="ticket_id" class="font-Lato">#{{ ticket.id }}</p>
+                                                            <p id="ticket_id" class="font-Lato xl_4k:text-2xl">#{{ ticket.id }}</p>
                                                         </div>
                                                     </button>
                                                 </td>
@@ -131,15 +101,15 @@
                                             <tr>
                                                 <td class="flex flex-col bg-gray-50 border border-gray-300 rounded-xl hover:bg-gray-200 duration-300 p-2">
                                                     <button>
-                                                        <div class="flex justify-between text-2base bxl:text-base xxl:text-base font-bold text-profCol text-end ">
+                                                        <div class="flex justify-between text-2base bxl:text-base xxl:text-base xl_4k:text-5xl font-bold text-profCol text-end ">
                                                             <h1 id="ticket_title" class="font-Poppins">No Ticket Created</h1>
                                                             <h3 id="ticket_time" class="font-Poppins">0hr ago</h3>
                                                         </div>
                                                         <div class="mt-5">
-                                                            <p id="ticket_desc" class="font-Poppins text-start text-sm bxl:text-2base  xxl:text-2base">No Ticket Created</p>
+                                                            <p id="ticket_desc" class="font-Poppins text-start text-sm bxl:text-2base  xxl:text-2base xl_4k:text-4xl">No Ticket Created</p>
                                                         </div>
                                                         <div class="border border-gray-300 rounded-xl xl:w-fit xl:mt-3 text-sm bxl:p-1 xxl:p-1">
-                                                            <p id="ticket_id" class="font-Lato">#0000</p>
+                                                            <p id="ticket_id" class="font-Lato xl_4k:text-2xl">#0000</p>
                                                         </div>
                                                     </button>
                                                 </td>
