@@ -12,13 +12,16 @@ class issue(models.Model):
 	issue_type = models.ForeignKey(issue_type, on_delete=models.SET_NULL, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
 	ticket_status = models.CharField(max_length=250, null=True, blank=True, default="Pending")
+	percentage = models.CharField(max_length=250, null=True, blank=True, default=0)
 	create_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+	due_date = models.DateTimeField(null=True, blank=True)
 	update_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	history = models.TextField(null=True, blank=True)
 	userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
 class issue_file(models.Model):
 	issue =models.ForeignKey(issue, on_delete=models.SET_NULL, null=True, blank=True)
+	name = models.CharField(max_length=250, null=True, blank=True)
 	issue_file = models.FileField(upload_to='issue_upload/', null=True)
 	is_delete = models.BooleanField(default=0)
 	create_date = models.DateTimeField(auto_now_add=True)
@@ -42,7 +45,8 @@ class issue_comment(models.Model):
 	history = models.TextField(null=True, blank=True)
 
 class issue_comment_file(models.Model):
-	comment =models.ForeignKey(issue_comment, on_delete=models.SET_NULL, null=True, blank=True)
+	commentId = models.ForeignKey(issue_comment, on_delete=models.SET_NULL, null=True, blank=True)
+	comment_file_name = models.CharField(max_length=250, null=True, blank=True)
 	comment_file = models.FileField(upload_to='issue_upload/', null=True)
 	is_delete = models.BooleanField(default=0)
 	create_date = models.DateTimeField(auto_now_add=True)

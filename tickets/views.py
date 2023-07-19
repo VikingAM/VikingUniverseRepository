@@ -5,7 +5,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.core import serializers
 from datetime import datetime
-from tickets.models import issue, issue_type, task_cetegory_theme, task_category, task, task_comment
+from tickets.models import issue, issue_type, task_cetegory_theme, task_category, task, task_comment, issue_comment, issue_comment_file, issue_file
 from accounts.models import details
 
 # Create your views here.
@@ -273,7 +273,155 @@ def getTicketDetails(request):
 	data['issue_description'] = issue_details.description
 	data['create_date'] = issue_details.create_date.strftime("%B %d, %Y %I:%M %p")
 	data['owner_name'] = issueOwnder.first_name+" "+issueOwnder.last_name
+	return JsonResponse(data, safe=False)
 
+@login_required(login_url='/accounts/login')
+def updateTicketTitle(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	user_details = details.objects.get(userId=request.user.id)
+	try:
+		tikcet_details = issue.objects.get(pk=request.POST['ticket_id'])
+	except:
+		data['status_msg'] = "Ticket Does not exists!"
+		return JsonResponse(data, safe=False)
+	current_date = datetime.now()
+	update_history = str(tikcet_details.history)+"\r\n user="+ str(request.user.id) +" updated title from "+str(tikcet_details.title)+" to "+str(request.POST['ticket_title'])+" "+str(current_date)
+	print(update_history)
+	tikcet_details.history = update_history
+	tikcet_details.title = request.POST['ticket_title']
+	try:
+		tikcet_details.save()
+		data['status_code'] = 1
+	except:
+		data['status_msg'] = "Error on saving Ticket!"
+		return JsonResponse(data, safe=False)
 
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def updateTicketStatus(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	user_details = details.objects.get(userId=request.user.id)
+	try:
+		tikcet_details = issue.objects.get(pk=request.POST['ticket_id'])
+	except:
+		data['status_msg'] = "Ticket Does not exists!"
+		return JsonResponse(data, safe=False)
+	current_date = datetime.now()
+	update_history = str(tikcet_details.history)+"\r\n user="+ str(request.user.id) +" updated status from "+str(tikcet_details.ticket_status)+" to "+str(request.POST['ticket_status'])+" "+str(current_date)
+	print(update_history)
+	tikcet_details.history = update_history
+	tikcet_details.ticket_status = request.POST['ticket_status']
+	try:
+		tikcet_details.save()
+		data['status_code'] = 1
+	except:
+		data['status_msg'] = "Error on saving Ticket!"
+		return JsonResponse(data, safe=False)
+
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def UpdateTicketPercentage(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	user_details = details.objects.get(userId=request.user.id)
+	try:
+		tikcet_details = issue.objects.get(pk=request.POST['ticket_id'])
+	except:
+		data['status_msg'] = "Ticket Does not exists!"
+		return JsonResponse(data, safe=False)
+	current_date = datetime.now()
+	update_history = str(tikcet_details.history)+"\r\n user="+ str(request.user.id) +" updated percentage of task from "+str(tikcet_details.percentage)+" to "+str(request.POST['ticket_percentage'])+" "+str(current_date)
+	tikcet_details.history = update_history
+	tikcet_details.percentage = request.POST['ticket_percentage']
+	try:
+		tikcet_details.save()
+		data['status_code'] = 1
+	except:
+		data['status_msg'] = "Error on saving Ticket!"
+		return JsonResponse(data, safe=False)
+
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def UpdateTicketDescription(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	user_details = details.objects.get(userId=request.user.id)
+	try:
+		tikcet_details = issue.objects.get(pk=request.POST['ticket_id'])
+	except:
+		data['status_msg'] = "Ticket Does not exists!"
+		return JsonResponse(data, safe=False)
+	current_date = datetime.now()
+	update_history = str(tikcet_details.history)+"\r\n user="+ str(request.user.id) +" updated description of task of task from "+str(tikcet_details.description)+" <<==old to new==> "+str(request.POST['ticket_description'])+" "+str(current_date)
+	tikcet_details.history = update_history
+	tikcet_details.description = request.POST['ticket_description']
+	try:
+		tikcet_details.save()
+		data['status_code'] = 1
+	except:
+		data['status_msg'] = "Error on saving Ticket!"
+		return JsonResponse(data, safe=False)
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def getTicketComments(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	try:
+		tikcet_details = issue.objects.get(pk=request.POST['ticket_id'])
+	except:
+		data['status_msg'] = "Ticket Does not exists!"
+		return JsonResponse(data, safe=False)
+	list_of_comments = issue_comment.objects.filter(issue=request.POST['ticket_id'], is_delete=0)
+	ticket_attachment = issue_file.objects.filter(issue=request.POST['ticket_id'], is_delete=0)
+	ticket_attachment_list = {}
+	for attachment in ticket_attachment:
+		current_attachment = {}
+		current_attachment['id'] = attachment.pk
+		current_attachment['name'] = attachment.name
+		current_attachment['file'] = attachment.issue_file
+		ticket_attachment_list[attachment.pk] = current_attachment
+
+	comments = {}
+	for comment in list_of_comments:
+		current_comment = {}
+		current_comment['id'] = comment.pk
+		current_comment['comment'] = comment.comment
+		current_comment['create_date'] = comment.create_date.strftime("%m/%d/%Y, %H:%M %p")
+		comment_owner_instance = details.objects.get(userId=comment.owner)
+		current_comment['owner_name'] = comment_owner_instance.first_name+" "+comment_owner_instance.last_name
+		try:
+			current_comment['owner_name_pic'] = comment_owner_instance.profile_picture.url
+		except:
+			current_comment['owner_name_pic'] = None
+		comment_attachments = issue_comment_file.objects.filter(commentId=comment.pk)
+		attachments_list = {}
+		if len(comment_attachments) > 0:
+			for attachment in comment_attachments:
+				current_attachments = {}
+				current_attachments['id'] = attachment.pk
+				try:
+					current_attachments['file'] = attachment.comment_file.url
+				except:
+					current_attachments['file'] = None
+				current_attachments['name'] = attachment.comment_file_name
+				attachments_list[attachment.pk] = current_attachments
+		current_comment['attachments'] = attachments_list
+		comments[comment.pk] = current_comment
+
+	data['issue_attachments'] = ticket_attachment_list
+	data['comments'] = comments
+	data['comment_count'] = len(list_of_comments)
+	data['status_code'] = 1
 
 	return JsonResponse(data, safe=False)

@@ -48,7 +48,7 @@
 							<td>Task</td>
 							<td>
 								{% if ticket.profile_picture|length > 0 %}
-                            		<img src="/{{ ticket.profile_picture|default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span> 	
+                            		<img src="/media/{{ ticket.profile_picture |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span> 	
                         		{% else %}
                             		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span> 	
                         		{% endif %}	

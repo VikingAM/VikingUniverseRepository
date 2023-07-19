@@ -9,6 +9,13 @@ urlpatterns = [
     path('get_ticket_details', views.getTicketDetails, name="getTicketDetails"),
     path('get_category_services', views.getCategoryServices, name='getCategoryServices'),
     path('get_category_details', views.getCategoryDetailsById, name='getCategoryDetailsById'),
+    path('get_ticket_comments', views.getTicketComments, name="getTicketComments"),
+
+    path("update_ticket_title", views.updateTicketTitle, name="updateTicketTitle"),
+    path("update_ticket_status", views.updateTicketStatus, name="updateTicketStatus"),
+    path("update_ticket_percentage", views.UpdateTicketPercentage, name="UpdateTicketPercentage"),
+    path("update_ticket_description", views.UpdateTicketDescription, name="UpdateTicketDescription"),
+
 
     path('task_dashboard', views.taskDashboard, name="taskDashboard"),
     path('task_submit', views.taskSubmit, name="taskSubmit"),

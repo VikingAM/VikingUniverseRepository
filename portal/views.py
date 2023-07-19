@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
-from tickets.models import issue
+from tickets.models import issue, issue_comment, issue_comment_file
 import random, os
 
 
@@ -41,7 +41,7 @@ def portalSettingPage(request):
 			file_extension = split_tup[1]
 			random_number = random.randint(0,1000)
 			fs = FileSystemStorage()
-			file_name = "profile_picture_"+str(request.user.id)+"_"+str(random_number)+""+str(file_extension)
+			file_name = "prof_pic/profile_picture_"+str(request.user.id)+"_"+str(random_number)+""+str(file_extension)
 			ProfPic = fs.save(file_name, request_file)
 			profile_details.profile_picture = ProfPic
 
@@ -109,7 +109,35 @@ def portalAdminTicketList(request):
 
 @login_required(login_url='/accounts/login')
 def getAdminTicketDetails(request, ticket_id):
+	ticket = issue.objects.get(pk=ticket_id)
+	ticket_owner = details.objects.get(userId=ticket.userId)
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'admin_templates/tickets/ticket_detailed.html', {"profile_details": profile_details})
+	
+	if request.method == 'POST':
+		userInstance = User.objects.get(pk=request.user.id)
+		ticket_comment = issue_comment()
+		ticket_comment.comment = request.POST.get('ticket_comment', False);
+		ticket_comment.owner = userInstance
+		ticket_comment.issue = ticket
+		ticket_comment.save()
+		request_file = request.FILES['ticket_attachments'] if 'ticket_attachments' in request.FILES else None
+		if request_file:
+			for f in request.FILES.getlist('ticket_attachments'):
+				ticket_comment_file = issue_comment_file()
+				ticket_comment_file.commentId = ticket_comment
+				ticket_comment_file.comment_file_name = f.name
+
+				split_tup = os.path.splitext(f.name)
+				file_extension = split_tup[1]
+				random_number = random.randint(0,1000)
+				fs = FileSystemStorage()
+				file_name = "tickets_attachments/id_"+str(ticket_id)+"_"+str(random_number)+""+str(file_extension)
+				comment_file = fs.save(file_name, f)
+				ticket_comment_file.comment_file = comment_file
+				ticket_comment_file.save()
+		return redirect ('getAdminTicketDetails', ticket_id)
+
+	
+	return render(request, 'admin_templates/tickets/ticket_detailed.html', {"profile_details": profile_details, "detail":ticket, "ticket_owner":ticket_owner})
 
 
