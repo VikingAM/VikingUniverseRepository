@@ -1,0 +1,493 @@
+{% extends 'customer_portal_base.html' %}
+
+{% load static %}
+
+{% block title %} Task Detailed {% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<style type="text/css">
+		.title_name{
+			font-family: 'Poppins', sans-serif;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 60px;
+			line-height: 90px;
+			color: #6417A1;
+		}
+
+		.edit_task_name{
+			font-family: 'Poppins', sans-serif;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 45px;
+			line-height: 90px;
+			color: #6417A1;
+		}
+
+		.description_title{
+			font-family: 'Poppins', sans-serif;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 25px;
+			line-height: 38px;
+			color: #0717A3;
+		}
+		.task_description p {
+			font-family: 'Poppins', sans-serif;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 25px;
+			line-height: 38px;
+			color: #0717A3;
+		}
+		.credit_used{
+			font-family: 'Poppins', sans-serif;
+			font-style: normal;
+			font-weight: 700;
+			font-size: 20px;
+			line-height: 30px;
+			color: #000000;
+		}
+		.edit_task_btn{
+			background: linear-gradient(90.97deg, rgba(26, 47, 238, 0.85) 0%, rgba(196, 26, 238, 0.85) 99.67%);
+			border-radius: 10px;
+			font-family: 'Poppins', sans-serif;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 20px;
+			line-height: 30px;
+			color: #FFFFFF;
+			width: 100%;
+    		border: 0px;
+    		padding: 3% 0%;
+		}
+		.delete_task_btn{
+			background: #FFFFFF;
+			border-radius: 10px;
+			font-family: 'Poppins', sans-serif;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 20px;
+			line-height: 30px;
+			color: #000000;
+			width: 99%;
+    		padding: 3% 0%;
+		}
+		.edit_form_name{
+			font-family: 'Lato', sans-serif;
+			font-style: normal;
+			font-weight: 700;
+			font-size: 20px;
+			line-height: 24px;
+			color: #3E1774;
+		}
+	</style>
+{% endblock style %}
+
+{% block content %}
+<div class="col p-4 main-container">
+	<div class="row" style="background: #FFFFFF;">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
+			<div class="row">
+				<div class="col-sm-8">
+					<span class="title_name">
+						{{ task_detail.title }}
+					</span>
+				</div>
+				<div class="col-sm-4">
+					<br/><br/>
+					<div class="progress" style=" height: 1.5rem;">
+						<div class="progress-bar" role="progressbar" style="width: {{ task_detail.task_percentage}}%; font-size: 20px; text-align: center; background: #BEA4EC;" aria-valuenow="25" aria-valuemin="{{ task_detail.task_percentage}}" aria-valuemax="100">{{ task_detail.task_percentage}}%</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<span class="description_title">
+						Description
+					</span>
+				</div><br/>
+				<div class="col-sm-12" class="task_description">
+					<p>{{ task_detail.description }}</p>
+				</div>
+				<br/><br/>
+			</div>
+			<div class="row">
+				<div class="col-sm-2">
+					<div class="card">
+						<div class="card-body">
+					    	<div class="row">
+					    		<div class="col-sm-8">
+					    			Start Date<br/>
+					    			{{ task_detail.create_date |date:"M d, Y" }}
+					    		</div>
+					    		<div class="col-sm-4">
+					    			<i class="fa-solid fa-clock" style="font-size: 45px; color: #562E91;"></i>
+					    		</div>
+					    	</div>
+					  	</div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="card">
+							<div class="card-body">
+							<div class="row">
+					    		<div class="col-sm-8">
+					    			Attachments<br/>
+					    			{{ attachments.count }}
+					    		</div>
+					    		<div class="col-sm-4">
+					    			<div class="dropdown">
+  										<button  type="button" id="AttachmentDropDowns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    										<i class="fa-solid fa-file-lines" style="font-size: 45px; color: #2A3A8F;"></i>
+  										</button>
+  										<div class="dropdown-menu" aria-labelledby="AttachmentDropDowns">
+  											<li>
+  												{% if attachments %}
+	      											{% for attachment in attachments %}
+	      												<ul class="dropdown-item"><i class='fa-solid fa-file'></i>&nbsp;&nbsp;{{ attachment.name }}&nbsp;&nbsp;<a href="{{ attachment.issue_file.url }}" download><i class="fa-solid fa-file-arrow-down"></i></a>  &nbsp;&nbsp;<i class="fa-solid fa-trash-can" task_edit='0' task_attachment_id="{{ attachment.pk }}" onclick="RemoveAttachment(this);" style="cursor:pointer;"></i></ul>
+	      											{% endfor %}
+	      										{% endif %}
+  											</li>
+  										</div>
+									</div>
+					    			
+					    		</div>
+					    	</div>
+							</div>
+					</div>
+				</div>
+			</div>
+			
+			<br/><br/>
+			<div class="row">
+				<div class="col-sm-12" >
+					<span class="description_title">Details</span>	
+				</div><br/><br/>
+				<div class="col-sm-12">
+					<span class="credit_used">Credits used for this task:</span>
+				</div>
+			</div>
+			<br/><br/>
+			{% if task_detail.status == "Open" %}
+				<div class="row">
+			{% else %}
+				<div class="row" style="display:none;">
+			{% endif %}
+			<div class="col-sm-12" >
+					<span class="description_title">Status</span>	
+				</div><br/><br/>
+				<div class="col-sm-12">
+					<span class="task_description">The Task Was Submitted and waiting to be assigned on one of our agents.</span>
+				</div>
+			</div>
+
+			{% if task_detail.status == "Open" %}
+				<div class="comment_wrapper" style="display:none;">
+			{% else %}
+				<div class="comment_wrapper">
+			{% endif %}
+			
+				<div class="row">
+					<div class="col-sm-12" >
+						<span class="description_title">Comments</span>	
+					</div><br/><br/>
+					<div class="col-sm-12">
+						<ul class="list-group task_comments_wrapper" style="max-height: 280px; overflow-y: auto;">
+						
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<form method="POST" id="task_comment_form" action="{% url 'postTaskComment' task_detail.pk %}" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="col-sm-11">
+							<div class="form-outline w-100">
+								<textarea class="form-control" rows="4" name="task_comment" id="task_comment" placeholder="Comment . . ."></textarea>
+							</div>
+							<div class="row form-outline">
+								<div class="col-sm-9">
+									<label for="task_comment_attachments" id="task_comment_attachments_label" class="btn"><i class="fa-solid fa-paperclip"></i> Attachements</label>
+								<input id="task_comment_attachments" name="task_comment_attachments" style="visibility:hidden;" type="file" multiple onchange="checkNumberOfFiles(this);">
+								</div>
+								<div class="col-sm-3" style="text-align:right;">
+									<button type="button" class="btn btn-outline-primary btn-sm" onclick="upload_comment();">Post comment</button>
+									<button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+								</div>
+							
+							</div>
+						</div>
+						<div class="col-sm-1"></div>
+					</form>
+				</div>
+			</div>
+			
+			<br/><br/><br/>
+			<div class="row">
+				<div class="col-sm-4"></div>
+				<div class="col-sm-2">
+					<button class="edit_task_btn" onclick="EditTaskBtn();">Edit Task</button>
+				</div>
+				<div class="col-sm-2">
+					{% if task_detail.status == "Open" %}
+						<button class="delete_task_btn">Delete</button>
+					{% else %}
+						<button class="delete_task_btn" style="display: none;">Delete</button>
+					{% endif %}
+					
+				</div>
+				<div class="col-sm-4"></div>
+			</div>
+			<br/><br/><br/>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>
+<input type="hidden" name="task_id" id="task_id" value="{{  task_detail.pk }}">
+<div class="modal fade" id="EditTaskForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-xl">
+    		<div class="modal-content">
+      			<div class="modal-body">
+      				<form method="POST" id="edit_task_form" action="{% url 'editTask' task_detail.pk %}" enctype="multipart/form-data">
+      					{% csrf_token %}
+	      				<div class="row">
+	      					<div class="col-sm-12 edit_task_name" style="text-align:center;">Edit Task</div>
+	      				</div>
+	      				<div class="row">
+	      					<div class="col-sm-12">
+	      						<div class="alert alert-success edit_task_success" role="alert" style="display:none;">
+	  								Update Successful! Reloading page . . .
+								</div>
+								<div class="alert alert-warning edit_task_error" role="alert" style="display:none; cursor: pointer;" onclick="closeThis(this);">
+	  								
+								</div>
+	      					</div>
+	      				</div>
+	      				<div class="row">
+	      					<div class="col-sm-1"></div>
+	      					<div class="col-sm-2 edit_form_name">
+	      						Task Name
+	      					</div>
+	      					<div class="col-sm-9 ">
+	      						<input class="form-control" type="text" name="task_title" id="task_title" value="{{ task_detail.title }}">
+	      						<input type="hidden" id="edit_task_id" name="edit_task_id" value="{{  task_detail.pk }}">
+	      					</div>
+	      				</div><hr>
+	      				<div class="row">
+	      					<div class="col-sm-1"></div>
+	      					<div class="col-sm-2 edit_form_name">
+	      						Description
+	      					</div>
+	      					<div class="col-sm-9 ">
+	      						<textarea class="form-control" name="edit_description" id="edit_description" rows="5">{{ task_detail.description }}</textarea>
+	      					</div>
+	      				</div><hr>
+	      				<div class="row">
+	      					<div class="col-sm-1"></div>
+	      					<div class="col-sm-2 edit_form_name">
+	      						Attachments
+	      					</div>
+	      					<div class="col-sm-3">
+	      						<input type="file" id="ticket_attachments" name="ticket_attachments" multiple>
+	      					</div>
+	      					<div class="col-sm-6">
+	      						{% if attachments %}
+	      							{% for attachment in attachments %}
+	      								<div class="row">
+	      									<div class="col-sm-10">
+	      										<i class='fa-solid fa-file'></i>  {{ attachment.name }}
+	      									</div>
+	      									<div class="col-sm-1">
+	      										<a href="{{ attachment.issue_file.url }}" download>
+	      											<i class="fa-solid fa-file-arrow-down"></i>
+	      										</a>	
+	      									</div>
+	      									<div class="col-sm-1" task_edit='1' task_attachment_id="{{ attachment.pk }}" onclick="RemoveAttachment(this);" style="cursor:pointer;">
+	      										<i class="fa-solid fa-trash-can"></i>
+	      									</div>
+	      									
+	      								</div>
+	      								
+	      							{% endfor %}
+	      						{% endif %}
+	      					</div>
+	      					<div class="col-sm-12">
+	      						
+	      					</div>
+	      				</div><hr>
+	      				<div class="row">
+	      					<div class="col-sm-1"></div>
+	      					<div class="col-sm-2 edit_form_name">
+	      						Edit Task Forms
+	      					</div>
+	      					<div class="col-sm-9 ">
+	      						
+	      					</div>
+	      				</div>
+      				</form>
+      				<br/><br/>
+      				<div class="row">
+      					<div class="col-sm-3"></div>
+      					<div class="col-sm-3">
+      						<button class="edit_task_btn" onclick="SubmitEditTask();">Submit</button>
+      					</div>
+      					<div class="col-sm-3">
+      						<button class="delete_task_btn"  data-dismiss="modal">Close</button>
+      					</div>
+      					<div class="col-sm-3"></div>
+      				</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			getComments();
+		})
+
+		function EditTaskBtn(){
+			$("#EditTaskForm").modal("show");
+		}
+		function closeThis(that){
+			$(that).hide();
+		}
+
+		function upload_comment(){
+			var comment = $("#task_comment").val();
+			var number_of_file = $("#task_comment_attachments")[0].files.length;
+			if(number_of_file > 0 || comment.length > 0){
+				$("#task_comment_form").submit();
+			}else{
+				alert("comment should not be empty!");
+			}
+		}
+		function SubmitEditTask(){
+			$(".edit_task_error").hide();
+			var edit_task_title = $("#task_title").val();
+			if(edit_task_title.length == 0){
+				$(".edit_task_error").show();
+	    		$(".edit_task_error").empty();
+	    		$(".edit_task_error").append("Task title should not be empty!");
+				return false;
+			}
+			var edit_task_description = $("#edit_description").val();
+			if(edit_task_description.length == 0){
+				$(".edit_task_error").show();
+	    		$(".edit_task_error").empty();
+	    		$(".edit_task_error").append("Task description should not be empty!");
+				return false;
+			}
+			$("#edit_task_form").submit();
+		}
+
+		function RemoveAttachment(that){
+			var task_attachment_id = $(that).attr("task_attachment_id");
+			var task_edit = $(that).attr("task_edit");
+			if (confirm("Are you sure you are going to remove this Attachment?") == true){
+				$.ajax({
+			        type: "POST",
+			        url: "{% url 'removeTaskAttachment' %}",
+			        data: {
+			        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+			        	"task_attachment_id":task_attachment_id,
+			        },
+			        async:true,
+			        success: function (data) {
+			        	if(data.status_code == 1){
+			        		if(task_edit == 1){
+			        			$(that).parent('.row').remove();
+			        		}else{
+			        			$(that).parent('.dropdown-item').remove();
+			        		}
+			        		
+			        	}else{
+			        		alert(data.status_msg)
+			        	}
+			        	
+			        },
+			        error: function (e) {
+			           
+			        }
+			    })
+			}
+		}
+
+		function getComments(){
+			var task_id = $("#task_id").val();
+			$.ajax({
+	            type: "POST",
+	            url: "{% url 'getTaskComments' %}",
+	            data: {
+	                "csrfmiddlewaretoken": '{{ csrf_token }}',
+	                "task_id":task_id,
+	            },
+	            async:true,
+	            success: function (data) {
+	                if(data.status_code == 1){
+	                	$(".task_comments_wrapper").empty();
+	                	var comments = data.comments;
+	                	$.each(comments, function(index, value){
+	                		var output = "";
+	                		output += "<li class='list-group-item'>";
+	                		output += "	<div class='row'>";
+	                		output += "		<div class='col-sm-1' style='text-align:right;'>";
+	                		output += "			<img src='"+value.owner_name_pic+"' alt='mdo' width='35' height='35' class='rounded-circle' style='margin-top: 5px;'>";
+  							output += "		</div>";		
+  							output += "		<div class='col-sm-11'>";
+  							output += "			<div class='row'>";		
+  							output += "				<div class='col-sm-12'>";				
+  							output += "					<span><b>"+value.owner_name+"</b></span>";		
+  							output += "				</div>";				
+  							output += "				<div class='col-sm-12' style='color: #878383;'>";
+  							output += "					<p>"+value.comment+"</p>";
+  							output += "				</div>";
+  							output += "				<div class='col-sm-12' style='color: #878383;'>";
+  							
+  							$.each(value.attachments, function(index2, value2){
+  								 
+								output += "			<a href='#' class='card-link' style='text-align:left; font-size: 10px; text-decoration: none; color: #585858;'>"+value2.name+"</a>";
+								var split_value2_name = value2.name.split(".");
+								output += "			<a href='"+value2.file+"' download='"+split_value2_name[0]+"' class='card-link' style='text-decoration: none; color: #585858;' ><i class='fa-solid fa-download'></i></a><br/>";
+								
+  							})
+  							output += "				</div>";
+  							output += "				<div class='col-sm-12' style='font-size: 12px;'>";
+  							output += "					<span>"+value.create_date+"</span> • <a href='#' style='text-decoration: none; color: #05A91F;'>Edit</a> • <a href='#' style='text-decoration: none; color: #05A91F;'>Delete</a>";						
+  							output += "				</div>";
+  							output += "			</div>";
+  							output += "		</div>";
+  							output += "	</div>";
+  							output += "</li>";
+  							$(".task_comments_wrapper").append(output);
+	                	});
+	                }else{
+	                	alert(data.status_msg);
+	                }
+	            },
+	            error: function (e) {
+	                
+	            }
+	        })
+		}
+
+		function checkNumberOfFiles(that){
+			var number_of_file = $(that)[0].files.length;
+			$("#task_attachement_label").empty();
+			if(number_of_file > 1){
+				$("#task_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" files");
+			}else if(number_of_file == 1){
+				$("#task_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" file");
+			}else{
+				$("#task_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements");
+			}
+		}
+	</script>
+{% endblock script %}

@@ -103,7 +103,7 @@
         			</a>
       			</li>
       			<li class="nav-item">
-	        		<a href="#">
+	        		<a href="{% url 'portalAdminTaskDashboard' %}">
 	      				<div class="card nav-card">
 	  						<div class="card-body">
 	  							<i class="bi bi-house"></i><br/>
@@ -193,7 +193,11 @@
     				<form class="d-flex">
       					<input class="form-control border-secondary rounded-pill pr-5" type="search" placeholder="search" id="example-search-input2">
       					&nbsp; &nbsp;<i class="bi bi-bell-fill" style="font-size:25px; margin-top: 3px;"></i>
-      					&nbsp; &nbsp;<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+      					{% if profile_details.profile_picture|length > 0 %}
+                    		&nbsp; &nbsp;<img src="{{ profile_details.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+                		{% else %}
+                    		&nbsp; &nbsp;<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> 	
+                		{% endif %}	
     				</form>
   				</div>
 			</nav>

@@ -1,0 +1,414 @@
+{% extends 'admin_templates/admin_base.html' %}
+
+{% load static %}
+
+{% block title %} Admin Dashboard {% endblock title %}
+
+{% block style %}
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<style type="text/css">
+	.dot {
+		width: 70%;
+	  	background-color: #6417A180;
+	  	border-radius: 50%;
+	  	display: inline-block;
+	}
+	.dashboard_cards{
+		font-weight: 800;
+		font-size: 15px;
+	}
+</style>
+
+{% endblock style %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<h3 class="dashboard_welcome_greeting">Task Dashboard</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-9">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="card ">
+						<div class="card-body" style="height: 420px;">
+							<div class="row">
+								<div class="col-sm-9 feeds_title">
+									<h4>Task Feeds</h4>
+								</div>
+								<div class="col-sm-3" style="text-align: right;">
+									<div class="dropdown">
+										<span class="dropdown-toggle" type="button" id="TicketFeedDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+											<b>All Tickets</b>
+										</span>
+										<ul class="dropdown-menu" aria-labelledby="TicketFeedDropDown">
+									    <li><a class="dropdown-item" href="#">Open</a></li>
+									    <li><a class="dropdown-item" href="#">In Progress</a></li>
+									    <li><a class="dropdown-item" href="#">For Approval</a></li>
+									    <li><a class="dropdown-item" href="#">Complete</a></li>
+										</ul>
+								</div>
+								</div>
+							</div>
+							<div class="row scroll" style="height: 350px;">
+								<ul class="list-group">
+							  		<li class="list-group-item remove-border-list">
+										<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_progress_color">For Approval</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-warning text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right;">
+											 				Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+										<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_tested_color">To be Tested</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-success">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right;">
+											 				Severity: <span class="ticket_major"><b>MAJOR</b></span>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+										<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_close_color">Closed</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+										 				<div class="col-sm-6" style="color:#878383;">
+											 				Type: <b>Credit</b>
+											 			</div>
+											 			<div class="col-sm-6" style="text-align:right; color: #878383;">
+											 				Severity: <b>MAJOR</b>
+											 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+							  		<li class="list-group-item remove-border-list">
+										<div class="row">
+								  			<div class="col-sm-1" style="text-align: right;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 		</div>
+									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+									 			<div class="row task_feed">
+									 				<div class="col-sm-12">
+										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_close_color">Closed</span>.
+										 			</div>
+										 			<div class="col-sm-12">
+										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
+										 			</div>
+										 			
+									 				<div class="col-sm-6" style="color:#878383;">
+										 				Type: <b>Credit</b>
+										 			</div>
+										 			<div class="col-sm-6" style="text-align:right; color: #878383;">
+										 				Severity: <span class="ticket_critical"><b>SHOW STOPPER</b></span>
+										 			</div>
+										 			
+										 			<div class="col-sm-6" style="text-align: left;">
+										 				Today at 4:20 PM
+										 			</div>
+										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+										 				View ticket
+										 			</div>
+									 			</div>
+									 		</div>
+								  		</div>
+							  		</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="card ">
+						<div class="card-body" style="height: 420px;">
+							<div class="row">
+								<div class="col-sm-9 feeds_title">
+									<h4>Overdue Work Items</h4>
+								</div>
+								<div class="col-sm-3" style="text-align: right;">
+									<div class="dropdown">
+										<span class="dropdown-toggle" type="button" id="TicketPriorityDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+											<b>Priority</b>
+										</span>
+										<ul class="dropdown-menu" aria-labelledby="TicketPriorityDropDown">
+									    <li><a class="dropdown-item" href="#">Open</a></li>
+									    <li><a class="dropdown-item" href="#">In Progress</a></li>
+									    <li><a class="dropdown-item" href="#">For Approval</a></li>
+									    <li><a class="dropdown-item" href="#">Complete</a></li>
+										</ul>
+								</div>
+								</div>
+							</div>
+							<div class="row scroll" style="height: 350px;">
+								<ul class="list-group">
+							  		<li class="list-group-item remove-border-list">
+										<div class="row">
+											<div class="col-sm-1">
+												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+											</div>
+											<div class="col-sm-11">
+												<div class="row">
+													<div class="col-sm-8">
+														<span class="badge rounded-pill bg-warning">Ticket# </span> Invoice Computation Error
+													</div>
+													<div class="col-sm-4" style="text-align: right;">
+														Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-6">
+														<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i> Client Name
+													</div>
+													<div class="col-sm-6" style="text-align: right;">
+														<span class="badge rounded-pill bg-warning">In Progress</span>
+													</div>
+												</div>
+											</div>
+										</div>
+							  		</li>
+							  		<hr>
+							  		<li class="list-group-item remove-border-list">
+										<div class="row">
+											<div class="col-sm-1">
+												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+											</div>
+											<div class="col-sm-11">
+												<div class="row">
+													<div class="col-sm-8">
+														<span class="badge bg-success">Ticket# </span> Invoice Computation Error
+													</div>
+													<div class="col-sm-4" style="text-align: right;">
+														Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-6">
+														<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i> Client Name
+													</div>
+													<div class="col-sm-6" style="text-align: right;">
+														<span class="badge bg-success">To be Tested</span>
+													</div>
+												</div>
+											</div>
+										</div>
+							  		</li>
+							  		<hr>
+							  		<li class="list-group-item remove-border-list">
+										<div class="row">
+											<div class="col-sm-1">
+												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+											</div>
+											<div class="col-sm-11">
+												<div class="row">
+													<div class="col-sm-8">
+														<span class="badge rounded-pill bg-warning">Ticket# </span> Invoice Computation Error
+													</div>
+													<div class="col-sm-4" style="text-align: right;">
+														Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-6">
+														<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i> Client Name
+													</div>
+													<div class="col-sm-6" style="text-align: right;">
+														<span class="badge rounded-pill bg-warning">In Progress</span>
+													</div>
+												</div>
+											</div>
+										</div>
+							  		</li>
+							  		<hr>
+							  		<li class="list-group-item remove-border-list">
+										<div class="row">
+											<div class="col-sm-1">
+												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+											</div>
+											<div class="col-sm-11">
+												<div class="row">
+													<div class="col-sm-8">
+														<span class="badge bg-success">Ticket# </span> Invoice Computation Error
+													</div>
+													<div class="col-sm-4" style="text-align: right;">
+														Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-6">
+														<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i> Client Name
+													</div>
+													<div class="col-sm-6" style="text-align: right;">
+														<span class="badge bg-success">To be Tested</span>
+													</div>
+												</div>
+											</div>
+										</div>
+							  		</li>
+							  		<hr>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/open_tickets.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">15</h5>
+        							<p class="card-text dashboard_cards">Open Task</p>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/ticket_in_progress.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">15</h5>
+        							<p class="card-text dashboard_cards">Task in Process</p>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3" style="width: 100%;">
+  						<div class="row g-0">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot" style="font-size: 45px;">
+    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/to_be_tested.png' %}">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h5 class="card-title">15</h5>
+        							<p class="card-text dashboard_cards">Task for Approval</p>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<a href="{% url 'portalAdminTaskList' %}" style="text-decoration:none;">
+						<div class="card mb-3" style="width: 100%;">
+	  						<div class="row g-0">
+	    						<div class="col-md-4" style="margin: auto; text-align:center;">
+	    							<span class="dot" style="font-size: 45px;">
+	    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/open_tickets.png' %}">
+	    							</span>
+	    						</div>
+	    						<div class="col-md-8">
+	      							<div class="card-body">
+	        							<h4 class="card-title" style="color: #000000;" >VIEW ALL<br/>Task</h4>
+	      							</div>
+	    						</div>
+	  						</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="card">
+				<div class="card-body" style="height: 540px;">
+					<div class="row">
+						<div class="col-sm-12 feeds_title">
+							<h3>Activity Logs</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			
+		</div>
+		<div class="col-sm-4">
+			
+		</div>
+		<div class="col-sm-4">
+			
+		</div>
+	</div>
+{% endblock %}

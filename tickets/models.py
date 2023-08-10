@@ -11,7 +11,7 @@ class issue(models.Model):
 	description = models.TextField(null=True, blank=True)
 	issue_type = models.ForeignKey(issue_type, on_delete=models.SET_NULL, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
-	ticket_status = models.CharField(max_length=250, null=True, blank=True, default="Pending")
+	ticket_status = models.CharField(max_length=250, null=True, blank=True, default="OPEN")
 	percentage = models.CharField(max_length=250, null=True, blank=True, default=0)
 	create_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	due_date = models.DateTimeField(null=True, blank=True)
@@ -86,10 +86,12 @@ class task(models.Model):
 	update_date = models.DateTimeField(auto_now_add=True)
 	status = models.CharField(max_length=250, null=True, blank=True, default="Open")
 	owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+	history = models.TextField(null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
 
 class task_file(models.Model):
-	task =models.ForeignKey(task, on_delete=models.SET_NULL, null=True, blank=True)
+	task = models.ForeignKey(task, on_delete=models.SET_NULL, null=True, blank=True)
+	name = models.CharField(max_length=250, null=True, blank=True)
 	issue_file = models.FileField(upload_to='task_upload/', null=True)
 	is_delete = models.BooleanField(default=0)
 	create_date = models.DateTimeField(auto_now_add=True)
@@ -113,6 +115,7 @@ class task_comment(models.Model):
 	history = models.TextField(null=True, blank=True)
 
 class task_comment_file(models.Model):
+	name = models.CharField(max_length=250, null=True, blank=True)
 	comment =models.ForeignKey(task_comment, on_delete=models.SET_NULL, null=True, blank=True)
 	comment_file = models.FileField(upload_to='task_upload/', null=True)
 	is_delete = models.BooleanField(default=0)

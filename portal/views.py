@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
-from tickets.models import issue, issue_comment, issue_comment_file
+from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file
 import random, os
 
 
@@ -136,8 +136,47 @@ def getAdminTicketDetails(request, ticket_id):
 				ticket_comment_file.comment_file = comment_file
 				ticket_comment_file.save()
 		return redirect ('getAdminTicketDetails', ticket_id)
-
-	
 	return render(request, 'admin_templates/tickets/ticket_detailed.html', {"profile_details": profile_details, "detail":ticket, "ticket_owner":ticket_owner})
 
 
+@login_required(login_url='/accounts/login')
+def portalAdminTaskDashboard(request):
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'admin_templates/task/task_dashboard.html', {"profile_details": profile_details})
+
+@login_required(login_url='/accounts/login')
+def portalAdminTaskList(request):
+	profile_details = details.objects.get(userId=request.user.id)
+	return render(request, 'admin_templates/task/task_list.html', {"profile_details": profile_details, "base_url":settings.SITE_URL})
+
+
+@login_required(login_url='/accounts/login')
+def portalAdmintaskDetails(request, task_id):
+	profile_details = details.objects.get(userId=request.user.id)
+	task_details = task.objects.get(pk=task_id)
+	task_owner = details.objects.get(userId=task_details.owner)
+	print(task_owner)
+
+	if request.method == 'POST':
+		userInstance = User.objects.get(pk=request.user.id)
+		task_new_comment = task_comment()
+		task_new_comment.comment = request.POST.get('task_comment', False);
+		task_new_comment.owner = userInstance
+		task_new_comment.task = task_details
+		task_new_comment.save()
+		request_file = request.FILES['task_attachments'] if 'task_attachments' in request.FILES else None
+		if request_file:
+			for f in request.FILES.getlist('task_attachments'):
+				task_new_comment_file = task_comment_file()
+				task_new_comment_file.comment = task_new_comment
+				task_new_comment_file.name = f.name
+				split_tup = os.path.splitext(f.name)
+				file_extension = split_tup[1]
+				random_number = random.randint(0,1000)
+				fs = FileSystemStorage()
+				file_name = "tasks_attachments/id_"+str(task_id)+"_"+str(random_number)+""+str(file_extension)
+				comment_file = fs.save(file_name, f)
+				task_new_comment_file.comment_file = comment_file
+				task_new_comment_file.save()
+		return redirect ('portalAdmintaskDetails', task_id)
+	return render(request, 'admin_templates/task/task_detailed.html', {"profile_details": profile_details, "detail":task_details, "task_owner":task_owner})

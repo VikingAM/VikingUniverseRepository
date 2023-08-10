@@ -10,6 +10,8 @@ urlpatterns = [
     path('get_category_services', views.getCategoryServices, name='getCategoryServices'),
     path('get_category_details', views.getCategoryDetailsById, name='getCategoryDetailsById'),
     path('get_ticket_comments', views.getTicketComments, name="getTicketComments"),
+    path('get_ticket_list', views.getTicketList, name="getTicketList"),
+
 
     path("update_ticket_title", views.updateTicketTitle, name="updateTicketTitle"),
     path("update_ticket_status", views.updateTicketStatus, name="updateTicketStatus"),
@@ -17,14 +19,24 @@ urlpatterns = [
     path("update_ticket_description", views.UpdateTicketDescription, name="UpdateTicketDescription"),
 
 
+    path("get_task_comments", views.getTaskComments, name="getTaskComments"),
+
+    
     path('task_dashboard', views.taskDashboard, name="taskDashboard"),
     path('task_submit', views.taskSubmit, name="taskSubmit"),
     path('create_task', views.createTask, name="createTask"),
-    path('edit_task', views.editTask, name="editTask"),
+    
     path('add_revision', views.addRevision, name="addRevision"),
     path('task_approve', views.taskApprove, name="taskApprove"),
     path('get_ticket_filter', views.getTciketByFilter, name="getTciketByFilter"),
+    
     path('task_details/<task_id>', views.taskDetails, name="taskDetails"),
+    path('edit_task/<task_id>', views.editTask, name="editTask"),
+    path('remove_task_attachment', views.removeTaskAttachment, name="removeTaskAttachment"),
+    path('post_task_comment/<task_id>', views.postTaskComment, name="postTaskComment"),
+
+    path('update_task_status', views.UpdateTaskStatus, name="UpdateTaskStatus"),
+    path('update_task_percentage', views.updateTaskPercentage, name='updateTaskPercentage'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

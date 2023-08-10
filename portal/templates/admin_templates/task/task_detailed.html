@@ -1,0 +1,573 @@
+{% extends 'admin_templates/admin_base.html' %}
+
+{% load static %}
+
+{% block title %} Admin Dashboard {% endblock title %}
+
+{% block style %}
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<style type="text/css">
+	.dot {
+		width: 70%;
+	  	background-color: #6417A180;
+	  	border-radius: 50%;
+	  	display: inline-block;
+	}
+	.dashboard_cards{
+		font-weight: 800;
+		font-size: 15px;
+	}
+	.ticket_title{
+		color: #6417A1;
+	}
+	.ticket_description{
+		color: #6417A1;
+	}
+	.ticket_detail_id{
+		color: #6417A1;
+		font-size: 22px;
+	}
+	.ticket_progress_bar{
+		background-color: #6417A1;
+	}
+
+	.ticket_title_edit_action{
+		font-size: 20px;
+		cursor: pointer;
+		display: none;
+	}
+
+	.nav-title{
+		color: #6417A1;
+		font-weight: 600;
+	}
+
+</style>
+
+{% endblock style %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<h3 class="dashboard_welcome_greeting">Ticket Dashboard</h3>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="card">
+	  		<div class="card-body">
+	  			<div class="row">
+	    			<div class="col-sm-6">
+	    				<div class="row">
+	    					<div class="col-sm-12">
+	    						<h4 class="ticket_title"> <span>{{ detail.title }}</span>  <i class="fa-solid fa-pencil active_edit" style="display:none; cursor: pointer;" id="edit_ticket_title"></i></h4>
+	    					</div>
+	    					<div class="col-sm-8">
+	    						<input class="form-control ticket_title_edit_input" type="text" name="ticket_title_edit_input" id="ticket_title_edit_input" value="{{ detail.title }}" style="display:none;">
+	    					</div>
+	    					<div class="col-sm-1 ticket_title_edit_input ticket_title_edit_action update_ticket_title" style="text-align: center;"><i class="fa-solid fa-check " ></i></div>
+	    					<div class="col-sm-1 ticket_title_edit_input ticket_title_edit_action cancel_ticket_title"><i class="fa-solid fa-x "></i></div>
+	    				</div>
+						
+						
+					</div>
+					<div class="col-sm-5"></div>
+					<div class="col-sm-1" style="text-align:right;">
+						<div class="dropdown">
+  							<span type="button" id="TicketActionDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+  								<b>• • •</b>
+  							</span>
+							<ul class="dropdown-menu" aria-labelledby="TicketActionDropDown">
+						    	<li><a class="dropdown-item" href="#" action="edit" onclick="ticketAction(this);">Edit</a></li>
+						    	<li><a class="dropdown-item" href="#" action="delete" onclick="ticketAction(this);" >Delete</a></li>
+						    </ul>
+						</div>
+					</div>
+	  			</div>
+	  			<div class="row">
+	  				<div class="col-sm-9 ticket_detail_id">
+						<i class="fa-solid fa-ticket"></i>#{{ detail.pk }}	  					
+	  				</div>
+	  				<div class="col-sm-3">
+	  					<div class="dropdown">
+  							<span  type="button" id="taskPercentageBar" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%;">
+  								<div class="progress" style="height: 1.75rem; border-radius: 2rem">
+  									<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: {{ detail.task_percentage }}%;" aria-valuenow="{{ detail.task_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ detail.task_percentage }}%</div>
+								</div>
+  							</span>
+							<ul class="dropdown-menu" aria-labelledby="taskPercentageBar">
+						    	<li><a class="dropdown-item" href="#" percentage_val="10" onclick="updateTaskPercentage(this);">10%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="20" onclick="updateTaskPercentage(this);">20%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="30" onclick="updateTaskPercentage(this);">30%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="40" onclick="updateTaskPercentage(this);">40%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="50" onclick="updateTaskPercentage(this);">50%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="60" onclick="updateTaskPercentage(this);">60%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="70" onclick="updateTaskPercentage(this);">70%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="80" onclick="updateTaskPercentage(this);">80%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="90" onclick="updateTaskPercentage(this);">90%</a></li>
+						    	<li><a class="dropdown-item" href="#" percentage_val="100" onclick="updateTaskPercentage(this);">100%</a></li>
+						    </ul>
+						</div>
+	  					
+	  				</div>
+	  			</div>
+	  			<div class="row">
+	  				<div class="col-sm-12">
+	  					<div class="dropdown">
+  							<span class="dropdown-toggle" type="button" id="TaskStatusDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+  								{% if detail.status == "Open" %}
+									<span class='badge bg-success'>OPEN</span>
+								{% elif detail.status == "In Progress" %}
+									<span class='badge bg-warning'>IN PROGRESS</span>
+								{% elif detail.status == "In Review" %}
+									<span class='badge bg-success'>IN REVIEW</span>
+								{% elif detail.status == "Pending" %}
+									<span class="badge bg-warning text-dark">FOR APPROVAL</span>
+								{% elif detail.status == "CLOSED"  %}
+									<span class='badge bg-danger'>CLOSED</span>
+								{% else %}
+									<span class='badge bg-light text-dark'>{{ detail.status }}</span>
+								{% endif %}
+								
+  							</span>&nbsp;&nbsp;<i class="fa-solid fa-square-caret-right" style="cursor:pointer;"></i>
+							<ul class="dropdown-menu" aria-labelledby="TaskStatusDropDown">
+						    	<li><a class="dropdown-item" href="#" action="OPEN" onclick="updateTicketStatus(this);">OPEN</a></li>
+						    	<li><a class="dropdown-item" href="#" action="IN PROGRESS" onclick="updateTicketStatus(this);">IN PROGRESS</a></li>
+						    	<li><a class="dropdown-item" href="#" action="TO BE TESTED" onclick="updateTicketStatus(this);">TO BE TESTED</a></li>
+						    	<li><a class="dropdown-item" href="#" action="CLOSED" onclick="updateTicketStatus(this);">CLOSED</a></li>
+						    </ul>
+						</div>
+	  					
+	  				</div>
+	  			</div><br/><br/>
+	  			<div class="row">
+	  				<div class="col-sm-8">
+	  					<h5 class="ticket_description">Description </h5>
+	  					<p class="ticket_description_paragraph">{{ detail.description}}</p>
+	  					<br/>
+	  					<div class="row">
+	  						<nav class="flex-column flex-sm-row">
+  								<div class="nav nav-tabs" id="nav-tab" role="tablist">
+    								<button class="nav-link active nav-title" id="nav-comment-tab" data-bs-toggle="tab" data-bs-target="#nav-comment" type="button" role="tab" aria-controls="nav-comment" aria-selected="true" style="width:33%;"> COMMENTS (0) </button>
+    								<button class="nav-link nav-title" id="nav-attachment-tab" data-bs-toggle="tab" data-bs-target="#nav-attachment" type="button" role="tab" aria-controls="nav-attachment" aria-selected="false" style="width:33%;"> ATTACHMENTS () </button>
+    								<button class="nav-link nav-title" id="nav-clientcorner-tab" data-bs-toggle="tab" data-bs-target="#nav-clientcorner" type="button" role="tab" aria-controls="nav-clientcorner" aria-selected="false" style="width:33%;"> CLIENTS CORNER (20) </button>
+  								</div>
+							</nav>
+							<div class="tab-content" id="nav-tabContent">
+  								<div class="tab-pane fade show active" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">
+  									<ul class="list-group ticket_comments_wrapper" style="height: 280px; overflow-y: auto;">
+  										
+  										
+  									</ul>
+  									<br/>
+  									<form method="POST" id="task_comment_form" action="{% url 'portalAdmintaskDetails' detail.pk %}" enctype="multipart/form-data">
+  										{% csrf_token %}
+	  									<div class="row">
+	  										<div class="col-sm-1" style="text-align: right;">
+	  											{% if profile_details.profile_picture|length > 0 %}
+	  												<img src="{{ profile_details.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+	  											{% else %}
+	  												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+	  											{% endif %}	
+	  										</div>
+	  										<div class="col-sm-10">
+	  											<div class="form-outline w-100">
+	  												<textarea class="form-control" rows="4" id="task_comment" name="task_comment" placeholder="Comment . . ."></textarea>
+	  											</div>
+	  											<div class="row form-outline">
+	  												<div class="col-sm-9">
+	  													<label for="task_attachments" id="task_attachement_label" class="btn"><i class="fa-solid fa-paperclip"></i> Attachements</label>
+	    												<input type="file" id="task_attachments" name="task_attachments" style="visibility:hidden;"  multiple onchange="checkNumberOfFiles(this);">
+	  												</div>
+	  												<div class="col-sm-3" style="text-align:right;">
+	  													<button type="button" class="btn btn-primary btn-sm post_comment" >Post comment</button>
+	              										<button type="button" class="btn btn-outline-primary btn-sm clear_comment">Cancel</button>
+	  												</div>
+													
+	  											</div>
+	  										</div>
+	  										<div class="col-sm-1"></div>
+	  									</div>
+  									</form>
+  								</div>
+  								<div class="tab-pane fade" id="nav-attachment" role="tabpanel" aria-labelledby="nav-attachment-tab">
+  									<br/>
+  									<div class="row nav-attachment">
+  										<div class="col-sm-3">	
+  											<div class="card" style="width: 90%;">
+  												<div class="card-body">
+  													<p class="card-text" style="text-align: center;margin: auto;font-size: 60px;">
+  														<i class="fa-solid fa-file"></i>
+  													</p>
+  													<a href="#" class="card-link" style="text-align:left; font-size: 10px; text-decoration: none; color: #585858;">Screenshot 2023-07-04 182413.png</a>
+  													<a href="/media/tickets_attachments/id_2_2.png" download="Screenshot 2023-07-04 182413" class="card-link" style="float:right; text-decoration: none; color: #585858;">
+  														<i class="fa-solid fa-download"></i>
+  													</a>
+  												</div>
+  											</div>
+  										</div>
+  									</div>
+  								</div>
+  								<div class="tab-pane fade" id="nav-clientcorner" role="tabpanel" aria-labelledby="nav-clientcorner-tab">
+  									<ul class="list-group" style="height: 280px; overflow-y: auto;">
+  										<li class="list-group-item" >
+  											<div class="row">
+  												<div class="col-sm-1" style="text-align:right;">
+  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+  												</div>
+  												<div class="col-sm-11">
+  													<div class="row">
+  														<div class="col-sm-12">
+  															<span><b>Caleb Spencer</b></span>
+  														</div>
+  														<div class="col-sm-12" style="color: #878383;">
+  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
+  														</div>
+  														<div class="col-sm-12" style="font-size: 12px;">
+  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
+  														</div>
+  													</div>
+  												</div>
+  											</div>
+  										</li>
+  										<li class="list-group-item" >
+  											<div class="row">
+  												<div class="col-sm-1" style="text-align:right;">
+  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+  												</div>
+  												<div class="col-sm-11">
+  													<div class="row">
+  														<div class="col-sm-12">
+  															<span><b>Caleb Spencer</b></span>
+  														</div>
+  														<div class="col-sm-12" style="color: #878383;">
+  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
+  														</div>
+  														<div class="col-sm-12" style="font-size: 12px;">
+  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
+  														</div>
+  													</div>
+  												</div>
+  											</div>
+  										</li>
+  										<li class="list-group-item" >
+  											<div class="row">
+  												<div class="col-sm-1" style="text-align:right;">
+  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+  												</div>
+  												<div class="col-sm-11">
+  													<div class="row">
+  														<div class="col-sm-12">
+  															<span><b>Caleb Spencer</b></span>
+  														</div>
+  														<div class="col-sm-12" style="color: #878383;">
+  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
+  														</div>
+  														<div class="col-sm-12" style="font-size: 12px;">
+  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
+  														</div>
+  													</div>
+  												</div>
+  											</div>
+  										</li>
+  										<li class="list-group-item" >
+  											<div class="row">
+  												<div class="col-sm-1" style="text-align:right;">
+  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+  												</div>
+  												<div class="col-sm-11">
+  													<div class="row">
+  														<div class="col-sm-12">
+  															<span><b>Caleb Spencer</b></span>
+  														</div>
+  														<div class="col-sm-12" style="color: #878383;">
+  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
+  														</div>
+  														<div class="col-sm-12">
+  															<div class="row">
+  																<div class="col-sm-3">
+  																	<div class="card" style="width: 90%;">
+																	  	<div class="card-body">
+																		    <p class="card-text" style="text-align: center;margin: auto;font-size: 60px;">
+																		    	<i class="fa-solid fa-file"></i>
+																		    </p>
+																		    <a href="#" class="card-link" style="text-align:left; font-size: 10px; text-decoration: none; color: #585858;">sample attachement.txt</a>
+																		    <a href="#" class="card-link" style="float:right; text-decoration: none; color: #585858;"><i class="fa-solid fa-download"></i></a>
+																	  	</div>
+																	</div>
+  																</div>
+  															</div>
+  														</div>
+  														<div class="col-sm-12" style="font-size: 12px;">
+  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
+  														</div>
+  													</div>
+  												</div>
+  											</div>
+  										</li>
+  									</ul>
+  									<br/>
+  									<div class="row">
+  										<div class="col-sm-1" style="text-align: right;">
+  											<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+  										</div>
+  										<div class="col-sm-10">
+  											<div class="form-outline w-100">
+  												<textarea class="form-control" rows="4" id="ticket_comment" placeholder="Comment . . ."></textarea>
+  											</div>
+  											<div class="row form-outline">
+  												<div class="col-sm-9">
+  													<label for="ticket_private_attachments" id="ticket_attachement_label" class="btn"><i class="fa-solid fa-paperclip"></i> Attachements</label>
+    												<input id="ticket_private_attachments" style="visibility:hidden;" type="file" multiple onchange="checkNumberOfFiles(this);">
+  												</div>
+  												<div class="col-sm-3" style="text-align:right;">
+  													<button type="button" class="btn btn-primary btn-sm">Post comment</button>
+              										<button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+  												</div>
+												
+  											</div>
+  										</div>
+  										<div class="col-sm-1"></div>
+  									</div>
+  								</div>
+							</div>
+	  					</div>
+	  					
+	  				</div>
+	  				<div class="col-sm-1"></div>
+	  				<div class="col-sm-3">
+	  					<div class="row">
+	  						<div class="col-sm-12">
+	  							<h5 class="ticket_title">Client</h5>
+		  						{% if task_owner.profile_picture|length > 0 %}
+	                        		<img src="{{ task_owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ task_owner.first_name }} {{ task_owner.last_name }} </span> 	
+	                    		{% else %}
+	                        		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ task_owner.first_name }} {{ task_owner.last_name }} </span> 	
+	                    		{% endif %}	
+	  						</div>
+	  					</div>
+	  					<div class="row">
+	  						<div class="col-sm-12">
+	  							<h5 class="ticket_title">Participants<i class="fa-solid fa-pencil active_edit" style="display:none; cursor: pointer;" id="edit_participants"></i></h5>
+	  							<ul class="list-group" style="border: 0px;">
+								  	<li class="list-group-item" style="border: 0px;">
+								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> Sample name </span>
+								  	</li>
+								  	<li class="list-group-item" style="border: 0px;">
+								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> Sample name </span>
+								  	</li>
+								  	<li class="list-group-item" style="border: 0px;">
+								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> Sample name </span>
+								  	</li>
+								  	
+								</ul>
+	  						</div>
+	  					</div>
+	  				</div>
+	  			</div>
+			</div>
+		</div>
+	</div>
+	
+	<input type="hidden" name="edit_status" id="edit_status" value=0>
+	<input type="hidden" name="task_id" id="task_id" value="{{ detail.pk }}">
+{% endblock %}
+
+{% block script %}
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			getComments();
+			$(".post_comment").on("click", function(){
+				upload_comment();
+			})
+		})
+
+		function updateTaskPercentage(that){
+			var percentage = $(that).attr("percentage_val");
+			var task_id = $("#task_id").val();
+			$.ajax({
+	            type: "POST",
+	            url: "{% url 'updateTaskPercentage' %}",
+	            data: {
+	                "csrfmiddlewaretoken": '{{ csrf_token }}',
+	                "task_id":task_id,
+	                "task_percentage":percentage,
+	            },
+	            async:true,
+	            success: function (data) {
+	                if(data.status_code == 1){
+	                	updateTaskPercentageOutput(percentage);
+						alert("percentage updated!");
+	                }else{
+	                	alert(data.status_msg);
+	                }
+	            },
+	            error: function (e) {
+	                
+	            }
+	        })
+			
+		}
+
+		function updateTaskPercentageOutput(percentage){
+			$("#taskPercentageBar").empty();
+			var output = "<div class='progress' style='height: 1.75rem; border-radius: 2rem'>";
+  			output += "<div class='progress-bar ticket_progress_bar' role='progressbar' style='width: "+percentage+"%;' aria-valuenow='"+percentage+"' aria-valuemin='0' aria-valuemax='100'>"+percentage+"%</div>";
+			output += "</div>";
+			$("#taskPercentageBar").append(output);
+		}
+
+		function checkNumberOfFiles(that){
+			var number_of_file = $(that)[0].files.length;
+			$("#task_attachement_label").empty();
+			if(number_of_file > 1){
+				$("#task_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" files");
+			}else if(number_of_file == 1){
+				$("#task_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" file");
+			}else{
+				$("#task_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements");
+			}
+		}
+
+		function upload_comment(){
+			var comment = $("#task_comment").val();
+			var number_of_file = $("#task_attachments")[0].files.length;
+			if(number_of_file > 0 || comment.length > 0){
+				$("#task_comment_form").submit();
+			}else{
+				alert("comment should not be empty!");
+			}
+		}
+
+		function getComments(){
+			var task_id = $("#task_id").val();
+			$.ajax({
+	            type: "POST",
+	            url: "{% url 'getTaskComments' %}",
+	            data: {
+	                "csrfmiddlewaretoken": '{{ csrf_token }}',
+	                "task_id":task_id,
+	            },
+	            async:true,
+	            success: function (data) {
+	                if(data.status_code == 1){
+	                	$(".ticket_comments_wrapper").empty();
+	                	$(".nav-attachment").empty();
+	                	$("#nav-comment-tab").empty();
+	                	$("#nav-comment-tab").append("COMMENTS ("+data.comment_count+")");
+	                	var comments = data.comments;
+	                	var attachements = data.task_attachments;
+	                	var attachement_output = "";
+	                	var attachement_count = 0;
+	                	$.each(attachements, function(index, value){
+	                		attachement_output += "<div class='col-sm-3'>"; 
+							attachement_output += "	<div class='card' style='width: 90%;'>";
+							attachement_output += "		<div class='card-body'>";
+							attachement_output += "			<p class='card-text' style='text-align: center;margin: auto;font-size: 60px;'>";
+							attachement_output += "				<i class='fa-solid fa-file'></i>";
+							attachement_output += "			</p>";
+							attachement_output += "			<a href='#' class='card-link' style='text-align:left; font-size: 10px; text-decoration: none; color: #585858;'>"+value.name+"</a>";
+							var split_value_name = value.name.split(".");
+							attachement_output += "			<a href='"+value.file+"' download='"+split_value_name[0]+"' class='card-link' style='float:right; text-decoration: none; color: #585858;' ><i class='fa-solid fa-download'></i></a>";
+							attachement_output += "		</div>";
+							attachement_output += "	</div>";
+							attachement_output += "</div>";
+							attachement_count++;
+	                	})
+	                	$(".nav-attachment").append(attachement_output);
+	                	attachement_output = ""
+	                	$.each(comments, function(index, value){
+	                		var output = "";
+	                		output += "<li class='list-group-item'>";
+	                		output += "	<div class='row'>";
+	                		output += "		<div class='col-sm-1' style='text-align:right;'>";
+	                		output += "			<img src='"+value.owner_name_pic+"' alt='mdo' width='35' height='35' class='rounded-circle' style='margin-top: 5px;'>";
+  							output += "		</div>";		
+  							output += "		<div class='col-sm-11'>";
+  							output += "			<div class='row'>";		
+  							output += "				<div class='col-sm-12'>";				
+  							output += "					<span><b>"+value.owner_name+"</b></span>";		
+  							output += "				</div>";				
+  							output += "				<div class='col-sm-12' style='color: #878383;'>";
+  							output += "					<p>"+value.comment+"</p>";
+  							output += "				</div>";
+  							output += "				<div class='col-sm-12' style='color: #878383;'>";
+  							output += "					<div class='row'>";
+  							$.each(value.attachments, function(index2, value2){
+  								output += "<div class='col-sm-3'>"; 
+								output += "	<div class='card' style='width: 90%;'>";
+								output += "		<div class='card-body'>";
+								output += "			<p class='card-text' style='text-align: center;margin: auto;font-size: 60px;'>";
+								output += "				<i class='fa-solid fa-file'></i>";
+								output += "			</p>";
+								output += "			<a href='#' class='card-link' style='text-align:left; font-size: 10px; text-decoration: none; color: #585858;'>"+value2.name+"</a>";
+								var split_value2_name = value2.name.split(".");
+								output += "			<a href='"+value2.file+"' download='"+split_value2_name[0]+"' class='card-link' style='float:right; text-decoration: none; color: #585858;' ><i class='fa-solid fa-download'></i></a>";
+								output += "		</div>";
+								output += "	</div>";
+								output += "</div>";
+  							})
+  							output += "					</div>";
+  							output += "				</div>";
+  							output += "				<div class='col-sm-12' style='font-size: 12px;'>";
+  							output += "					<span>"+value.create_date+"</span> • <a href='#' style='text-decoration: none; color: #05A91F;'>Edit</a> • <a href='#' style='text-decoration: none; color: #05A91F;'>Delete</a>";						
+  							output += "				</div>";
+  							output += "			</div>";
+  							output += "		</div>";
+  							output += "	</div>";
+  							output += "</li>";
+  							$(".ticket_comments_wrapper").append(output);
+	                	});
+
+	                	$("#nav-attachment-tab").empty();
+	                	$("#nav-attachment-tab").append(" ATTACHMENTS ("+attachement_count+") ");
+	                }else{
+	                	alert(data.status_msg);
+	                }
+	            },
+	            error: function (e) {
+	                
+	            }
+	        })
+		}
+		function updateTicketStatus(that) {
+			var action = $(that).attr("action");
+			var task_id = $("#task_id").val();
+			$.ajax({
+	            type: "POST",
+	            url: "{% url 'UpdateTaskStatus' %}",
+	            data: {
+	                "csrfmiddlewaretoken": '{{ csrf_token }}',
+	                "task_id":task_id,
+	                "task_status":action,
+	            },
+	            async:false,
+	            success: function (data) {
+	                if(data.status_code == 1){
+	                	updateTaskStatusOutput(action)
+						alert("status updated!");
+	                }else{
+	                	alert(data.status_msg);
+	                }
+	            },
+	            error: function (e) {
+	                
+	            }
+	        })
+		}
+
+		function updateTaskStatusOutput(action){
+			$("#TaskStatusDropDown").empty();
+        	if(action == "OPEN"){
+				$("#TaskStatusDropDown").append("<span class='badge bg-primary'>OPEN</span>");
+			}else if(action == "IN PROGRESS"){
+				$("#TaskStatusDropDown").append("<span class='badge bg-warning'>IN PROGRESS</span>");
+			}else if(action == "TO BE TESTED"){
+				$("#TaskStatusDropDown").append("<span class='badge bg-success'>TO BE TESTED</span>");
+			}else if(action == "CLOSED"){
+				$("#TaskStatusDropDown").append("<span class='badge bg-info'>CLOSED</span>");
+			}
+		}
+	</script>
+{% endblock %}

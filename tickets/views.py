@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.utils.timesince import timesince
+from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.http import JsonResponse
 from django.core import serializers
 from datetime import datetime
-from tickets.models import issue, issue_type, task_cetegory_theme, task_category, task, task_comment, issue_comment, issue_comment_file, issue_file
+from tickets.models import task_cetegory_theme, task_category, task, task_file, task_comment, task_comment_file, issue, issue_type, issue_comment, issue_comment_file, issue_file
 from accounts.models import details
+import random, os
 
 # Create your views here.
 @login_required(login_url='/accounts/login')
@@ -177,35 +180,89 @@ def getTciketByFilter(request):
 def taskDetails(request, task_id):
 	profile_details = details.objects.get(userId=request.user.id)
 	task_details = task.objects.get(pk=task_id)
-	if task_details.status == "Open":
-		return render(request, 'task_open.html', {"profile_details":profile_details, "task_detail":task_details})
-	elif task_details.status == "In Progress":
-		comments = task_comment.objects.filter(task=task_details)
-		return render(request, 'task_in_progress.html', {"profile_details":profile_details, "task_detail":task_details, "comments":comments})
-	elif task_details.status == "Complete":
-		comments = task_comment.objects.filter(task=task_details)
-		return render(request, 'task_in_progress.html', {"profile_details":profile_details, "task_detail":task_details, "comments":comments})
-	else:
-		return render(request, 'task_open.html', {"profile_details":profile_details, "task_detail":task_details})
+	task_attachments = task_file.objects.filter(task=task_id, is_delete=0)
+	return render(request, 'task_detailed.html', {"profile_details":profile_details, "task_detail":task_details, "attachments":task_attachments})
+
 
 @login_required(login_url='/accounts/login')
-def editTask(request):
+def editTask(request, task_id):
+	user_detail = details.objects.get(userId=request.user.id)
+	if request.method == 'POST':
+		try:
+			task_details = task.objects.get(pk=task_id)
+		except:
+			data['error_msg'] = "Task does not exists!"
+			return redirect("taskDetails", task_id=task_id)
+		task_details.title = request.POST['task_title']
+		task_details.description = request.POST['edit_description']
+		ticket_attachments = request.FILES['ticket_attachments'] if 'ticket_attachments' in request.FILES else None
+		if ticket_attachments:
+			for f in request.FILES.getlist('ticket_attachments'):
+				new_task_file = task_file()
+				new_task_file.task = task_details
+				new_task_file.name = f.name
+				split_tup = os.path.splitext(f.name)
+				file_extension = split_tup[1]
+				random_number = random.randint(0,1000)
+				fs = FileSystemStorage()
+				file_name = "tasks_attachments/id_"+str(task_id)+"_"+str(random_number)+""+str(file_extension)
+				comment_file = fs.save(file_name, f)
+				new_task_file.issue_file = comment_file
+				new_task_file.save()
+		task_details.save()
+	return redirect("taskDetails", task_id=task_id)
+
+@login_required(login_url='/accounts/login')
+def postTaskComment(request, task_id):
+	user_detail = details.objects.get(userId=request.user.id)
+	userInstance = User.objects.get(pk=request.user.id)
+	if request.method == 'POST':
+		try:
+			task_details = task.objects.get(pk=task_id)
+		except:
+			data['error_msg'] = "Task does not exists!"
+			return redirect("taskDetails", task_id=task_id)
+		new_task_comment = task_comment()
+		new_task_comment.comment = request.POST['task_comment']
+		new_task_comment.task = task_details
+		new_task_comment.owner = userInstance
+		new_task_comment.save()
+		task_attachments = request.FILES['task_comment_attachments'] if 'task_comment_attachments' in request.FILES else None
+		if task_attachments:
+			for f in request.FILES.getlist('task_comment_attachments'):
+				new_task_comment_file = task_comment_file()
+				new_task_comment_file.name = f.name
+				new_task_comment_file.comment = new_task_comment
+				split_tup = os.path.splitext(f.name)
+				file_extension = split_tup[1]
+				random_number = random.randint(0,1000)
+				fs = FileSystemStorage()
+				file_name = "tasks_attachments/id_"+str(task_id)+"_"+str(random_number)+""+str(file_extension)
+				comment_file = fs.save(file_name, f)
+				new_task_comment_file.comment_file = comment_file
+				new_task_comment_file.save()
+		return redirect("taskDetails", task_id=task_id)
+
+@login_required(login_url='/accounts/login')
+def updateTaskPercentage(request):
 	data = {}
 	data['status_code'] = 0
+	data["status_msg"] = ""
+	user_details = details.objects.get(userId=request.user.id)
 	try:
 		task_details = task.objects.get(pk=request.POST['task_id'])
 	except:
-		data['error_msg'] = "Task does not exists!"
+		data['status_msg'] = "Task Does not exists!"
 		return JsonResponse(data, safe=False)
-
-	task_details.title = request.POST['task_title']
-	task_details.description = request.POST['description']
-
+	current_date = datetime.now()
+	update_history = str(task_details.history)+"\r\n user="+ str(request.user.id) +" updated percentage of task from "+str(task_details.task_percentage)+" to "+str(request.POST['task_percentage'])+" "+str(current_date)
+	task_details.history = update_history
+	task_details.task_percentage = request.POST['task_percentage']
 	try:
 		task_details.save()
 		data['status_code'] = 1
 	except:
-		data['error_msg'] = "Error on saving the task!"
+		data['status_msg'] = "Error on saving Task!"
 		return JsonResponse(data, safe=False)
 
 	return JsonResponse(data, safe=False)
@@ -288,7 +345,6 @@ def updateTicketTitle(request):
 		return JsonResponse(data, safe=False)
 	current_date = datetime.now()
 	update_history = str(tikcet_details.history)+"\r\n user="+ str(request.user.id) +" updated title from "+str(tikcet_details.title)+" to "+str(request.POST['ticket_title'])+" "+str(current_date)
-	print(update_history)
 	tikcet_details.history = update_history
 	tikcet_details.title = request.POST['ticket_title']
 	try:
@@ -313,7 +369,6 @@ def updateTicketStatus(request):
 		return JsonResponse(data, safe=False)
 	current_date = datetime.now()
 	update_history = str(tikcet_details.history)+"\r\n user="+ str(request.user.id) +" updated status from "+str(tikcet_details.ticket_status)+" to "+str(request.POST['ticket_status'])+" "+str(current_date)
-	print(update_history)
 	tikcet_details.history = update_history
 	tikcet_details.ticket_status = request.POST['ticket_status']
 	try:
@@ -424,4 +479,133 @@ def getTicketComments(request):
 	data['comment_count'] = len(list_of_comments)
 	data['status_code'] = 1
 
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='/accounts/login')
+def getTicketList(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	user_details = details.objects.get(userId=request.user.id)
+
+	try:
+		list_of_task = task.objects.filter(is_delete=0)
+		data['status_code'] = 1
+	except:
+		data['status_msg'] = 'error on grabing tickets!'
+		return JsonResponse(data, safe=False)
+
+	tasks = {}
+	for task_detail in list_of_task:
+		current_task = {}
+		current_task['title'] = task_detail.title
+		current_task['task_id'] = task_detail.pk
+		current_task['description'] = task_detail.description
+		current_task['status'] = task_detail.status
+		current_task['create_date_formatted'] = task_detail.create_date.strftime("%m/%d/%Y, %H:%M %p")
+		try:
+			current_task['end_date'] = task_detail.end_date.strftime("%m/%d/%Y, %H:%M %p")
+		except:
+			current_task['end_date'] = None
+		current_task['create_date_since'] = timesince(task_detail.create_date)
+		current_task['percentage'] = task_detail.task_percentage
+		task_owner_instance = details.objects.get(userId=task_detail.owner)
+		current_task['owner_name'] = task_owner_instance.first_name+" "+task_owner_instance.last_name
+		try:
+			current_task['owner_name_pic'] = task_owner_instance.profile_picture.url
+		except:
+			current_task['owner_name_pic'] = None
+		tasks[task_detail.pk] = current_task
+	data['tasks'] = tasks
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def getTaskComments(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	try:
+		task_details = task.objects.get(pk=request.POST['task_id'])
+	except:
+		data['status_msg'] = "Task Does not exists!"
+		return JsonResponse(data, safe=False)
+	list_of_comments = task_comment.objects.filter(task=request.POST['task_id'], is_delete=0)
+	list_of_attachments = task_file.objects.filter(task=request.POST['task_id'], is_delete=0)
+	task_attachment_list = {}
+	attachmentsCount = 1
+	for attachment in list_of_attachments:
+		current_attachment = {}
+		current_attachment['id'] = attachment.pk
+		current_attachment['name'] = attachment.name
+		try:
+			current_attachment['file'] = attachment.issue_file.url
+		except:
+			current_attachment['file'] = None
+		task_attachment_list[attachmentsCount] = current_attachment
+		attachmentsCount = attachmentsCount + 1
+	comments = {}
+	for comment in list_of_comments:
+		current_comment = {}
+		current_comment['id'] = comment.pk
+		current_comment['comment'] = comment.comment
+		current_comment['create_date'] = comment.create_date.strftime("%m/%d/%Y, %H:%M %p")
+		comment_owner_instance = details.objects.get(userId=comment.owner)
+		current_comment['owner_name'] = comment_owner_instance.first_name+" "+comment_owner_instance.last_name
+		try:
+			current_comment['owner_name_pic'] = comment_owner_instance.profile_picture.url
+		except:
+			current_comment['owner_name_pic'] = None
+		comment_attachments = task_comment_file.objects.filter(comment=comment.pk)
+		attachments_list = {}
+		if len(comment_attachments) > 0:
+			for attachment in comment_attachments:
+				current_attachments = {}
+				current_attachments['id'] = attachment.pk
+				try:
+					current_attachments['file'] = attachment.comment_file.url
+				except:
+					current_attachments['file'] = None
+				current_attachments['name'] = attachment.name
+				attachments_list[attachment.pk] = current_attachments
+				task_attachment_list[attachmentsCount] = current_attachments
+				attachmentsCount = attachmentsCount + 1
+
+		current_comment['attachments'] = attachments_list
+		comments[comment.pk] = current_comment
+	data['task_attachments'] = task_attachment_list
+	data['comments'] = comments
+	data['comment_count'] = len(list_of_comments)
+	data['status_code'] = 1
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def removeTaskAttachment(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	try:
+		task_attachment = task_file.objects.get(pk=request.POST['task_attachment_id'])
+	except:
+		data['status_msg'] = "Task Does not exists!"
+		return JsonResponse(data, safe=False)
+	task_attachment.history = "username id "+str(request.user.id)+" remove attachment!"
+	task_attachment.is_delete = 1
+	task_attachment.save()
+	data['status_code'] = 1
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def UpdateTaskStatus(request):
+	data = {}
+	data['status_code'] = 0
+	data["status_msg"] = ""
+	try:
+		task_detail = task.objects.get(pk=request.POST['task_id'])
+	except:
+		data['status_msg'] = "Task Does not exists!"
+		return JsonResponse(data, safe=False)
+
+	task_detail.status = request.POST['task_status']
+	task_detail.save()
+	data['status_code'] = 1
 	return JsonResponse(data, safe=False)
