@@ -104,6 +104,10 @@ main {
   color: white;
 }
 
+.sidebar-card-body{
+  padding: 0.75rem 0.75rem;
+}
+
 .nav-card:hover{
   border-color: #6417A180;
   background-color: white;

@@ -1,0 +1,127 @@
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.remove-border-list{
+	border: 0px;
+}
+.font-12{
+	font-size: 12px;
+}
+.dashboard_welcome_greeting{
+	font-family: 'Lato';
+	color: #6417A1;
+	font-weight: 800;
+}
+.dashboard_welcome_greeting_small_text{
+	font-family: 'Lato';
+	color: #6417A1;
+	font-size: 20px;
+}
+.ticket_color{
+	color: #C80202;
+}
+
+.ticket_critical{
+	color: #FF7A00;
+}
+.ticket_major{
+	color: #FFE600;
+}
+
+.ticket_progress_color{
+	color: #EDAC06;
+}
+
+.ticket_tested_color{
+	color: #43C05F;
+}
+.ticket_close_color{
+	color: #2AD6EE;
+}
+
+.feeds_title{
+	color:#6417A1;
+}
+
+#TicketFeedDropDown{
+	color: #091370;
+}
+.scroll{
+	overflow-y: auto;
+}
+
+.admin_base_sidebar_wrapper{
+	width: 10.5rem; 
+	padding: 0 2%;
+}
+
+#header_search{
+	font-size: 20px;
+}
+
+.header_notification{
+	font-size:25px; 
+	margin-top: 3px;
+}
+.header_profile_pic{
+	margin-top: 5px;
+	width: 40px;
+	height: 35px;
+}
+
+
+
+@media (min-width: 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+@media (min-width: 1930px) and (max-width:2560px){
+	.admin_base_sidebar_wrapper{
+		width: 15.5em;
+	}
+	#admin_base_logo{
+		width: 110px;
+	}
+	.nav-item{
+	  	padding-bottom: 13%;
+	  	font-size: 20px;
+	}
+	.nav-item a{
+	  text-decoration: none;
+	  color: #6417A180;
+	}
+
+	.nav-item_images{
+		width: 60px;
+	}
+
+	.sidebar-card-body{
+  		padding: 1.25rem 1.25rem;
+	}
+
+	.nav-item{
+  		padding-bottom: 17%;
+	}
+
+	#header_search{
+		font-size: 30px;
+	}
+
+	.header_notification{
+		font-size:40px;
+	}
+
+	.header_profile_pic{
+		margin-top: 2px;
+		width: 70px;
+		height: 60px;
+	}
+
+}

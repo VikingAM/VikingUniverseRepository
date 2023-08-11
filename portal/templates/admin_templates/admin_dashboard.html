@@ -6,78 +6,14 @@
 
 {% block style %}
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
-<style type="text/css">
-	
-	.dot {
-		width: 70%;
-	  	background-color: #6417A180;
-	  	border-radius: 50%;
-	  	display: inline-block;
-	}
-
-	.dashboard_cards{
-		font-weight: 800;
-		font-size: 15px;
-	}
-
-	.overdue_header{
-		color: #6417A1;
-		font-family: 'Lato';
-		font-weight: 800;
-	}
-	.overdue_nav{
-		padding-bottom: 0px;
-	}
-
-	
-	
-
-	#TaskFeedDropDown{
-		color: #091370;
-	}
-
-	.task_color{
-		color:#0602C8;
-	}
-	.approval_color{
-		color:#EDAC06;
-	}
-	.task_feed{
-		font-size: 13px;
-	}
-	.task_feed_id_color{
-		color:#6F4CBB;
-	}
-	.task_feed_title_color{
-		color:#878383;
-	}
-	.in_progress_color{
-		color: #2CC2F1;
-	}
-	.close_color{
-		color: #F12C2C;
-	}
-
-	
-	.client_update_title{
-		color: #1B1971;
-	}
-
-
-	.task_feed_view_task{
-		color: #05A91F;
-		text-decoration: underline;
-		cursor: pointer;
-	}
-	
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'portal_admin/css/admin_dashboard.css' %}">
 
 {% endblock style %}
 
 {% block content %}
 	<div class="row">
 		<div class="col-sm-12">
-			<h4 class="dashboard_welcome_greeting">Welcome, {{ profile_details.last_name | capfirst  }} {{ profile_details.first_name | capfirst  }}!</h4>
+			<h4 class="dashboard_welcome_greeting">Welcome, {{ profile_details.first_name | capfirst  }}!</h4>
 			<span class="dashboard_welcome_greeting_small_text">See the latest updates</span>
 		</div>
 	</div>
@@ -88,8 +24,8 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
-    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/open_tasks.png' %}">
+    							<span class="dot">
+    								<img src="{% static 'portal_admin/images/open_tasks.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
@@ -105,8 +41,8 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
-    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/in_process.png' %}">
+    							<span class="dot">
+    								<img src="{% static 'portal_admin/images/in_process.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
@@ -122,8 +58,8 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
-    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/task_approval.png' %}">
+    							<span class="dot">
+    								<img src="{% static 'portal_admin/images/task_approval.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
@@ -139,8 +75,8 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
-    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/all_task.png' %}">
+    							<span class="dot" >
+    								<img src="{% static 'portal_admin/images/all_task.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
@@ -157,8 +93,8 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
-    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/open_tickets.png' %}">
+    							<span class="dot" >
+    								<img  src="{% static 'portal_admin/images/open_tickets.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
@@ -174,8 +110,8 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
-    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/ticket_in_progress.png' %}">
+    							<span class="dot" >
+    								<img src="{% static 'portal_admin/images/ticket_in_progress.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
@@ -191,8 +127,8 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
-    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/edit_prices.png' %}">
+    							<span class="dot" >
+    								<img src="{% static 'portal_admin/images/edit_prices.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
@@ -207,8 +143,8 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
-    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/add_forms.png' %}">
+    							<span class="dot" >
+    								<img src="{% static 'portal_admin/images/add_forms.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
@@ -220,10 +156,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row feeds_row">
 				<div class="col-sm-6">
 					<div class="card scroll">
-  						<div class="card-body" style="height: 550px;">
+  						<div class="card-body task_body_feeds_wrapper">
   							<div class="row">
   								<div class="col-sm-9 feeds_title">
   									<h3>Task Feeds</h3>
@@ -247,7 +183,7 @@
   									<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle task_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -273,7 +209,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle task_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -299,7 +235,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle task_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -325,7 +261,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle task_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -351,7 +287,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle task_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -377,7 +313,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle task_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -403,7 +339,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle task_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -429,7 +365,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle task_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -459,7 +395,7 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="card scroll">
-  						<div class="card-body" style="height: 550px;">
+  						<div class="card-body ticket_body_feeds_wrapper">
   							<div class="row">
   								<div class="col-sm-9 feeds_title">
   									<h3>Ticket Feeds</h3>
@@ -483,7 +419,7 @@
 								  	<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle ticket_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -514,7 +450,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle ticket_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -545,7 +481,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle ticket_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -576,7 +512,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle ticket_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -607,7 +543,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle ticket_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -638,7 +574,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle ticket_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -669,7 +605,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle ticket_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -700,7 +636,7 @@
 							  		<li class="list-group-item remove-border-list">
 	  									<div class="row">
 								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+									 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle ticket_feed_prof_pic" style="margin-top: 5px;">
 									 		</div>
 									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
 									 			<div class="row task_feed">
@@ -741,21 +677,21 @@
     				<h4 class="card-title overdue_header">Overdue Work Items</h4>
     				<ul class="nav nav-tabs" id="myTab" role="tablist">
   						<li class="nav-item overdue_nav" role="presentation">
-    						<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><img style="margin-top: -15px;" src="{% static 'portal_admin/images/overdue_tasks_nav.png' %}">Tasks</button>
+    						<button class="nav-link active" id="overdue-tasks-tab" data-bs-toggle="tab" data-bs-target="#overdue-tasks-tab-panel" type="button" role="tab" aria-controls="overdue-tasks-tab-pane" aria-selected="true"><img style="margin-top: -15px;" src="{% static 'portal_admin/images/overdue_tasks_nav.png' %}">Tasks</button>
   						</li>
   						<li class="nav-item overdue_nav" role="presentation">
-    						<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><img style="margin-top: -15px;" src="{% static 'portal_admin/images/overdue_tickets_nav.png' %}">Tickets</button>
+    						<button class="nav-link" id="overdue_tickets-tab" data-bs-toggle="tab" data-bs-target="#overdue_tickets-tab-panel" type="button" role="tab" aria-controls="overdue_tickets-tab-panel" aria-selected="false"><img style="margin-top: -15px;" src="{% static 'portal_admin/images/overdue_tickets_nav.png' %}">Tickets</button>
   						</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
-  						<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+  						<div class="tab-pane fade show active" id="overdue-tasks-tab-panel" role="tabpanel" aria-labelledby="overdue-tasks-tab" tabindex="0">
   							<ul class="list-group">
 							 	<li class="list-group-item">
 							 		<div class="row">
 							 			<div class="col-sm-2">
-								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle overdue_task_profile_pic" style="margin-top: 5px;">
 								 		</div>
-								 		<div class="col-sm-10 font-12">
+								 		<div class="col-sm-10 font-12 overdue_task_per_list_wrapper">
 								 			<div class="row">
 								 				<div class="col-sm-12" style="color:#182279;">
 									 				<b>Sample OverDue Tasks</b>
@@ -777,9 +713,9 @@
 							  	<li class="list-group-item">
 							  		<div class="row">
 							  			<div class="col-sm-2">
-								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 			<img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle overdue_task_profile_pic" style="margin-top: 5px;">
 								 		</div>
-								 		<div class="col-sm-10 font-12">
+								 		<div class="col-sm-10 font-12 overdue_task_per_list_wrapper">
 								 			<div class="row">
 								 				<div class="col-sm-12" style="color:#182279;">
 									 				<b>Sample OverDue Tasks</b>
@@ -800,9 +736,9 @@
 							  	<li class="list-group-item">
 							  		<div class="row">
 							  			<div class="col-sm-2 ">
-								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 			<img src="https://github.com/mdo.png" alt="mdo"  class="rounded-circle overdue_task_profile_pic" style="margin-top: 5px;">
 								 		</div>
-								 		<div class="col-sm-10 font-12">
+								 		<div class="col-sm-10 font-12 overdue_task_per_list_wrapper">
 								 			<div class="col-sm-12" style="color:#182279;">
 								 				<b>Sample OverDue Tasks</b>
 								 			</div>
@@ -823,14 +759,14 @@
 							 	</li>
 							</ul>
   						</div>
-  						<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+  						<div class="tab-pane fade" id="overdue_tickets-tab-panel" role="tabpanel" aria-labelledby="overdue_tickets-tab" tabindex="0">
   							<ul class="list-group">
 							 	<li class="list-group-item">
 							 		<div class="row">
 							 			<div class="col-sm-2">
-								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle overdue_ticket_profile_pic" style="margin-top: 5px;">
 								 		</div>
-								 		<div class="col-sm-10 font-12">
+								 		<div class="col-sm-10 font-12 overdue_ticket_per_list_wrapper">
 								 			<div class="row">
 								 				<div class="col-sm-12" style="color:#182279;">
 									 				<b>Sample OverDue Tickets</b>
@@ -852,9 +788,9 @@
 							  	<li class="list-group-item">
 							  		<div class="row">
 							  			<div class="col-sm-2">
-								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle overdue_ticket_profile_pic" style="margin-top: 5px;">
 								 		</div>
-								 		<div class="col-sm-10 font-12">
+								 		<div class="col-sm-10 font-12 overdue_ticket_per_list_wrapper">
 								 			<div class="row">
 								 				<div class="col-sm-12" style="color:#182279;">
 									 				<b>Sample OverDue Tickets</b>
@@ -875,9 +811,9 @@
 							  	<li class="list-group-item">
 							  		<div class="row">
 							  			<div class="col-sm-2">
-								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+								 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle overdue_ticket_profile_pic" style="margin-top: 5px;">
 								 		</div>
-								 		<div class="col-sm-10 font-12">
+								 		<div class="col-sm-10 font-12 overdue_ticket_per_list_wrapper">
 								 			<div class="col-sm-12" style="color:#182279;">
 								 				<b>Sample OverDue Tickets</b>
 								 			</div>
@@ -902,7 +838,7 @@
   				</div>
 			</div>
 			<br/>
-			<div class="card scroll" style="width: 100%; height: 380px;">
+			<div class="card scroll client_update_card">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-10">
@@ -924,10 +860,10 @@
 					</div>
 					<div class="row">
 						<ul class="list-group font-12">
-							<li class="list-group-item remove-border-list">
+							<li class="list-group-item remove-border-list client_update_per_card">
 								<div class="row">
 						  			<div class="col-sm-2" style="text-align: right;">
-							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_update_profile_pic" style="margin-top: 5px;">
 							 		</div>
 							 		<div class="col-sm-10">
 							 			<b>Calvin Aguirre</b> posted a comment in <span class="client_update_title"><b>Tokkyum Takoyaki Logo Design</b></span>
@@ -947,10 +883,10 @@
 								</div>
 							</li>
 							<hr>
-							<li class="list-group-item remove-border-list">
+							<li class="list-group-item remove-border-list client_update_per_card">
 								<div class="row">
 						  			<div class="col-sm-2" style="text-align: right;">
-							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_update_profile_pic" style="margin-top: 5px;">
 							 		</div>
 							 		<div class="col-sm-10">
 							 			<b>Calvin Aguirre</b> posted a comment in <span class="client_update_title"><b>Tokkyum Takoyaki Logo Design</b></span>
@@ -970,10 +906,10 @@
 								</div>
 							</li>
 							<hr>
-							<li class="list-group-item remove-border-list">
+							<li class="list-group-item remove-border-list client_update_per_card">
 								<div class="row">
 						  			<div class="col-sm-2" style="text-align: right;">
-							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_update_profile_pic" style="margin-top: 5px;">
 							 		</div>
 							 		<div class="col-sm-10">
 							 			<b>Calvin Aguirre</b> posted a comment in <span class="client_update_title"><b>Tokkyum Takoyaki Logo Design</b></span>
@@ -993,10 +929,10 @@
 								</div>
 							</li>
 							<hr>
-							<li class="list-group-item remove-border-list">
+							<li class="list-group-item remove-border-list client_update_per_card">
 								<div class="row">
 						  			<div class="col-sm-2" style="text-align: right;">
-							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+							 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_update_profile_pic" style="margin-top: 5px;">
 							 		</div>
 							 		<div class="col-sm-10">
 							 			<b>Calvin Aguirre</b> posted a comment in <span class="client_update_title"><b>Tokkyum Takoyaki Logo Design</b></span>
