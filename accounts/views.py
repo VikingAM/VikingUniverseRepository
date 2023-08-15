@@ -76,9 +76,15 @@ def accountCreate(request):
 				
 				fullname = data['last_name']+", "+data['first_name']
 				verification_link = validationCode.verification_code
-				send_email(fullname, verification_link, newUserDetails.email)
-				return redirect('accountVerificationPage', validationCode.verification_code)				
-				# return render(request, 'register.html', data)
+				try:
+					send_email(fullname, verification_link, newUserDetails.email)
+					return redirect('accountVerificationPage', validationCode.verification_code)
+				except:
+					validationCode.delete()
+					newUserAddressInfo.delete()
+					newUserDetails.delete()
+					newUser.delete()
+					return render(request, 'error_page.html', {"ErrorMessage":"Error on sending the email please contact the administration!"});
 			else:
 				data['error_msg'] = "Email already been use!"
 				return render(request, 'register.html', data)
