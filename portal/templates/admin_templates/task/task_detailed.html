@@ -50,7 +50,7 @@
 {% block content %}
 	<div class="row">
 		<div class="col-sm-12">
-			<h3 class="dashboard_welcome_greeting">Ticket Dashboard</h3>
+			<h3 class="dashboard_welcome_greeting">Task Detailed</h3>
 		</div>
 	</div>
 	<div class="container-fluid">
@@ -121,7 +121,7 @@
 									<span class='badge bg-warning'>IN PROGRESS</span>
 								{% elif detail.status == "In Review" %}
 									<span class='badge bg-success'>IN REVIEW</span>
-								{% elif detail.status == "Pending" %}
+								{% elif detail.status == "PENDING" %}
 									<span class="badge bg-warning text-dark">FOR APPROVAL</span>
 								{% elif detail.status == "CLOSED"  %}
 									<span class='badge bg-danger'>CLOSED</span>

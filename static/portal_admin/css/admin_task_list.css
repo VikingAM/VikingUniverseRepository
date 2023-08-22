@@ -1,0 +1,144 @@
+.dot {
+	width: 70%;
+  	background-color: #6417A180;
+  	border-radius: 50%;
+  	display: inline-block;
+}
+.dashboard_cards{
+	font-weight: 800;
+	font-size: 15px;
+}
+.nav-tabs button{
+	width: 15%;
+}
+
+.ticket_progress_bar {
+    background-color: #6417A1;
+}
+
+.task_list_options{
+	color: #05A91F;
+}
+
+.scroll {
+    overflow-y: auto;
+}
+
+ul li {
+	padding-bottom: 1%;
+}
+
+.nav-link{
+	color: #6F4CBB;
+	font-weight: 700;
+}
+
+.task_list_services{
+	font-size: 0.7rem;
+}
+
+.task_list_client_pic{
+	margin-top: 5px;
+}
+
+.all_task_list{
+	height:750px;
+}
+.open_task_list{
+	height:750px;
+}
+.in-progress_list{
+	height:750px;
+}
+.in-review_list{
+	height: 750px;
+}
+
+.for-approval_list{
+	height: 750px;
+}
+
+.close_ticket_list{
+	height: 750px;
+}
+
+.task_list_labels{
+	color:#182279;
+}
+
+@media (min-width: 1930px) and (max-width:2560px){
+	.dashboard_welcome_greeting{
+		font-size: 3.5rem;
+	}
+	.feeds_title h4{
+		font-size: 2.25rem;
+	}
+
+	.search_task{
+		font-size: 1.60rem;
+	}
+
+	.task_list_progress_icons{
+		width: 7.5rem;
+	}
+
+	.task_list_title{
+		font-size: 2rem;
+	}
+	.task_list_description{
+		font-size: 1.40rem;
+	}
+
+	.task_list_services{
+		font-size: 1rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.task_list_client_name{
+		font-size: 1.3rem;
+	}
+
+	.task_list_client_pic{
+		width: 3rem;
+		height: 3rem;
+	}
+
+	.all_task_list{
+		height: 73rem;
+	}
+
+	.open_task_list{
+		height: 73rem;
+	}
+	.in-progress_list{
+		height: 73rem;
+	}
+	.in-review_list{
+		height: 73rem;
+	}
+	.for-approval_list{
+		height: 73rem;
+	}
+
+	.close_ticket_list{
+		height: 73rem;
+	}
+
+	.task_list_labels{
+		font-size: 1.4rem;
+	}
+
+	.task_list_dates{
+		font-size: 1.3rem;
+	}
+
+	.task_list_options{
+		font-size: 1.1rem;
+	}
+	.task_list_time_posted{
+		font-size: 1.1rem;
+	}
+	.nav-tabs{
+		font-size: 1.5rem;
+	}
+}

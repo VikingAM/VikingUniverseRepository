@@ -6,42 +6,7 @@
 
 {% block style %}
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
-<style type="text/css">
-	.dot {
-		width: 70%;
-	  	background-color: #6417A180;
-	  	border-radius: 50%;
-	  	display: inline-block;
-	}
-	.dashboard_cards{
-		font-weight: 800;
-		font-size: 15px;
-	}
-	.nav-tabs button{
-		width: 15%;
-	}
-
-	.ticket_progress_bar {
-	    background-color: #6417A1;
-	}
-
-	.task_list_options{
-		color: #05A91F;
-	}
-
-	.scroll {
-	    overflow-y: auto;
-	}
-
-	ul li {
-		padding-bottom: 1%;
-	}
-
-	.nav-link{
-		color: #6F4CBB;
-		font-weight: 700;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'portal_admin/css/admin_task_list.css' %}">
 
 {% endblock style %}
 
@@ -55,7 +20,7 @@
 		<div class="row">
 			<div class="col-sm-2" style="border-right: 1px solid black; height: 200px;">
 				<div class="input-group">
-	                <input class="form-control py-2 rounded-pill mr-1 pr-5" type="search" value="search" id="example-search-input">
+	                <input class="form-control py-2 rounded-pill mr-1 pr-5 search_task" type="search" value="" placeholder="" id="search_task">
 	                <span class="input-group-append">
 	                    <button class="btn rounded-pill border-0 ml-n5" type="button">
 	                        <i class="fa fa-search"></i>
@@ -79,582 +44,434 @@
 						<div class="tab-content" id="nav-tabContent">
 	  						<div class="tab-pane fade show active" id="nav-all-task" role="tabpanel" aria-labelledby="nav-all-task-tab">
 	  							<br/>
-	  							<ul class="list-group all_task_list scroll" style="height:750px;">
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/open_task_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Square Solar Real Estate Images</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-													</div>
+	  							<ul class="list-group all_task_list scroll">
+	  								{% for tasks in task_list %}
+	  									<li class="list-group-item">
+	  										<div class="row">
+												<div class="col-sm-12" style="text-align: right;">
+													<b>• • •</b>
 												</div>
 											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">Open</span>
+											<div class="row">
+												<div class="col-sm-1">
+													{% if tasks.status == "OPEN" %}
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/open_task_colored.png' %}">
+													{% elif tasks.status == "IN PROGRESS" %}
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/in_progress_colored.png' %}">
+													{% elif tasks.status == "TO BE TESTED" %}
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_review_colored.png' %}">
+													{% elif tasks.status == "PENDING" %}
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_approval_colored.png' %}">
+													{% elif tasks.status == "CLOSED" or tasks.status == "COMPLETE" %}
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/closed_task_colored.png' %}">
+													{% else %}
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/open_task_colored.png' %}">
+													{% endif %}
+												</div>
+												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
+													<h4 class="task_list_title">{{ tasks.title }}</h4>
+													<div class="row">
+														<div class="col-sm-8">
+															<p class="task_list_description">{{ tasks.description }}</p>
+														</div>
+														<div class="col-sm-4">
+															<h6 class="task_list_labels"><b>Client</b> </h6>
+															{% if tasks.owner.profile_picture|length > 0 %}
+																<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+															{% else %}
+																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+															{% endif %}
+															<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-6">
+															<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+															<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+															<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+														</div>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
+												<div class="col-sm-6">
+													<div class="row">
+														<div class="col-sm-12" style="text-align:right;">
+															{% if tasks.status == "OPEN" %}
+																<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">Open</span>
+															{% elif tasks.status == "IN PROGRESS" %}
+																<span class="badge rounded-pill bg-info text-dark" style="padding: 1% 8%;">In Progress</span>
+															{% elif tasks.status == "TO BE TESTED" %}
+																<span class="badge rounded-pill bg-warning text-dark" style="padding: 1% 8%;">For Approval</span>
+															{% elif tasks.status == "FOR REVIEW" %}
+																<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">In Review</span>
+															{% elif tasks.status == "CLOSED"  or tasks.status == "COMPLETE" %}
+																<span class="badge rounded-pill bg-danger" style="padding: 1% 8%;">Closed</span>
+															{% else %}
+																<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">Open</span>
+															{% endif %}
+															
+														</div>
 													</div>
-													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</li><br/>
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/in_progress_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Mountain Peak Website Catalog</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-info text-dark" style="padding: 1% 8%;">In Progress</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
-													</div>
-													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
+													<div class="row">
+														<div class="col-sm-4 task_list_dates">
+															Start Date: {{ tasks.create_date|date:"m/d/Y" }} <br/>
+															End Date: {% if tasks.due_date %} {{ tasks.due_date|date:"m/d/Y" }} {% endif %}<br/>
+															<span class="task_list_labels"><b>Attachments</b> </span>
+														</div>
+														<div class="col-sm-8">
+															<h6 class="task_list_labels"><b>Participants</b> </h6>
+															<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
+															<h6 class="task_list_labels"><b>Progress</b> </h6>
+															<div class="progress" style="height: 1.75rem; border-radius: 2rem">
+	  															<div class="progress-bar ticket_progress_bar" role="progressbar" style='width: {{ tasks.percentage  }}%;' aria-valuenow="{{ tasks.percentage  }}" aria-valuemin="0" aria-valuemax="100">{{ tasks.percentage  }}%</div>
+															</div><br/>
+															<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span class="task_list_time_posted"> {{ tasks.create_date| timesince }} ago</span>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</li><br/>
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/for_review_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Lion Elite Group Emblem Logo Design</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">In Review</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
-													</div>
-													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</li><br/>
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/for_approval_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Lion Elite Group Emblem Logo Design</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-warning text-dark" style="padding: 1% 8%;">For Approval</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
-													</div>
-													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</li><br/>
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/closed_task_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Konichi Animation Brand Style Guide Book</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-danger" style="padding: 1% 8%;">Closed</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
-													</div>
-													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</li><br/>
+	  									</li><br/>
+	  								{% endfor %}
 								</ul>
 	  						</div>
 	  						<div class="tab-pane fade" id="nav-open" role="tabpanel" aria-labelledby="nav-open-tab">
 	  							<br/>
-	  							<ul class="list-group open_task_list scroll" style="height:750px;">
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/open_task_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Square Solar Real Estate Images</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
+	  							<ul class="list-group open_task_list scroll">
+	  								{% for tasks in task_list %}
+	  									{% if tasks.status == "OPEN" %}
+		  									<li class="list-group-item">
+		  										<div class="row">
+													<div class="col-sm-12" style="text-align: right;">
+														<b>• • •</b>
 													</div>
 												</div>
 												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+													<div class="col-sm-1">
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/open_task_colored.png' %}">
 													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">Open</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
+													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
+														<h4 class="task_list_title">{{ tasks.title }}</h4>
+														<div class="row">
+															<div class="col-sm-8">
+																<p class="task_list_description">{{ tasks.description }}</p>
+															</div>
+															<div class="col-sm-4">
+																<h6 class="task_list_labels"><b>Client</b> </h6>
+																{% if tasks.owner.profile_picture|length > 0 %}
+																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% else %}
+																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% endif %}
+																<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-6">
+																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+															</div>
+														</div>
 													</div>
 													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
+														<div class="row">
+															<div class="col-sm-12" style="text-align:right;">
+																<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">Open</span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-4 task_list_dates">
+																Start Date: {{ tasks.create_date|date:"m/d/Y" }} <br/>
+																End Date: {% if tasks.due_date %} {{ tasks.due_date|date:"m/d/Y" }} {% endif %}<br/>
+																<span class="task_list_labels"><b>Attachments</b> </span>
+															</div>
+															<div class="col-sm-8">
+																<h6 class="task_list_labels"><b>Participants</b> </h6>
+																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
+																<h6 class="task_list_labels"><b>Progress</b> </h6>
+																<div class="progress" style="height: 1.75rem; border-radius: 2rem">
+		  															<div class="progress-bar ticket_progress_bar" role="progressbar" style='width: {{ tasks.percentage  }}%;' aria-valuenow="{{ tasks.percentage  }}" aria-valuemin="0" aria-valuemax="100">{{ tasks.percentage  }}%</div>
+																</div><br/>
+																<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span class="task_list_time_posted"> {{ tasks.create_date| timesince }} ago</span>
+															</div>
+														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-									</li><br/>
+		  									</li><br/>
+		  								{% endif %}
+	  								{% endfor %}
 								</ul><br/>
 	  						</div>
 	  						<div class="tab-pane fade" id="nav-in-progress" role="tabpanel" aria-labelledby="nav-in-progress-tab">
 	  							<br/>
-	  							<ul class="list-group in-progress_list scroll" style="height:750px;">
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/in_progress_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Mountain Peak Website Catalog</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
+	  							<ul class="list-group in-progress_list scroll">
+	  								{% for tasks in task_list %}
+	  									{% if tasks.status == "IN PROGRESS" %}
+		  									<li class="list-group-item">
+		  										<div class="row">
+													<div class="col-sm-12" style="text-align: right;">
+														<b>• • •</b>
 													</div>
 												</div>
 												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+													<div class="col-sm-1">
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/in_progress_colored.png' %}">
 													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-info text-dark" style="padding: 1% 8%;">In Progress</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
+													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
+														<h4 class="task_list_title">{{ tasks.title }}</h4>
+														<div class="row">
+															<div class="col-sm-8">
+																<p class="task_list_description">{{ tasks.description }}</p>
+															</div>
+															<div class="col-sm-4">
+																<h6 class="task_list_labels"><b>Client</b> </h6>
+
+																{% if tasks.owner.profile_picture|length > 0 %}
+																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% else %}
+																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% endif %}
+																<span class="task_list_client_name"> {{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-6">
+																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+															</div>
+														</div>
 													</div>
 													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
+														<div class="row">
+															<div class="col-sm-12" style="text-align:right;">
+																<span class="badge rounded-pill bg-info text-dark" style="padding: 1% 8%;">In Progress</span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-4 task_list_dates">
+																Start Date: {{ tasks.create_date|date:"m/d/Y" }} <br/>
+																End Date: {% if tasks.due_date %} {{ tasks.due_date|date:"m/d/Y" }} {% endif %}<br/>
+																<span class="task_list_labels"><b>Attachments</b> </span>
+															</div>
+															<div class="col-sm-8">
+																<h6 class="task_list_labels"><b>Participants</b> </h6>
+																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
+																<h6 class="task_list_labels"><b>Progress</b> </h6>
+																<div class="progress" style="height: 1.75rem; border-radius: 2rem">
+		  															<div class="progress-bar ticket_progress_bar" role="progressbar" style='width: {{ tasks.percentage  }}%;' aria-valuenow="{{ tasks.percentage  }}" aria-valuemin="0" aria-valuemax="100">{{ tasks.percentage  }}%</div>
+																</div><br/>
+																<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span class="task_list_time_posted"> {{ tasks.create_date| timesince }} ago</span>
+															</div>
+														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-									</li><br/>
+		  									</li><br/>
+		  								{% endif %}
+	  								{% endfor %}
 								</ul><br/>
 	  						</div>
 	  						<div class="tab-pane fade" id="nav-in-review" role="tabpanel" aria-labelledby="nav-in-review-tab">
 	  							<br/>
-	  							<ul class="list-group in-review_list scroll" style="height:750px;">
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/for_review_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Lion Elite Group Emblem Logo Design</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-													</div>
+	  							<ul class="list-group in-review_list scroll">
+	  								{% for tasks in task_list %}
+	  									{% if tasks.status == "TO BE TESTED" %}
+	  									<li class="list-group-item">
+	  										<div class="row">
+												<div class="col-sm-12" style="text-align: right;">
+													<b>• • •</b>
 												</div>
 											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">In Review</span>
+											<div class="row">
+												<div class="col-sm-1">
+													<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_approval_colored.png' %}">
+												</div>
+												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
+													<h4 class="task_list_title">{{ tasks.title }}</h4>
+													<div class="row">
+														<div class="col-sm-8">
+															<p class="task_list_description">{{ tasks.description }}</p>
+														</div>
+														<div class="col-sm-4">
+															<h6 class="task_list_labels"><b>Client</b> </h6>
+															{% if tasks.owner.profile_picture|length > 0 %}
+																<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+															{% else %}
+																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+															{% endif %}
+															<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-6">
+															<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+															<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+															<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+														</div>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
+												<div class="col-sm-6">
+													<div class="row">
+														<div class="col-sm-12" style="text-align:right;">
+															<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">In Review</span>
+														</div>
 													</div>
-													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
+													<div class="row">
+														<div class="col-sm-4 task_list_dates">
+															Start Date: {{ tasks.create_date|date:"m/d/Y" }} <br/>
+															End Date: {% if tasks.due_date %} {{ tasks.due_date|date:"m/d/Y" }} {% endif %}<br/>
+															<span class="task_list_labels"><b>Attachments</b> </span>
+														</div>
+														<div class="col-sm-8">
+															<h6 class="task_list_labels"><b>Participants</b> </h6>
+															<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
+															<h6 class="task_list_labels"><b>Progress</b> </h6>
+															<div class="progress" style="height: 1.75rem; border-radius: 2rem">
+	  															<div class="progress-bar ticket_progress_bar" role="progressbar" style='width: {{ tasks.percentage  }}%;' aria-valuenow="{{ tasks.percentage  }}" aria-valuemin="0" aria-valuemax="100">{{ tasks.percentage  }}%</div>
+															</div><br/>
+															<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span class="task_list_time_posted"> {{ tasks.create_date| timesince }} ago</span>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</li><br/>
+	  									</li><br/>
+	  									{% endif %}
+	  								{% endfor %}
 								</ul><br/>
 	  						</div>
 	  						<div class="tab-pane fade" id="nav-for-approval" role="tabpanel" aria-labelledby="nav-for-approval-tab">
 	  							<br/>
-	  							<ul class="list-group for-approval_list scroll" style="height:750px;">
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/for_approval_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Lion Elite Group Emblem Logo Design</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
+	  							<ul class="list-group for-approval_list scroll">
+	  								{% for tasks in task_list %}
+	  									{% if tasks.status == "PENDING" %}
+		  									<li class="list-group-item">
+		  										<div class="row">
+													<div class="col-sm-12" style="text-align: right;">
+														<b>• • •</b>
 													</div>
 												</div>
 												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+													<div class="col-sm-1">
+														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_approval_colored.png' %}">
 													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-warning text-dark" style="padding: 1% 8%;">For Approval</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
+													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
+														<h4 class="task_list_title">{{ tasks.title }}</h4>
+														<div class="row">
+															<div class="col-sm-8">
+																<p class="task_list_description">{{ tasks.description }}</p>
+															</div>
+															<div class="col-sm-4">
+																<h6 class="task_list_labels"><b>Client</b> </h6>
+																{% if tasks.owner.profile_picture|length > 0 %}
+																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% else %}
+																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% endif %}
+																<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-6">
+																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+															</div>
+														</div>
 													</div>
 													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
+														<div class="row">
+															<div class="col-sm-12" style="text-align:right;">
+																<span class="badge rounded-pill bg-warning text-dark" style="padding: 1% 8%;">For Approval</span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-4 task_list_dates">
+																Start Date: {{ tasks.create_date|date:"m/d/Y" }} <br/>
+																End Date: {% if tasks.due_date %} {{ tasks.due_date|date:"m/d/Y" }} {% endif %}<br/>
+																<span class="task_list_labels"><b>Attachments</b> </span>
+															</div>
+															<div class="col-sm-8">
+																<h6 class="task_list_labels"><b>Participants</b> </h6>
+																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
+																<h6 class="task_list_labels"><b>Progress</b> </h6>
+																<div class="progress" style="height: 1.75rem; border-radius: 2rem">
+		  															<div class="progress-bar ticket_progress_bar" role="progressbar" style='width: {{ tasks.percentage  }}%;' aria-valuenow="{{ tasks.percentage  }}" aria-valuemin="0" aria-valuemax="100">{{ tasks.percentage  }}%</div>
+																</div><br/>
+																<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span class="task_list_time_posted"> {{ tasks.create_date| timesince }} ago</span>
+															</div>
+														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-									</li><br/>
+		  									</li><br/>
+		  								{% endif %}
+	  								{% endfor %}
 								</ul><br/>
 	  						</div>
 	  						<div class="tab-pane fade" id="nav-close" role="tabpanel" aria-labelledby="nav-close-tab">
 	  							<br/>
-	  							<ul class="list-group close_ticket_list scroll" style="height:750px;">
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-sm-12" style="text-align: right;">
-												<b>• • •</b>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="{% static 'portal_admin/images/closed_task_colored.png' %}">
-											</div>
-											<div class="col-sm-5" style="border-right: 1px solid #C2C2C399;">
-												<h4>Konichi Animation Brand Style Guide Book</h4>
-												<div class="row">
-													<div class="col-sm-8">
-														<p>All images attached are for image enhancement that will be using for the Square Solar real estate catalog.</p>
-													</div>
-													<div class="col-sm-4">
-														<h6 style="color:#182279;"><b>Client</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-														<span>Nataniel Gillespie</span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<span class="badge bg-primary">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-secondary">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														<span class="badge bg-warning text-dark">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-													</div>
+	  							<ul class="list-group close_ticket_list scroll">
+	  								{% for tasks in task_list %}
+	  									{% if tasks.status == "COMPLETE" or tasks.status == "CLOSED" %}
+	  									<li class="list-group-item">
+	  										<div class="row">
+												<div class="col-sm-12" style="text-align: right;">
+													<b>• • •</b>
 												</div>
 											</div>
-											<div class="col-sm-6">
-												<div class="row">
-													<div class="col-sm-12" style="text-align:right;">
-														<span class="badge rounded-pill bg-danger" style="padding: 1% 8%;">Closed</span>
+											<div class="row">
+												<div class="col-sm-1">
+													<img class="task_list_progress_icons" src="{% static 'portal_admin/images/closed_task_colored.png' %}">
+												</div>
+												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
+													<h4 class="task_list_title">{{ tasks.title }}</h4>
+													<div class="row">
+														<div class="col-sm-8">
+															<p class="task_list_description">{{ tasks.description }}</p>
+														</div>
+														<div class="col-sm-4">
+															<h6 class="task_list_labels"><b>Client</b> </h6>
+															{% if tasks.owner.profile_picture|length > 0 %}
+																<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+															{% else %}
+																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+															{% endif %}
+															<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-6">
+															<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+															<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+															<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+														</div>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														Start Date: 10/5/2023 <br/>
-														End Date: 20/6/2023<br/>
-														<span style="color:#182279;"><b>Attachments</b> </span>
+												<div class="col-sm-6">
+													<div class="row">
+														<div class="col-sm-12" style="text-align:right;">
+															<span class="badge rounded-pill bg-danger" style="padding: 1% 8%;">Closed</span>
+														</div>
 													</div>
-													<div class="col-sm-6">
-														<h6 style="color:#182279;"><b>Participants</b> </h6>
-														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
-														<h6 style="color:#182279;"><b>Progress</b> </h6>
-														<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  															<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-														</div><br/>
-														<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span> 1 hour ago</span>
+													<div class="row">
+														<div class="col-sm-4 task_list_dates">
+															Start Date: {{ tasks.create_date|date:"m/d/Y" }} <br/>
+															End Date: {% if tasks.due_date %} {{ tasks.due_date|date:"m/d/Y" }} {% endif %}<br/>
+															<span class="task_list_labels"><b>Attachments</b> </span>
+														</div>
+														<div class="col-sm-8">
+															<h6 class="task_list_labels"><b>Participants</b> </h6>
+															<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
+															<h6 class="task_list_labels"><b>Progress</b> </h6>
+															<div class="progress" style="height: 1.75rem; border-radius: 2rem">
+	  															<div class="progress-bar ticket_progress_bar" role="progressbar" style='width: {{ tasks.percentage  }}%;' aria-valuenow="{{ tasks.percentage  }}" aria-valuemin="0" aria-valuemax="100">{{ tasks.percentage  }}%</div>
+															</div><br/>
+															<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span class="task_list_time_posted"> {{ tasks.create_date| timesince }} ago</span>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</li><br/>
+	  									</li><br/>
+	  									{% endif %}
+	  								{% endfor %}
 								</ul><br/>
 	  						</div>
 						</div>
@@ -671,134 +488,8 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			getAllTask();
+			
 		})
-
-		function getAllTask(){
-			$(".all_task_list").empty();
-			$(".open_task_list").empty();
-			$(".in-progress_list").empty();
-			$(".in-review_list").empty();
-			$(".for-approval_list").empty();
-			$(".close_ticket_list").empty();
-			$.ajax({
-	            type: "POST",
-	            url: "{% url 'getTicketList' %}",
-	            data: {
-	                "csrfmiddlewaretoken": '{{ csrf_token }}',
-	            },
-	            async:true,
-	            success: function (data) {
-	                if(data.status_code == 1){
-	                	var tasks = data.tasks;
-	                	$.each(tasks, function(index, value){
-	                		task_list(value);
-	                	});
-	                }else{
-	                	alert(data.status_msg);
-	                }
-	            },
-	            error: function (e) {
-	                
-	            }
-	        })
-		}
-
-		function task_list(data){
-			var output = "";
-			output += "<li class='list-group-item'>";
-			output += "	<div class='row'>";
-			output += "		<div class='col-sm-12' style='text-align: right;'>";
-			output += "			<b>• • •</b>";
-			output += "		</div>";
-			output += "	</div>";
-			output += "	<div class='row'>";
-			output += "		<div class='col-sm-1'>";
-
-			if(data.status == "Open"){
-				output += "	<img src={% static 'portal_admin/images/open_task_colored.png' %}>";
-			}else if(data.status == "In Progress"){
-				output += "	<img src={% static 'portal_admin/images/in_progress_colored.png' %}>";
-			}else if(data.status == "In Review"){
-				output += "	<img src={% static 'portal_admin/images/for_review_colored.png' %}>";
-			}else if(data.status == "Pending"){
-				output += "	<img src={% static 'portal_admin/images/for_approval_colored.png' %}>";
-			}else if(data.status == "Complete"){
-				output += "	<img src={% static 'portal_admin/images/closed_task_colored.png' %}>";
-			}
-
-			
-			output += "		</div>";
-			output += "		<div  class='col-sm-5' style='border-right: 1px solid #C2C2C399; cursor:pointer' onclick='taskDetail(this)' task_id='"+data.task_id+"'>";
-			output += "			<h4>"+data.title+"</h4>";
-			output += "			<div class='row'>";
-			output += "				<div class='col-sm-8'>";
-			output += "					<p>"+data.description+"</p>";
-			output += "				</div>";
-			output += "				<div class='col-sm-4'>";
-			output += "					<h6 style='color:#182279;'><b>Client</b></h6>";
-			output += "					<img src='"+data.owner_name_pic+"' alt='mdo' width='35' height='35' class='rounded-circle' style='margin-top: 5px;'>";
-			output += "					<span>"+data.owner_name+"</span>";
-			output += "				</div>";
-			output += "			</div>";
-			output += "			<div class='row'>";
-			output += "				<div class='col-sm-12'>";
-			output += "					<span class='badge bg-primary'>Design & Arts <i class='fa-solid fa-circle-xmark' style='cursor:pointer;'></i></span>";
-			output += "					<span class='badge bg-secondary'>Photo Editing <i class='fa-solid fa-circle-xmark' style='cursor:pointer;'></i></span>";
-			output += "					<span class='badge bg-warning text-dark'>Image Enhancement <i class='fa-solid fa-circle-xmark' style='cursor:pointer;'></i></span>";
-			output += "				</div>";
-			output += " 		</div>";
-			output += "		</div>";
-			
-			output += "		<div class='col-sm-6'>";
-			output += "			<div class='row'>";
-			output += "				<div class='col-sm-12' style='text-align:right;'>";
-			if(data.status == "Open"){
-				output += "	<span class='badge rounded-pill bg-success' style='padding: 1% 8%;'>Open</span>";
-			}else if(data.status == "In Progress"){
-				output += "	<span class='badge rounded-pill bg-info text-dark' style='padding: 1% 8%;'>In Progress</span>";
-			}else if(data.status == "In Review"){
-				output += "	<span class='badge rounded-pill bg-success' style='padding: 1% 8%;'>In Review</span>";
-			}else if(data.status == "Pending"){
-				output += "	<span class='badge rounded-pill bg-warning text-dark' style='padding: 1% 8%;'>For Approval</span>";
-			}else if(data.status == "Complete"){
-				output += "	<span class='badge rounded-pill bg-danger' style='padding: 1% 8%;'>Closed</span>";
-			}
-			
-			output += "				</div>";
-			output += "			</div>";
-			output += "			<div class='row'>";
-			output += "				<div class='col-sm-6'>";
-			output += "					Start Date: "+data.create_date_formatted+" <br/>";
-			output += "					End Date: "+data.end_date+"<br/>";
-			output += "					<span style='color:#182279;'><b>Attachments</b> </span>";
-			output += "				</div>";
-			output += "				<div class='col-sm-6'>";
-			output += "					<h6 style='color:#182279;'><b>Participants</b></h6>";
-			output += "					<img src='https://github.com/mdo.png' alt='mdo' width='35' height='35' class='rounded-circle' style='margin-top: 5px;'><br/>";
-			output += "					<h6 style='color:#182279;'><b>Progress</b></h6>";
-			output += "					<div class='progress' style='height: 1.75rem; border-radius: 2rem'>";
-			output += "						<div class='progress-bar ticket_progress_bar' role='progressbar' style='width: "+data.percentage+"%;' aria-valuenow='"+data.percentage+"' aria-valuemin='0' aria-valuemax='100'>"+data.percentage+"%</div>";
-			output += "					</div><br/>";
-			output += "					<span class='task_list_options'>View Task</span> • <span class='task_list_options'>Show Attachments</span> • <span> "+data.create_date_since+"</span>";
-			output += "				</div>";
-			output += "			</div>";
-			output += "		</div>";
-			output += "	</div>"
-			output += "</li><br/>";
-			$(".all_task_list").append(output);
-			if(data.status == "Open"){
-				$(".open_task_list").append(output);
-			}else if(data.status == "In Progress"){
-				$(".in-progress_list").append(output);
-			}else if(data.status == "In Review"){
-				$(".in-review_list").append(output);
-			}else if(data.status == "Pending"){
-				$(".for-approval_list").append(output);
-			}else if(data.status == "Complete"){
-				$(".close_ticket_list").append(output);
-			}	
-		}
 
 		function taskDetail(that){
 			var task_id = $(that).attr("task_id");

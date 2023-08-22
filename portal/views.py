@@ -110,7 +110,7 @@ def portalAdminTicketList(request):
 @login_required(login_url='/accounts/login')
 def getAdminTicketDetails(request, ticket_id):
 	ticket = issue.objects.get(pk=ticket_id)
-	ticket_owner = details.objects.get(userId=ticket.userId)
+	ticket_owner = details.objects.get(userId=ticket.userAccount)
 	profile_details = details.objects.get(userId=request.user.id)
 	
 	if request.method == 'POST':
@@ -147,15 +147,15 @@ def portalAdminTaskDashboard(request):
 @login_required(login_url='/accounts/login')
 def portalAdminTaskList(request):
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'admin_templates/task/task_list.html', {"profile_details": profile_details, "base_url":settings.SITE_URL})
+	task_list = task.objects.filter(is_delete=0)
+	return render(request, 'admin_templates/task/task_list.html', {"profile_details": profile_details, "task_list":task_list, "base_url":settings.SITE_URL})
 
 
 @login_required(login_url='/accounts/login')
 def portalAdmintaskDetails(request, task_id):
 	profile_details = details.objects.get(userId=request.user.id)
 	task_details = task.objects.get(pk=task_id)
-	task_owner = details.objects.get(userId=task_details.owner)
-	print(task_owner)
+	task_owner = details.objects.get(pk=task_details.owner.pk)
 
 	if request.method == 'POST':
 		userInstance = User.objects.get(pk=request.user.id)
@@ -179,4 +179,4 @@ def portalAdmintaskDetails(request, task_id):
 				task_new_comment_file.comment_file = comment_file
 				task_new_comment_file.save()
 		return redirect ('portalAdmintaskDetails', task_id)
-	return render(request, 'admin_templates/task/task_detailed.html', {"profile_details": profile_details, "detail":task_details, "task_owner":task_owner})
+	return render(request, 'admin_templates/task/task_detailed.html', {"profile_details": profile_details, "detail":task_details, "task_owner":task_owner, "sidebar":"ticket"})
