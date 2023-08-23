@@ -112,11 +112,13 @@ class task_comment(models.Model):
 	owner_accountDetails = models.ForeignKey(details, on_delete=models.SET_NULL, null=True, blank=True)
 	create_date = models.DateTimeField(auto_now_add=True)
 	update_date = models.DateTimeField(auto_now_add=True)
+	is_private = models.BooleanField(default=0)
 	history = models.TextField(null=True, blank=True)
 
 class task_comment_file(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	comment =models.ForeignKey(task_comment, on_delete=models.SET_NULL, null=True, blank=True)
+	task = models.ForeignKey(task, on_delete=models.SET_NULL, null=True, blank=True)
 	comment_file = models.FileField(upload_to='task_upload/', null=True)
 	is_delete = models.BooleanField(default=0)
 	create_date = models.DateTimeField(auto_now_add=True)

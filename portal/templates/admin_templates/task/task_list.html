@@ -58,9 +58,9 @@
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/open_task_colored.png' %}">
 													{% elif tasks.status == "IN PROGRESS" %}
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/in_progress_colored.png' %}">
-													{% elif tasks.status == "TO BE TESTED" %}
+													{% elif tasks.status == "IN REVIEW" %}
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_review_colored.png' %}">
-													{% elif tasks.status == "PENDING" %}
+													{% elif tasks.status == "FOR APPROVAL" %}
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_approval_colored.png' %}">
 													{% elif tasks.status == "CLOSED" or tasks.status == "COMPLETE" %}
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/closed_task_colored.png' %}">
@@ -68,30 +68,34 @@
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/open_task_colored.png' %}">
 													{% endif %}
 												</div>
-												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
-													<h4 class="task_list_title">{{ tasks.title }}</h4>
-													<div class="row">
-														<div class="col-sm-8">
-															<p class="task_list_description">{{ tasks.description }}</p>
+												
+												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer">
+													<a href="{% url 'portalAdmintaskDetails' tasks.pk  %}" style="text-decoration: none;">
+														<h4 class="task_list_title">{{ tasks.title }}</h4>
+														<div class="row">
+															<div class="col-sm-8">
+																<p class="task_list_description">{{ tasks.description }}</p>
+															</div>
+															<div class="col-sm-4">
+																<h6 class="task_list_labels"><b>Client</b> </h6>
+																{% if tasks.owner.profile_picture|length > 0 %}
+																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% else %}
+																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% endif %}
+																<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+															</div>
 														</div>
-														<div class="col-sm-4">
-															<h6 class="task_list_labels"><b>Client</b> </h6>
-															{% if tasks.owner.profile_picture|length > 0 %}
-																<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-															{% else %}
-																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-															{% endif %}
-															<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+														<div class="row">
+															<div class="col-sm-6">
+																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+															</div>
 														</div>
-													</div>
-													<div class="row">
-														<div class="col-sm-6">
-															<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
-															<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
-															<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
-														</div>
-													</div>
+													</a>
 												</div>
+												
 												<div class="col-sm-6">
 													<div class="row">
 														<div class="col-sm-12" style="text-align:right;">
@@ -99,9 +103,9 @@
 																<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">Open</span>
 															{% elif tasks.status == "IN PROGRESS" %}
 																<span class="badge rounded-pill bg-info text-dark" style="padding: 1% 8%;">In Progress</span>
-															{% elif tasks.status == "TO BE TESTED" %}
+															{% elif tasks.status == "FOR APPROVAL" %}
 																<span class="badge rounded-pill bg-warning text-dark" style="padding: 1% 8%;">For Approval</span>
-															{% elif tasks.status == "FOR REVIEW" %}
+															{% elif tasks.status == "IN REVIEW" %}
 																<span class="badge rounded-pill bg-success" style="padding: 1% 8%;">In Review</span>
 															{% elif tasks.status == "CLOSED"  or tasks.status == "COMPLETE" %}
 																<span class="badge rounded-pill bg-danger" style="padding: 1% 8%;">Closed</span>
@@ -122,7 +126,7 @@
 															<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"><br/>
 															<h6 class="task_list_labels"><b>Progress</b> </h6>
 															<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-	  															<div class="progress-bar ticket_progress_bar" role="progressbar" style='width: {{ tasks.percentage  }}%;' aria-valuenow="{{ tasks.percentage  }}" aria-valuemin="0" aria-valuemax="100">{{ tasks.percentage  }}%</div>
+	  															<div class="progress-bar ticket_progress_bar" role="progressbar" style='width: {{ tasks.task_percentage  }}%;' aria-valuenow="{{ tasks.task_percentage  }}" aria-valuemin="0" aria-valuemax="100">{{ tasks.task_percentage  }}%</div>
 															</div><br/>
 															<span class="task_list_options">View Task</span> • <span class="task_list_options">Show Attachments</span> • <span class="task_list_time_posted"> {{ tasks.create_date| timesince }} ago</span>
 														</div>
@@ -148,29 +152,31 @@
 													<div class="col-sm-1">
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/open_task_colored.png' %}">
 													</div>
-													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
-														<h4 class="task_list_title">{{ tasks.title }}</h4>
-														<div class="row">
-															<div class="col-sm-8">
-																<p class="task_list_description">{{ tasks.description }}</p>
+													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" >
+														<a href="{% url 'portalAdmintaskDetails' tasks.pk  %}" style="text-decoration: none;">
+															<h4 class="task_list_title">{{ tasks.title }}</h4>
+															<div class="row">
+																<div class="col-sm-8">
+																	<p class="task_list_description">{{ tasks.description }}</p>
+																</div>
+																<div class="col-sm-4">
+																	<h6 class="task_list_labels"><b>Client</b> </h6>
+																	{% if tasks.owner.profile_picture|length > 0 %}
+																		<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																	{% else %}
+																		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																	{% endif %}
+																	<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+																</div>
 															</div>
-															<div class="col-sm-4">
-																<h6 class="task_list_labels"><b>Client</b> </h6>
-																{% if tasks.owner.profile_picture|length > 0 %}
-																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-																{% else %}
-																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-																{% endif %}
-																<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+															<div class="row">
+																<div class="col-sm-6">
+																	<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																	<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																	<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																</div>
 															</div>
-														</div>
-														<div class="row">
-															<div class="col-sm-6">
-																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
-																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
-																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
-															</div>
-														</div>
+														</a>
 													</div>
 													<div class="col-sm-6">
 														<div class="row">
@@ -216,30 +222,32 @@
 													<div class="col-sm-1">
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/in_progress_colored.png' %}">
 													</div>
-													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
-														<h4 class="task_list_title">{{ tasks.title }}</h4>
-														<div class="row">
-															<div class="col-sm-8">
-																<p class="task_list_description">{{ tasks.description }}</p>
-															</div>
-															<div class="col-sm-4">
-																<h6 class="task_list_labels"><b>Client</b> </h6>
+													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer">
+														<a href="{% url 'portalAdmintaskDetails' tasks.pk  %}" style="text-decoration: none;">
+															<h4 class="task_list_title">{{ tasks.title }}</h4>
+															<div class="row">
+																<div class="col-sm-8">
+																	<p class="task_list_description">{{ tasks.description }}</p>
+																</div>
+																<div class="col-sm-4">
+																	<h6 class="task_list_labels"><b>Client</b> </h6>
 
-																{% if tasks.owner.profile_picture|length > 0 %}
-																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-																{% else %}
-																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-																{% endif %}
-																<span class="task_list_client_name"> {{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+																	{% if tasks.owner.profile_picture|length > 0 %}
+																		<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																	{% else %}
+																		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																	{% endif %}
+																	<span class="task_list_client_name"> {{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+																</div>
 															</div>
-														</div>
-														<div class="row">
-															<div class="col-sm-6">
-																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
-																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
-																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+															<div class="row">
+																<div class="col-sm-6">
+																	<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																	<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																	<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark " style="cursor:pointer;"></i></span>
+																</div>
 															</div>
-														</div>
+														</a>
 													</div>
 													<div class="col-sm-6">
 														<div class="row">
@@ -274,7 +282,7 @@
 	  							<br/>
 	  							<ul class="list-group in-review_list scroll">
 	  								{% for tasks in task_list %}
-	  									{% if tasks.status == "TO BE TESTED" %}
+	  									{% if tasks.status == "IN REVIEW" %}
 	  									<li class="list-group-item">
 	  										<div class="row">
 												<div class="col-sm-12" style="text-align: right;">
@@ -283,31 +291,33 @@
 											</div>
 											<div class="row">
 												<div class="col-sm-1">
-													<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_approval_colored.png' %}">
+													<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_review_colored.png' %}">
 												</div>
-												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
-													<h4 class="task_list_title">{{ tasks.title }}</h4>
-													<div class="row">
-														<div class="col-sm-8">
-															<p class="task_list_description">{{ tasks.description }}</p>
+												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer">
+													<a href="{% url 'portalAdmintaskDetails' tasks.pk  %}" style="text-decoration: none;">
+														<h4 class="task_list_title">{{ tasks.title }}</h4>
+														<div class="row">
+															<div class="col-sm-8">
+																<p class="task_list_description">{{ tasks.description }}</p>
+															</div>
+															<div class="col-sm-4">
+																<h6 class="task_list_labels"><b>Client</b> </h6>
+																{% if tasks.owner.profile_picture|length > 0 %}
+																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% else %}
+																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% endif %}
+																<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+															</div>
 														</div>
-														<div class="col-sm-4">
-															<h6 class="task_list_labels"><b>Client</b> </h6>
-															{% if tasks.owner.profile_picture|length > 0 %}
-																<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-															{% else %}
-																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-															{% endif %}
-															<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+														<div class="row">
+															<div class="col-sm-6">
+																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+															</div>
 														</div>
-													</div>
-													<div class="row">
-														<div class="col-sm-6">
-															<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-															<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-															<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														</div>
-													</div>
+													</a>
 												</div>
 												<div class="col-sm-6">
 													<div class="row">
@@ -342,7 +352,7 @@
 	  							<br/>
 	  							<ul class="list-group for-approval_list scroll">
 	  								{% for tasks in task_list %}
-	  									{% if tasks.status == "PENDING" %}
+	  									{% if tasks.status == "FOR APPROVAL" %}
 		  									<li class="list-group-item">
 		  										<div class="row">
 													<div class="col-sm-12" style="text-align: right;">
@@ -353,29 +363,31 @@
 													<div class="col-sm-1">
 														<img class="task_list_progress_icons" src="{% static 'portal_admin/images/for_approval_colored.png' %}">
 													</div>
-													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
-														<h4 class="task_list_title">{{ tasks.title }}</h4>
-														<div class="row">
-															<div class="col-sm-8">
-																<p class="task_list_description">{{ tasks.description }}</p>
+													<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer">
+														<a href="{% url 'portalAdmintaskDetails' tasks.pk  %}" style="text-decoration: none;">
+															<h4 class="task_list_title">{{ tasks.title }}</h4>
+															<div class="row">
+																<div class="col-sm-8">
+																	<p class="task_list_description">{{ tasks.description }}</p>
+																</div>
+																<div class="col-sm-4">
+																	<h6 class="task_list_labels"><b>Client</b> </h6>
+																	{% if tasks.owner.profile_picture|length > 0 %}
+																		<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																	{% else %}
+																		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																	{% endif %}
+																	<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+																</div>
 															</div>
-															<div class="col-sm-4">
-																<h6 class="task_list_labels"><b>Client</b> </h6>
-																{% if tasks.owner.profile_picture|length > 0 %}
-																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-																{% else %}
-																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-																{% endif %}
-																<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+															<div class="row">
+																<div class="col-sm-6">
+																	<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																	<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																	<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																</div>
 															</div>
-														</div>
-														<div class="row">
-															<div class="col-sm-6">
-																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-															</div>
-														</div>
+														</a>
 													</div>
 													<div class="col-sm-6">
 														<div class="row">
@@ -421,29 +433,31 @@
 												<div class="col-sm-1">
 													<img class="task_list_progress_icons" src="{% static 'portal_admin/images/closed_task_colored.png' %}">
 												</div>
-												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer" onclick='taskDetail(this)' task_id='{{ tasks.pk }}'>
-													<h4 class="task_list_title">{{ tasks.title }}</h4>
-													<div class="row">
-														<div class="col-sm-8">
-															<p class="task_list_description">{{ tasks.description }}</p>
+												<div class="col-sm-5" style="border-right: 1px solid #C2C2C399; cursor:pointer">
+													<a href="{% url 'portalAdmintaskDetails' tasks.pk  %}" style="text-decoration: none;">
+														<h4 class="task_list_title">{{ tasks.title }}</h4>
+														<div class="row">
+															<div class="col-sm-8">
+																<p class="task_list_description">{{ tasks.description }}</p>
+															</div>
+															<div class="col-sm-4">
+																<h6 class="task_list_labels"><b>Client</b> </h6>
+																{% if tasks.owner.profile_picture|length > 0 %}
+																	<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% else %}
+																	<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
+																{% endif %}
+																<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+															</div>
 														</div>
-														<div class="col-sm-4">
-															<h6 class="task_list_labels"><b>Client</b> </h6>
-															{% if tasks.owner.profile_picture|length > 0 %}
-																<img src="{{ tasks.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-															{% else %}
-																<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle task_list_client_pic">
-															{% endif %}
-															<span class="task_list_client_name">{{ tasks.owner.first_name }} {{ tasks.owner.last_name }}</span>
+														<div class="row">
+															<div class="col-sm-6">
+																<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+																<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
+															</div>
 														</div>
-													</div>
-													<div class="row">
-														<div class="col-sm-6">
-															<span class="badge bg-primary task_list_services">Design & Arts <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-															<span class="badge bg-secondary task_list_services">Photo Editing <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-															<span class="badge bg-warning text-dark task_list_services">Image Enhancement <i class="fa-solid fa-circle-xmark" style="cursor:pointer;"></i></span>
-														</div>
-													</div>
+													</a>
 												</div>
 												<div class="col-sm-6">
 													<div class="row">
@@ -491,10 +505,10 @@
 			
 		})
 
-		function taskDetail(that){
-			var task_id = $(that).attr("task_id");
-			var site_url = $("#site_url").val();
-			window.location.replace(site_url+"/portal/admin/task_detailed/"+task_id);
-		}
+		// function taskDetail(that){
+		// 	var task_id = $(that).attr("task_id");
+		// 	var site_url = $("#site_url").val();
+		// 	window.location.replace(site_url+"/portal/admin/task_detailed/"+task_id);
+		// }
 	</script>
 {% endblock %}

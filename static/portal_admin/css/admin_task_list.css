@@ -66,6 +66,16 @@ ul li {
 	color:#182279;
 }
 
+.task_list_description{
+	color: black;
+}
+.task_list_title{
+	color: black;
+}
+
+.task_list_client_name{
+	color: black;
+}
 @media (min-width: 1930px) and (max-width:2560px){
 	.dashboard_welcome_greeting{
 		font-size: 3.5rem;

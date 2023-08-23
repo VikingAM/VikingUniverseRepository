@@ -1,0 +1,101 @@
+.dot {
+	width: 70%;
+  	background-color: #6417A180;
+  	border-radius: 50%;
+  	display: inline-block;
+}
+.dashboard_cards{
+	font-weight: 800;
+	font-size: 15px;
+}
+.ticket_title{
+	color: #6417A1;
+}
+.ticket_description{
+	color: #6417A1;
+}
+.ticket_detail_id{
+	color: #6417A1;
+	font-size: 22px;
+}
+.ticket_progress_bar{
+	background-color: #6417A1;
+}
+
+.ticket_title_edit_action{
+	font-size: 20px;
+	cursor: pointer;
+	display: none;
+}
+
+.nav-title{
+	color: #6417A1;
+	font-weight: 600;
+}
+
+.ticket_comments_wrapper{
+	height: 280px; 
+	overflow-y: auto;
+}
+
+.comment_footer_details{
+	font-size: 12px;
+}
+
+@media (min-width: 1930px) and (max-width:2560px){
+	.dashboard_welcome_greeting{
+		font-size: 3.5rem;
+	}
+	.ticket_title{
+		font-size: 2.7rem;
+	}
+	.ticket_description{
+		font-size: 2rem;
+	}
+	.sub_title{
+		font-size: 2rem;
+	}
+	.ticket_description_paragraph{
+		font-size: 1.4rem;
+	}
+	.nav-link{
+		font-size: 1.8rem;
+	}
+	.task_owner_name{
+		font-size: 1.7rem;
+	}
+	.comment_prof_pic{
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+	#task_comment{
+		font-size: 1.4rem;
+	}
+	.ticket_detail_id{
+		font-size: 2rem;
+	}
+	#TaskStatusDropDown{
+		font-size: 1.7rem;
+	}
+	.post_comment{
+		font-size: 1.4rem;
+	}
+	.clear_comment{
+		font-size: 1.4rem;
+	}
+	#task_attachement_label{
+		font-size: 1.4rem;
+	}
+	.comment_details{
+		font-size: 1.4rem;
+	}
+	#task_client_comment{
+		font-size: 1.4rem;
+	}
+	.comment_footer_details{
+		font-size: 1rem;
+	}
+	.ticket_comments_wrapper{
+		height: 37rem;
+	}
+}
