@@ -84,7 +84,7 @@
 								{% elif detail.status == "IN PROGRESS" %}
 									<span class='badge bg-warning'>IN PROGRESS</span>
 								{% elif detail.status == "IN REVIEW" %}
-									<span class='badge bg-success'>TO REVIEW</span>
+									<span class='badge bg-success'>IN REVIEW</span>
 								{% elif detail.status == "FOR APPROVAL" %}
 									<span class="badge bg-warning text-dark">FOR APPROVAL</span>
 								{% elif detail.status == "CLOSED"  %}
@@ -97,7 +97,7 @@
 							<ul class="dropdown-menu" aria-labelledby="TaskStatusDropDown">
 						    	<li><a class="dropdown-item" href="#" action="OPEN" onclick="updateTicketStatus(this);">OPEN</a></li>
 						    	<li><a class="dropdown-item" href="#" action="IN PROGRESS" onclick="updateTicketStatus(this);">IN PROGRESS</a></li>
-						    	<li><a class="dropdown-item" href="#" action="TO REVIEW" onclick="updateTicketStatus(this);">IN REVIEW</a></li>
+						    	<li><a class="dropdown-item" href="#" action="IN REVIEW" onclick="updateTicketStatus(this);">IN REVIEW</a></li>
 						    	<li><a class="dropdown-item" href="#" action="FOR APPROVAL" onclick="updateTicketStatus(this);">FOR APPROVAL</a></li>
 						    	<li><a class="dropdown-item" href="#" action="CLOSED" onclick="updateTicketStatus(this);">CLOSED</a></li>
 						    </ul>
