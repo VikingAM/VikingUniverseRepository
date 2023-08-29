@@ -7,43 +7,7 @@
 {% block style %}
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-<style type="text/css">
-	.dot {
-		width: 70%;
-	  	background-color: #6417A180;
-	  	border-radius: 50%;
-	  	display: inline-block;
-	}
-	.dashboard_cards{
-		font-weight: 800;
-		font-size: 15px;
-	}
-	.ticket_title{
-		color: #6417A1;
-	}
-	.ticket_description{
-		color: #6417A1;
-	}
-	.ticket_detail_id{
-		color: #6417A1;
-		font-size: 22px;
-	}
-	.ticket_progress_bar{
-		background-color: #6417A1;
-	}
-
-	.ticket_title_edit_action{
-		font-size: 20px;
-		cursor: pointer;
-		display: none;
-	}
-
-	.nav-title{
-		color: #6417A1;
-		font-weight: 600;
-	}
-
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'portal_admin/css/admin_ticket_detailed.css' %}">
 
 {% endblock style %}
 
@@ -60,16 +24,9 @@
 	    			<div class="col-sm-6">
 	    				<div class="row">
 	    					<div class="col-sm-12">
-	    						<h4 class="ticket_title"> <span>{{ detail.title }}</span>  <i class="fa-solid fa-pencil active_edit" style="display:none; cursor: pointer;" id="edit_ticket_title"></i></h4>
+	    						<h4 class="ticket_title"> <span>{{ ticket.title }}</span>  <i class="fa-solid fa-pencil active_edit" style="display:none; cursor: pointer;" id="edit_ticket_title"></i></h4>
 	    					</div>
-	    					<div class="col-sm-8">
-	    						<input class="form-control ticket_title_edit_input" type="text" name="ticket_title_edit_input" id="ticket_title_edit_input" value="{{ detail.title }}" style="display:none;">
-	    					</div>
-	    					<div class="col-sm-1 ticket_title_edit_input ticket_title_edit_action update_ticket_title" style="text-align: center;"><i class="fa-solid fa-check " ></i></div>
-	    					<div class="col-sm-1 ticket_title_edit_input ticket_title_edit_action cancel_ticket_title"><i class="fa-solid fa-x "></i></div>
 	    				</div>
-						
-						
 					</div>
 					<div class="col-sm-5"></div>
 					<div class="col-sm-1" style="text-align:right;">
@@ -86,13 +43,13 @@
 	  			</div>
 	  			<div class="row">
 	  				<div class="col-sm-9 ticket_detail_id">
-						<i class="fa-solid fa-ticket"></i>#{{ detail.pk }}	  					
+						<i class="fa-solid fa-ticket"></i>#{{ ticket.pk }}	  					
 	  				</div>
 	  				<div class="col-sm-3">
 	  					<div class="dropdown">
   							<span  type="button" id="ticketPercentageBar" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%;">
-  								<div class="progress" style="height: 1.75rem; border-radius: 2rem">
-  									<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: {{ detail.percentage }}%;" aria-valuenow="{{ detail.percentage }}" aria-valuemin="0" aria-valuemax="100">{{ detail.percentage }}%</div>
+  								<div class="progress" >
+  									<div class="progress-bar ticket_progress_bar" role="progressbar" style="width: {{ ticket.percentage }}%;" aria-valuenow="{{ ticket.percentage }}" aria-valuemin="0" aria-valuemax="100">{{ ticket.percentage }}%</div>
 								</div>
   							</span>
 							<ul class="dropdown-menu" aria-labelledby="ticketPercentageBar">
@@ -115,16 +72,16 @@
 	  				<div class="col-sm-12">
 	  					<div class="dropdown">
   							<span class="dropdown-toggle" type="button" id="TicketStatusDropDown" data-bs-toggle="dropdown" aria-expanded="false">
-  								{% if detail.ticket_status == "OPEN" %}
+  								{% if ticket.ticket_status == "OPEN" %}
 									<span class='badge bg-primary'>OPEN</span>
-								{% elif detail.ticket_status == "IN PROGRESS" %}
+								{% elif ticket.ticket_status == "IN PROGRESS" %}
 									<span class='badge bg-warning'>IN PROGRESS</span>
-								{% elif detail.ticket_status == "TO BE TESTED" %}
+								{% elif ticket.ticket_status == "TO BE TESTED" %}
 									<span class='badge bg-success'>TO BE TESTED</span>
-								{% elif detail.ticket_status == "CLOSED"  %}
+								{% elif ticket.ticket_status == "CLOSED"  %}
 									<span class='badge bg-info'>CLOSED</span>
 								{% else %}
-									<span class='badge bg-light text-dark'>{{ detail.status }}</span>
+									<span class='badge bg-light text-dark'>{{ ticket.ticket_status }}</span>
 								{% endif %}
   							</span>
 							<ul class="dropdown-menu" aria-labelledby="TicketStatusDropDown">
@@ -139,70 +96,86 @@
 	  			</div><br/><br/>
 	  			<div class="row">
 	  				<div class="col-sm-8">
-	  					<h5 class="ticket_description">Description <i class="fa-solid fa-pencil active_edit" style="display:none; cursor: pointer;" id="edit_ticket_description"></i></h5>
-	  					<p class="ticket_description_paragraph">{{ detail.description}}</p>
-	  					<div class="row">
-	  						<div class="col-sm-12">
-	  							<textarea class="form-control" id="ticket_description_textarea" style="display:none;">{{ detail.description}}</textarea>
-	  						</div>
-	  						<div class="col-sm-10"></div>
-	  						<div class="col-sm-1">
-	  							<i class="fa-solid fa-check ticket_description_action submit_description_update" style="display:none; cursor:pointer;"></i>
-	  						</div>
-	  						<div class="col-sm-1">
-	  							<i class="fa-solid fa-x ticket_description_action cancel_descipription_update" style="display:none; cursor:pointer;"></i>
-	  						</div>
-	  					</div>
+	  					<p class="ticket_description_paragraph">{{ ticket.description}}</p>
 	  					<br/>
 	  					<div class="row">
 	  						<nav class="flex-column flex-sm-row">
   								<div class="nav nav-tabs" id="nav-tab" role="tablist">
-    								<button class="nav-link active nav-title" id="nav-comment-tab" data-bs-toggle="tab" data-bs-target="#nav-comment" type="button" role="tab" aria-controls="nav-comment" aria-selected="true" style="width:25%;"> COMMENTS (0) </button>
-    								<button class="nav-link nav-title" id="nav-attachment-tab" data-bs-toggle="tab" data-bs-target="#nav-attachment" type="button" role="tab" aria-controls="nav-attachment" aria-selected="false" style="width:25%;"> ATTACHMENTS () </button>
+    								<button class="nav-link active nav-title" id="nav-comment-tab" data-bs-toggle="tab" data-bs-target="#nav-comment" type="button" role="tab" aria-controls="nav-comment" aria-selected="true" style="width:25%;"> COMMENTS ({{ private_comment.count }}) </button>
+    								<button class="nav-link nav-title" id="nav-attachment-tab" data-bs-toggle="tab" data-bs-target="#nav-attachment" type="button" role="tab" aria-controls="nav-attachment" aria-selected="false" style="width:25%;"> ATTACHMENTS ({{ ticket_comment_attachments.count|add:attachments.count }}) </button>
     								<button class="nav-link nav-title" id="nav-resolution-tab" data-bs-toggle="tab" data-bs-target="#nav-resolution" type="button" role="tab" aria-controls="nav-resolution" aria-selected="false" style="width:25%;"> RESOLUTION </button>
-    								<button class="nav-link nav-title" id="nav-clientcorner-tab" data-bs-toggle="tab" data-bs-target="#nav-clientcorner" type="button" role="tab" aria-controls="nav-clientcorner" aria-selected="false" style="width:25%;"> CLIENTS CORNER (20) </button>
+    								<button class="nav-link nav-title" id="nav-clientcorner-tab" data-bs-toggle="tab" data-bs-target="#nav-clientcorner" type="button" role="tab" aria-controls="nav-clientcorner" aria-selected="false" style="width:25%;"> CLIENTS CORNER ({{client_comment.count}}) </button>
   								</div>
 							</nav>
 							<div class="tab-content" id="nav-tabContent">
   								<div class="tab-pane fade show active" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">
-  									<ul class="list-group ticket_comments_wrapper" style="height: 280px; overflow-y: auto;">
-  										<li class="list-group-item" >
-  											<div class="row">
-  												<div class="col-sm-1" style="text-align:right;">
-  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-  												</div>
-  												<div class="col-sm-11">
-  													<div class="row">
-  														<div class="col-sm-12">
-  															<span><b>Caleb Spencer</b></span>
-  														</div>
-  														<div class="col-sm-12" style="color: #878383;">
-  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
-  														</div>
-  														<div class="col-sm-12" style="font-size: 12px;">
-  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
-  														</div>
-  													</div>
-  												</div>
-  											</div>
-  										</li>
-  										
+  									<ul class="list-group ticket_comments_wrapper">
+  										{% for comment in private_comment %}
+  											<li class="list-group-item" >
+	  											<div class="row">
+	  												<div class="col-sm-1" style="text-align:right;">
+	  													{% if comment.owner.profile_picture|length > 0 %}
+	  														<img src="{{ comment.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;">
+	  													{% else %}
+	  														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;">
+	  													{% endif %}
+	  												</div>
+	  												<div class="col-sm-11 comment_details">
+	  													<div class="row">
+	  														<div class="col-sm-12">
+	  															<span><b>{{ comment.owner.first_name }} {{ comment.owner.last_name }}</b></span>
+	  														</div>
+	  														<div class="col-sm-12" style="color: #878383;">
+	  															<p>{{ comment.comment }}</p>
+	  														</div>
+	  														<div class="col-sm-12">
+	  															<div class="row">
+		  														{% for attachment in ticket_comment_attachments %}
+		  															{% if attachment.commentId.pk == comment.pk %}
+		  																<div class="col-sm-3">
+		  																	<div class="card" style="width: 90%;">
+																			  	<div class="card-body">
+																				    <p class="card-text" style="text-align: center;margin: auto;font-size: 60px;">
+																				    	<i class="fa-solid fa-file"></i>
+																				    </p>
+																				    <a href="#" class="card-link attachments_name">{{attachment.comment_file_name}}</a>
+																				    <a href="{{attachment.comment_file}}" download="{{attachment.comment_file_name}}" class="card-link" style="float:right; text-decoration: none; color: #585858;"><i class="fa-solid fa-download"></i></a>
+																			  	</div>
+																			</div>
+		  																</div>
+		  															{% endif %}
+		  														{% endfor %}
+	  															</div>
+	  														</div>
+	  														<div class="col-sm-12 comment_footer" >
+	  															<span>{{ comment.create_date|date:"m/d/Y H:i" }}</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
+	  														</div>
+	  													</div>
+	  												</div>
+	  											</div>
+	  										</li>
+  										{% endfor %}
   									</ul>
   									<br/>
-  									<form method="POST" id="ticket_comment_form" action="{% url 'getAdminTicketDetails' detail.pk %}" enctype="multipart/form-data">
+  									<form method="POST" id="private_comment_form" action="{% url 'getAdminTicketDetails' ticket.pk %}" enctype="multipart/form-data">
   										{% csrf_token %}
 	  									<div class="row">
 	  										<div class="col-sm-1" style="text-align: right;">
-	  											<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+	  											{% if profile_details.profile_picture|length > 0 %}
+	  												<img src="{{ profile_details.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;">
+	  											{% else %}
+	  												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;">
+	  											{% endif %}	
 	  										</div>
 	  										<div class="col-sm-10">
 	  											<div class="form-outline w-100">
-	  												<textarea class="form-control" rows="4" id="ticket_comment" name="ticket_comment" placeholder="Comment . . ."></textarea>
+	  												<textarea class="form-control" rows="4" id="private_ticket_comment" name="private_ticket_comment" placeholder="Comment . . ."></textarea>
 	  											</div>
+	  											<input type="hidden" name="is_private" id="is_private" value="1">
 	  											<div class="row form-outline">
 	  												<div class="col-sm-9">
-	  													<label for="ticket_attachments" id="ticket_attachement_label" class="btn"><i class="fa-solid fa-paperclip"></i> Attachements</label>
-	    												<input type="file" id="ticket_attachments" name="ticket_attachments" style="visibility:hidden;"  multiple onchange="checkNumberOfFiles(this);">
+	  													<label for="private_attachments" id="private_attachement_label" class="btn"><i class="fa-solid fa-paperclip"></i> Attachements</label>
+	    												<input type="file" id="private_attachments" name="private_attachments" style="visibility:hidden;"  multiple onchange="checkNumberOfFiles(this);">
 	  												</div>
 	  												<div class="col-sm-3" style="text-align:right;">
 	  													<button type="button" class="btn btn-primary btn-sm post_comment" >Post comment</button>
@@ -218,143 +191,116 @@
   								<div class="tab-pane fade" id="nav-attachment" role="tabpanel" aria-labelledby="nav-attachment-tab">
   									<br/>
   									<div class="row nav-attachment">
-  										<div class="col-sm-3">	
-  											<div class="card" style="width: 90%;">
-  												<div class="card-body">
-  													<p class="card-text" style="text-align: center;margin: auto;font-size: 60px;">
-  														<i class="fa-solid fa-file"></i>
-  													</p>
-  													<a href="#" class="card-link" style="text-align:left; font-size: 10px; text-decoration: none; color: #585858;">Screenshot 2023-07-04 182413.png</a>
-  													<a href="/media/tickets_attachments/id_2_2.png" download="Screenshot 2023-07-04 182413" class="card-link" style="float:right; text-decoration: none; color: #585858;">
-  														<i class="fa-solid fa-download"></i>
-  													</a>
-  												</div>
-  											</div>
-  										</div>
+  										{% for attachment in ticket_comment_attachments %}
+											<div class="col-sm-3">
+												<div class="card" style="width: 90%;">
+												  	<div class="card-body">
+													    <p class="card-text" style="text-align: center;margin: auto;font-size: 60px;">
+													    	<i class="fa-solid fa-file"></i>
+													    </p>
+													    <a href="#" class="card-link attachments_name">{{attachment.comment_file_name}}</a>
+													    <a href="{{attachment.comment_file}}" download="{{attachment.comment_file_name}}" class="card-link" style="float:right; text-decoration: none; color: #585858;"><i class="fa-solid fa-download"></i></a>
+												  	</div>
+												</div>
+											</div>
+										{% endfor %}
+
+										{% for attachment in attachments %}
+											<div class="col-sm-3">
+												<div class="card" style="width: 90%;">
+												  	<div class="card-body">
+													    <p class="card-text" style="text-align: center;margin: auto;font-size: 60px;">
+													    	<i class="fa-solid fa-file"></i>
+													    </p>
+													    <a href="#" class="card-link attachments_name">{{attachment.name}}</a>
+													    <a href="{{attachment.issue_file}}" download="{{attachment.name}}" class="card-link" style="float:right; text-decoration: none; color: #585858;"><i class="fa-solid fa-download"></i></a>
+												  	</div>
+												</div>
+											</div>
+
+										{% endfor %}
   									</div>
   								</div>
   								<div class="tab-pane fade" id="nav-resolution" role="tabpanel" aria-labelledby="nav-resolution-tab">...</div>
   								<div class="tab-pane fade" id="nav-clientcorner" role="tabpanel" aria-labelledby="nav-clientcorner-tab">
-  									<ul class="list-group" style="height: 280px; overflow-y: auto;">
-  										<li class="list-group-item" >
-  											<div class="row">
-  												<div class="col-sm-1" style="text-align:right;">
-  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-  												</div>
-  												<div class="col-sm-11">
-  													<div class="row">
-  														<div class="col-sm-12">
-  															<span><b>Caleb Spencer</b></span>
-  														</div>
-  														<div class="col-sm-12" style="color: #878383;">
-  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
-  														</div>
-  														<div class="col-sm-12" style="font-size: 12px;">
-  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
-  														</div>
-  													</div>
-  												</div>
-  											</div>
-  										</li>
-  										<li class="list-group-item" >
-  											<div class="row">
-  												<div class="col-sm-1" style="text-align:right;">
-  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-  												</div>
-  												<div class="col-sm-11">
-  													<div class="row">
-  														<div class="col-sm-12">
-  															<span><b>Caleb Spencer</b></span>
-  														</div>
-  														<div class="col-sm-12" style="color: #878383;">
-  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
-  														</div>
-  														<div class="col-sm-12" style="font-size: 12px;">
-  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
-  														</div>
-  													</div>
-  												</div>
-  											</div>
-  										</li>
-  										<li class="list-group-item" >
-  											<div class="row">
-  												<div class="col-sm-1" style="text-align:right;">
-  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-  												</div>
-  												<div class="col-sm-11">
-  													<div class="row">
-  														<div class="col-sm-12">
-  															<span><b>Caleb Spencer</b></span>
-  														</div>
-  														<div class="col-sm-12" style="color: #878383;">
-  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
-  														</div>
-  														<div class="col-sm-12" style="font-size: 12px;">
-  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
-  														</div>
-  													</div>
-  												</div>
-  											</div>
-  										</li>
-  										<li class="list-group-item" >
-  											<div class="row">
-  												<div class="col-sm-1" style="text-align:right;">
-  													<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-  												</div>
-  												<div class="col-sm-11">
-  													<div class="row">
-  														<div class="col-sm-12">
-  															<span><b>Caleb Spencer</b></span>
-  														</div>
-  														<div class="col-sm-12" style="color: #878383;">
-  															<p>Hi, Lennox.Thank you for the updates that you’ve given to me. Can you do me a favor? Can ask our client to provide additional screenshots so I can have additional references of their problems.</p>
-  														</div>
-  														<div class="col-sm-12">
-  															<div class="row">
-  																<div class="col-sm-3">
-  																	<div class="card" style="width: 90%;">
-																	  	<div class="card-body">
-																		    <p class="card-text" style="text-align: center;margin: auto;font-size: 60px;">
-																		    	<i class="fa-solid fa-file"></i>
-																		    </p>
-																		    <a href="#" class="card-link" style="text-align:left; font-size: 10px; text-decoration: none; color: #585858;">sample attachement.txt</a>
-																		    <a href="#" class="card-link" style="float:right; text-decoration: none; color: #585858;"><i class="fa-solid fa-download"></i></a>
-																	  	</div>
-																	</div>
-  																</div>
-  															</div>
-  														</div>
-  														<div class="col-sm-12" style="font-size: 12px;">
-  															<span>9/5/2023 10:13 PM</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
-  														</div>
-  													</div>
-  												</div>
-  											</div>
-  										</li>
+  									<ul class="list-group client_comment_wrapper">
+  										{% for comment in client_comment %}
+  											<li class="list-group-item" >
+	  											<div class="row">
+	  												<div class="col-sm-1" style="text-align:right;">
+	  													{% if comment.owner.profile_picture|length > 0 %}
+	  														<img src="{{ comment.owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;">
+	  													{% else %}
+	  														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;">
+	  													{% endif %}
+	  												</div>
+	  												<div class="col-sm-11 comment_details">
+	  													<div class="row">
+	  														<div class="col-sm-12">
+	  															<span><b>{{ comment.owner.first_name }} {{ comment.owner.last_name }}</b></span>
+	  														</div>
+	  														<div class="col-sm-12" style="color: #878383;">
+	  															<p>{{ comment.comment }}</p>
+	  														</div>
+	  														<div class="col-sm-12">
+	  															<div class="row">
+		  														{% for attachment in ticket_comment_attachments %}
+		  															{% if attachment.commentId.pk == comment.pk %}
+		  																<div class="col-sm-3">
+		  																	<div class="card" style="width: 90%;">
+																			  	<div class="card-body">
+																				    <p class="card-text" style="text-align: center;margin: auto;font-size: 60px;">
+																				    	<i class="fa-solid fa-file"></i>
+																				    </p>
+																				    <a href="#" class="card-link attachments_name">{{attachment.comment_file_name}}</a>
+																				    <a href="{{attachment.comment_file}}" download="{{attachment.comment_file_name}}" class="card-link" style="float:right; text-decoration: none; color: #585858;"><i class="fa-solid fa-download"></i></a>
+																			  	</div>
+																			</div>
+		  																</div>
+		  															{% endif %}
+		  														{% endfor %}
+	  															</div>
+	  														</div>
+	  														<div class="col-sm-12 comment_footer">
+	  															<span>{{ comment.create_date|date:"m/d/Y H:i" }}</span> • <a href="#" style="text-decoration: none; color: #05A91F;">Edit</a> • <a href="#" style="text-decoration: none; color: #05A91F;">Delete</a>
+	  														</div>
+	  													</div>
+	  												</div>
+	  											</div>
+	  										</li>
+  										{% endfor %}
   									</ul>
   									<br/>
-  									<div class="row">
-  										<div class="col-sm-1" style="text-align: right;">
-  											<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-  										</div>
-  										<div class="col-sm-10">
-  											<div class="form-outline w-100">
-  												<textarea class="form-control" rows="4" id="ticket_comment" placeholder="Comment . . ."></textarea>
-  											</div>
-  											<div class="row form-outline">
-  												<div class="col-sm-9">
-  													<label for="ticket_private_attachments" id="ticket_attachement_label" class="btn"><i class="fa-solid fa-paperclip"></i> Attachements</label>
-    												<input id="ticket_private_attachments" style="visibility:hidden;" type="file" multiple onchange="checkNumberOfFiles(this);">
-  												</div>
-  												<div class="col-sm-3" style="text-align:right;">
-  													<button type="button" class="btn btn-primary btn-sm">Post comment</button>
-              										<button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
-  												</div>
-												
-  											</div>
-  										</div>
-  										<div class="col-sm-1"></div>
-  									</div>
+  									<form method="POST" id="client_comment_form" action="{% url 'getAdminTicketDetails' ticket.pk %}" enctype="multipart/form-data">
+  										{% csrf_token %}
+	  									<div class="row">
+	  										<div class="col-sm-1" style="text-align: right;">
+	  											{% if profile_details.profile_picture|length > 0 %}
+	  												<img src="{{ profile_details.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;">
+	  											{% else %}
+	  												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;">
+	  											{% endif %}	
+	  										</div>
+	  										<div class="col-sm-10">
+	  											<div class="form-outline w-100">
+	  												<textarea class="form-control" rows="4" id="client_ticket_comment" name="client_ticket_comment" placeholder="Comment . . ."></textarea>
+	  											</div>
+	  											<input type="hidden" name="is_private" id="is_private" value="0">
+	  											<div class="row form-outline">
+	  												<div class="col-sm-9">
+	  													<label for="ticket_client_attachments" id="client_attachement_label" class="btn"><i class="fa-solid fa-paperclip"></i> Attachements</label>
+	    												<input id="ticket_client_attachments" name="ticket_client_attachments" style="visibility:hidden;" type="file" multiple onchange="checkNumberOfFiles(this);">
+	  												</div>
+	  												<div class="col-sm-3" style="text-align:right;">
+	  													<button type="button" class="btn btn-primary btn-sm client_post_comment">Post comment</button>
+	              										<button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+	  												</div>
+													
+	  											</div>
+	  										</div>
+	  										<div class="col-sm-1"></div>
+	  									</div>
+	  								</form>
   								</div>
 							</div>
 	  					</div>
@@ -365,10 +311,10 @@
 	  					<div class="row">
 	  						<div class="col-sm-12">
 	  							<h5 class="ticket_title">Client</h5>
-		  						{% if ticket_owner.profile_picture|length > 0 %}
-	                        		<img src="{{ ticket_owner.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket_owner.first_name }} {{ ticket_owner.last_name }} </span> 	
+		  						{% if ticket.userAccount.profile_picture|length > 0 %}
+	                        		<img src="{{ ticket.userAccount.profile_picture.url |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="comment_details"> {{ ticket.userAccount.first_name }} {{ ticket.userAccount.last_name }} </span> 	
 	                    		{% else %}
-	                        		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket_owner.userId.first_name }} {{ ticket_owner.last_name }} </span> 	
+	                        		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circl comment_prof_pice" style="margin-top: 5px;"> <span class="comment_details"> {{ ticket.userAccount.userId.first_name }} {{ ticket.userAccount.last_name }} </span> 	
 	                    		{% endif %}	
 	  						</div>
 	  					</div>
@@ -377,13 +323,13 @@
 	  							<h5 class="ticket_title">Participants<i class="fa-solid fa-pencil active_edit" style="display:none; cursor: pointer;" id="edit_participants"></i></h5>
 	  							<ul class="list-group" style="border: 0px;">
 								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> Sample name </span>
+								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="comment_details"> Sample name </span>
 								  	</li>
 								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> Sample name </span>
+								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="comment_details"> Sample name </span>
 								  	</li>
 								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> Sample name </span>
+								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="comment_details"> Sample name </span>
 								  	</li>
 								  	
 								</ul>
@@ -396,7 +342,7 @@
 	</div>
 	
 	<input type="hidden" name="edit_status" id="edit_status" value=0>
-	<input type="hidden" name="ticket_id" id="ticket_id" value="{{ detail.pk }}">
+	<input type="hidden" name="ticket_id" id="ticket_id" value="{{ ticket.pk }}">
 {% endblock %}
 
 {% block script %}
@@ -405,35 +351,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var ticket_id = $("#ticket_id").val();
-			$("#edit_ticket_title").on("click", function(){
-				$(".ticket_title").hide();
-				$(".ticket_title_edit_input").show();
-			})
 
-			$(".update_ticket_title").on("click", function(){
-				updateTicketTitle();
-			})
-
-			$("#edit_ticket_description").on("click", function(){
-				$("#ticket_description_textarea").show();
-				$(".ticket_description_action").show();
-				$(".ticket_description_paragraph").hide();
-			})
-
-			$(".submit_description_update").on("click", function(){
-				updateTicketDescription();
-			})
-
-			$(".cancel_descipription_update").on("click", function(){
-				$("#ticket_description_textarea").hide();
-				$(".ticket_description_action").hide();
-				$(".ticket_description_paragraph").show();
-			})
-
-			$(".cancel_ticket_title").on('click', function(){
-				$(".ticket_title").show();
-				$(".ticket_title_edit_input").hide();
-			})
 
 			$(".clear_comment").on("click", function(){
 				document.getElementById("ticket_comment_form").reset();
@@ -445,123 +363,28 @@
 				upload_comment();
 			})
 
-			get_comments();
+			$(".client_post_comment").on("click", function(){
+				update_client_comment();
+				console.log("here!");
+			})
 
 		})
 
-		function get_comments(){
-			var ticket_id = $("#ticket_id").val();
-			$.ajax({
-	            type: "POST",
-	            url: "{% url 'getTicketComments' %}",
-	            data: {
-	                "csrfmiddlewaretoken": '{{ csrf_token }}',
-	                "ticket_id":ticket_id,
-	            },
-	            async:true,
-	            success: function (data) {
-	                if(data.status_code == 1){
-	                	$(".ticket_comments_wrapper").empty();
-	                	$(".nav-attachment").empty();
-	                	$("#nav-comment-tab").empty();
-	                	$("#nav-comment-tab").append("COMMENTS ("+data.comment_count+")");
-	                	var comments = data.comments;
-	                	var attachements = data.issue_attachments;
-	                	var attachement_output = "";
-	                	var attachement_count = 0;
-	                	$.each(attachements, function(index, value){
-	                		attachement_output += "<div class='col-sm-3'>"; 
-							attachement_output += "	<div class='card' style='width: 90%;'>";
-							attachement_output += "		<div class='card-body'>";
-							attachement_output += "			<p class='card-text' style='text-align: center;margin: auto;font-size: 60px;'>";
-							attachement_output += "				<i class='fa-solid fa-file'></i>";
-							attachement_output += "			</p>";
-							attachement_output += "			<a href='#' class='card-link' style='text-align:left; font-size: 10px; text-decoration: none; color: #585858;'>"+value.name+"</a>";
-							var split_value_name = value.name.split(".");
-							attachement_output += "			<a href='"+value.file+"' download='"+split_value_name[0]+"' class='card-link' style='float:right; text-decoration: none; color: #585858;' ><i class='fa-solid fa-download'></i></a>";
-							attachement_output += "		</div>";
-							attachement_output += "	</div>";
-							attachement_output += "</div>";
-							attachement_count++;
-	                	})
-	                	$(".nav-attachment").append(attachement_output);
-	                	attachement_output = ""
-	                	$.each(comments, function(index, value){
-	                		var output = "";
-	                		output += "<li class='list-group-item'>";
-	                		output += "	<div class='row'>";
-	                		output += "		<div class='col-sm-1' style='text-align:right;'>";
-	                		output += "			<img src='"+value.owner_name_pic+"' alt='mdo' width='35' height='35' class='rounded-circle' style='margin-top: 5px;'>";
-  							output += "		</div>";		
-  							output += "		<div class='col-sm-11'>";
-  							output += "			<div class='row'>";		
-  							output += "				<div class='col-sm-12'>";				
-  							output += "					<span><b>"+value.owner_name+"</b></span>";		
-  							output += "				</div>";				
-  							output += "				<div class='col-sm-12' style='color: #878383;'>";
-  							output += "					<p>"+value.comment+"</p>";
-  							output += "				</div>";
-  							output += "				<div class='col-sm-12' style='color: #878383;'>";
-  							output += "					<div class='row'>";
-  							$.each(value.attachments, function(index2, value2){
-  								output += "<div class='col-sm-3'>"; 
-								output += "	<div class='card' style='width: 90%;'>";
-								output += "		<div class='card-body'>";
-								output += "			<p class='card-text' style='text-align: center;margin: auto;font-size: 60px;'>";
-								output += "				<i class='fa-solid fa-file'></i>";
-								output += "			</p>";
-								output += "			<a href='#' class='card-link' style='text-align:left; font-size: 10px; text-decoration: none; color: #585858;'>"+value2.name+"</a>";
-								var split_value2_name = value2.name.split(".");
-								output += "			<a href='"+value2.file+"' download='"+split_value2_name[0]+"' class='card-link' style='float:right; text-decoration: none; color: #585858;' ><i class='fa-solid fa-download'></i></a>";
-								output += "		</div>";
-								output += "	</div>";
-								output += "</div>";
-
-								attachement_output += "<div class='col-sm-3'>"; 
-								attachement_output += "	<div class='card' style='width: 90%;'>";
-								attachement_output += "		<div class='card-body'>";
-								attachement_output += "			<p class='card-text' style='text-align: center;margin: auto;font-size: 60px;'>";
-								attachement_output += "				<i class='fa-solid fa-file'></i>";
-								attachement_output += "			</p>";
-								attachement_output += "			<a href='#' class='card-link' style='text-align:left; font-size: 10px; text-decoration: none; color: #585858;'>"+value2.name+"</a>";
-								var split_value2_name = value2.name.split(".");
-								attachement_output += "			<a href='"+value2.file+"' download='"+split_value2_name[0]+"' class='card-link' style='float:right; text-decoration: none; color: #585858;' ><i class='fa-solid fa-download'></i></a>";
-								attachement_output += "		</div>";
-								attachement_output += "	</div>";
-								attachement_output += "</div>";
-								attachement_count++;
-  							})
-  							output += "					</div>";
-  							output += "				</div>";
-  							output += "				<div class='col-sm-12' style='font-size: 12px;'>";
-  							output += "					<span>"+value.create_date+"</span> • <a href='#' style='text-decoration: none; color: #05A91F;'>Edit</a> • <a href='#' style='text-decoration: none; color: #05A91F;'>Delete</a>";						
-  							output += "				</div>";
-  							output += "			</div>";
-  							output += "		</div>";
-  							output += "	</div>";
-  							output += "</li>";
-  							$(".ticket_comments_wrapper").append(output);
-  							console.log(value);
-	                	});
-	                	$(".nav-attachment").append(attachement_output);
-
-	                	$("#nav-attachment-tab").empty();
-	                	$("#nav-attachment-tab").append(" ATTACHMENTS ("+attachement_count+") ");
-	                }else{
-	                	alert(data.status_msg);
-	                }
-	            },
-	            error: function (e) {
-	                
-	            }
-	        })
+		function update_client_comment(){
+			var comment = $("#client_ticket_comment").val();
+			var number_of_file = $("#ticket_client_attachments")[0].files.length;
+			if(number_of_file > 0 || comment.length > 0){
+				$("#client_comment_form").submit();
+			}else{
+				alert("comment should not be empty!");
+			}
 		}
 
 		function upload_comment(){
-			var comment = $("#ticket_comment").val();
-			var number_of_file = $("#ticket_attachments")[0].files.length;
+			var comment = $("#private_ticket_comment").val();
+			var number_of_file = $("#private_attachments")[0].files.length;
 			if(number_of_file > 0 || comment.length > 0){
-				$("#ticket_comment_form").submit();
+				$("#private_comment_form").submit();
 			}else{
 				alert("comment should not be empty!");
 			}
@@ -709,15 +532,28 @@
 
 
 		function checkNumberOfFiles(that){
-			var number_of_file = $(that)[0].files.length;
-			$("#ticket_attachement_label").empty();
-			if(number_of_file > 1){
-				$("#ticket_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" files");
-			}else if(number_of_file == 1){
-				$("#ticket_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" file");
+			if( $(that).attr("id") == "ticket_client_attachments"){
+				var number_of_file = $(that)[0].files.length;
+				$("#client_attachement_label").empty();
+				if(number_of_file > 1){
+					$("#client_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" files");
+				}else if(number_of_file == 1){
+					$("#client_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" file");
+				}else{
+					$("#client_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements");
+				}
 			}else{
-				$("#ticket_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements");
+				var number_of_file = $(that)[0].files.length;
+				$("#private_attachement_label").empty();
+				if(number_of_file > 1){
+					$("#private_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" files");
+				}else if(number_of_file == 1){
+					$("#private_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements "+number_of_file+" file");
+				}else{
+					$("#private_attachement_label").append("<i class='fa-solid fa-paperclip'></i> Attachements");
+				}
 			}
+			
 		}
 	</script>
 {% endblock %}

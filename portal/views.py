@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
-from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file
+from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file
 import random, os
 
 
@@ -123,9 +123,7 @@ def portalAdminTicketDashboard(request):
 @login_required(login_url='/accounts/login')
 def portalAdminTicketList(request):
 	returnVal = {}
-
 	profile_details = details.objects.get(userId=request.user.id)
-	
 	# list_of_tickets = issue.objects.raw("SELECT * FROM tickets_issue a INNER JOIN accounts_details b ON a.`userId_id` = b.`userId_id` WHERE STATUS = 0")
 	all_tickets = issue.objects.filter(is_delete=0).exclude(ticket_status="CLOSED")
 	returnVal['sidebar'] = "ticket"
@@ -135,24 +133,48 @@ def portalAdminTicketList(request):
 
 @login_required(login_url='/accounts/login')
 def getAdminTicketDetails(request, ticket_id):
+	returnVal = {}
 	ticket = issue.objects.get(pk=ticket_id)
-	ticket_owner = details.objects.get(userId=ticket.userAccount)
 	profile_details = details.objects.get(userId=request.user.id)
-	
+	private_comment = issue_comment.objects.filter(issue=ticket_id, is_delete=0, is_private=1)
+	ticket_comment_attachments = issue_comment_file.objects.filter(issue=ticket_id, is_delete=0)
+	attachments = issue_file.objects.filter(issue=ticket_id, is_delete=0)
+	client_comment = issue_comment.objects.filter(issue=ticket_id, is_delete=0, is_private=0)
+
 	if request.method == 'POST':
-		userInstance = User.objects.get(pk=request.user.id)
+		userInstance = details.objects.get(userId=request.user.id)
 		ticket_comment = issue_comment()
-		ticket_comment.comment = request.POST.get('ticket_comment', False);
+		private_comment = request.POST.get('private_ticket_comment', False)
+		if private_comment:
+			ticket_comment.comment = request.POST.get('private_ticket_comment', False)
+		else:
+			ticket_comment.comment = request.POST.get('client_ticket_comment', False)
 		ticket_comment.owner = userInstance
 		ticket_comment.issue = ticket
+		ticket_comment.is_private = request.POST['is_private']
 		ticket_comment.save()
-		request_file = request.FILES['ticket_attachments'] if 'ticket_attachments' in request.FILES else None
+		request_file = request.FILES['private_attachments'] if 'private_attachments' in request.FILES else None
+		client_request_file = request.FILES['ticket_client_attachments'] if 'ticket_client_attachments' in request.FILES else None
 		if request_file:
-			for f in request.FILES.getlist('ticket_attachments'):
+			for f in request.FILES.getlist('private_attachments'):
 				ticket_comment_file = issue_comment_file()
 				ticket_comment_file.commentId = ticket_comment
 				ticket_comment_file.comment_file_name = f.name
-
+				ticket_comment_file.issue = ticket
+				split_tup = os.path.splitext(f.name)
+				file_extension = split_tup[1]
+				random_number = random.randint(0,1000)
+				fs = FileSystemStorage()
+				file_name = "tickets_attachments/id_"+str(ticket_id)+"_"+str(random_number)+""+str(file_extension)
+				comment_file = fs.save(file_name, f)
+				ticket_comment_file.comment_file = comment_file
+				ticket_comment_file.save()
+		elif client_request_file:
+			for f in request.FILES.getlist('ticket_client_attachments'):
+				ticket_comment_file = issue_comment_file()
+				ticket_comment_file.commentId = ticket_comment
+				ticket_comment_file.comment_file_name = f.name
+				ticket_comment_file.issue = ticket
 				split_tup = os.path.splitext(f.name)
 				file_extension = split_tup[1]
 				random_number = random.randint(0,1000)
@@ -162,7 +184,15 @@ def getAdminTicketDetails(request, ticket_id):
 				ticket_comment_file.comment_file = comment_file
 				ticket_comment_file.save()
 		return redirect ('getAdminTicketDetails', ticket_id)
-	return render(request, 'admin_templates/tickets/ticket_detailed.html', {"profile_details": profile_details, "detail":ticket, "ticket_owner":ticket_owner})
+
+	returnVal['sidebar'] = "ticket"
+	returnVal['profile_details'] = profile_details
+	returnVal['ticket'] = ticket
+	returnVal['private_comment'] = private_comment
+	returnVal['ticket_comment_attachments'] = ticket_comment_attachments
+	returnVal['attachments'] = attachments
+	returnVal['client_comment'] = client_comment
+	return render(request, 'admin_templates/tickets/ticket_detailed.html', returnVal)
 
 
 @login_required(login_url='/accounts/login')

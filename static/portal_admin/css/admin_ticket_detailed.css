@@ -1,0 +1,122 @@
+.dot {
+	width: 70%;
+  	background-color: #6417A180;
+  	border-radius: 50%;
+  	display: inline-block;
+}
+.dashboard_cards{
+	font-weight: 800;
+	font-size: 15px;
+}
+.ticket_title{
+	color: #6417A1;
+}
+.ticket_description{
+	color: #6417A1;
+}
+.ticket_detail_id{
+	color: #6417A1;
+	font-size: 22px;
+}
+.ticket_progress_bar{
+	background-color: #6417A1;
+}
+
+.ticket_title_edit_action{
+	font-size: 20px;
+	cursor: pointer;
+	display: none;
+}
+
+.nav-title{
+	color: #6417A1;
+	font-weight: 600;
+}
+
+.progress{
+	height: 1.75rem; 
+	border-radius: 2rem
+}
+
+.ticket_comments_wrapper{
+	height: 280px; 
+	overflow-y: auto;
+}
+.client_comment_wrapper{
+	height: 280px; 
+	overflow-y: auto;
+}
+.comment_footer{
+	font-size: 12px;
+}
+
+.attachments_name{
+	text-align:left; 
+	font-size: 10px; 
+	text-decoration: none; 
+	color: #585858;
+}
+
+@media (min-width: 1930px) and (max-width:2560px){
+	.dashboard_welcome_greeting{
+		font-size: 3.5rem;
+	}
+	.ticket_title{
+		font-size: 2.5rem;
+	}
+	#TicketActionDropDown{
+		font-size: 1.6rem;
+	}
+	.ticket_detail_id{
+		font-size: 1.5rem;
+	}
+	.progress{
+		height: 2.5rem; 
+	}
+	.ticket_progress_bar{
+		font-size: 1.5rem;
+	}
+	.dropdown-item{
+		font-size: 1.4rem;
+	}
+	#TicketStatusDropDown{
+		font-size: 1.7rem;
+	}
+	.ticket_description_paragraph{
+		font-size: 1.5rem;
+	}
+	.nav-link{
+		font-size: 1.5rem;
+	}
+
+	.comment_prof_pic{
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+
+	.comment_details{
+		font-size: 1.5rem;
+	}
+	.ticket_comments_wrapper{
+		height: 37rem;
+	}
+	.client_comment_wrapper{
+		height: 37rem;
+	}
+
+	#private_ticket_comment{
+		font-size: 1.5rem;
+	}
+	#private_attachement_label{
+		font-size: 1.3rem;
+	}
+
+	.comment_footer{
+		font-size: 1.2rem;
+	}
+
+	.attachments_name{
+		font-size: 1.2rem;
+	}
+
+}

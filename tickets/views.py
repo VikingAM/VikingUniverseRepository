@@ -363,16 +363,18 @@ def updateTicketStatus(request):
 	data["status_msg"] = ""
 	user_details = details.objects.get(userId=request.user.id)
 	try:
-		tikcet_details = issue.objects.get(pk=request.POST['ticket_id'])
+		ticket_details = issue.objects.get(pk=request.POST['ticket_id'])
 	except:
 		data['status_msg'] = "Ticket Does not exists!"
 		return JsonResponse(data, safe=False)
 	current_date = datetime.now()
-	update_history = str(tikcet_details.history)+"\r\n user="+ str(request.user.id) +" updated status from "+str(tikcet_details.ticket_status)+" to "+str(request.POST['ticket_status'])+" "+str(current_date)
-	tikcet_details.history = update_history
-	tikcet_details.ticket_status = request.POST['ticket_status']
+	update_history = str(ticket_details.history)+"\r\n user="+ str(request.user.id) +" updated status from "+str(ticket_details.ticket_status)+" to "+str(request.POST['ticket_status'])+" "+str(current_date)
+	ticket_details.history = update_history
+	ticket_details.update_date = current_date
+	ticket_details.user_last_updated = user_details
+	ticket_details.ticket_status = request.POST['ticket_status']
 	try:
-		tikcet_details.save()
+		ticket_details.save()
 		data['status_code'] = 1
 	except:
 		data['status_msg'] = "Error on saving Ticket!"
@@ -387,16 +389,17 @@ def UpdateTicketPercentage(request):
 	data["status_msg"] = ""
 	user_details = details.objects.get(userId=request.user.id)
 	try:
-		tikcet_details = issue.objects.get(pk=request.POST['ticket_id'])
+		ticket_details = issue.objects.get(pk=request.POST['ticket_id'])
 	except:
 		data['status_msg'] = "Ticket Does not exists!"
 		return JsonResponse(data, safe=False)
 	current_date = datetime.now()
-	update_history = str(tikcet_details.history)+"\r\n user="+ str(request.user.id) +" updated percentage of task from "+str(tikcet_details.percentage)+" to "+str(request.POST['ticket_percentage'])+" "+str(current_date)
-	tikcet_details.history = update_history
-	tikcet_details.percentage = request.POST['ticket_percentage']
+	update_history = str(ticket_details.history)+"\r\n user="+ str(request.user.id) +" updated percentage of task from "+str(ticket_details.percentage)+" to "+str(request.POST['ticket_percentage'])+" "+str(current_date)
+	ticket_details.history = update_history
+	ticket_details.update_date = current_date
+	ticket_details.percentage = request.POST['ticket_percentage']
 	try:
-		tikcet_details.save()
+		ticket_details.save()
 		data['status_code'] = 1
 	except:
 		data['status_msg'] = "Error on saving Ticket!"
