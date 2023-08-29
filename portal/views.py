@@ -122,10 +122,16 @@ def portalAdminTicketDashboard(request):
 
 @login_required(login_url='/accounts/login')
 def portalAdminTicketList(request):
+	returnVal = {}
+
 	profile_details = details.objects.get(userId=request.user.id)
-	# list_of_tickets = issue.objects.filter(is_delete=0).order_by("-id") I comment this out and create a raw sql cause the user other details
-	list_of_tickets = issue.objects.raw("SELECT * FROM tickets_issue a INNER JOIN accounts_details b ON a.`userId_id` = b.`userId_id` WHERE STATUS = 0")
-	return render(request, 'admin_templates/tickets/ticket_list.html', {"profile_details": profile_details, "tickets":list_of_tickets})
+	
+	# list_of_tickets = issue.objects.raw("SELECT * FROM tickets_issue a INNER JOIN accounts_details b ON a.`userId_id` = b.`userId_id` WHERE STATUS = 0")
+	all_tickets = issue.objects.filter(is_delete=0).exclude(ticket_status="CLOSED")
+	returnVal['sidebar'] = "ticket"
+	returnVal['profile_details'] = profile_details
+	returnVal['all_tickets'] = all_tickets
+	return render(request, 'admin_templates/tickets/ticket_list.html', returnVal)
 
 @login_required(login_url='/accounts/login')
 def getAdminTicketDetails(request, ticket_id):

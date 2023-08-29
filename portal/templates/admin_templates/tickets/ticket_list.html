@@ -7,18 +7,7 @@
 {% block style %}
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-<style type="text/css">
-	.dot {
-		width: 70%;
-	  	background-color: #6417A180;
-	  	border-radius: 50%;
-	  	display: inline-block;
-	}
-	.dashboard_cards{
-		font-weight: 800;
-		font-size: 15px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'portal_admin/css/admin_ticket_list.css' %}">
 
 {% endblock style %}
 
@@ -29,8 +18,26 @@
 		</div>
 	</div>
 	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-7">
+			<input type="text" class="form-control" id="search_table_input" placeholder='Search. . . ' name="">
+		</div>
+		<div class="col-sm-1 filter_status">
+			Status:
+		</div>
+		<div class="col-sm-2">
+			<select id="filter_status" class="form-select" aria-label="Status filter">
+				<option selected>All</option>
+				<option value="1">Open</option>
+				<option value="2">In Progress</option>
+				<option value="3">To Be Tested</option>
+				<option value="3">Closed</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-sm-12">
-			<table class="table" id="ticket_list">
+			<table class="table" id="ticket_list" data-page-length='25'>
 				<thead>
 					<tr>
 	      				<th scope="col">TITLE</th>
@@ -41,17 +48,18 @@
 	    			</tr>
 				</thead>
 				<tbody class="ticket_table_list">
-					{% for ticket in tickets %}
+					{% for ticket in all_tickets %}
 						<tr>
 							<td><b><a style='text-decoration: none;' href="{% url 'getAdminTicketDetails' ticket.pk %}">{{ ticket.title }}</a></b></td>
 							<td>#{{ ticket.id }} </td>
 							<td>Task</td>
 							<td>
-								{% if ticket.profile_picture|length > 0 %}
-                            		<img src="/media/{{ ticket.profile_picture |default_if_none:'#' }}" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span> 	
-                        		{% else %}
-                            		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;"> <span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span> 	
-                        		{% endif %}	
+								{% if ticket.userAccount.profile_picture|length > 0%}
+					 				<img src="{{ ticket.userAccount.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;"><span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span>
+					 			{% else %}
+					 				<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+					 				<span> {{ ticket.userId.first_name }} {{ ticket.userId.last_name }} </span>
+					 			{% endif %}
 							</td>
 							<td>
 								{% if ticket.ticket_status == "OPEN" %}
@@ -88,7 +96,14 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
-		
+		$(document).ready(function(){
+			var table = $('#ticket_list').DataTable();
+			$("#ticket_list_length").hide();
+			$("#ticket_list_filter").hide();
+			$("#search_table_input").keyup(function(){
+				table.search( this.value).draw();
+			});
+		})
 		
 	</script>
 {% endblock %}
