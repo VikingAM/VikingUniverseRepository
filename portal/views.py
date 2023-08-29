@@ -97,10 +97,14 @@ def portalAdminDashboard(request):
 	open_tasks = task.objects.filter(is_delete=0, status="OPEN")
 	in_progress_tasks = task.objects.filter(is_delete=0, status="IN PROGRESS")
 	approval_tasks = task.objects.filter(is_delete=0, status="FOR APPROVAL")
+	all_tickets = issue.objects.filter(is_delete=0).exclude(ticket_status="CLOSED")
+	all_task = task.objects.filter(is_delete=0).exclude(status="CLOSED")
 	returnVal['profile_details'] = profile_details
 	returnVal['open_task'] = open_tasks
 	returnVal['in_progress_tasks'] = in_progress_tasks
 	returnVal['approval_tasks'] = approval_tasks
+	returnVal['all_tickets'] = all_tickets
+	returnVal['all_task'] = all_task
 	return render(request, 'admin_templates/admin_dashboard.html', returnVal)
 
 @login_required(login_url='/accounts/login')
@@ -202,10 +206,12 @@ def portalAdminTaskDashboard(request):
 	open_tasks = task.objects.filter(is_delete=0, status="OPEN")
 	in_progress_tasks = task.objects.filter(is_delete=0, status="IN PROGRESS")
 	approval_tasks = task.objects.filter(is_delete=0, status="FOR APPROVAL")
+	all_task = task.objects.filter(is_delete=0).exclude(status="CLOSED")
 	returnVal['profile_details'] = profile_details
 	returnVal['open_task'] = open_tasks
 	returnVal['in_progress_tasks'] = in_progress_tasks
 	returnVal['approval_tasks'] = approval_tasks
+	returnVal['all_task'] = all_task
 	return render(request, 'admin_templates/task/task_dashboard.html', returnVal)
 
 @login_required(login_url='/accounts/login')

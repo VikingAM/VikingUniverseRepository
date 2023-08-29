@@ -600,6 +600,7 @@ def removeTaskAttachment(request):
 @login_required(login_url='accounts/login')
 def UpdateTaskStatus(request):
 	data = {}
+	user_details = details.objects.get(userId=request.user.id)
 	data['status_code'] = 0
 	data["status_msg"] = ""
 	try:
@@ -609,6 +610,7 @@ def UpdateTaskStatus(request):
 		return JsonResponse(data, safe=False)
 
 	task_detail.status = request.POST['task_status']
+	task_details.user_last_updated = user_details
 	task_detail.save()
 	data['status_code'] = 1
 	return JsonResponse(data, safe=False)

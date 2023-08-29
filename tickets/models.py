@@ -85,7 +85,7 @@ class task(models.Model):
 	title = models.CharField(max_length=250, null=True, blank=True)
 	description = models.TextField(null=True, blank=True)
 	due_date = models.DateTimeField(null=True, blank=True)
-	urgency = models.CharField(max_length=250, null=True, blank=True, default="Low")
+	urgency = models.CharField(max_length=250, null=True, blank=True, default="LOW")
 	task_percentage = models.IntegerField(default=0)
 	create_date = models.DateTimeField(auto_now_add=True)
 	end_date = models.DateTimeField(null=True, blank=True)
@@ -94,6 +94,7 @@ class task(models.Model):
 	owner = models.ForeignKey(details, on_delete=models.SET_NULL, null=True, blank=True)
 	history = models.TextField(null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
+	user_last_updated = models.ForeignKey(details, on_delete=models.SET_NULL, null=True, blank=True, related_name='last_person_to_update_the_task')
 
 class task_file(models.Model):
 	task = models.ForeignKey(task, on_delete=models.SET_NULL, null=True, blank=True)
