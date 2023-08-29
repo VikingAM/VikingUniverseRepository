@@ -1,0 +1,96 @@
+.dot {
+	width: 70%;
+  	background-color: #6417A180;
+  	border-radius: 50%;
+  	display: inline-block;
+  	font-size: 45px;
+}
+.dashboard_cards{
+	font-weight: 800;
+	font-size: 1rem
+}
+
+
+
+.feed_list{
+	height: 19rem;
+}
+
+.feed_card_list{
+	height: 24rem;
+}
+
+.priority_List{
+	height: 19rem;
+}
+
+.priority_card_body{
+	height: 24rem;
+}
+
+.remove-border-list{
+	font-size: 0.8rem;
+}
+
+.client_round_images{
+	width: 2rem;
+	height: 2rem;
+}
+
+.view_all_ticket{
+	font-size: 1.25rem;
+}
+
+
+@media (min-width: 1930px) and (max-width:2560px){
+	.dashboard_welcome_greeting{
+		font-size: 4rem;
+	}
+
+	.feeds_title h4{
+		font-size: 2rem;
+	}
+
+	.feeds_title h3{
+		font-size: 2rem;
+	}
+
+	.client_round_images{
+		width: 3.2rem;
+		height: 3.2rem;
+	}
+
+	.remove-border-list{
+		font-size: 1.1rem;
+	}
+	.feed_list{
+		height: 33rem;
+	}
+
+	.feed_card_list{
+		height: 37rem;
+	}
+
+	.priority_List{
+		height: 33rem;
+	}
+
+	.priority_card_body{
+		height: 37rem;
+	}
+
+	.dot{
+		width: 6rem;
+		height: 5rem;
+		font-size: 3.2rem;
+	}
+
+	.view_all_ticket{
+		font-size: 1.7rem;
+	}
+
+	.dashboard_cards{
+		font-size: 1.5rem;
+	}
+
+}

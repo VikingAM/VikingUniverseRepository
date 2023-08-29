@@ -92,13 +92,33 @@ def SettingFaqsPage(request):
 
 @login_required(login_url='/accounts/login')
 def portalAdminDashboard(request):
+	returnVal = {}
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'admin_templates/admin_dashboard.html', {"profile_details": profile_details})
+	open_tasks = task.objects.filter(is_delete=0, status="OPEN")
+	in_progress_tasks = task.objects.filter(is_delete=0, status="IN PROGRESS")
+	approval_tasks = task.objects.filter(is_delete=0, status="FOR APPROVAL")
+	returnVal['profile_details'] = profile_details
+	returnVal['open_task'] = open_tasks
+	returnVal['in_progress_tasks'] = in_progress_tasks
+	returnVal['approval_tasks'] = approval_tasks
+	return render(request, 'admin_templates/admin_dashboard.html', returnVal)
 
 @login_required(login_url='/accounts/login')
 def portalAdminTicketDashboard(request):
+	returnVal = {}
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'admin_templates/tickets/ticket_dashboard.html', {"profile_details": profile_details})
+	open_ticket = issue.objects.filter(is_delete=0, ticket_status="OPEN")
+	in_progress_ticket = issue.objects.filter(is_delete=0, ticket_status="IN PROGRESS")
+	to_be_tested_ticket = issue.objects.filter(is_delete=0, ticket_status="TO BE TESTED")
+	all_tickets = issue.objects.filter(is_delete=0).exclude(ticket_status="CLOSED")
+	high_tickets = issue.objects.filter(is_delete=0, severity="HIGH").exclude(ticket_status="CLOSED")
+	returnVal['sidebar'] = "ticket"
+	returnVal['profile_details'] = profile_details
+	returnVal['open_ticket'] = open_ticket
+	returnVal['in_progress_ticket'] = in_progress_ticket
+	returnVal['to_be_tested_ticket'] = to_be_tested_ticket
+	returnVal['all_tickets'] = all_tickets
+	return render(request, 'admin_templates/tickets/ticket_dashboard.html', returnVal)
 
 @login_required(login_url='/accounts/login')
 def portalAdminTicketList(request):
@@ -141,8 +161,16 @@ def getAdminTicketDetails(request, ticket_id):
 
 @login_required(login_url='/accounts/login')
 def portalAdminTaskDashboard(request):
+	returnVal = {}
 	profile_details = details.objects.get(userId=request.user.id)
-	return render(request, 'admin_templates/task/task_dashboard.html', {"profile_details": profile_details})
+	open_tasks = task.objects.filter(is_delete=0, status="OPEN")
+	in_progress_tasks = task.objects.filter(is_delete=0, status="IN PROGRESS")
+	approval_tasks = task.objects.filter(is_delete=0, status="FOR APPROVAL")
+	returnVal['profile_details'] = profile_details
+	returnVal['open_task'] = open_tasks
+	returnVal['in_progress_tasks'] = in_progress_tasks
+	returnVal['approval_tasks'] = approval_tasks
+	return render(request, 'admin_templates/task/task_dashboard.html', returnVal)
 
 @login_required(login_url='/accounts/login')
 def portalAdminTaskList(request):
@@ -212,4 +240,4 @@ def portalAdmintaskDetails(request, task_id):
 				task_new_comment_file.save()
 
 		return redirect ('portalAdmintaskDetails', task_id)
-	return render(request, 'admin_templates/task/task_detailed.html', {"profile_details": profile_details, "detail":task_details, "task_attachments":task_attachment, "task_owner":task_owner, "sidebar":"ticket", "comment_attachments":comment_attachments, "client_comments":comment_list, "comment_is_private":comment_is_private})
+	return render(request, 'admin_templates/task/task_detailed.html', {"profile_details": profile_details, "detail":task_details, "task_attachments":task_attachment, "task_owner":task_owner, "sidebar":"task", "comment_attachments":comment_attachments, "client_comments":comment_list, "comment_is_private":comment_is_private})

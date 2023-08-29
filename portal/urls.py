@@ -12,6 +12,7 @@ urlpatterns = [
     path('settings_faqs', views.SettingFaqsPage, name="SettingFaqsPage"),
 
     path('admin', views.portalAdminDashboard, name="portalAdminDashboard"),
+    
     path('admin/tickets', views.portalAdminTicketDashboard, name="portalAdminTicketDashboard"),
     path('admin/tickets_list', views.portalAdminTicketList, name="portalAdminTicketList"),
     path('admin/tickets_detailed/<ticket_id>', views.getAdminTicketDetails, name="getAdminTicketDetails"),

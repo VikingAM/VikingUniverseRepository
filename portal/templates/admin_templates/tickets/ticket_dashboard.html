@@ -6,18 +6,7 @@
 
 {% block style %}
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
-<style type="text/css">
-	.dot {
-		width: 70%;
-	  	background-color: #6417A180;
-	  	border-radius: 50%;
-	  	display: inline-block;
-	}
-	.dashboard_cards{
-		font-weight: 800;
-		font-size: 15px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'portal_admin/css/admin_ticket_dashboard.css' %}">
 
 {% endblock style %}
 
@@ -32,7 +21,7 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="card ">
-						<div class="card-body" style="height: 420px;">
+						<div class="card-body feed_card_list">
 							<div class="row">
 								<div class="col-sm-9 feeds_title">
 									<h4>Ticket Feeds</h4>
@@ -51,132 +40,80 @@
 								</div>
 								</div>
 							</div>
-							<div class="row scroll" style="height: 350px;">
+							<div class="row scroll feed_list">
 								<ul class="list-group">
-							  		<li class="list-group-item remove-border-list">
-										<div class="row">
-								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-									 		</div>
-									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
-									 			<div class="row task_feed">
-									 				<div class="col-sm-12">
-										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_progress_color">For Approval</span>.
-										 			</div>
-										 			<div class="col-sm-12">
-										 				<span class="badge bg-warning text-dark">Comment ID </span> last comment.
-										 			</div>
-										 			
-										 				<div class="col-sm-6" style="color:#878383;">
-											 				Type: <b>Credit</b>
+									{% for ticket in all_tickets %}
+										<li class="list-group-item remove-border-list">
+											<div class="row">
+									  			<div class="col-sm-1" style="text-align: right;">
+									  				{% if ticket.userAccount.profile_picture|length > 0%}
+										 				<img src="{{ ticket.userAccount.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+										 			{% else %}
+										 				<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+										 			{% endif %}
+										 		</div>
+										 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+										 			<div class="row task_feed">
+										 				<div class="col-sm-12">
+										 					{% if ticket.ticket_status == "OPEN" %}
+											 					{{ ticket.userAccount.first_name }} {{ ticket.userAccount.last_name }} has created a <span class="ticket_color">Ticket</span>
+											 					
+										 					{% else %}
+										 						{{ ticket.user_last_updated.first_name }} {{ ticket.user_last_updated.last_name }} has update a <span class="ticket_color">Ticket</span> and change status to 
+										 						{% if ticket.ticket_status == "IN PROGRESS" %}
+										 							<span style="color:#EDAC06;">{{ ticket.ticket_status }}</span>
+										 						{% elif ticket.ticket_status == "TO BE TESTED" %}
+										 							<span style="color:#43C05F;">{{ ticket.ticket_status }}</span>
+										 						{% else %}
+										 							<span style="color:#2AD6EE;">{{ ticket.ticket_status }}</span>
+										 						{% endif %}
+										 					{% endif %}
 											 			</div>
-											 			<div class="col-sm-6" style="text-align:right;">
-											 				Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+											 			<div class="col-sm-12">
+											 				{% if ticket.ticket_status == "IN PROGRESS" %}
+											 					<span class="badge bg-warning">#{{ ticket.pk }}</span> 
+											 				{% elif ticket.ticket_status == "TO BE TESTED" %}
+											 					<span class="badge bg-success">#{{ ticket.pk }}</span>
+											 				{% elif ticket.ticket_status == "OPEN" %}
+											 					<span class="badge bg-primary">#{{ ticket.pk }}</span>
+											 				{% else %}
+											 					<span class="badge bg-info">#{{ ticket.pk }}</span>
+											 				{% endif %}
+											 				{{ ticket.title }}
 											 			</div>
-										 			
-										 			<div class="col-sm-6" style="text-align: left;">
-										 				Today at 4:20 PM
-										 			</div>
-										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
-										 				View ticket
-										 			</div>
-									 			</div>
-									 		</div>
-								  		</div>
-							  		</li>
-							  		<li class="list-group-item remove-border-list">
-										<div class="row">
-								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-									 		</div>
-									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
-									 			<div class="row task_feed">
-									 				<div class="col-sm-12">
-										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_tested_color">To be Tested</span>.
-										 			</div>
-										 			<div class="col-sm-12">
-										 				<span class="badge bg-success">Comment ID </span> last comment.
-										 			</div>
-										 			
-										 				<div class="col-sm-6" style="color:#878383;">
-											 				Type: <b>Credit</b>
+											 			
+											 				<div class="col-sm-6" style="color:#878383;">
+												 				Type: <b>{{ ticket.issue_type.name }}</b>
+												 			</div>
+												 			<div class="col-sm-6" style="text-align:right;">
+												 				Severity: 
+												 				{% if ticket.severity == "LOW" %}
+												 					<span style="color:#43C05F;"><b>{{ticket.severity}}</b></span>
+												 				{% elif ticket.severity == "MEDIUM" %}
+												 					<span style="color:#FFE600;"><b>{{ticket.severity}}</b></span>
+												 				{% elif ticket.severity == "HIGH" %}
+												 					<span style="color:#FF7A00;"><b>{{ticket.severity}}</b></span>
+												 				{% else %}
+												 					<span style="color:#878383;"><b>{{ticket.severity}}</b></span>
+												 				{% endif %}
+												 					
+												 			</div>
+											 			
+											 			<div class="col-sm-6" style="text-align: left;">
+											 				{% if ticket.status == "OPEN" %}
+											 					{{ ticket.create_date|date:"F d, Y G:i a" }}
+											 				{% else %}
+											 					{{ ticket.update_date|date:"F d, Y H:i a" }}
+											 				{% endif %}
 											 			</div>
-											 			<div class="col-sm-6" style="text-align:right;">
-											 				Severity: <span class="ticket_major"><b>MAJOR</b></span>
+											 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
+											 				<a style="color: #05A91F;" href="{% url 'getAdminTicketDetails' ticket.pk %}">View ticket</a>
 											 			</div>
-										 			
-										 			<div class="col-sm-6" style="text-align: left;">
-										 				Today at 4:20 PM
 										 			</div>
-										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
-										 				View ticket
-										 			</div>
-									 			</div>
-									 		</div>
-								  		</div>
-							  		</li>
-							  		<li class="list-group-item remove-border-list">
-										<div class="row">
-								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-									 		</div>
-									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
-									 			<div class="row task_feed">
-									 				<div class="col-sm-12">
-										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_close_color">Closed</span>.
-										 			</div>
-										 			<div class="col-sm-12">
-										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
-										 			</div>
-										 			
-										 				<div class="col-sm-6" style="color:#878383;">
-											 				Type: <b>Credit</b>
-											 			</div>
-											 			<div class="col-sm-6" style="text-align:right; color: #878383;">
-											 				Severity: <b>MAJOR</b>
-											 			</div>
-										 			
-										 			<div class="col-sm-6" style="text-align: left;">
-										 				Today at 4:20 PM
-										 			</div>
-										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
-										 				View ticket
-										 			</div>
-									 			</div>
-									 		</div>
-								  		</div>
-							  		</li>
-							  		<li class="list-group-item remove-border-list">
-										<div class="row">
-								  			<div class="col-sm-1" style="text-align: right;">
-									 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-									 		</div>
-									 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
-									 			<div class="row task_feed">
-									 				<div class="col-sm-12">
-										 				Jade Romero has approved a <span class="ticket_color">Task</span> and changed status to <span class="ticket_close_color">Closed</span>.
-										 			</div>
-										 			<div class="col-sm-12">
-										 				<span class="badge bg-info text-dark">Comment ID </span> last comment.
-										 			</div>
-										 			
-									 				<div class="col-sm-6" style="color:#878383;">
-										 				Type: <b>Credit</b>
-										 			</div>
-										 			<div class="col-sm-6" style="text-align:right; color: #878383;">
-										 				Severity: <span class="ticket_critical"><b>SHOW STOPPER</b></span>
-										 			</div>
-										 			
-										 			<div class="col-sm-6" style="text-align: left;">
-										 				Today at 4:20 PM
-										 			</div>
-										 			<div class="col-sm-6 task_feed_view_task" style="text-align: right;">
-										 				View ticket
-										 			</div>
-									 			</div>
-									 		</div>
-								  		</div>
-							  		</li>
+										 		</div>
+									  		</div>
+								  		</li>
+									{% endfor %}
 								</ul>
 							</div>
 						</div>
@@ -184,7 +121,7 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="card ">
-						<div class="card-body" style="height: 420px;">
+						<div class="card-body priority_card_body">
 							<div class="row">
 								<div class="col-sm-9 feeds_title">
 									<h4>Ticket Priority</h4>
@@ -195,120 +132,142 @@
 											<b>Priority</b>
 										</span>
 										<ul class="dropdown-menu" aria-labelledby="TicketPriorityDropDown">
-									    <li><a class="dropdown-item" href="#">Open</a></li>
-									    <li><a class="dropdown-item" href="#">In Progress</a></li>
-									    <li><a class="dropdown-item" href="#">For Approval</a></li>
-									    <li><a class="dropdown-item" href="#">Complete</a></li>
+									    <li><a class="dropdown-item" href="#">LOW</a></li>
+									    <li><a class="dropdown-item" href="#">MEDIUEM</a></li>
+									    <li><a class="dropdown-item" href="#">HIGH</a></li>
 										</ul>
 								</div>
 								</div>
 							</div>
-							<div class="row scroll" style="height: 350px;">
+							<div class="row scroll priority_List">
 								<ul class="list-group">
-							  		<li class="list-group-item remove-border-list">
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-											</div>
-											<div class="col-sm-11">
+
+									{% for ticket in all_tickets %}
+										{% if ticket.severity == "HIGH" %}
+											<li class="list-group-item remove-border-list">
 												<div class="row">
-													<div class="col-sm-8">
-														<span class="badge rounded-pill bg-warning">Ticket# </span> Invoice Computation Error
+													<div class="col-sm-1">
+														{% if ticket.userAccount.profile_picture|length > 0%}
+											 				<img src="{{ ticket.userAccount.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+											 			{% else %}
+											 				<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+											 			{% endif %}
 													</div>
-													<div class="col-sm-4" style="text-align: right;">
-														Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+													<div class="col-sm-11">
+														<div class="row">
+															<div class="col-sm-8">
+																<span class="badge rounded-pill bg-warning">Ticket#{{ticket.id}}  </span> {{ticket.title}}
+															</div>
+															<div class="col-sm-4" style="text-align: right;">
+																Severity: <span class="ticket_critical"><b>{{ticket.severity}}</b></span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-6">
+																<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i>{{ ticket.userAccount.first_name }} {{ ticket.userAccount.last_name }}
+															</div>
+															<div class="col-sm-6" style="text-align: right;">
+																{% if ticket.ticket_status == "IN PROGRESS" %}
+												 					<span class="badge rounded-pill bg-warning">{{ ticket.ticket_status }}</span> 
+												 				{% elif ticket.ticket_status == "TO BE TESTED" %}
+												 					<span class="badge rounded-pill bg-success">{{ ticket.ticket_status }}</span>
+												 				{% elif ticket.ticket_status == "OPEN" %}
+												 					<span class="badge rounded-pill bg-primary">{{ ticket.ticket_status }}</span>
+												 				{% else %}
+												 					<span class="badge rounded-pill bg-info">{{ ticket.ticket_status }}</span>
+												 				{% endif %}
+															</div>
+														</div>
 													</div>
 												</div>
+									  		</li>
+								  			<hr>
+										{% endif %}
+									{% endfor %}
+									{% for ticket in all_tickets %}
+										{% if ticket.severity == "MEDIUM" %}
+											<li class="list-group-item remove-border-list">
 												<div class="row">
-													<div class="col-sm-6">
-														<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i> Client Name
+													<div class="col-sm-1">
+														{% if ticket.userAccount.profile_picture|length > 0%}
+											 				<img src="{{ ticket.userAccount.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+											 			{% else %}
+											 				<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+											 			{% endif %}
 													</div>
-													<div class="col-sm-6" style="text-align: right;">
-														<span class="badge rounded-pill bg-warning">In Progress</span>
+													<div class="col-sm-11">
+														<div class="row">
+															<div class="col-sm-8">
+																<span class="badge rounded-pill bg-warning">Ticket#{{ticket.id}}  </span> {{ticket.title}}
+															</div>
+															<div class="col-sm-4" style="text-align: right;">
+																Severity: <span style="color:#FFE600"><b>{{ticket.severity}}</b></span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-6">
+																<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i>{{ ticket.userAccount.first_name }} {{ ticket.userAccount.last_name }}
+															</div>
+															<div class="col-sm-6" style="text-align: right;">
+																{% if ticket.ticket_status == "IN PROGRESS" %}
+												 					<span class="badge rounded-pill bg-warning">{{ ticket.ticket_status }}</span> 
+												 				{% elif ticket.ticket_status == "TO BE TESTED" %}
+												 					<span class="badge rounded-pill bg-success">{{ ticket.ticket_status }}</span>
+												 				{% elif ticket.ticket_status == "OPEN" %}
+												 					<span class="badge rounded-pill bg-primary">{{ ticket.ticket_status }}</span>
+												 				{% else %}
+												 					<span class="badge rounded-pill bg-info">{{ ticket.ticket_status }}</span>
+												 				{% endif %}
+															</div>
+														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-							  		</li>
-							  		<hr>
-							  		<li class="list-group-item remove-border-list">
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-											</div>
-											<div class="col-sm-11">
+									  		</li>
+								  			<hr>
+										{% endif %}
+									{% endfor %}
+									{% for ticket in all_tickets %}
+										{% if ticket.severity == "LOW" %}
+											<li class="list-group-item remove-border-list">
 												<div class="row">
-													<div class="col-sm-8">
-														<span class="badge bg-success">Ticket# </span> Invoice Computation Error
+													<div class="col-sm-1">
+														{% if ticket.userAccount.profile_picture|length > 0%}
+											 				<img src="{{ ticket.userAccount.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+											 			{% else %}
+											 				<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+											 			{% endif %}
 													</div>
-													<div class="col-sm-4" style="text-align: right;">
-														Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
+													<div class="col-sm-11">
+														<div class="row">
+															<div class="col-sm-8">
+																<span class="badge rounded-pill bg-warning">Ticket#{{ticket.id}}  </span> {{ticket.title}}
+															</div>
+															<div class="col-sm-4" style="text-align: right;">
+																Severity: <span style="color:#43C05F;"><b>{{ticket.severity}}</b></span>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-6">
+																<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i>{{ ticket.userAccount.first_name }} {{ ticket.userAccount.last_name }}
+															</div>
+															<div class="col-sm-6" style="text-align: right;">
+																{% if ticket.ticket_status == "IN PROGRESS" %}
+												 					<span class="badge rounded-pill bg-warning">{{ ticket.ticket_status }}</span> 
+												 				{% elif ticket.ticket_status == "TO BE TESTED" %}
+												 					<span class="badge rounded-pill bg-success">{{ ticket.ticket_status }}</span>
+												 				{% elif ticket.ticket_status == "OPEN" %}
+												 					<span class="badge rounded-pill bg-primary">{{ ticket.ticket_status }}</span>
+												 				{% else %}
+												 					<span class="badge rounded-pill bg-info">{{ ticket.ticket_status }}</span>
+												 				{% endif %}
+															</div>
+														</div>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i> Client Name
-													</div>
-													<div class="col-sm-6" style="text-align: right;">
-														<span class="badge bg-success">To be Tested</span>
-													</div>
-												</div>
-											</div>
-										</div>
-							  		</li>
-							  		<hr>
-							  		<li class="list-group-item remove-border-list">
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-											</div>
-											<div class="col-sm-11">
-												<div class="row">
-													<div class="col-sm-8">
-														<span class="badge rounded-pill bg-warning">Ticket# </span> Invoice Computation Error
-													</div>
-													<div class="col-sm-4" style="text-align: right;">
-														Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i> Client Name
-													</div>
-													<div class="col-sm-6" style="text-align: right;">
-														<span class="badge rounded-pill bg-warning">In Progress</span>
-													</div>
-												</div>
-											</div>
-										</div>
-							  		</li>
-							  		<hr>
-							  		<li class="list-group-item remove-border-list">
-										<div class="row">
-											<div class="col-sm-1">
-												<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
-											</div>
-											<div class="col-sm-11">
-												<div class="row">
-													<div class="col-sm-8">
-														<span class="badge bg-success">Ticket# </span> Invoice Computation Error
-													</div>
-													<div class="col-sm-4" style="text-align: right;">
-														Severity: <span class="ticket_critical"><b>CRITICAL</b></span>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														<i class="fa-solid fa-briefcase" style="color:#C2C2C399;"></i> Client Name
-													</div>
-													<div class="col-sm-6" style="text-align: right;">
-														<span class="badge bg-success">To be Tested</span>
-													</div>
-												</div>
-											</div>
-										</div>
-							  		</li>
-							  		<hr>
+									  		</li>
+								  			<hr>
+										{% endif %}
+									{% endfor %}
 								</ul>
 							</div>
 						</div>
@@ -321,13 +280,13 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
+    							<span class="dot">
     								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/open_tickets.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
       							<div class="card-body">
-        							<h5 class="card-title">15</h5>
+        							<h5 class="card-title dashboard_cards">{{open_ticket.count}}</h5>
         							<p class="card-text dashboard_cards">Open Tickets</p>
       							</div>
     						</div>
@@ -338,13 +297,13 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
+    							<span class="dot">
     								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/ticket_in_progress.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
       							<div class="card-body">
-        							<h5 class="card-title">15</h5>
+        							<h5 class="card-title dashboard_cards">{{ in_progress_ticket.count }}</h5>
         							<p class="card-text dashboard_cards">Tickets in Process</p>
       							</div>
     						</div>
@@ -355,13 +314,13 @@
 					<div class="card mb-3" style="width: 100%;">
   						<div class="row g-0">
     						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" style="font-size: 45px;">
+    							<span class="dot">
     								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/to_be_tested.png' %}">
     							</span>
     						</div>
     						<div class="col-md-8">
       							<div class="card-body">
-        							<h5 class="card-title">15</h5>
+        							<h5 class="card-title dashboard_cards">{{to_be_tested_ticket.count}}</h5>
         							<p class="card-text dashboard_cards">To Be Tested</p>
       							</div>
     						</div>
@@ -373,13 +332,13 @@
 						<div class="card mb-3" style="width: 100%;">
 	  						<div class="row g-0">
 	    						<div class="col-md-4" style="margin: auto; text-align:center;">
-	    							<span class="dot" style="font-size: 45px;">
+	    							<span class="dot">
 	    								<img style="margin-top: -15px;" src="{% static 'portal_admin/images/open_tickets.png' %}">
 	    							</span>
 	    						</div>
 	    						<div class="col-md-8">
 	      							<div class="card-body">
-	        							<h4 class="card-title" style="color: #000000;" >VIEW ALL<br/>Tickets</h4>
+	        							<h4 class="card-title view_all_ticket" style="color: #000000;" >VIEW ALL<br/>Tickets</h4>
 	      							</div>
 	    						</div>
 	  						</div>

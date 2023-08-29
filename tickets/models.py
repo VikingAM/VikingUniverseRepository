@@ -12,13 +12,16 @@ class issue(models.Model):
 	description = models.TextField(null=True, blank=True)
 	issue_type = models.ForeignKey(issue_type, on_delete=models.SET_NULL, null=True, blank=True)
 	is_delete = models.BooleanField(default=0)
+	severity = models.CharField(max_length=250, null=True, blank=True, default="LOW")
 	ticket_status = models.CharField(max_length=250, null=True, blank=True, default="OPEN")
 	percentage = models.CharField(max_length=250, null=True, blank=True, default=0)
 	create_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	due_date = models.DateTimeField(null=True, blank=True)
 	update_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	history = models.TextField(null=True, blank=True)
-	userAccount = models.ForeignKey(details, on_delete=models.SET_NULL, null=True, blank=True)
+	userAccount = models.ForeignKey(details, on_delete=models.SET_NULL, null=True, blank=True, related_name='ticket_owner')
+	user_last_updated = models.ForeignKey(details, on_delete=models.SET_NULL, null=True, blank=True, related_name='last_person_to_update_the_ticket')
+
 
 class issue_file(models.Model):
 	issue =models.ForeignKey(issue, on_delete=models.SET_NULL, null=True, blank=True)
@@ -64,7 +67,7 @@ class task_cetegory_theme(models.Model):
 class task_category(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	short_description = models.TextField(null=True)
-	parent = models.CharField(max_length=250, null=True, blank=True)
+	parent = models.CharField(max_length=250, null=True, blank=True, default=0)
 	theme = models.ForeignKey(task_cetegory_theme, on_delete=models.SET_NULL, null=True, blank=True)
 	status = models.BooleanField(default=1)
 	is_delete = models.BooleanField(default=0)
@@ -73,6 +76,7 @@ class task_services(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	short_description = models.TextField(null=True)
 	category = models.ForeignKey(task_category, on_delete=models.SET_NULL, null=True, blank=True)
+	parent = models.CharField(max_length=250, null=True, blank=True, default=0)
 	is_delete = models.BooleanField(default=0)
 
 class task(models.Model):
@@ -84,7 +88,7 @@ class task(models.Model):
 	create_date = models.DateTimeField(auto_now_add=True)
 	end_date = models.DateTimeField(null=True, blank=True)
 	update_date = models.DateTimeField(auto_now_add=True)
-	status = models.CharField(max_length=250, null=True, blank=True, default="Open")
+	status = models.CharField(max_length=250, null=True, blank=True, default="OPEN")
 	owner = models.ForeignKey(details, on_delete=models.SET_NULL, null=True, blank=True)
 	history = models.TextField(null=True, blank=True)
 	is_delete = models.BooleanField(default=0)

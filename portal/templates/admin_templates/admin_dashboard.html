@@ -30,7 +30,7 @@
     						</div>
     						<div class="col-md-8">
       							<div class="card-body">
-        							<h5 class="card-title">15</h5>
+        							<h5 class="card-title">{{ open_task.count }}</h5>
         							<p class="card-text dashboard_cards">Open Tasks</p>
       							</div>
     						</div>
@@ -47,7 +47,7 @@
     						</div>
     						<div class="col-md-8">
       							<div class="card-body">
-        							<h5 class="card-title">15</h5>
+        							<h5 class="card-title">{{ in_progress_tasks.count }}</h5>
         							<p class="card-text dashboard_cards">Task in Process</p>
       							</div>
     						</div>
@@ -64,7 +64,7 @@
     						</div>
     						<div class="col-md-8">
       							<div class="card-body">
-        							<h5 class="card-title">15</h5>
+        							<h5 class="card-title">{{ approval_tasks.count }}</h5>
         							<p class="card-text dashboard_cards">Task for Approval</p>
       							</div>
     						</div>
@@ -72,20 +72,22 @@
 					</div>
 				</div>
 				<div class="col-sm-3">
-					<div class="card mb-3" style="width: 100%;">
-  						<div class="row g-0">
-    						<div class="col-md-4" style="margin: auto; text-align:center;">
-    							<span class="dot" >
-    								<img src="{% static 'portal_admin/images/all_task.png' %}">
-    							</span>
-    						</div>
-    						<div class="col-md-8">
-      							<div class="card-body">
-        							<h5 class="card-title">View All<br/> Task</h5>
-      							</div>
-    						</div>
-  						</div>
-					</div>
+					<a href="{% url 'portalAdminTaskList' %}" style="text-decoration: none;">
+						<div class="card mb-3" style="width: 100%;">
+	  						<div class="row g-0">
+	    						<div class="col-md-4" style="margin: auto; text-align:center;">
+	    							<span class="dot" >
+	    								<img src="{% static 'portal_admin/images/all_task.png' %}">
+	    							</span>
+	    						</div>
+	    						<div class="col-md-8">
+	      							<div class="card-body">
+	        							<h5 class="card-title" style="color:black;">View All<br/> Task</h5>
+	      							</div>
+	    						</div>
+	  						</div>
+						</div>
+					</a>
 				</div>
 			</div>
 			<div class="row">
