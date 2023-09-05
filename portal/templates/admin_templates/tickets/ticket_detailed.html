@@ -320,18 +320,50 @@
 	  					</div>
 	  					<div class="row">
 	  						<div class="col-sm-12">
-	  							<h5 class="ticket_title">Participants<i class="fa-solid fa-pencil active_edit" style="display:none; cursor: pointer;" id="edit_participants"></i></h5>
-	  							<ul class="list-group" style="border: 0px;">
-								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="comment_details"> Sample name </span>
-								  	</li>
-								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="comment_details"> Sample name </span>
-								  	</li>
-								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="comment_details"> Sample name </span>
-								  	</li>
-								  	
+  								<div class="dropdown">
+		  							<span type="button" id="responderDropdown" data-bs-toggle="dropdown" aria-expanded="false"><h5 class="ticket_title">Participants <i class="fa-solid fa-plus" style="cursor: pointer;"></i></h5></span>
+									<ul class="dropdown-menu" aria-labelledby="responderDropdown">
+										{% for responder in list_responders %}
+											{% if ticket_responders %}
+												{% for current_responders in ticket_responders %}
+													{% if responder.pk == current_responders.responder.pk %}
+														
+											  		{% else %}
+											  			<li class="list-group-item particant_list_{{responder.pk}}" style="border: 0px; cursor: pointer;" responder-id="{{responder.pk}}" onclick="selectResponder(this)">
+															{% if responder.profile_picture|length > 0%}
+											  					<img src="{{ responder.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+											  				{% else %}
+											  					<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+											  				{% endif %}
+											  				<span class="comment_details">{{ responder.first_name}} {{ responder.last_name }}</span>
+											  			</li>
+											  		{% endif %}
+												{% endfor %}
+											{% else %}
+												<li class="list-group-item particant_list_{{responder.pk}}" style="border: 0px; cursor: pointer;" responder-id="{{responder.pk}}" onclick="selectResponder(this)">
+													{% if responder.profile_picture|length > 0%}
+									  					<img src="{{ responder.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+									  				{% else %}
+									  					<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+									  				{% endif %}
+									  				<span class="comment_details">{{ responder.first_name}} {{ responder.last_name }}</span>
+									  			</li>
+
+											{% endif %}
+										{% endfor %}
+								    </ul>
+								</div>
+	  							<ul class="list-group participants_list" style="border: 0px;">
+								  	{% for responder in ticket_responders %}
+								  		<li class="list-group-item" style="border: 0px;">
+									  		{% if responder.responder.profile_picture|length > 0%}
+							  					<img src="{{ responder.responder.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+							  				{% else %}
+							  					<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+							  				{% endif %}
+							  				<span class="comment_details">{{ responder.responder.first_name}} {{ responder.responder.last_name }}</span>
+									  	</li>
+								  	{% endfor %}
 								</ul>
 	  						</div>
 	  					</div>
@@ -351,25 +383,46 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var ticket_id = $("#ticket_id").val();
-
-
 			$(".clear_comment").on("click", function(){
 				document.getElementById("ticket_comment_form").reset();
 				$("#ticket_attachement_label").empty();
 				$("#ticket_attachement_label").append('<i class="fa-solid fa-paperclip"></i> Attachements');
 			})
-
 			$(".post_comment").on("click", function(){
 				upload_comment();
 			})
-
 			$(".client_post_comment").on("click", function(){
 				update_client_comment();
 				console.log("here!");
 			})
-
 		})
 
+		function selectResponder(that){
+			var responder_id = $(that).attr("responder-id");
+			var ticket_id = $("#ticket_id").val();
+			$.ajax({
+	            type: "POST",
+	            url: "{% url 'AddTicketResponder' %}",
+	            data: {
+	                "csrfmiddlewaretoken": '{{ csrf_token }}',
+	                "ticket_id":ticket_id,
+	                "responder_id":responder_id,
+	            },
+	            async:true,
+	            success: function (data) {
+	            	if(data.status_code == 1){
+	            		alert("Participant added!");
+	            		location.reload();
+	            	}else{
+	            		alert(data.status_msg);
+	            	}
+	            },
+	            error: function (e) {
+	                
+	            }
+	        })
+		}
+		
 		function update_client_comment(){
 			var comment = $("#client_ticket_comment").val();
 			var number_of_file = $("#ticket_client_attachments")[0].files.length;
@@ -527,9 +580,6 @@
 				$("#edit_status").val(1);
 			}
 		}
-
-
-
 
 		function checkNumberOfFiles(that){
 			if( $(that).attr("id") == "ticket_client_attachments"){

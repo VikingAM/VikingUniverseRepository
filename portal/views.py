@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
-from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file
+from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file, issue_responders
 import random, os
 
 
@@ -144,6 +144,8 @@ def getAdminTicketDetails(request, ticket_id):
 	ticket_comment_attachments = issue_comment_file.objects.filter(issue=ticket_id, is_delete=0)
 	attachments = issue_file.objects.filter(issue=ticket_id, is_delete=0)
 	client_comment = issue_comment.objects.filter(issue=ticket_id, is_delete=0, is_private=0)
+	list_responders = details.objects.filter(account_type_id=2)
+	ticket_responders = issue_responders.objects.filter(issue=ticket_id)
 
 	if request.method == 'POST':
 		userInstance = details.objects.get(userId=request.user.id)
@@ -196,6 +198,8 @@ def getAdminTicketDetails(request, ticket_id):
 	returnVal['ticket_comment_attachments'] = ticket_comment_attachments
 	returnVal['attachments'] = attachments
 	returnVal['client_comment'] = client_comment
+	returnVal['list_responders'] = list_responders
+	returnVal['ticket_responders'] = ticket_responders
 	return render(request, 'admin_templates/tickets/ticket_detailed.html', returnVal)
 
 

@@ -17,6 +17,7 @@ urlpatterns = [
     path("update_ticket_status", views.updateTicketStatus, name="updateTicketStatus"),
     path("update_ticket_percentage", views.UpdateTicketPercentage, name="UpdateTicketPercentage"),
     path("update_ticket_description", views.UpdateTicketDescription, name="UpdateTicketDescription"),
+    path("add_ticket_responder", views.AddTicketResponder, name="AddTicketResponder"),
 
 
     path("get_task_comments", views.getTaskComments, name="getTaskComments"),
