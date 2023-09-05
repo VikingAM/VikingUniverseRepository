@@ -333,20 +333,53 @@
 	  					</div>
 	  					<div class="row">
 	  						<div class="col-sm-12">
-	  							<h5 class="ticket_title sub_title">Participants<i class="fa-solid fa-pencil active_edit" style="display:none; cursor: pointer;" id="edit_participants"></i></h5>
-	  							<ul class="list-group" style="border: 0px;">
-								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="task_owner_name"> Sample name </span>
-								  	</li>
-								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="task_owner_name"> Sample name </span>
-								  	</li>
-								  	<li class="list-group-item" style="border: 0px;">
-								  		<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> <span class="task_owner_name"> Sample name </span>
-								  	</li>
-								  	
+  								<div class="dropdown">
+		  							<span type="button" id="responderDropdown" data-bs-toggle="dropdown" aria-expanded="false"><h5 class="ticket_title">Participants <i class="fa-solid fa-plus" style="cursor: pointer;"></i></h5></span>
+									<ul class="dropdown-menu" aria-labelledby="responderDropdown">
+										{% for responder in list_responders %}
+											{% if task_responder %}
+												{% for current_responders in task_responder %}
+													{% if responder.pk == current_responders.responder.pk %}
+														
+											  		{% else %}
+											  			<li class="list-group-item particant_list_{{responder.pk}}" style="border: 0px; cursor: pointer;" responder-id="{{responder.pk}}" onclick="selectResponder(this)">
+															{% if responder.profile_picture|length > 0%}
+											  					<img src="{{ responder.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+											  				{% else %}
+											  					<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+											  				{% endif %}
+											  				<span class="comment_details">{{ responder.first_name}} {{ responder.last_name }}</span>
+											  			</li>
+											  		{% endif %}
+												{% endfor %}
+											{% else %}
+												<li class="list-group-item particant_list_{{responder.pk}}" style="border: 0px; cursor: pointer;" responder-id="{{responder.pk}}" onclick="selectResponder(this)">
+													{% if responder.profile_picture|length > 0%}
+									  					<img src="{{ responder.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+									  				{% else %}
+									  					<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+									  				{% endif %}
+									  				<span class="comment_details">{{ responder.first_name}} {{ responder.last_name }}</span>
+									  			</li>
+
+											{% endif %}
+										{% endfor %}
+								    </ul>
+								</div>
+	  							<ul class="list-group participants_list" style="border: 0px;">
+								  	{% for responder in task_responder %}
+								  		<li class="list-group-item" style="border: 0px;">
+									  		{% if responder.owner_accountDetails.profile_picture|length > 0%}
+							  					<img src="{{ responder.owner_accountDetails.profile_picture.url }}" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+							  				{% else %}
+							  					<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle comment_prof_pic" style="margin-top: 5px;"> 
+							  				{% endif %}
+							  				<span class="comment_details">{{ responder.owner_accountDetails.first_name}} {{ responder.owner_accountDetails.last_name }}</span>
+									  	</li>
+								  	{% endfor %}
 								</ul>
 	  						</div>
+	  					</div>
 	  					</div>
 	  				</div>
 	  			</div>
@@ -370,6 +403,32 @@
 				upload_comment();
 			})
 		})
+
+		function selectResponder(that){
+			var responder_id = $(that).attr("responder-id");
+			var task_id = $("#task_id").val();
+			$.ajax({
+	            type: "POST",
+	            url: "{% url 'AddTaskResponder' %}",
+	            data: {
+	                "csrfmiddlewaretoken": '{{ csrf_token }}',
+	                "task_id":task_id,
+	                "responder_id":responder_id,
+	            },
+	            async:true,
+	            success: function (data) {
+	            	if(data.status_code == 1){
+	            		alert("Participant added!");
+	            		location.reload();
+	            	}else{
+	            		alert(data.status_msg);
+	            	}
+	            },
+	            error: function (e) {
+	                
+	            }
+	        })
+		}
 
 		function updateTaskPercentage(that){
 			var percentage = $(that).attr("percentage_val");

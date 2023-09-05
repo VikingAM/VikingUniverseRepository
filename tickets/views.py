@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.core import serializers
 from datetime import datetime
-from tickets.models import task_cetegory_theme, task_category, task, task_file, task_comment, task_comment_file, issue, issue_type, issue_comment, issue_comment_file, issue_file, issue_responders
+from tickets.models import task_cetegory_theme, task_category, task, task_file, task_comment, task_comment_file, issue, issue_type, issue_comment, issue_comment_file, issue_file, issue_responders, task_responders
 from accounts.models import details
 import random, os
 
@@ -638,6 +638,35 @@ def AddTicketResponder(request):
 	new_issue_responders.responder = responder_instance
 	try:
 		new_issue_responders.save();
+	except:
+		data['status_msg'] = "Error on Saving the responder"
+		return JsonResponse(data, safe=False)
+	data['status_code'] = 1
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def AddTaskResponder(request):
+	data = {}
+	responder_id = request.POST['responder_id']
+	task_id = request.POST['task_id']
+	
+	try:
+		task_instance = task.objects.get(pk=task_id)
+	except:
+		data['status_msg'] = "Tasks Does not exists!"
+		return JsonResponse(data, safe=False)
+
+	try:
+		responder_instance = details.objects.get(pk=responder_id)
+	except:
+		data['status_msg'] = "Responder Does not exists!"
+		return JsonResponse(data, safe=False)
+
+	new_task_responders = task_responders()
+	new_task_responders.task = task_instance
+	new_task_responders.owner_accountDetails = responder_instance
+	try:
+		new_task_responders.save();
 	except:
 		data['status_msg'] = "Error on Saving the responder"
 		return JsonResponse(data, safe=False)

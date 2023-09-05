@@ -26,6 +26,7 @@ urlpatterns = [
     path('task_dashboard', views.taskDashboard, name="taskDashboard"),
     path('task_submit', views.taskSubmit, name="taskSubmit"),
     path('create_task', views.createTask, name="createTask"),
+    path("add_task_responder", views.AddTaskResponder, name="AddTaskResponder"),
     
     path('add_revision', views.addRevision, name="addRevision"),
     path('task_approve', views.taskApprove, name="taskApprove"),

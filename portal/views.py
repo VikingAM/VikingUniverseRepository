@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
-from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file, issue_responders
+from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file, issue_responders, task_responders
 import random, os
 
 
@@ -227,6 +227,7 @@ def portalAdminTaskList(request):
 
 @login_required(login_url='/accounts/login')
 def portalAdmintaskDetails(request, task_id):
+	returnVal = {}
 	profile_details = details.objects.get(userId=request.user.id)
 	task_details = task.objects.get(pk=task_id)
 	task_owner = details.objects.get(pk=task_details.owner.pk)
@@ -234,6 +235,8 @@ def portalAdmintaskDetails(request, task_id):
 	comment_is_private = task_comment.objects.filter(task=task_id, is_private=1)
 	comment_attachments = task_comment_file.objects.filter(task=task_id)
 	task_attachment = task_file.objects.filter(task=task_id)
+	list_responders = details.objects.filter(account_type_id=2)
+	task_responder = task_responders.objects.filter(task=task_id)
 
 	if request.method == 'POST':
 		userInstance = details.objects.get(userId=request.user.id)
@@ -284,6 +287,17 @@ def portalAdmintaskDetails(request, task_id):
 				task_new_comment_file.comment_file = comment_file
 				task_new_comment_file.task = task_details
 				task_new_comment_file.save()
-
 		return redirect ('portalAdmintaskDetails', task_id)
-	return render(request, 'admin_templates/task/task_detailed.html', {"profile_details": profile_details, "detail":task_details, "task_attachments":task_attachment, "task_owner":task_owner, "sidebar":"task", "comment_attachments":comment_attachments, "client_comments":comment_list, "comment_is_private":comment_is_private})
+		
+	returnVal['profile_details'] = profile_details
+	returnVal['detail'] = task_details
+	returnVal['task_attachments'] = task_attachment
+	returnVal['task_owner'] = task_owner
+	returnVal['sidebar'] = "task"
+	returnVal['comment_attachments'] = comment_attachments
+	returnVal['client_comments'] = comment_list
+	returnVal['comment_is_private'] = comment_is_private
+	returnVal['list_responders'] = list_responders
+	returnVal['task_responder'] = task_responder
+
+	return render(request, 'admin_templates/task/task_detailed.html', returnVal)
