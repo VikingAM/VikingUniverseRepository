@@ -19,7 +19,9 @@ urlpatterns = [
 
     path('admin/tasks', views.portalAdminTaskDashboard, name="portalAdminTaskDashboard"),
     path('admin/tasks_list', views.portalAdminTaskList, name="portalAdminTaskList"),
-    path('admin/task_detailed/<task_id>', views.portalAdmintaskDetails, name="portalAdmintaskDetails")
+    path('admin/task_detailed/<task_id>', views.portalAdmintaskDetails, name="portalAdmintaskDetails"),
+
+    path('admin/services', views.portalAdminServicesDashboard, name="portalAdminServicesDashboard"),
 
     
     

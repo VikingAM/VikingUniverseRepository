@@ -301,3 +301,12 @@ def portalAdmintaskDetails(request, task_id):
 	returnVal['task_responder'] = task_responder
 
 	return render(request, 'admin_templates/task/task_detailed.html', returnVal)
+
+def portalAdminServicesDashboard(request):
+	returnVal = {}
+	profile_details = details.objects.get(userId=request.user.id)
+
+	returnVal['just_loop'] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	returnVal['sidebar'] = "services"
+	returnVal['profile_details'] = profile_details
+	return render(request, 'admin_templates/services/services_dashboard.html', returnVal)

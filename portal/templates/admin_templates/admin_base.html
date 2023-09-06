@@ -90,13 +90,23 @@
         			</a>
       			</li>
       			<li class="nav-item">
-        			<a href="#">
-	      				<div class="card nav-card">
-	  						<div class="card-body sidebar-card-body">
-	  							<img class="nav-item_images" src="{% static 'portal_admin/images/sidebar_services.png' %}"><br/>
-	  							Services
-	  						</div>
-						</div>
+        			<a href="{% url 'portalAdminServicesDashboard' %}">
+        				{% if sidebar == "services" %}
+        					<div class="card  nav-card-active">
+		  						<div class="card-body sidebar-card-body">
+		  							<img class="nav-item_images" src="{% static 'portal_admin/images/sidebar_services_active.png' %}"><br/>
+		  							Services
+		  						</div>
+							</div>
+        				{% else %}
+        					<div class="card nav-card">
+		  						<div class="card-body sidebar-card-body">
+		  							<img class="nav-item_images" src="{% static 'portal_admin/images/sidebar_services.png' %}"><br/>
+		  							Services
+		  						</div>
+							</div>
+        				{% endif %}
+	      				
         			</a>
       			</li>
       			<li class="nav-item">

@@ -1,0 +1,306 @@
+{% extends 'admin_templates/admin_base.html' %}
+
+{% load static %}
+
+{% block title %} Admin Dashboard {% endblock title %}
+
+{% block style %}
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="{% static 'portal_admin/css/admin_services_dashboard.css' %}">
+
+{% endblock style %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="dashboard_welcome_greeting">Services Dashbaord</h2>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2" style="border-right: 1px solid black; height: 200px;">
+				<div class="input-group">
+	                <input class="form-control py-2 rounded-pill mr-1 pr-5 search_services" type="search" value="" placeholder="" id="search_services">
+	                <span class="input-group-append">
+	                    <button class="btn rounded-pill border-0 ml-n5" type="button">
+	                        <i class="fa fa-search"></i>
+	                    </button>
+	                </span>
+	            </div>
+			</div>
+			<div class="col-sm-10">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="card ">
+							<div class="card-body" >
+								<div class="row">
+									<div class="col-sm-9 feeds_title">
+										<h5>Service Feeds</h5>
+									</div>
+									<div class="col-sm-3" style="text-align: right;">
+										<div class="dropdown">
+											<span class="dropdown-toggle" type="button" id="ServicesFeedDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+												<b>All Services</b>
+											</span>
+											<ul class="dropdown-menu" aria-labelledby="ServicesFeedDropDown">
+											    <li><a class="dropdown-item" href="#">Active</a></li>
+											    <li><a class="dropdown-item" href="#">Inactive</a></li>
+											</ul>
+									</div>
+									</div>
+								</div>
+								<div class="row scroll">
+									<ul class="list-group">
+										{% for just in just_loop %}
+											<li class="list-group-item remove-border-list">
+												<div class="row">
+										  			<div class="col-sm-1" style="text-align: right;">
+											 			<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle client_round_images" style="margin-top: 5px;">
+											 		</div>
+											 		<div class="col-sm-11" style="border: 1px solid black; border-radius: 3%;">
+											 			<div class="row">
+											 				<div class="col-sm-12 feed_updates">
+												 				Lennox Davidson has update a <span>Service</span> and changed status to <b>Active</b>.
+												 			</div>
+												 	
+											 				<div class="col-sm-12 services_feed">
+											 					<span><img src="{% static 'portal_admin/images/services_id_image.png' %}">101201-3010-400{{ forloop.counter }}</span>
+												 			</div>
+													 			
+												 			
+												 			<div class="col-sm-6 service_title_feed" style="text-align: left;">
+												 				<span>Frame QR Code</span>
+												 			</div>
+												 			<div class="col-sm-6 service_category_feed" style="text-align: right;">
+												 				Category: <span>Branding</span>
+												 			</div>
+												 			
+												 			<div class="col-sm-6 service_category_feed" style="text-align: left;">
+												 				Theme: <span>Design & Art<span>
+												 			</div>
+												 			<div class="col-sm-6 service_category_feed" style="text-align: right;">
+												 				Sub-Category: <span>QR Code Design</span>
+												 			</div>
+
+												 			<div class="col-sm-6 service_time_feed" style="text-align: left;">
+												 				Today at 5:30 AM
+												 			</div>
+												 			<div class="col-sm-6 view_services_feed" style="text-align: right;">
+												 				View service
+												 			</div>
+											 			</div>
+											 		</div>
+										  		</div>
+									  		</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="card ">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-9 feeds_title">
+										<h5>Recently Added</h5>
+									</div>
+								</div>
+								<div class="row scroll">
+									<ul class="list-group">
+										{% for just in just_loop %}
+											{% if foorloop.counter != 1 %}
+												<hr style="margin: 0rem 0;">
+											{% endif %}
+											<li class="list-group-item remove-border-list">
+												<div class="row">
+													<div class="col-sm-1">
+														<img src="https://github.com/mdo.png" alt="mdo" width="35" height="35" class="rounded-circle" style="margin-top: 5px;">
+													</div>
+													<div class="col-sm-11">
+														<div class="row">
+															<div class="col-sm-12 services_recently_added">
+																<span><img src="{% static 'portal_admin/images/services_id_image.png' %}">101201-3010-400{{ forloop.counter }}</span> <b>Banner & Booth or Kiosk</b>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-6 service_category_feed">
+																<img src="{% static 'portal_admin/images/action_services.png' %}">Trade Show Booth Design
+															</div>
+															<div class="col-sm-6 service_category_feed" style="text-align: right;">
+																Theme: <span>Design & Art</span> 
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-6 service_category_feed">
+																<span>Category: </span>Outdoor & Signage
+															</div>
+															<div class="col-sm-6 services_status" style="text-align: right;">
+																<span >INACTIVE</span>
+															</div>
+														</div>
+
+													</div>
+												</div>
+									  		</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="row" style="padding:0.1rem 2.5rem;">
+					<div class="col-sm-3 ">
+						<div class="row g-0 services_btns">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot">
+    								<img src="/static/portal_admin/images/add_service.png">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body services_btns_body">
+        							<h5 class="card-title services_btns_title">Add <br/>Service </h5>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+					<div class="col-sm-3 ">
+						<div class="row g-0 services_btns">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot">
+    								<img src="/static/portal_admin/images/view_all_services.png">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body services_btns_body">
+        							<h5 class="card-title services_btns_title">View All <br/>Services</h5>
+        							
+      							</div>
+    						</div>
+  						</div>
+					</div>
+					<div class="col-sm-3 ">
+						<div class="row g-0 services_btns">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot">
+    								<img src="/static/portal_admin/images/edit_prices.png">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body services_btns_body">
+        							<h5 class="card-title services_btns_title">Edit <br/>Prices</h5>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+					<div class="col-sm-3 ">
+						<div class="row g-0 services_btns">
+    						<div class="col-md-4" style="margin: auto; text-align:center;">
+    							<span class="dot">
+    								<img src="/static/portal_admin/images/add_form.png">
+    							</span>
+    						</div>
+    						<div class="col-md-8">
+      							<div class="card-body services_btns_body">
+        							<h5 class="card-title services_btns_title">Add <br/>Forms</h5>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-sm-12 feeds_title">
+						<h5>Services Reports</h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1"></div>
+					<div class="col-sm-10">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="row ">
+											<div class="col-sm-8 service_report_title">
+												Theme Services Monthly Sales
+											</div>
+											<div class="col-sm-4">
+												<b>• • •</b>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12 service_category_feed">
+												Month: <span>May 2023</span>
+											</div>
+										</div>
+										<hr>
+										
+									</div>
+								</div>								
+							</div>
+							<div class="col-sm-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-sm-8 service_report_title">
+												Category Monthly Comparison
+											</div>
+											<div class="col-sm-4">
+												<b>• • •</b>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12 service_category_feed">
+												Month: <span>Apr & May 2023</span>
+											</div>
+										</div>
+										<hr>
+									</div>
+								</div>
+								
+							</div>
+							<div class="col-sm-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-sm-8 service_report_title">
+												Services Task Status
+											</div>
+											<div class="col-sm-4">
+												<b>• • •</b>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12 service_category_feed">
+												Sub-Category: <span>Branding</span>
+											</div>
+										</div>
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="col-sm-1"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+
+{% block script %}
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		})
+
+		
+	</script>
+{% endblock %}
