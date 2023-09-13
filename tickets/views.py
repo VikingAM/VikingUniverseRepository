@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.core import serializers
 from datetime import datetime
-from tickets.models import task_cetegory_theme, task_category, task, task_file, task_comment, task_comment_file, issue, issue_type, issue_comment, issue_comment_file, issue_file, issue_responders, task_responders
+from tickets.models import task_cetegory_theme, task_category, task, task_file, task_comment, task_comment_file, issue, issue_type, issue_comment, issue_comment_file, issue_file, issue_responders, task_responders, category_assistance
 from accounts.models import details
 import random, os
 
@@ -672,3 +672,93 @@ def AddTaskResponder(request):
 		return JsonResponse(data, safe=False)
 	data['status_code'] = 1
 	return JsonResponse(data, safe=False)
+
+@login_required(login_url='accounts/login')
+def UpdateCategoryTheme(request):
+	data = {}
+	form_type = request.POST['form_type']
+	theme_id = request.POST['theme_id']
+	try:
+		theme_instance = task_cetegory_theme.objects.get(pk=theme_id)
+	except:
+		data['status_msg'] = "Theme does not exists"
+		return JsonResponse(data, safe=False)
+	if form_type == "intro_form":
+		theme_instance.overview = request.POST['theme_overview']
+		theme_instance.introduction = request.POST['theme_introduction']
+		try:
+			theme_instance.save();
+			data['status_code'] = 1
+			return JsonResponse(data, safe=False)
+		except:
+			data['status_msg'] = "Error on Saving the data!"
+			return JsonResponse(data, safe=False)
+	if form_type == "business_form":
+		theme_instance.summary = request.POST['theme_summary']
+		try:
+			theme_instance.save();
+			data['status_code'] = 1
+			return JsonResponse(data, safe=False)
+		except:
+			data['status_msg'] = "Error on Saving the data!"
+			return JsonResponse(data, safe=False)
+	data['status_code'] = 1
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url="accouts/login")
+def UpdateCategoryAssistance(request):
+	data = {}
+	theme_id = request.POST['theme_id']
+	try:
+		theme_instance = task_cetegory_theme.objects.get(pk=theme_id)
+	except:
+		data['status_msg'] = "Theme does not exists"
+		return JsonResponse(data, safe=False)
+	assistance_id = request.POST['assistance_id']
+	if assistance_id == "0":
+		new_assistance_instance = category_assistance()
+		new_assistance_instance.category_theme = theme_instance
+		new_assistance_instance.assistance = request.POST['assistance_value']
+		if len(new_assistance_instance.assistance) > 0:
+			try:
+				new_assistance_instance.save();
+				data['status_code'] = 1
+				return JsonResponse(data, safe=False)
+			except:
+				data['status_msg'] = "Error on Saving the data!"
+				return JsonResponse(data, safe=False)
+	else:
+		try:
+			assistance_instance = category_assistance.objects.get(pk=assistance_id)
+		except:
+			data['status_msg'] = "Assistance does not exists"
+			return JsonResponse(data, safe=False)
+		assistance_instance.assistance = request.POST['assistance_value']
+		try:
+			assistance_instance.save();
+			data['status_code'] = 1
+			return JsonResponse(data, safe=False)
+		except:
+			data['status_msg'] = "Error on Saving the data!"
+			return JsonResponse(data, safe=False)
+	data['status_code'] = 1
+	return JsonResponse(data, safe=False)
+
+@login_required(login_url="accounts/login")
+def UpdateCategory(request):
+	data = {}
+	category_id = request.POST['category_id']
+	try:
+		category_instance = task_category.objects.get(pk=category_id)
+	except:
+		data['status_msg'] = "Theme does not exists"
+		return JsonResponse(data, safe=False)
+	category_instance.name = request.POST['category_name']
+	category_instance.introduction = request.POST['category_instruction']
+	try:
+		category_instance.save();
+		data['status_code'] = 1
+		return JsonResponse(data, safe=False)
+	except:
+		data['status_msg'] = "Error on Saving the data!"
+		return JsonResponse(data, safe=False)

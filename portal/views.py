@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
-from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file, issue_responders, task_responders
+from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file, issue_responders, task_responders, task_cetegory_theme, task_category, task_sub_category, category_assistance
 import random, os
 
 
@@ -55,8 +55,6 @@ def portalSettingPage(request):
 		profile_address.save()
 	return render(request, 'setting_profile_page.html', {"profile_details": profile_details, "list_of_invoice":list_of_invoice, "profile_passwords":profile_passwords, "industry_type_list":list_of_industry_type, "profile_address":profile_address, "password_category":list_of_password_category, "site_url": settings.SITE_URL})
 
-
-
 @login_required(login_url='/accounts/login')
 def edit_profile(request):
 	if request.method == 'POST':
@@ -89,7 +87,6 @@ def SettingFaqsPage(request):
 
 
 # admin side
-
 @login_required(login_url='/accounts/login')
 def portalAdminDashboard(request):
 	returnVal = {}
@@ -224,7 +221,6 @@ def portalAdminTaskList(request):
 	task_list = task.objects.filter(is_delete=0)
 	return render(request, 'admin_templates/task/task_list.html', {"profile_details": profile_details, "task_list":task_list, "base_url":settings.SITE_URL})
 
-
 @login_required(login_url='/accounts/login')
 def portalAdmintaskDetails(request, task_id):
 	returnVal = {}
@@ -302,11 +298,39 @@ def portalAdmintaskDetails(request, task_id):
 
 	return render(request, 'admin_templates/task/task_detailed.html', returnVal)
 
+@login_required(login_url='/accounts/login')
 def portalAdminServicesDashboard(request):
 	returnVal = {}
 	profile_details = details.objects.get(userId=request.user.id)
-
 	returnVal['just_loop'] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	returnVal['sidebar'] = "services"
 	returnVal['profile_details'] = profile_details
-	return render(request, 'admin_templates/services/services_dashboard.html', returnVal)
+	return render(request, 'admin_templates/services/admin_services_dashboard.html', returnVal)
+
+@login_required(login_url='/accounts/login')
+def portalAdminServicesList(request):
+	returnVal = {}
+	profile_details = details.objects.get(userId=request.user.id)
+	category_theme = task_cetegory_theme.objects.filter(is_delete=0)
+	category = task_category.objects.filter(is_delete=0)
+	sub_category = task_sub_category.objects.filter(is_delete=0)
+	returnVal['sidebar'] = "services"
+	returnVal['profile_details'] = profile_details
+	returnVal['category_theme'] = category_theme
+	returnVal['categories'] = category
+	returnVal['sub_categories'] = sub_category
+	return render(request, 'admin_templates/services/admin_services_list.html', returnVal)
+
+@login_required(login_url='/accounts/login')
+def portalAdminServiceThemeDetail(request, category_theme_id):
+	returnVal = {}
+	profile_details = details.objects.get(userId=request.user.id)
+	category_theme = task_cetegory_theme.objects.get(pk=category_theme_id)
+	category = task_category.objects.filter(is_delete=0, theme=category_theme_id, status=1)
+	category_theme_assistance = category_assistance.objects.filter(is_delete=0, category_theme=category_theme_id)
+	returnVal['sidebar'] = "services"
+	returnVal['profile_details'] = profile_details
+	returnVal['category_theme'] = category_theme
+	returnVal['categories'] = category
+	returnVal['category_theme_assistance'] = category_theme_assistance
+	return render(request, 'admin_templates/services/admin_services_theme_detailed.html', returnVal)

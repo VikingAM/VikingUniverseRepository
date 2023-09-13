@@ -39,6 +39,11 @@ urlpatterns = [
 
     path('update_task_status', views.UpdateTaskStatus, name="UpdateTaskStatus"),
     path('update_task_percentage', views.updateTaskPercentage, name='updateTaskPercentage'),
+
+    path("update_category_theme", views.UpdateCategoryTheme, name="UpdateCategoryTheme"),
+    path('update_category_assistance', views.UpdateCategoryAssistance, name="UpdateCategoryAssistance"),
+
+    path("update_category", views.UpdateCategory, name="UpdateCategory"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

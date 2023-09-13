@@ -1,0 +1,125 @@
+{% extends 'admin_templates/admin_base.html' %}
+
+{% load static %}
+
+{% block title %} Admin Dashboard {% endblock title %}
+
+{% block style %}
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="{% static 'portal_admin/css/admin_services_dashboard.css' %}">
+<style type="text/css">
+	.status_filter_label{
+		text-align: right;
+		color: #6F4CBB;
+		font-family: Inter;
+		font-weight: 400;
+		font-size: 1.1rem;
+		margin-top: 0.3rem;
+	}
+	.theme_hr{
+		margin: 0.1rem;
+    	color: #000;
+	}
+	.theme_category_name a{
+		color: #6F4CBB;
+		font: Inter;
+		font-weight: 700;
+	}
+	.sub_category{
+		font-size: 1rem;
+    	font-weight: 600;
+    	color: #000000;
+	}
+</style>
+{% endblock style %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="dashboard_welcome_greeting">Services List</h2>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<br/>
+		<div class="row">
+			<div class="col-sm-2" style="border-right: 1px solid black; height: 50rem;">
+				<div class="input-group">
+	                <input class="form-control py-2 rounded-pill mr-1 pr-5 search_services" type="search" value="" placeholder="" id="search_services">
+	                <span class="input-group-append">
+	                    <button class="btn rounded-pill border-0 ml-n5" type="button">
+	                        <i class="fa fa-search"></i>
+	                    </button>
+	                </span>
+	            </div>
+			</div>
+			<div class="col-sm-10" style="height:50rem; overflow-y: scroll;">
+				<div class="row">
+					<div class="col-sm-1"></div>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="page_search" placeholder="Search . . ." style="border-radius: 2rem; margin-top: 0.2rem">
+					</div>
+					<div class="col-sm-1 status_filter_label">
+						Status:
+					</div>
+					<div class="col-sm-2">
+						<select class="form-control" name="status_filter" id="status_filter">
+							<option value="active">Active</option>
+							<option value="inactive">Inactive</option>
+						</select>
+					</div>
+				</div>
+				<br/>
+				{% for theme in category_theme %}
+				<div class="row">
+					<div class="col-sm-12 theme_category_name">
+						<h4><a href="{% url 'portalAdminServiceThemeDetail' theme.pk %}" style="text-decoration:none;">{{ theme.pk }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ theme.name|upper }}</a></h4>
+						<hr class="theme_hr">
+						<div class="row">
+							<div class="col-sm-1"></div>
+							<div class="col-sm-11">
+								{% for category in categories %}
+									{% if category.theme.pk == theme.pk %}
+										<div class="row">
+											<div class="col-sm-12">
+												<h5>{{category.pk}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category.name }}</h5>
+												<div class="row">
+													<div class="col-sm-1"></div>
+													<div class="col-sm-11">
+														<div class="row">
+															{% for sub_category in sub_categories %}
+																{% if sub_category.category.pk == category.pk %}
+																	<div class="col-sm-4">
+																		<span class="sub_category">{{ sub_category.pk }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ sub_category.name }}</span>
+																	</div>
+																{% endif %}
+															{% endfor %}
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									{% endif %}
+								{% endfor %}	
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+
+{% block script %}
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		})
+
+		
+	</script>
+{% endblock %}
