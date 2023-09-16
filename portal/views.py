@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
-from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file, issue_responders, task_responders, task_cetegory_theme, task_category, task_sub_category, category_assistance
+from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file, issue_responders, task_responders, task_cetegory_theme, task_category, task_sub_category, category_assistance, category_feature
 import random, os
 
 
@@ -334,3 +334,17 @@ def portalAdminServiceThemeDetail(request, category_theme_id):
 	returnVal['categories'] = category
 	returnVal['category_theme_assistance'] = category_theme_assistance
 	return render(request, 'admin_templates/services/admin_services_theme_detailed.html', returnVal)
+
+@login_required(login_url='accounts/login')
+def portalAdminServiceCategoryDetail(request, category_id):
+	returnVal = {}
+	profile_details = details.objects.get(userId=request.user.id)
+	category = task_category.objects.get(pk=category_id)
+	category_features = category_feature.objects.filter(category=category_id)
+	sub_category = task_sub_category.objects.filter(category=category_id)
+	returnVal['sidebar'] = "services"
+	returnVal['profile_details'] = profile_details
+	returnVal['category'] = category
+	returnVal['category_features'] = category_features
+	returnVal['sub_categories'] = sub_category
+	return render(request, 'admin_templates/services/admin_services_category_detailed.html', returnVal)

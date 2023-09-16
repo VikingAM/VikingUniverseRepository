@@ -30,6 +30,13 @@
     	font-weight: 600;
     	color: #000000;
 	}
+	.category_name_title a{
+		font: Inter;
+		font-weight: 700;
+		color: #182279;
+		text-decoration: none;
+
+	}
 </style>
 {% endblock style %}
 
@@ -81,7 +88,7 @@
 									{% if category.theme.pk == theme.pk %}
 										<div class="row">
 											<div class="col-sm-12">
-												<h5>{{category.pk}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category.name }}</h5>
+												<h5 class="category_name_title"><a href="{% url 'portalAdminServiceCategoryDetail' category.pk %}">{{category.pk}}&nbsp;&nbsp;&nbsp;{{ category.name }}</a></h5>
 												<div class="row">
 													<div class="col-sm-1"></div>
 													<div class="col-sm-11">

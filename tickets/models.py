@@ -86,7 +86,12 @@ class task_category(models.Model):
 	status = models.BooleanField(default=1)
 	is_delete = models.BooleanField(default=0)
 
-
+class category_feature(models.Model):
+	name = models.CharField(max_length=250, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+	category = models.ForeignKey(task_category, on_delete=models.SET_NULL, null=True, blank=True)
+	status = models.BooleanField(default=1)
+	is_delete = models.BooleanField(default=0)
 
 class task_sub_category(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)

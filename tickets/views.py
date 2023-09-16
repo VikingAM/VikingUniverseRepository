@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.core import serializers
 from datetime import datetime
-from tickets.models import task_cetegory_theme, task_category, task, task_file, task_comment, task_comment_file, issue, issue_type, issue_comment, issue_comment_file, issue_file, issue_responders, task_responders, category_assistance
+from tickets.models import *
 from accounts.models import details
 import random, os
 
@@ -753,8 +753,17 @@ def UpdateCategory(request):
 	except:
 		data['status_msg'] = "Theme does not exists"
 		return JsonResponse(data, safe=False)
-	category_instance.name = request.POST['category_name']
-	category_instance.introduction = request.POST['category_instruction']
+
+	form_type = request.POST.get('form_type', False)
+	if form_type == "intro_form":
+		category_instance.name = request.POST['category_name']
+		category_instance.overview = request.POST['category_overview']
+		category_instance.introduction = request.POST['category_introduction']
+	if form_type == "status":
+		category_instance.status = request.POST['status']
+	if form_type == 'sub_category_form':
+		category_instance.short_description = request.POST['description']
+
 	try:
 		category_instance.save();
 		data['status_code'] = 1
@@ -762,3 +771,77 @@ def UpdateCategory(request):
 	except:
 		data['status_msg'] = "Error on Saving the data!"
 		return JsonResponse(data, safe=False)
+
+@login_required(login_url="accounts/login")
+def UpdateCategoryFeatures(request):
+	data = {}
+	data['status_code'] = 0
+	category_id = request.POST['category_id']
+	try:
+		category_instance = task_category.objects.get(pk=category_id)
+	except:
+		data['status_msg'] = "Theme does not exists"
+		return JsonResponse(data, safe=False)
+
+	feature_id = request.POST['feature_id']
+	if feature_id != "0":
+		try:
+			feature_instance = category_feature.objects.get(pk=feature_id)
+		except:
+			data['status_msg'] = "Theme does not exists"
+			return JsonResponse(data, safe=False)
+		feature_instance.name = request.POST['feature_name']
+		feature_instance.description = request.POST['feature_description']
+
+		try:
+			feature_instance.save()
+			data['status_code'] = 1
+			return JsonResponse(data, safe=False)
+		except:
+			data['status_msg'] = "Error on Saving the data!"
+			return JsonResponse(data, safe=False)
+	else:
+		feature_instance = category_feature()
+		feature_instance.name = request.POST['feature_name']
+		feature_instance.description = request.POST['feature_description']
+		feature_instance.category = category_instance
+		try:
+			feature_instance.save()
+			data['status_code'] = 1
+			return JsonResponse(data, safe=False)
+		except:
+			data['status_msg'] = "Error on Saving the data!"
+			return JsonResponse(data, safe=False)
+
+@login_required(login_url="accounts/login")
+def UpdateSubCategory(request):
+	data = {}
+	data['status_code'] = 0
+	category_id = request.POST['category_id']
+	sub_category_id = request.POST['sub_category_id']
+	try:
+		category_instance = task_category.objects.get(pk=category_id)
+	except:
+		data['status_msg'] = "Theme does not exists"
+		return JsonResponse(data, safe=False)
+	if sub_category_id != "0":
+		try:
+			sub_category_instance = task_sub_category.objects.get(pk=sub_category_id)
+		except:
+			data['status_msg'] = "Theme does not exists"
+			return JsonResponse(data, safe=False)
+		sub_category_instance.name = request.POST['sub_category_name']
+		sub_category_instance.short_description = request.POST['sub_category_description']
+		try:
+			sub_category_instance.save()
+			data['status_code'] = 1
+			return JsonResponse(data, safe=False)
+		except:
+			data['status_msg'] = "Error on Saving the data!"
+			return JsonResponse(data, safe=False)
+
+		
+		
+
+		
+
