@@ -302,13 +302,37 @@
 			})
 		})
 		function theme_active(that){
+			$('#PleaseWaitModal').modal('show');
+			var status = 0;
 			if($(that).is(':checked')){
 				$(".theme_status_radio").empty();
 				$(".theme_status_radio").append("Active");
+				status = 1;
 			}else{
 				$(".theme_status_radio").empty();
 				$(".theme_status_radio").append("Inactive");
 			}
+
+			var theme_id = $("#theme_id").val();
+			$.ajax({
+		        type: "POST",
+		        url: "{% url 'UpdateCategoryTheme' %}",
+		        data: {
+		        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+		        	"theme_id": theme_id,
+		        	"form_type":"status",
+		        	"status": status,
+		        },
+		        async:true,
+		        success: function (data) {
+		        	if(data.status_code == 1){
+		        		$('#PleaseWaitModal').modal('hide');
+		        	}
+		        },
+		        error: function (e) {
+		           
+		        }
+		    })
 		}
 		function addMoreAssistanceInputType(){
 			var appendValue = '<div class="row">';
@@ -325,7 +349,13 @@
 		}
 
 		function CategorySave(){
+			var category_count = 0;
+			$(".category_name_input").each(function(index){
+				category_count++;
+			})
+
 			$('#PleaseWaitModal').modal('show');
+			var current_count = 0;
 			$(".category_name_input").each(function(index){
 				var category_id = $(this).attr("data-id");
 				var category_instruction = $("#category_intro_"+category_id).val();
@@ -339,17 +369,20 @@
 			        	"category_instruction":category_instruction,
 			        	"category_name": $(this).val(),
 			        },
-			        async:false,
+			        async:true,
 			        success: function (data) {
-			        	
+			        	current_count++
+			        	if(current_count == category_count){
+			        		$('#PleaseWaitModal').modal('hide');
+							$("#SuccessUpdateModal").modal("show");
+			        	}
 			        },
 			        error: function (e) {
 			           
 			        }
 			    })
 			});
-			$('#PleaseWaitModal').modal('hide');
-			$("#SuccessUpdateModal").modal("show");
+			
 		}
 
 		function saveAndComtinue(that){
@@ -359,6 +392,7 @@
 			var overview = $("#theme_overview").val();
 			var introduction = $("#theme_introduction").val();
 			var theme_summary = $("#theme_summary").val();
+			var theme_name = $("#theme_name").val();
 			$.ajax({
 		        type: "POST",
 		        url: "{% url 'UpdateCategoryTheme' %}",
@@ -369,6 +403,7 @@
 		        	"theme_overview": overview,
 		        	"theme_introduction": introduction,
 		        	"theme_summary": theme_summary,
+		        	"theme_name":theme_name
 
 		        },
 		        async:true,
@@ -392,6 +427,11 @@
 		}
 
 		function savingAssitance(){
+			var number_of_assistance = 0;
+			$(".assistances_input_text").each(function(index){
+				number_of_assistance++;
+			})
+			var current_assitance = 0
 			var theme_id = $("#theme_id").val();
 			$(".assistances_input_text").each(function(index){
 				$.ajax({
@@ -405,6 +445,10 @@
 			        },
 			        async:true,
 			        success: function (data) {
+			        	current_assitance++;
+			        	if(current_assitance == number_of_assistance){
+			        		$('#PleaseWaitModal').modal('hide');
+			        	}
 			        	// plan soon how to stop when an error occur
 			        },
 			        error: function (e) {
@@ -412,7 +456,6 @@
 			        }
 			    })
 			})
-			$('#PleaseWaitModal').modal('hide');
 			ToCategoryPage();
 		}
 

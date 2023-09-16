@@ -683,26 +683,27 @@ def UpdateCategoryTheme(request):
 	except:
 		data['status_msg'] = "Theme does not exists"
 		return JsonResponse(data, safe=False)
+	
 	if form_type == "intro_form":
+		theme_instance.name = request.POST['theme_name']
 		theme_instance.overview = request.POST['theme_overview']
 		theme_instance.introduction = request.POST['theme_introduction']
-		try:
-			theme_instance.save();
-			data['status_code'] = 1
-			return JsonResponse(data, safe=False)
-		except:
-			data['status_msg'] = "Error on Saving the data!"
-			return JsonResponse(data, safe=False)
+		
 	if form_type == "business_form":
+		theme_instance.name = request.POST['theme_name']
 		theme_instance.summary = request.POST['theme_summary']
-		try:
-			theme_instance.save();
-			data['status_code'] = 1
-			return JsonResponse(data, safe=False)
-		except:
-			data['status_msg'] = "Error on Saving the data!"
-			return JsonResponse(data, safe=False)
-	data['status_code'] = 1
+
+	if form_type == "status":
+		theme_instance.active = request.POST['status']
+	
+	try:
+		theme_instance.save();
+		data['status_code'] = 1
+		return JsonResponse(data, safe=False)
+	except:
+		data['status_msg'] = "Error on Saving the data!"
+		return JsonResponse(data, safe=False)
+	
 	return JsonResponse(data, safe=False)
 
 @login_required(login_url="accouts/login")
