@@ -37,6 +37,9 @@
 		text-decoration: none;
 
 	}
+	.services_lists{
+		color: #6F4CBB;
+	}
 </style>
 {% endblock style %}
 
@@ -90,13 +93,21 @@
 											<div class="col-sm-12">
 												<h5 class="category_name_title"><a href="{% url 'portalAdminServiceCategoryDetail' category.pk %}">{{category.pk}}&nbsp;&nbsp;&nbsp;{{ category.name }}</a></h5>
 												<div class="row">
-													<div class="col-sm-1"></div>
-													<div class="col-sm-11">
+													<div class="col-sm-12">
 														<div class="row">
 															{% for sub_category in sub_categories %}
 																{% if sub_category.category.pk == category.pk %}
-																	<div class="col-sm-4">
-																		<span class="sub_category">{{ sub_category.pk }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ sub_category.name }}</span>
+																	<div class="col-sm-4" style="padding-left: 3rem;">
+																		<span class="sub_category">
+																			<a href="{% url 'portalAdminServiceSubCategoryDetail' sub_category.pk  %}" style="text-decoration:none; cursor: pointer;">{{ sub_category.pk }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ sub_category.name }}</a>
+																		</span><br/>
+																		<div class="row" style="padding-left: 2rem;">
+																			{% for service in services %}
+																				{% if service.sub_category.pk == sub_category.pk %}
+																					<div class="col-sm-12 services_lists">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ service.pk }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ service.name }}</div>
+																				{% endif %}
+																			{% endfor %}
+																		</div>
 																	</div>
 																{% endif %}
 															{% endfor %}

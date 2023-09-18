@@ -96,21 +96,29 @@ class category_feature(models.Model):
 class task_sub_category(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	short_description = models.TextField(null=True)
+	overview = models.TextField(null=True)
+	introduction = models.TextField(null=True)
 	category = models.ForeignKey(task_category, on_delete=models.SET_NULL, null=True, blank=True)
 	status = models.BooleanField(default=1)
+	faq = models.BooleanField(default=0)
 	is_delete = models.BooleanField(default=0)
 
 class task_services(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	short_description = models.TextField(null=True)
 	sub_category = models.ForeignKey(task_sub_category, on_delete=models.SET_NULL, null=True, blank=True)
+	overview = models.TextField(null=True)
+	introduction = models.TextField(null=True)
 	parent = models.CharField(max_length=250, null=True, blank=True, default=0)
+	status = models.BooleanField(default=1)
 	is_delete = models.BooleanField(default=0)
 
 class task_services_sub_type(models.Model):
 	name = models.CharField(max_length=250, null=True, blank=True)
 	short_description = models.TextField(null=True)
 	services = models.ForeignKey(task_services, on_delete=models.SET_NULL, null=True, blank=True)
+	overview = models.TextField(null=True)
+	introduction = models.TextField(null=True)
 	is_delete = models.BooleanField(default=0)
 
 class task(models.Model):

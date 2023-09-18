@@ -1,0 +1,573 @@
+{% extends 'admin_templates/admin_base.html' %}
+
+{% load static %}
+
+{% block title %} Admin Dashboard {% endblock title %}
+
+{% block style %}
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="{% static 'portal_admin/css/admin_services_dashboard.css' %}">
+<style type="text/css">
+	.status_filter_label{
+		text-align: right;
+		color: #6F4CBB;
+		font-family: Inter;
+		font-weight: 400;
+		font-size: 1.1rem;
+		margin-top: 0.3rem;
+	}
+	.theme_hr{
+		margin: 0.1rem;
+    	color: #000;
+	}
+	.theme_category_name{
+		color: #6F4CBB;
+		font: Inter;
+		font-weight: 700;
+	}
+	.sub_category{
+		font-size: 1rem;
+    	font-weight: 600;
+    	color: #000000;
+	}
+	.badge_bg_color{
+		background-color: #6F4CBB;
+	}
+	.introduction_nav{
+		color: #6F4CBB;
+		font-weight: 800;
+		margin-left: 0.5rem;
+	}
+	.galery_nav{
+		color: #868686;
+		margin-left: 0.5rem;
+		font-weight: 400;
+	}
+	.category_nav{
+		color: #868686;
+		margin-left: 0.5rem;
+		font-weight: 400;
+	}
+	.sub_type_nav{
+		color: #868686;
+		margin-left: 0.5rem;
+		font-weight: 400;
+	}
+	.return_to_services{
+		float: left;
+	}
+	.return_to_services a{
+		color: #05A91F;
+		font-size: 0.6rem;
+	}
+	.edit_buttons{
+		float: right;
+	}
+	.brief_overview{
+		text-align: center;
+		color: #6F4CBB;
+		font-size: 1rem;
+		font-weight: 800;
+	}
+	.brief_overview_textarea{
+		font-size: 0.9rem;
+		height: 8rem;
+	}
+	.enable_FAQ{
+		background-color: #6F4CBB; 
+		border-radius: 2rem; 
+		color: white; 
+		font-size: 1.2rem;
+	}
+</style>
+{% endblock style %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="dashboard_welcome_greeting">Sub Category</h2>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2" style="border-right: 1px solid black; height: 50rem;">
+				<div class="input-group">
+	                <input class="form-control py-2 rounded-pill mr-1 pr-5 search_services" type="search" value="" placeholder="" id="search_services">
+	                <span class="input-group-append">
+	                    <button class="btn rounded-pill border-0 ml-n5" type="button">
+	                        <i class="fa fa-search"></i>
+	                    </button>
+	                </span>
+	            </div>
+			</div>
+			<div class="col-sm-10">
+				<div class="row">
+					<div class="col-sm-9 theme_category_name">
+						<h2 class="sub_category_detailed">{{sub_category.pk}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ sub_category.name }}</h2>
+						<input type="text" class="form-control edit_view" id="sub_category_name" name="sub_category_name" value="{{ sub_category.name }}" style="display:none;">
+					</div>
+					<div class="col-sm-3">
+						<h2>
+							<div class="form-check form-switch">
+								{% if sub_category.status == 1 %}
+									<input class="form-check-input" type="checkbox" id="Category_status" onchange="category_active(this)" checked>
+	  								<label class="form-check-label category_status_radio" for="Category_status">Active</label>
+								{% else %}
+									<input class="form-check-input" type="checkbox" id="Category_status" onchange="category_active(this)">
+	  								<label class="form-check-label category_status_radio" for="Category_status">Inactive</label>
+								{% endif %}
+							</div>
+						</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" style="border-bottom: 1px solid black; padding-bottom: 4px;">
+						<span class="badge rounded-pill badge_bg_color">1</span>
+						<span class="introduction_nav">Introduction</span> > 
+						<span class="badge rounded-pill badge_bg_color">2</span>
+						<span class="sub_type_nav">Types and Sub-Types of services</span> > 
+						<span class="badge rounded-pill badge_bg_color">3</span>
+						<span class="category_nav">Frequestly Asked Questions</span> >
+						<span class="badge rounded-pill badge_bg_color">4</span>
+						<span class="galery_nav">Gallery</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<span class="return_to_services">
+							<a href="{% url 'portalAdminServicesList' %}">Return to All Services</a>
+						</span>
+						<div class="dropdown edit_buttons">
+  							<span type="button" id="SubCategoryActionDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+  								<b>• • •</b>
+  							</span>
+							<ul class="dropdown-menu" aria-labelledby="SubCategoryActionDropDown">
+						    	<li><a class="dropdown-item" href="#" action="edit" onclick="SubCategoryAction(this);">Edit</a></li>
+						    	<li><a class="dropdown-item" href="#" action="delete" onclick="SubCategoryAction(this);" >Delete</a></li>
+						    </ul>
+						</div>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+				<br/>
+				<form class="intro_wrapper" id="intro_form" action="#">
+					<div class="row">
+						<div class="col-sm-3 brief_overview">
+							Brief Overview
+						</div>
+						<div class="col-sm-9">
+							<p class="sub_category_detailed">{{ sub_category.overview|default_if_none:"" }}</p>
+							<textarea class="form-control edit_view" id="sub_category_overview" style="display:none;">{{ sub_category.overview|default_if_none:"" }}</textarea>
+						</div>
+					</div>
+					<hr style="width: 95%; float: right;">
+					<div style="clear:both;"></div>
+					<div class="row">
+						<div class="col-sm-3 brief_overview">
+							Introduction
+						</div>
+						<div class="col-sm-9">
+							<p class="sub_category_detailed">{{ sub_category.introduction|default_if_none:"" }}</p>
+							<textarea class="form-control edit_view" id="sub_category_introduction" style="display:none;">{{ sub_category.introduction|default_if_none:"" }}</textarea>
+						</div>
+					</div>
+					<br/><br/>
+					<div class="row" style=" bottom: 0; text-align:right;">
+						<div class="col-sm-12" style="">
+							<button type="button" class="btn sub_category_detailed" current-page="intro" onclick="NextBtn(this);" style="background-color: #6F4CBB; border-radius: 2rem; color: white;"><i class="fa-solid fa-greater-than"></i></button>
+							<button type="button" class="btn btn-info edit_view" action="exit_edit" onclick="SubCategoryAction(this);" style="color: white; background-color: #6F4CBB;border-radius: 2rem; display: none;">Return</button>
+							<button type="button" class="btn edit_view" form-id="intro_form" onclick="saveAndComtinue(this);" style="background-color: #6F4CBB; border-radius: 2rem; color: white; display: none;">Save & Continue</button>
+						</div>
+					</div>
+				</form>
+			
+				<form class="types_wrapper" id="benefits_form" style="display:none; overflow-y: scroll; height: 42rem; padding-right: 1rem;" >
+					{% for service in services %}
+						<div class="row">
+							<div class="col-sm-3 brief_overview">
+								Type {{ forloop.counter }}
+							</div>
+							<div class="col-sm-8">
+								<ul>
+									<li class="sub_category_detailed">{{ service.name }}</li>
+									<p class="sub_category_detailed">{{ service.overview|default_if_none:"" }}</p>
+								</ul>
+								<input class="form-control edit_view service_name_text" type="text" data-id="{{ service.pk }}" value="{{ service.name }}" style="display:none;">
+								<textarea class="form-control edit_view" id="services_overview_{{ service.pk }}" style="display:none;">{{ service.overview|default_if_none:"" }}</textarea>
+							</div>
+							<div class="col-sm-1" style="margin:auto;">
+								<i class="fa-solid fa-circle-minus edit_view" data-id="{{ service.pk }}" style="color:red; cursor: pointer; display:none;"></i>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-sm-3 brief_overview">
+								Sub Type {{forloop.counter}}
+							</div>
+							<div class="col-sm-9">
+								{% for sub_service in sub_services %}
+									{% if sub_service.services.pk ==  service.pk %}
+										<ul class="sub_category_detailed">
+											<li>{{ sub_service.name }}</li>
+											<p>{{ sub_service.overview }}</p>
+										</ul>
+										<span class="edit_view" style="display:none;">
+											<div class="row ">							
+												<div class="col-sm-11">
+													<input type="text" name="sub_service_name" id="sub_service_name_{{ sub_service.pk }}" data-id="{{ sub_service.pk }}" class="form-control" value="{{ sub_service.name }}">
+													<textarea name="sub_service[]" data-id="{{sub_service.pk}}" id="sub_services_overview_{{sub_service.pk}}" class="form-control sub_services_input_text">{{ sub_service.overview|default_if_none:"" }}</textarea>
+												</div>
+												<div class="col-sm-1" style="margin:auto;">
+													<i class="fa-solid fa-circle-minus" data-id="{{ sub_service.pk }}" style="color:red; cursor: pointer;"></i>
+												</div>
+											</div>
+											<br/>
+										</span>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<hr style="width: 90%; float: right;">
+						<div style="clear:both;"></div>
+					{% endfor %}
+					<br/>
+					<div class="row" style=" bottom: 0; text-align:right;">
+						<div class="col-sm-12" style="">
+							<button type="button" class="btn sub_category_detailed" current-page="benefits" onclick="NextBtn(this);" style="background-color: #6F4CBB; border-radius: 2rem; color: white;"><i class="fa-solid fa-greater-than"></i></button>
+							<button type="button" class="btn btn-info edit_view" action="exit_edit" onclick="SubCategoryAction(this);" style="color: white; background-color: #6F4CBB;border-radius: 2rem; display: none;">Return</button>
+							<button type="button" class="btn edit_view" form-id="type_form" onclick="saveAndComtinue(this);" style="background-color: #6F4CBB; border-radius: 2rem; color: white; display: none;">Save & Continue</button>
+						</div>
+					</div>
+				</form>
+
+				<form class="sub_questions_form" id="sub_questions_form" action="#" style="display:none;">
+					{% if sub_category.faq %}
+						<div class="row">
+							<div class="col-sm-3 brief_overview">
+								Short Introduction
+							</div>
+							<div class="col-sm-9">
+								<p class="sub_category_detailed">{{ category.short_description|default_if_none:"" }}</p>
+								<textarea class="form-control edit_view" id="category_description" style="display:none;">{{ category.short_description|default_if_none:"" }}</textarea>
+							</div>
+						</div>
+						<hr style="width: 90%; float: right;">
+						<div style="clear:both;"></div>
+					{% else %}
+						<div class="row justify-content-md-center">
+							<div class="col-md-auto">
+								<img src="{% static 'portal_admin/images/faq.png' %}">
+							</div>
+						</div>
+						<div class="row justify-content-md-center">
+							<div class="col-md-auto">
+								<button type="button" class="btn enable_FAQ">Enable FAQ</button>
+							</div>
+						</div>
+					{% endif %}
+					<div class="row" style=" bottom: 0; text-align:right;">
+						<div class="col-sm-12" style="">
+							<button type="button" class="btn sub_category_detailed" current-page="faq" onclick="NextBtn(this);" style="background-color: #6F4CBB; border-radius: 2rem; color: white;"><i class="fa-solid fa-greater-than"></i></button>
+							<button type="button" class="btn btn-info edit_view" action="exit_edit" onclick="SubCategoryAction(this);" style="color: white; background-color: #6F4CBB;border-radius: 2rem; display: none;">Return</button>
+							<button type="button" class="btn edit_view" form-id="type_form" onclick="saveAndComtinue(this);" style="background-color: #6F4CBB; border-radius: 2rem; color: white; display: none;">Save & Continue</button>
+						</div>
+					</div>
+				</form>
+				<form class="gallery_form" id="sub_questions_form" action="#" style="display:none;">
+					{% if sub_category.faq %}
+						<div class="row">
+							<div class="col-sm-3 brief_overview">
+								Short Introduction
+							</div>
+							<div class="col-sm-9">
+								<p class="sub_category_detailed">{{ category.short_description|default_if_none:"" }}</p>
+								<textarea class="form-control edit_view" id="category_description" style="display:none;">{{ category.short_description|default_if_none:"" }}</textarea>
+							</div>
+						</div>
+						<hr style="width: 90%; float: right;">
+						<div style="clear:both;"></div>
+					{% else %}
+						<div class="row justify-content-md-center">
+							<div class="col-md-auto">
+								<img src="{% static 'portal_admin/images/faq.png' %}">
+							</div>
+						</div>
+						<div class="row justify-content-md-center">
+							<div class="col-md-auto">
+								<button type="button" class="btn enable_FAQ">Enable FAQ</button>
+							</div>
+						</div>
+					{% endif %}
+					<div class="row" style=" bottom: 0; text-align:right;">
+						<div class="col-sm-12" style="">
+							<button type="button" class="btn sub_category_detailed" current-page="benefits" onclick="NextBtn(this);" style="background-color: #6F4CBB; border-radius: 2rem; color: white;"><i class="fa-solid fa-greater-than"></i></button>
+							<button type="button" class="btn btn-info edit_view" action="exit_edit" onclick="SubCategoryAction(this);" style="color: white; background-color: #6F4CBB;border-radius: 2rem; display: none;">Return</button>
+							<button type="button" class="btn edit_view" form-id="type_form" onclick="saveAndComtinue(this);" style="background-color: #6F4CBB; border-radius: 2rem; color: white; display: none;">Save & Continue</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="category_id" id="sub_category_id" value="{{ sub_category.pk }}">
+	<!-- Please Wait / Processing  -->
+	<div class="modal fade" id="PleaseWaitModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-body">
+					Processing your request
+      			</div>
+      		</div>
+  		</div>
+	</div>
+	<div class="modal fade" id="SuccessUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-body" style="text-align: center;">
+					<img src="{% static 'portal_admin/images/success_theme_image.png' %}">
+					<h4>Service Sub-Category Updated Successfully!</h4>
+					<h6>All service theme that you update will appear in Service List.</h6>
+					<a href="{% url 'portalAdminServicesList' %}" style="text-decoration: none;"><button type="button" class="btn" style="background-color: #6F4CBB; border-radius: 2rem; color: white;">View Service List</button></a>
+					<a href="{% url 'portalAdminServicesDashboard' %}" style="text-decoration: none;"><button type="button" class="btn btn-primary" form-id="category_form" style="border-radius: 2rem; color: white;">Back to Service Dashboard</button></a>
+      			</div>
+      		</div>
+  		</div>
+	</div>
+
+{% endblock %}
+
+{% block script %}
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		})
+
+		function ToBenefitsPage(){
+			$(".intro_wrapper").hide();
+			$(".types_wrapper").show();
+			$(".sub_type_nav").css("color", "#6F4CBB");
+			$(".sub_type_nav").css("font-weight", "800");
+		}
+
+		function ToSubCategoryPage(){
+			$(".sub_questions_form").show();
+			$(".types_wrapper").hide();
+			$(".category_nav").css("color", "#6F4CBB");
+			$(".category_nav").css("font-weight", "800");
+		}
+
+		function ToGalleryPage(){
+			$(".gallery_form").show();
+			$(".sub_questions_form").hide();
+			$(".galery_nav").css("color", "#6F4CBB");
+			$(".galery_nav").css("font-weight", "800");
+		}
+
+		function NextBtn(that){
+			var current_page = $(that).attr("current-page");
+			if(current_page == "intro"){
+				ToBenefitsPage();
+			}else if(current_page == "benefits"){
+				ToSubCategoryPage();
+			}else if(current_page == "faq"){
+				ToGalleryPage();
+			}
+		}
+
+		function category_active(that){
+			$('#PleaseWaitModal').modal('show');
+			var status = 0;
+			var category_id = $("#category_id").val();
+			var form = "status";
+			if($(that).is(':checked')){
+				$(".category_status_radio").empty();
+				$(".category_status_radio").append("Active");
+				status = 1;
+			}else{
+				$(".category_status_radio").empty();
+				$(".category_status_radio").append("Inactive");
+			}
+			$.ajax({
+		        type: "POST",
+		        url: "{% url 'UpdateCategory' %}",
+		        data: {
+		        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+		        	"category_id": category_id,
+		        	"form_type":form,
+		        	"status": status,
+		        },
+		        async:true,
+		        success: function (data) {
+		        	if(data.status_code == 1){
+		        		$('#PleaseWaitModal').modal('hide');
+		        	}
+		        },
+		        error: function (e) {
+		           
+		        }
+		    })
+
+		}
+
+		function SubCategoryAction(that){
+			var action = $(that).attr("action");
+			if(action == "edit"){
+				$(".sub_category_detailed").hide();
+				$(".edit_view").show();
+			}else if(action == "exit_edit"){
+				$(".sub_category_detailed").show();
+				$(".edit_view").hide();
+			}
+		}
+
+		function SaveFeatures(){
+			var category_id = $("#category_id").val();
+			var count_number_features = 0;
+			$(".features_input_text").each(function(index){
+				count_number_features++;
+			})
+
+			var current_feature = 0;
+			$(".features_input_text").each(function(index){
+				var feature_id = $(this).attr("data-id");
+				var feature_name = $("#feature_name_"+feature_id).val();
+				var feature_description = $(this).val();
+				
+				$.ajax({
+			        type: "POST",
+			        url: "{% url 'UpdateCategoryFeatures' %}",
+			        data: {
+			        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+			        	"category_id": category_id,
+			        	"feature_name":feature_name,
+			        	"feature_description": feature_description,
+			        	"feature_id": feature_id,
+			        },
+			        async:true,
+			        success: function (data) {
+			        	current_feature++;
+			        	if(current_feature == count_number_features){
+			        		$('#PleaseWaitModal').modal('hide');
+			        	}
+			        },
+			        error: function (e) {
+			           
+			        }
+			    })
+
+			});
+		}
+
+		function SaveTypes(){
+			var number_of_services = 0;
+			$(".service_name_text").each(function(index){
+				number_of_services++;
+			})
+			var number_of_sub_services = 0;
+			$(".sub_services_input_text").each(function(index){
+				number_of_sub_services++;
+			})
+			var current_service_count = 0;
+			var current_sub_service_count = 0;
+			$(".service_name_text").each(function(index){
+				var service_id = $(this).attr("data-id");
+				var service_overview = $("#services_overview_"+service_id).val();
+				var service_name = $(this).val();
+				$.ajax({
+			        type: "POST",
+			        url: "{% url 'UpdateServices' %}",
+			        data: {
+			        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+			        	"service_id": service_id,
+			        	"form_type": "update_from_sub_category",
+			        	"service_name":service_name,
+			        	"service_overview": service_overview,
+			        },
+			        async:true,
+			        success: function (data) {
+			        	current_service_count++;
+			        	if(number_of_services == current_service_count && number_of_sub_services == current_sub_service_count){
+			        		$('#PleaseWaitModal').modal('hide');
+			        		ToSubCategoryPage();
+			        	}
+			        },
+			        error: function (e) {
+			           
+			        }
+			    })
+			});
+			$(".sub_services_input_text").each(function(index){
+				var sub_service_id = $(this).attr("data-id");
+				var sub_service_name = $("#sub_service_name_"+sub_service_id).val();
+				var sub_service_overview = $(this).val();
+				$.ajax({
+			        type: "POST",
+			        url: "{% url 'UpdateSubServices' %}",
+			        data: {
+			        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+			        	"sub_service_id": sub_service_id,
+			        	"form_type": "update_from_sub_category",
+			        	"sub_service_name":sub_service_name,
+			        	"sub_service_overview": sub_service_overview,
+			        	
+			        },
+			        async:true,
+			        success: function (data) {
+			        	current_sub_service_count++;
+			        	if(number_of_services == current_service_count && number_of_sub_services == current_sub_service_count){
+			        		$('#PleaseWaitModal').modal('hide');
+			        		ToSubCategoryPage();
+			        	}
+			        },
+			        error: function (e) {
+			           
+			        }
+			    })
+			});
+		}
+
+		function saveAndComtinue(that){
+			$('#PleaseWaitModal').modal('show');
+			var form = $(that).attr("form-id");
+			var sub_category_name = $("#sub_category_name").val();
+			var sub_category_id = $("#sub_category_id").val();
+			var sub_category_overview = $("#sub_category_overview").val();
+			var introduction = $("#sub_category_introduction").val();
+			// var description = $("#category_description").val();
+			$.ajax({
+		        type: "POST",
+		        url: "{% url 'UpdateSubCategory' %}",
+		        data: {
+		        	"csrfmiddlewaretoken": '{{ csrf_token }}',
+		        	"category_id": '{{ sub_category.category.pk }}',
+		        	"sub_category_id": sub_category_id,
+		        	"sub_category_name": sub_category_name,
+		        	"form_type":form,
+		        	"sub_category_overview": sub_category_overview,
+		        	"introduction": introduction,
+		        },
+		        async:true,
+		        success: function (data) {
+		        	if(data.status_code == 1){
+		        		if(form == "intro_form"){
+		        			ToBenefitsPage();
+		        			$('#PleaseWaitModal').modal('hide');
+		        		}else if(form == "type_form"){
+		        			console.log("here!");
+		        			SaveTypes();
+		        		}else if(form == "sub_category_form"){
+		        			SaveSubCategories();
+		        		}
+		        	}
+		        	
+		        },
+		        error: function (e) {
+		           
+		        }
+		    })
+		}
+
+
+	</script>
+{% endblock %}

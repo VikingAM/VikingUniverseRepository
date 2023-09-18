@@ -46,6 +46,9 @@ urlpatterns = [
 
     path("update_category", views.UpdateCategory, name="UpdateCategory"),
     path("update_sub_category", views.UpdateSubCategory, name="UpdateSubCategory"),
+
+    path("update_services", views.UpdateServices, name="UpdateServices"),
+    path("update_sub_servicers", views.UpdateSubServices, name="UpdateSubServices")
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

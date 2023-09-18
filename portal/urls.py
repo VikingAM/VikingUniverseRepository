@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/services_list', views.portalAdminServicesList, name="portalAdminServicesList"),
     path('admin/services_theme_detail/<category_theme_id>', views.portalAdminServiceThemeDetail, name="portalAdminServiceThemeDetail"),
     path('admin/services_category_detail/<category_id>', views.portalAdminServiceCategoryDetail, name="portalAdminServiceCategoryDetail"),
+    path('admin/services_sub_category_detail/<sub_category_id>', views.portalAdminServiceSubCategoryDetail, name="portalAdminServiceSubCategoryDetail"),
 
     
     

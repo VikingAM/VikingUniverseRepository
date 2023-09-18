@@ -820,6 +820,7 @@ def UpdateSubCategory(request):
 	data['status_code'] = 0
 	category_id = request.POST['category_id']
 	sub_category_id = request.POST['sub_category_id']
+	form_type = request.POST.get('form_type', False)
 	try:
 		category_instance = task_category.objects.get(pk=category_id)
 	except:
@@ -829,10 +830,17 @@ def UpdateSubCategory(request):
 		try:
 			sub_category_instance = task_sub_category.objects.get(pk=sub_category_id)
 		except:
-			data['status_msg'] = "Theme does not exists"
+			data['status_msg'] = "Sub Category does not exists"
 			return JsonResponse(data, safe=False)
 		sub_category_instance.name = request.POST['sub_category_name']
-		sub_category_instance.short_description = request.POST['sub_category_description']
+		if form_type:
+			if form_type == "intro_form":
+				sub_category_instance.overview = request.POST['sub_category_overview']
+				sub_category_instance.introduction = request.POST['introduction']
+
+		else:
+			sub_category_instance.name = request.POST['sub_category_name']
+			sub_category_instance.short_description = request.POST['sub_category_description']
 		try:
 			sub_category_instance.save()
 			data['status_code'] = 1
@@ -841,8 +849,52 @@ def UpdateSubCategory(request):
 			data['status_msg'] = "Error on Saving the data!"
 			return JsonResponse(data, safe=False)
 
-		
-		
+@login_required(login_url="accounts/login")
+def UpdateServices(request):
+	data = {}
+	data['status_code'] = 0
+	service_id = request.POST['service_id']
+	form_type = request.POST.get('form_type', False)
+	try:
+		service_instances = task_services.objects.get(pk=service_id)
+	except:
+		data['status_msg'] = "Service does not exists"
+		return JsonResponse(data, safe=False)
 
-		
+	if form_type:
+		if form_type == "update_from_sub_category":
+			service_instances.name = request.POST['service_name']
+			service_instances.overview = request.POST['service_overview']
 
+	try:
+		service_instances.save()
+		data['status_code'] = 1
+		return JsonResponse(data, safe=False)
+	except:
+		data['status_msg'] = "Error on Saving the data!"
+		return JsonResponse(data, safe=False)
+
+@login_required(login_url="accounts/login")
+def UpdateSubServices(request):
+	data = {}
+	data['status_code'] = 0
+	sub_service_id = request.POST['sub_service_id']
+	form_type = request.POST.get('form_type', False)
+	try:
+		sub_service_instances = task_services_sub_type.objects.get(pk=sub_service_id)
+	except:
+		data['status_msg'] = "Sub Service does not exists"
+		return JsonResponse(data, safe=False)
+
+	if form_type:
+		if form_type == "update_from_sub_category":
+			sub_service_instances.name = request.POST['sub_service_name']
+			sub_service_instances.overview = request.POST['sub_service_overview']
+
+	try:
+		sub_service_instances.save()
+		data['status_code'] = 1
+		return JsonResponse(data, safe=False)
+	except:
+		data['status_msg'] = "Error on Saving the data!"
+		return JsonResponse(data, safe=False)

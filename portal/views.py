@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
 from accounts.models import details, address_info, user_validation, industry_type, password_manager, password_category, invoice
-from tickets.models import issue, issue_comment, issue_comment_file, task, task_comment, task_comment_file, task_file, issue_file, issue_responders, task_responders, task_cetegory_theme, task_category, task_sub_category, category_assistance, category_feature
+from tickets.models import *
 import random, os
 
 
@@ -314,11 +314,13 @@ def portalAdminServicesList(request):
 	category_theme = task_cetegory_theme.objects.filter(is_delete=0)
 	category = task_category.objects.filter(is_delete=0)
 	sub_category = task_sub_category.objects.filter(is_delete=0)
+	services = task_services.objects.filter(is_delete=0)
 	returnVal['sidebar'] = "services"
 	returnVal['profile_details'] = profile_details
 	returnVal['category_theme'] = category_theme
 	returnVal['categories'] = category
 	returnVal['sub_categories'] = sub_category
+	returnVal['services'] = services
 	return render(request, 'admin_templates/services/admin_services_list.html', returnVal)
 
 @login_required(login_url='/accounts/login')
@@ -348,3 +350,22 @@ def portalAdminServiceCategoryDetail(request, category_id):
 	returnVal['category_features'] = category_features
 	returnVal['sub_categories'] = sub_category
 	return render(request, 'admin_templates/services/admin_services_category_detailed.html', returnVal)
+
+@login_required(login_url='accounts/login')
+def portalAdminServiceSubCategoryDetail(request, sub_category_id):
+	returnVal = {}
+	services_sub_type_list_id = []
+	profile_details = details.objects.get(userId=request.user.id)
+	sub_category_detailed = task_sub_category.objects.get(pk=sub_category_id)
+	services = task_services.objects.filter(sub_category=sub_category_id)
+	for service in services:
+		services_sub_type_list_id.append(service.pk)
+
+	sub_services = task_services_sub_type.objects.filter(services__in=services_sub_type_list_id)
+	returnVal['sidebar'] = "services"
+	returnVal['profile_details'] = profile_details
+	returnVal['sub_category'] = sub_category_detailed
+	returnVal['sub_services'] = sub_services
+	returnVal['services'] = services
+
+	return render(request, 'admin_templates/services/admin_services_sub_category_detailed.html', returnVal)
