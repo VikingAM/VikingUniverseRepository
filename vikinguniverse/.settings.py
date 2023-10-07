@@ -14,7 +14,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,7 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_URL = 'http://localhost:8000'
 
+STRIPE_SECRET_KEY = "sk_test_51NLg1SJOqDarQJLeRrLHpnKW56nAgvvOKYEuGjzn3w4eQISoAwVEwu4h6cUdQFcRWYV3xdukWX1NGOQn3xKcMzTv008sZWkG0O"
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,8 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'tickets',
-    'portal',
     'vikinguniverse',
+    'portal',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -124,11 +128,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(BASE_DIR, 'static')
 ]
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.zoho.eu'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'william.crumb@vikingassetmanagement.com'
+EMAIL_HOST_PASSWORD = ''
+
